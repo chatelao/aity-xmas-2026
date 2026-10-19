@@ -54,8 +54,6 @@ outputs:
       plot_sheet_reference: true
       pages:
         - layers: [ 'F.Cu' ]
-        - layers: [ 'In1.Cu' ]
-        - layers: [ 'In2.Cu' ]
         - layers: [ 'B.Cu' ]
         - layers: [ 'F.SilkS' ]
         - layers: [ 'B.SilkS' ]
