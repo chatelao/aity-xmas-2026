@@ -1,0 +1,71 @@
+name: KiCad DRC and ERC Checks
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  pull_request:
+
+jobs:
+  fire-dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger xDuinoRails_Thor_Prod
+        run: |
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.THOR_PROD_REPO }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/xDuinoRails/xDuinoRails_Thor_Prod/dispatches \
+            -d '{"event_type": "trigger-from-thor", "client_payload": {"ref": "${{ github.sha }}", "environment": "production"}}'
+
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - id: set-matrix
+        name: Find KiCad Projects
+        # Creates a JSON list of all .kicad_pro files found in the root
+        run: |
+          pro_files=$(find . -maxdepth 1 -name "*.kicad_pro" -exec basename {} .kicad_pro \; | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "matrix=${pro_files}" >> $GITHUB_OUTPUT
+
+  check:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ fromJson(needs.setup.outputs.matrix) }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Find Pinion Config
+        id: find_pinion_config
+        run: |
+          if [ -f "${{ matrix.project }}.pinion.yaml" ]; then
+            echo "found=true" >> $GITHUB_OUTPUT
+          else
+            echo "found=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Run KiBot (Manufacturing)
+        uses: INTI-CMNB/KiBot@v2_k8
+        with:
+          config: kibot.yaml
+          schema: ${{ matrix.project }}.kicad_sch
+          board: ${{ matrix.project }}.kicad_pcb
+          dir: assets/${{ matrix.project }}
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifacts-${{ matrix.project }}
+          path: assets/${{ matrix.project }}
