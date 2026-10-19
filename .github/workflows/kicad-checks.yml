@@ -51,7 +51,7 @@ jobs:
       - name: Find Pinion Config
         id: find_pinion_config
         run: |
-          if [ -f "${{ matrix.project }}.pinion.yaml" ]; then
+          if [ -f "kicad/${{ matrix.project }}.pinion.yaml" ] || [ -f "${{ matrix.project }}.pinion.yaml" ]; then
             echo "found=true" >> $GITHUB_OUTPUT
           else
             echo "found=false" >> $GITHUB_OUTPUT
@@ -60,8 +60,8 @@ jobs:
         uses: INTI-CMNB/KiBot@v2_k8
         with:
           config: kicad/kibot.yaml
-          schema: ${{ matrix.project }}.kicad_sch
-          board: ${{ matrix.project }}.kicad_pcb
+          schema: kicad/${{ matrix.project }}.kicad_sch
+          board: kicad/${{ matrix.project }}.kicad_pcb
           dir: assets/${{ matrix.project }}
 
       - name: Upload Artifacts
