@@ -1,0 +1,99 @@
+kibot:
+  version: 1
+
+filters:
+  - name: 'hide_refs'
+    comment: 'Ersetzt den Referenz-Text durch ein Leerzeichen'
+    type: field_modify
+    fields: ['Reference']
+    regex: '.*'
+    replace: ' '
+
+variants:
+  - name: 'clean_render_variant'
+    comment: 'Variante ohne sichtbare Referenzen'
+    type: kibom
+    pre_transform:
+      - 'hide_refs'
+
+  - name: 'production_variant'
+    comment: 'Ungefilterte Daten für die Fertigung'
+    type: kibom
+
+preflight:
+  erc:
+    enabled: true
+    warnings_as_errors: false
+  drc:
+    enabled: false
+    warnings_as_errors: false
+
+outputs:
+  - name: 'PDF_Schaltplan'
+    comment: 'Erzeugt ein PDF des Schaltplans'
+    type: pdf_sch_print
+    dir: '.'
+
+  - name: 'PDF_PCB_alle_Lagen_zusammen'
+    comment: "Alle PCB Lagen in einem PDF"
+    type: pcb_print
+    options:
+      format: PDF
+      output: '%f-PCB_All.pdf'
+      pages:
+        - layers: all
+          sheet: 'S.'
+
+  - name: 'PDF_PCB_alle_Lagen_einzeln_gross'
+    comment: "Alle PCB Lagen Gross (Migriert)"
+    type: pcb_print
+    options:
+      format: PDF
+      output: '%f-PCB_All_Layers_Big.pdf'
+      scaling: 0
+      plot_sheet_reference: true
+      pages:
+        - layers: [ 'F.Cu' ]
+        - layers: [ 'In1.Cu' ]
+        - layers: [ 'In2.Cu' ]
+        - layers: [ 'B.Cu' ]
+        - layers: [ 'F.SilkS' ]
+        - layers: [ 'B.SilkS' ]
+        - layers: [ 'F.Mask' ]
+        - layers: [ 'B.Mask' ]
+        - layers: [ 'Edge.Cuts' ]
+        - layers: [ 'F.Fab' ]
+
+  - name: '3D_Top_View'
+    comment: "Render der Oberseite (KiCad Internal)"
+    type: render_3d
+    dir: 'images'
+    options:
+      pre_transform: hide_refs
+      width: 2048
+      height: 1536
+      view: top      
+      variant: 'clean_render_variant'
+      output: '%f-3D_Top.png'
+
+  - name: '3D_Bottom_View'
+    comment: "Render der Unterseite (KiCad Internal)"
+    type: render_3d
+    dir: 'images'
+    options:
+      pre_transform: hide_refs
+      width: 2048
+      height: 1536
+      view: bottom
+      # ray_tracing: true
+      output: '%f-3D_Bottom.png'
+
+  - name: 'Interactive_BOM'
+    comment: 'Erzeugt eine interaktive HTML-Stückliste (iBOM)'
+    type: ibom
+    options:
+      dark_mode: true
+      sort_order: 'C,R,L,D,U,J,T'
+      show_fields: 'Value,Footprint'
+      group_fields: 'Value,Footprint'
+      output: '%f-iBOM.html'
