@@ -33,7 +33,7 @@ jobs:
         name: Find KiCad Projects
         # Creates a JSON list of all .kicad_pro files found in the root
         run: |
-          pro_files=$(find . -maxdepth 1 -name "*.kicad_pro" -exec basename {} .kicad_pro \; | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          pro_files=$(find kicad -maxdepth 1 -name "*.kicad_pro" -exec basename {} .kicad_pro \; | jq -R -s -c 'split("\n") | map(select(length > 0))')
           echo "matrix=${pro_files}" >> $GITHUB_OUTPUT
 
   check:
@@ -59,7 +59,7 @@ jobs:
       - name: Run KiBot (Manufacturing)
         uses: INTI-CMNB/KiBot@v2_k8
         with:
-          config: kibot.yaml
+          config: kicad/kibot.yaml
           schema: ${{ matrix.project }}.kicad_sch
           board: ${{ matrix.project }}.kicad_pcb
           dir: assets/${{ matrix.project }}
