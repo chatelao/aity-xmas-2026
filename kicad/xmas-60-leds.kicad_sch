@@ -1,0 +1,10061 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "e36b99c7-df1e-4e39-929b-546b0279ba7a")
+	(paper "A4")
+	(lib_symbols
+		(symbol "Device:C"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 0.635 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "C"
+				(at 0.635 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0.9652 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Unpolarized capacitor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "C_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "C_0_1"
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "LED:SK6805"
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 5.08 5.715 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right bottom)
+				)
+			)
+			(property "Value" "SK6805"
+				(at 1.27 -5.715 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Footprint" "LED_SMD:LED_SK6805_PLCC4_2.4x2.7mm_P1.3mm"
+				(at 1.27 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+				(at 2.54 -9.525 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Description" "RGB LED with integrated controller"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "RGB LED NeoPixel Nano addressable"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "LED*SK6805*PLCC*2.4x2.7mm*P1.3mm*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SK6805_0_0"
+				(text "RGB"
+					(at 2.286 -4.191 0)
+					(effects
+						(font
+							(size 0.762 0.762)
+						)
+					)
+				)
+			)
+			(symbol "SK6805_0_1"
+				(polyline
+					(pts
+						(xy 1.27 -3.556) (xy 1.778 -3.556)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 1.778 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.699 -3.556) (xy 2.667 -3.556)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.286 -2.54) (xy 1.27 -3.556) (xy 1.27 -3.048)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.286 -1.524) (xy 1.27 -2.54) (xy 1.27 -2.032)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.683 -1.016) (xy 3.683 -3.556) (xy 3.683 -4.064)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.699 -1.524) (xy 2.667 -1.524) (xy 3.683 -3.556) (xy 4.699 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 5.08 5.08)
+					(end -5.08 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "SK6805_1_1"
+				(pin output line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name "DOUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "VSS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 0 0)
+					(length 2.54)
+					(name "DIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 7.62 270)
+					(length 2.54)
+					(name "VDD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "power:PWR_FLAG"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#FLG"
+				(at 0 1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "PWR_FLAG"
+				(at 0 3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Special symbol for telling ERC where power comes from"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "flag power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "PWR_FLAG_0_0"
+				(pin power_out line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+		)
+	)
+	(junction
+		(at 135.89 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "01ce9380-6214-44a7-8879-f58d1fe472b0")
+	)
+	(junction
+		(at 222.25 157.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "071cae3b-49d9-4a50-b221-7e4e86baf8a6")
+	)
+	(junction
+		(at 104.14 167.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0e54b6e8-350e-4244-b4ab-cb29930b2540")
+	)
+	(junction
+		(at 34.29 167.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "11b8eef4-a6dd-485e-9986-e23ec7b3d050")
+	)
+	(junction
+		(at 200.66 66.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "11cf7bc4-ce5b-4ae2-a317-c5e04a6ae579")
+	)
+	(junction
+		(at 62.23 180.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "14afaec7-89e7-45f8-b080-040b5b1f61cf")
+	)
+	(junction
+		(at 185.42 19.05)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "152aeba9-ac47-4970-a19c-711bcb97d248")
+	)
+	(junction
+		(at 222.25 66.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1a70bb23-a213-4a98-9825-52edf4c9c318")
+	)
+	(junction
+		(at 71.12 66.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1b730588-d35f-49b7-bd4b-1c732db9d3d3")
+	)
+	(junction
+		(at 135.89 111.76)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1e2f1288-05e9-4e0a-ba9f-0168617dadd2")
+	)
+	(junction
+		(at 222.25 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "22526ead-7520-47c4-ae62-896a9d04a0a3")
+	)
+	(junction
+		(at 114.3 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "233857aa-259a-4719-9e0f-3d903437e025")
+	)
+	(junction
+		(at 200.66 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2457d755-c3d6-480d-b288-4842798a20a8")
+	)
+	(junction
+		(at 259.08 31.75)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "274d364e-628a-48a4-833c-a99c5455228a")
+	)
+	(junction
+		(at 200.66 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "27a5ef3e-1186-4d57-aa73-eb34595e1668")
+	)
+	(junction
+		(at 49.53 66.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "27e4b8f0-1347-4d05-ba8e-e9cff095bd97")
+	)
+	(junction
+		(at 186.69 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2b96197d-a090-4b0c-aa62-50e8f7a61108")
+	)
+	(junction
+		(at 222.25 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2ed01008-367f-41aa-b5b5-950582118e71")
+	)
+	(junction
+		(at 48.26 180.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "33da695f-2acb-40a3-8956-96e5abb0df41")
+	)
+	(junction
+		(at 157.48 157.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3633feec-0a96-468f-807d-6cabf4b0c284")
+	)
+	(junction
+		(at 157.48 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "36b52e99-d819-4f5e-afb4-98cc5501a5e7")
+	)
+	(junction
+		(at 90.17 180.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "39505ba5-40f3-4192-80cb-4fc4dc6fbd11")
+	)
+	(junction
+		(at 93.98 19.05)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3a44b6d2-5228-4282-82d9-6e70e3c79fc2")
+	)
+	(junction
+		(at 264.16 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3d398301-8e23-4bf3-b31a-49bf46bf705a")
+	)
+	(junction
+		(at 49.53 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3d78c314-f4ad-4f77-b074-230297d98080")
+	)
+	(junction
+		(at 71.12 111.76)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3debab8c-85a3-48ea-ae8a-5b7c5df7e05c")
+	)
+	(junction
+		(at 92.71 157.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "41a90044-78bb-486e-98d1-faaae341af8d")
+	)
+	(junction
+		(at 39.37 19.05)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "41ae736f-c535-4539-a7a2-35ce3d3880f8")
+	)
+	(junction
+		(at 71.12 157.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4226645c-fbc8-4ab7-ae01-cc919335d893")
+	)
+	(junction
+		(at 157.48 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "44dcb9db-7dd5-4d99-802d-b304896050f0")
+	)
+	(junction
+		(at 114.3 66.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "457e5f0e-d89d-442b-9fa9-4708fa583ca3")
+	)
+	(junction
+		(at 114.3 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "46a5654d-ee5b-4578-ab60-4c0dab287e7a")
+	)
+	(junction
+		(at 92.71 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "47b58d94-d01a-44e0-be01-cd53a3ca7a81")
+	)
+	(junction
+		(at 179.07 111.76)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "48536cba-f5d3-41a0-8d29-47f40ce28c30")
+	)
+	(junction
+		(at 118.11 167.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "48eb16ec-05d4-4f1b-ae89-513134aa1bb6")
+	)
+	(junction
+		(at 93.98 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4eb1696d-4f3b-42f0-8273-4cedccd5b39a")
+	)
+	(junction
+		(at 243.84 66.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "577b2c97-7434-479f-8c04-766614eea2c8")
+	)
+	(junction
+		(at 135.89 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5b490af4-c4af-4403-9569-de3949f41dfd")
+	)
+	(junction
+		(at 146.05 180.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5c017efd-9045-4d99-b3e3-587d484974fa")
+	)
+	(junction
+		(at 34.29 180.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5d5f257c-54ae-4da9-80d5-2886c3a68752")
+	)
+	(junction
+		(at 243.84 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5d7fe95a-9a0b-4f26-9d8d-46004aeb0a30")
+	)
+	(junction
+		(at 168.91 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "63110a76-5e87-4af2-8e7e-e946e565ae23")
+	)
+	(junction
+		(at 200.66 111.76)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "642b4a50-15b4-4a75-b0a2-ce7e0baca2dc")
+	)
+	(junction
+		(at 179.07 66.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "68fc82bc-4985-446a-8911-2568de2c4689")
+	)
+	(junction
+		(at 219.71 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6cc7fbdb-3d11-42ae-94dd-d8af9c944ba1")
+	)
+	(junction
+		(at 92.71 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6da83541-27af-4b04-a015-8a5af89a0248")
+	)
+	(junction
+		(at 132.08 167.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6e36c6e4-d1f9-44ed-a835-9db09b62e555")
+	)
+	(junction
+		(at 48.26 167.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "70f64fbe-8a9a-420c-ae45-cded0029dd0f")
+	)
+	(junction
+		(at 132.08 180.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "72f96bb5-fd11-4ecd-a4f0-b55c35892ca0")
+	)
+	(junction
+		(at 49.53 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "73315bcc-7510-4aa1-b050-cb08a18ffb17")
+	)
+	(junction
+		(at 135.89 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "77b00939-fc19-4816-b7d8-b8ab4a15a4e2")
+	)
+	(junction
+		(at 243.84 157.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "78bca2b2-bc10-4289-aeeb-e007501edf59")
+	)
+	(junction
+		(at 157.48 111.76)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "79ecfff1-e5d8-4f60-bb7c-5f13c0e32cec")
+	)
+	(junction
+		(at 49.53 111.76)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7f7f99bc-ad72-4120-8ab9-7aa11f2f730e")
+	)
+	(junction
+		(at 199.39 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8660e930-4e18-48d4-b530-bcdf1826ce19")
+	)
+	(junction
+		(at 148.59 19.05)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "868ee391-c8d1-4992-8972-184d384bd942")
+	)
+	(junction
+		(at 179.07 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8811a4ca-ef3e-4b30-8ad7-737589cda5f3")
+	)
+	(junction
+		(at 49.53 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8a094cfc-f135-444f-a164-090a4a1b79fe")
+	)
+	(junction
+		(at 266.7 19.05)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8c120639-35ee-4f5f-ad7c-71d00d599949")
+	)
+	(junction
+		(at 39.37 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8da05389-3a94-4221-91f6-021548c12c58")
+	)
+	(junction
+		(at 243.84 111.76)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8e4228a8-ec65-4a4d-b696-a2eec8d3c306")
+	)
+	(junction
+		(at 168.91 19.05)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8fffac4e-b588-4144-83b6-0ee2f8150048")
+	)
+	(junction
+		(at 267.97 111.76)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9133f382-d55e-4735-9d90-aac9c23f6baf")
+	)
+	(junction
+		(at 179.07 157.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "99bcb2bb-d400-4148-924d-af86736b119a")
+	)
+	(junction
+		(at 76.2 167.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9a6dedf2-9b73-48dc-841e-215a1a7c02cc")
+	)
+	(junction
+		(at 135.89 66.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9af5bd14-e6f7-44ed-ae55-58fb2458c273")
+	)
+	(junction
+		(at 114.3 19.05)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a0aac029-a348-425f-9f5e-0c0d1546fbcd")
+	)
+	(junction
+		(at 157.48 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a13ea57c-5dd8-4483-b3fa-e3848a75f05c")
+	)
+	(junction
+		(at 199.39 19.05)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a58bd068-5a7d-43b3-b3f3-dd9d9d1d6a15")
+	)
+	(junction
+		(at 246.38 19.05)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a874315d-62dc-4c8c-b12f-2f5acbc48f81")
+	)
+	(junction
+		(at 243.84 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "adf7e4b3-a150-45c3-a8d9-9f3632fd8b14")
+	)
+	(junction
+		(at 71.12 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b2d7e91a-8846-40f9-b80c-9e087a024e3e")
+	)
+	(junction
+		(at 62.23 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b9dff1fd-54ab-4b85-8d54-91b0cd6b9d44")
+	)
+	(junction
+		(at 135.89 157.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ba2386a5-a25b-4cf2-8eb3-8c3477b04fe1")
+	)
+	(junction
+		(at 148.59 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bba289ca-ad28-4a43-b406-38838477afa5")
+	)
+	(junction
+		(at 146.05 167.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bcfed70c-cb70-4eef-b8f8-3e072c6237ed")
+	)
+	(junction
+		(at 157.48 66.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bde78549-4913-4585-9f7d-f10ae5479d15")
+	)
+	(junction
+		(at 222.25 111.76)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c26523d0-8c72-4121-b2ea-45cd050f3cf1")
+	)
+	(junction
+		(at 267.97 66.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c26efe94-3a76-4d32-9257-61c10495545e")
+	)
+	(junction
+		(at 222.25 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c3ade3ac-b01f-40d4-ad1c-e70d7ca3d117")
+	)
+	(junction
+		(at 92.71 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c51cc3c2-cdce-4b3e-bf1e-7bbf4734a3b1")
+	)
+	(junction
+		(at 118.11 180.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c621a769-e0e9-4969-96cc-947b11700037")
+	)
+	(junction
+		(at 62.23 19.05)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c9bb3b06-f5b7-4b0d-8a9e-ce996112e8a2")
+	)
+	(junction
+		(at 104.14 180.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cd0f6d04-14ee-4d25-9293-142416a47c52")
+	)
+	(junction
+		(at 246.38 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ceee70f5-99f8-44f9-898a-fad95734995d")
+	)
+	(junction
+		(at 114.3 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d15b15fb-731a-458e-b34a-ace21b9da685")
+	)
+	(junction
+		(at 179.07 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d1d0075d-444e-4735-93aa-4c299488c424")
+	)
+	(junction
+		(at 114.3 157.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d3f0ffb0-66a1-4f93-9d80-6bebf1218311")
+	)
+	(junction
+		(at 90.17 167.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d89df3ab-489f-48db-ab7b-6ac90dcf914d")
+	)
+	(junction
+		(at 92.71 111.76)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d9c823e6-f5ab-4972-aba2-923d467cec91")
+	)
+	(junction
+		(at 92.71 66.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "da216d31-1a53-4359-8854-85438d2bfadd")
+	)
+	(junction
+		(at 179.07 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "dedbbfcb-4aad-4e12-a6c2-a5e9047bdfb2")
+	)
+	(junction
+		(at 243.84 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e43f45d7-2272-482f-a2f2-126fe0211235")
+	)
+	(junction
+		(at 114.3 111.76)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e802a4af-d2be-46f5-b324-3df48aa9c94f")
+	)
+	(junction
+		(at 200.66 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e9d85e6e-2be1-465e-b9e2-2fc19d420c15")
+	)
+	(junction
+		(at 62.23 167.64)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ecf8f9b4-4c94-439b-8b22-81f903e58e7b")
+	)
+	(junction
+		(at 76.2 180.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f24035d8-d200-4e32-8e99-2727643fce72")
+	)
+	(junction
+		(at 200.66 157.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f37e9351-e213-4f67-a7f5-168037c8bc71")
+	)
+	(junction
+		(at 71.12 88.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f91e2d47-f2d2-41fe-b66d-45f42b72a5ed")
+	)
+	(junction
+		(at 71.12 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "fc8dbc02-39f2-4b87-a63d-eddb3b4b6b7e")
+	)
+	(junction
+		(at 219.71 19.05)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "fe5b4d89-e793-4c48-acac-f0eb67b550cf")
+	)
+	(no_connect
+		(at 274.32 31.75)
+		(uuid "49c9d388-1d2f-48cb-9064-4818d5b7618c")
+	)
+	(wire
+		(pts
+			(xy 135.89 157.48) (xy 157.48 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "021fca10-8365-4ef1-a6f7-a0a5c490cfcb")
+	)
+	(wire
+		(pts
+			(xy 208.28 146.05) (xy 214.63 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0261174b-09ad-4a5d-a30b-861361b81f1a")
+	)
+	(wire
+		(pts
+			(xy 100.33 77.47) (xy 106.68 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "02657f2a-2320-4cd7-b13d-1ea4e320f793")
+	)
+	(wire
+		(pts
+			(xy 157.48 107.95) (xy 157.48 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "03843b8f-9e15-4148-8bcc-713ff5b38e51")
+	)
+	(wire
+		(pts
+			(xy 227.33 31.75) (xy 238.76 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "069e12fb-4592-4c87-a640-598f3b479d96")
+	)
+	(wire
+		(pts
+			(xy 222.25 43.18) (xy 243.84 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "07fa8e79-234e-4803-93bf-dc9533fce48f")
+	)
+	(wire
+		(pts
+			(xy 92.71 43.18) (xy 93.98 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "08f9ab06-df88-43d8-9e7f-7e37ca8e1124")
+	)
+	(wire
+		(pts
+			(xy 92.71 111.76) (xy 114.3 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0944805f-ed75-4b3c-8dce-89620988080d")
+	)
+	(wire
+		(pts
+			(xy 128.27 68.58) (xy 128.27 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "095ddb61-ab82-4f94-8b7d-2260fad0e8cd")
+	)
+	(wire
+		(pts
+			(xy 49.53 107.95) (xy 49.53 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ae7e582-17d8-4d13-a14a-c5805c124982")
+	)
+	(wire
+		(pts
+			(xy 69.85 31.75) (xy 86.36 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0c2fb5c0-9197-417b-9485-da3d1ecf082e")
+	)
+	(wire
+		(pts
+			(xy 104.14 180.34) (xy 118.11 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0d587dff-3c83-44f5-aea3-a38a5b889337")
+	)
+	(wire
+		(pts
+			(xy 90.17 167.64) (xy 104.14 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0daf1382-7bdc-4056-a677-c2243e8518af")
+	)
+	(wire
+		(pts
+			(xy 48.26 177.8) (xy 48.26 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0defa430-2157-4d05-80d3-d97c3320f67c")
+	)
+	(wire
+		(pts
+			(xy 243.84 62.23) (xy 243.84 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0f08f4e9-7067-4130-b047-f59b16451da7")
+	)
+	(wire
+		(pts
+			(xy 157.48 69.85) (xy 157.48 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1074043b-6134-4de7-bdfd-cb6aee878b97")
+	)
+	(wire
+		(pts
+			(xy 39.37 19.05) (xy 62.23 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1175b605-63b7-4f40-89bc-91a4a6c19288")
+	)
+	(wire
+		(pts
+			(xy 57.15 54.61) (xy 63.5 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "127333b3-588f-4e2e-a2d7-51a094611131")
+	)
+	(wire
+		(pts
+			(xy 135.89 85.09) (xy 135.89 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "133923c6-1a2b-4ca4-9cb1-94680e7fe673")
+	)
+	(wire
+		(pts
+			(xy 156.21 31.75) (xy 161.29 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "139d6a4b-82f1-49ef-96fa-746a9d719c9d")
+	)
+	(wire
+		(pts
+			(xy 49.53 153.67) (xy 49.53 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1476b7d5-7493-4364-9d49-d68caf317bee")
+	)
+	(wire
+		(pts
+			(xy 246.38 19.05) (xy 246.38 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "14f509c8-af88-4e66-b8af-72c42039ec64")
+	)
+	(wire
+		(pts
+			(xy 222.25 115.57) (xy 222.25 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1791ddc2-ff83-4c3a-9c9d-2a51a66898fa")
+	)
+	(wire
+		(pts
+			(xy 222.25 153.67) (xy 222.25 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "18cff8ec-3713-44d2-996f-fa89297da4b8")
+	)
+	(wire
+		(pts
+			(xy 104.14 177.8) (xy 104.14 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1b952490-4b8d-47d0-af9b-c17198ad3b85")
+	)
+	(wire
+		(pts
+			(xy 48.26 167.64) (xy 48.26 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1c1a6e11-dc02-4961-907d-19898d28e550")
+	)
+	(wire
+		(pts
+			(xy 179.07 66.04) (xy 200.66 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1daa1e41-e311-4980-b7e5-4b590d751bae")
+	)
+	(wire
+		(pts
+			(xy 157.48 46.99) (xy 157.48 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1df9549f-4e1c-4e6a-a2a3-105f6a51c7bb")
+	)
+	(wire
+		(pts
+			(xy 118.11 177.8) (xy 118.11 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1e17d271-0284-4d76-9b6b-945a9561de7a")
+	)
+	(wire
+		(pts
+			(xy 71.12 46.99) (xy 71.12 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1fa233b7-e54e-44b0-8bfb-bf440d4379a1")
+	)
+	(wire
+		(pts
+			(xy 125.73 137.16) (xy 143.51 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1fc0ee48-3578-4de3-988f-a64e52a9279e")
+	)
+	(wire
+		(pts
+			(xy 200.66 46.99) (xy 200.66 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2030c352-7918-40b8-86ee-cee4d3729b06")
+	)
+	(wire
+		(pts
+			(xy 62.23 43.18) (xy 71.12 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2049dc9d-9620-428a-8c1e-8b64735bd9c5")
+	)
+	(wire
+		(pts
+			(xy 49.53 115.57) (xy 49.53 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "205afa45-4afe-4c03-8acb-b09b16682af9")
+	)
+	(wire
+		(pts
+			(xy 229.87 77.47) (xy 236.22 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "20a0c7a0-bd74-4b9e-abd4-cc84990c3035")
+	)
+	(wire
+		(pts
+			(xy 71.12 138.43) (xy 71.12 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "20c97140-199e-4821-8bd3-51170a7b46e1")
+	)
+	(wire
+		(pts
+			(xy 168.91 19.05) (xy 185.42 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "21566107-9be2-4a53-91df-b9efc94f6c5d")
+	)
+	(wire
+		(pts
+			(xy 121.92 31.75) (xy 140.97 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "21671360-91de-410b-ab20-d6ed040ecc41")
+	)
+	(wire
+		(pts
+			(xy 41.91 100.33) (xy 34.29 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "21c6081e-583e-443a-bd0d-f02c710b2d22")
+	)
+	(wire
+		(pts
+			(xy 243.84 92.71) (xy 243.84 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "21e10ff4-a70f-4401-be46-9826e5cc86fb")
+	)
+	(wire
+		(pts
+			(xy 41.91 77.47) (xy 34.29 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "222911aa-23ea-4188-b810-bcf4a2cf4d00")
+	)
+	(wire
+		(pts
+			(xy 179.07 62.23) (xy 179.07 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "23411621-ec55-4653-981a-b6267527acd1")
+	)
+	(wire
+		(pts
+			(xy 49.53 69.85) (xy 49.53 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "24cad85f-477f-4db1-84ae-328338d11c21")
+	)
+	(wire
+		(pts
+			(xy 71.12 69.85) (xy 71.12 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "25b24c35-13ef-4c0e-aa97-04e04f6b5aca")
+	)
+	(wire
+		(pts
+			(xy 165.1 77.47) (xy 171.45 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "25c2db29-751b-47d7-bd02-e892bf69f8ec")
+	)
+	(wire
+		(pts
+			(xy 114.3 130.81) (xy 114.3 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "269d4c07-5e67-405d-9e20-f790510138aa")
+	)
+	(wire
+		(pts
+			(xy 157.48 92.71) (xy 157.48 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27001e09-5525-4af1-b10d-cb34bae65c64")
+	)
+	(wire
+		(pts
+			(xy 185.42 19.05) (xy 199.39 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27067804-4376-495e-89a8-cedaae803c0e")
+	)
+	(wire
+		(pts
+			(xy 266.7 43.18) (xy 266.7 39.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2797ccf5-623f-4447-a766-3dea022e2cf0")
+	)
+	(wire
+		(pts
+			(xy 30.48 88.9) (xy 30.48 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "288f5747-68ee-41ee-a18b-57da8a862987")
+	)
+	(wire
+		(pts
+			(xy 48.26 167.64) (xy 62.23 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "29dc279b-4ada-4e91-ada2-6dd0b6e1b0e1")
+	)
+	(wire
+		(pts
+			(xy 200.66 138.43) (xy 200.66 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2ba1842a-fab0-432d-b784-8e4f6e8a82cb")
+	)
+	(wire
+		(pts
+			(xy 222.25 69.85) (xy 222.25 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2bc508f2-96ad-45ed-8cc0-36016a3ba18d")
+	)
+	(wire
+		(pts
+			(xy 78.74 123.19) (xy 78.74 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2bf1f47c-e2e1-408b-aded-15005a6edd10")
+	)
+	(wire
+		(pts
+			(xy 92.71 66.04) (xy 114.3 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2ce41d26-fa19-4aa8-a53f-faaac46be7af")
+	)
+	(wire
+		(pts
+			(xy 222.25 157.48) (xy 243.84 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2d4345de-576b-4a8b-9f63-574f222bee99")
+	)
+	(wire
+		(pts
+			(xy 90.17 167.64) (xy 90.17 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2d92b86f-438f-4855-b345-49e773b40b14")
+	)
+	(wire
+		(pts
+			(xy 121.92 54.61) (xy 128.27 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2fa06ba7-32a1-48d4-9db0-3f5d81cd0d7a")
+	)
+	(wire
+		(pts
+			(xy 118.11 167.64) (xy 132.08 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2ffcfd03-1be4-47ab-848b-44d2daa7b2c9")
+	)
+	(wire
+		(pts
+			(xy 48.26 180.34) (xy 62.23 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "302a54e6-7b6f-4abd-8f45-56c401131ca5")
+	)
+	(wire
+		(pts
+			(xy 135.89 153.67) (xy 135.89 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3040acdc-5854-4b2d-8615-4d0794dba205")
+	)
+	(wire
+		(pts
+			(xy 92.71 92.71) (xy 92.71 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "30faa74b-81e2-4ad6-853b-2cad5eb2698e")
+	)
+	(wire
+		(pts
+			(xy 78.74 77.47) (xy 85.09 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "328449b2-fb30-449f-8ed7-d3fbc2149223")
+	)
+	(wire
+		(pts
+			(xy 251.46 146.05) (xy 261.62 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "339e212b-6ea6-4d29-a2bb-9c8601cd70b7")
+	)
+	(wire
+		(pts
+			(xy 90.17 180.34) (xy 104.14 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "34778004-2ab1-42dc-8550-878e5bdad994")
+	)
+	(wire
+		(pts
+			(xy 251.46 123.19) (xy 260.35 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "35493ad7-e916-421e-97a1-e8b37dbbb742")
+	)
+	(wire
+		(pts
+			(xy 200.66 130.81) (xy 200.66 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "35e77b45-d884-4ce9-8d34-57e83fb3ba35")
+	)
+	(wire
+		(pts
+			(xy 30.48 19.05) (xy 39.37 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36088a4c-4bb6-418f-b10c-9a4fb73a2c95")
+	)
+	(wire
+		(pts
+			(xy 132.08 167.64) (xy 146.05 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36cde9e6-661f-4d7f-ad89-dd9f6d15af91")
+	)
+	(wire
+		(pts
+			(xy 222.25 138.43) (xy 222.25 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "38495242-fb79-4fe2-bf26-9adb9684b09e")
+	)
+	(wire
+		(pts
+			(xy 49.53 46.99) (xy 49.53 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "389d97d9-924a-4bb7-b51b-d9a7f46826e1")
+	)
+	(wire
+		(pts
+			(xy 148.59 39.37) (xy 148.59 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3903da95-8897-4d88-b22b-1e9dd09cfed2")
+	)
+	(wire
+		(pts
+			(xy 92.71 134.62) (xy 114.3 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "390c9c7c-8afd-42a7-98ab-6f3044d420ba")
+	)
+	(wire
+		(pts
+			(xy 146.05 177.8) (xy 146.05 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "39a34ad9-d265-4e11-b3cc-8f6230810d92")
+	)
+	(wire
+		(pts
+			(xy 222.25 111.76) (xy 200.66 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3a3f8bb5-be8f-49e8-99b4-6fa9336a50af")
+	)
+	(wire
+		(pts
+			(xy 179.07 134.62) (xy 200.66 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3b63e129-38c5-4897-8b8b-772b2bb047ad")
+	)
+	(wire
+		(pts
+			(xy 135.89 62.23) (xy 135.89 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3c8da07c-99c2-45c6-af0b-963907460f2b")
+	)
+	(wire
+		(pts
+			(xy 62.23 167.64) (xy 62.23 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d136ed8-bd47-4e96-bfa6-244d67bfcbe1")
+	)
+	(wire
+		(pts
+			(xy 222.25 66.04) (xy 243.84 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3dc09099-8b1d-4030-bfca-396c9172ea7b")
+	)
+	(wire
+		(pts
+			(xy 243.84 130.81) (xy 243.84 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3ed3bbdd-9d96-4e3b-975b-4c3516022a32")
+	)
+	(wire
+		(pts
+			(xy 104.14 167.64) (xy 118.11 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3f0847dd-3494-45c9-8d41-4e99c91b5bd8")
+	)
+	(wire
+		(pts
+			(xy 135.89 69.85) (xy 135.89 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3f42b5c1-a2e8-4433-bbab-93bdf93f5352")
+	)
+	(wire
+		(pts
+			(xy 179.07 153.67) (xy 179.07 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3fa3b2b2-b290-402f-b7f3-3bbaa54f29cc")
+	)
+	(wire
+		(pts
+			(xy 78.74 100.33) (xy 85.09 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "404da5d7-cca3-4441-b5c8-68f034c0b5da")
+	)
+	(wire
+		(pts
+			(xy 266.7 19.05) (xy 283.21 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4269fdea-944d-43cf-a626-c35b48959a1c")
+	)
+	(wire
+		(pts
+			(xy 114.3 85.09) (xy 114.3 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "43e898fc-5fca-420e-ba20-5d4d41e8d888")
+	)
+	(wire
+		(pts
+			(xy 71.12 115.57) (xy 71.12 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4438b21a-aebd-41b7-91d2-7b07455a6be8")
+	)
+	(wire
+		(pts
+			(xy 135.89 157.48) (xy 114.3 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "44a5965a-3a3e-4058-9066-ed76386b480c")
+	)
+	(wire
+		(pts
+			(xy 76.2 167.64) (xy 90.17 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "44bd5b28-d264-4d87-96ed-64f4fcfee9d8")
+	)
+	(wire
+		(pts
+			(xy 92.71 138.43) (xy 92.71 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4559e32f-a130-4747-a144-52eb04ec793d")
+	)
+	(wire
+		(pts
+			(xy 146.05 167.64) (xy 160.02 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4589b338-42a7-4ed7-a52d-3a5c1c2e5762")
+	)
+	(wire
+		(pts
+			(xy 179.07 107.95) (xy 179.07 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "45d96aaa-dabf-4e95-a3c1-24ed604f29c1")
+	)
+	(wire
+		(pts
+			(xy 157.48 157.48) (xy 179.07 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "472f9fa2-dbe7-4c7f-8ae3-b3c0255fa9eb")
+	)
+	(wire
+		(pts
+			(xy 114.3 46.99) (xy 114.3 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "485168b4-27c6-46ea-9476-0d2bb3dde8a4")
+	)
+	(wire
+		(pts
+			(xy 259.08 31.75) (xy 261.62 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "48a497eb-6d95-4e54-80b2-c07476c9aec5")
+	)
+	(wire
+		(pts
+			(xy 71.12 43.18) (xy 92.71 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "48d56d94-0a24-470e-b93d-e6ac385c93c6")
+	)
+	(wire
+		(pts
+			(xy 135.89 66.04) (xy 114.3 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4915a4af-2146-4c9e-83ae-f422ba87f488")
+	)
+	(wire
+		(pts
+			(xy 143.51 100.33) (xy 149.86 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "493df5ad-957a-4acb-8954-eaa5270f62f6")
+	)
+	(wire
+		(pts
+			(xy 143.51 77.47) (xy 149.86 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "49d30095-0fc4-4fdf-95a7-2b07c6049584")
+	)
+	(wire
+		(pts
+			(xy 135.89 88.9) (xy 157.48 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4a5179dc-2db9-40a3-9ab2-a82d78d204c7")
+	)
+	(wire
+		(pts
+			(xy 46.99 31.75) (xy 54.61 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b3d7d24-5744-469f-8579-89ea3e361b2e")
+	)
+	(wire
+		(pts
+			(xy 267.97 111.76) (xy 243.84 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b5ebdb2-0b31-483c-be14-290c3ca8462b")
+	)
+	(wire
+		(pts
+			(xy 49.53 157.48) (xy 71.12 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4bf0bed4-ab17-48ec-bc2d-580d249c0f56")
+	)
+	(wire
+		(pts
+			(xy 222.25 130.81) (xy 222.25 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4caa083e-d649-4b49-97c7-aea03d0d8cd4")
+	)
+	(wire
+		(pts
+			(xy 114.3 62.23) (xy 114.3 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f2ede7a-6647-481f-995a-f7a659fdcc95")
+	)
+	(wire
+		(pts
+			(xy 267.97 66.04) (xy 283.21 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f3483e8-b287-42ea-8581-25180c39d2b0")
+	)
+	(wire
+		(pts
+			(xy 219.71 43.18) (xy 219.71 39.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f3606c6-317b-4878-8019-dcc5b1ebeb80")
+	)
+	(wire
+		(pts
+			(xy 30.48 134.62) (xy 49.53 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f6a63e6-ea2f-47d8-ade1-ca9d1a28c9f0")
+	)
+	(wire
+		(pts
+			(xy 157.48 138.43) (xy 157.48 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "50b68c99-7e46-43cc-ad4f-abb2a4320b1a")
+	)
+	(wire
+		(pts
+			(xy 222.25 46.99) (xy 222.25 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "513acb61-3b6e-4c1a-950a-9554f4524b90")
+	)
+	(wire
+		(pts
+			(xy 208.28 100.33) (xy 214.63 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "51bbe912-5ac5-46e2-a3dd-d39322037681")
+	)
+	(wire
+		(pts
+			(xy 135.89 92.71) (xy 135.89 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "543136b4-92d1-4a96-a4a9-288febfe581a")
+	)
+	(wire
+		(pts
+			(xy 78.74 130.81) (xy 85.09 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "54b1f2e7-a3d2-4e89-9871-fec466b78a17")
+	)
+	(wire
+		(pts
+			(xy 143.51 123.19) (xy 149.86 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5714d8fb-5ee3-409e-82ff-5b63ab1dd13a")
+	)
+	(wire
+		(pts
+			(xy 160.02 167.64) (xy 160.02 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5755f73c-7a9b-4d31-b56a-71db93207dff")
+	)
+	(wire
+		(pts
+			(xy 100.33 100.33) (xy 106.68 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "586a0f26-b46e-4602-a664-300bc99a5de3")
+	)
+	(wire
+		(pts
+			(xy 157.48 43.18) (xy 168.91 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "59925542-11a8-4fde-9bd0-22542b430c2d")
+	)
+	(wire
+		(pts
+			(xy 49.53 88.9) (xy 71.12 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5994fab9-3f89-4930-8e61-69ae34b78d27")
+	)
+	(wire
+		(pts
+			(xy 135.89 46.99) (xy 135.89 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5ae622d3-9dfc-445b-9890-0c47f2742415")
+	)
+	(wire
+		(pts
+			(xy 49.53 85.09) (xy 49.53 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5b547508-9132-48c5-be36-7e5236755cb1")
+	)
+	(wire
+		(pts
+			(xy 179.07 115.57) (xy 179.07 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5dd4c53b-2943-4fd8-bc32-24abd2111a22")
+	)
+	(wire
+		(pts
+			(xy 200.66 69.85) (xy 200.66 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "600f5ff2-89f7-472b-ac19-7ba3db339053")
+	)
+	(wire
+		(pts
+			(xy 243.84 46.99) (xy 243.84 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "60f2f456-f9eb-4926-b2f9-bebd4643913a")
+	)
+	(wire
+		(pts
+			(xy 135.89 111.76) (xy 157.48 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "631e6c10-97f0-456d-9a91-d2d3f4301842")
+	)
+	(wire
+		(pts
+			(xy 260.35 100.33) (xy 251.46 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6355668f-6e50-4ce8-80d3-33acc5d375bc")
+	)
+	(wire
+		(pts
+			(xy 186.69 146.05) (xy 193.04 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "64e800ad-8d5f-4710-8616-1457949450d9")
+	)
+	(wire
+		(pts
+			(xy 246.38 19.05) (xy 266.7 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "665f1bf9-89d9-484c-bcfa-5f8204d02111")
+	)
+	(wire
+		(pts
+			(xy 100.33 146.05) (xy 106.68 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "68958e70-b4e4-4db6-b705-00cc0847174b")
+	)
+	(wire
+		(pts
+			(xy 168.91 19.05) (xy 168.91 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "68e84514-8a4e-4541-a024-98808b4eed64")
+	)
+	(wire
+		(pts
+			(xy 199.39 39.37) (xy 199.39 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "694788f1-a0a3-4258-97fc-4ed1ebe320f7")
+	)
+	(wire
+		(pts
+			(xy 186.69 54.61) (xy 193.04 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "69ea6d0b-629a-4b22-8901-ca6e9ac4d7ea")
+	)
+	(wire
+		(pts
+			(xy 260.35 54.61) (xy 251.46 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6a2bb027-d90f-4a6d-953f-2280bbd3bfd4")
+	)
+	(wire
+		(pts
+			(xy 219.71 19.05) (xy 246.38 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6b027287-9511-406d-b7fc-39b6158b14b1")
+	)
+	(wire
+		(pts
+			(xy 222.25 62.23) (xy 222.25 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6ba00dfa-5074-421a-bbb7-bbe929e39214")
+	)
+	(wire
+		(pts
+			(xy 62.23 167.64) (xy 76.2 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6c245a2d-11b2-41dd-bdc7-bf5eeea0210f")
+	)
+	(wire
+		(pts
+			(xy 146.05 167.64) (xy 146.05 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6ca3f4d7-f5d7-4233-845b-21ff24e0fbca")
+	)
+	(wire
+		(pts
+			(xy 246.38 39.37) (xy 246.38 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6cf18c8c-424f-43c3-be48-54a7d54bd6b6")
+	)
+	(wire
+		(pts
+			(xy 49.53 88.9) (xy 30.48 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6cf984aa-fd0c-4d92-93d4-cf1dad8b6ecf")
+	)
+	(wire
+		(pts
+			(xy 157.48 134.62) (xy 179.07 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d659861-1a02-4632-a250-60b61ea12dd5")
+	)
+	(wire
+		(pts
+			(xy 157.48 115.57) (xy 157.48 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6df9d1b7-db63-40a2-8b87-27da8dc0ea4c")
+	)
+	(wire
+		(pts
+			(xy 222.25 85.09) (xy 222.25 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6fd9302a-f587-4431-acef-3747205461ec")
+	)
+	(wire
+		(pts
+			(xy 264.16 88.9) (xy 243.84 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7031341b-523c-446c-b44a-cb7894ac2266")
+	)
+	(wire
+		(pts
+			(xy 157.48 66.04) (xy 179.07 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "704d1314-aaee-4444-bcc6-8bc679e3bd12")
+	)
+	(wire
+		(pts
+			(xy 243.84 107.95) (xy 243.84 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "71766529-8457-4b32-a729-473cdd773185")
+	)
+	(wire
+		(pts
+			(xy 148.59 43.18) (xy 157.48 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7180aa7b-da8f-4941-82ea-64a56ed6129c")
+	)
+	(wire
+		(pts
+			(xy 57.15 123.19) (xy 63.5 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7258a107-fac6-4e32-8148-8d51b367e54f")
+	)
+	(wire
+		(pts
+			(xy 200.66 62.23) (xy 200.66 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "725edabf-00ca-4ece-b025-ac4a1cee3d39")
+	)
+	(wire
+		(pts
+			(xy 121.92 77.47) (xy 121.92 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "747ec276-1afd-4870-9d75-21e13c492302")
+	)
+	(wire
+		(pts
+			(xy 25.4 31.75) (xy 31.75 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "74999119-c39a-40a4-ae06-b50cb7fbfeed")
+	)
+	(wire
+		(pts
+			(xy 229.87 54.61) (xy 236.22 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "77feafd6-8b8c-4754-8128-5b0bf22712c6")
+	)
+	(wire
+		(pts
+			(xy 243.84 43.18) (xy 246.38 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "79503cbf-1bc4-4a86-a568-027eda913e64")
+	)
+	(wire
+		(pts
+			(xy 39.37 68.58) (xy 128.27 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "79510418-7cda-4d13-9ca8-3daf25db9472")
+	)
+	(wire
+		(pts
+			(xy 114.3 107.95) (xy 114.3 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7972d0f6-d7e1-4d06-b362-cd8cc4f69768")
+	)
+	(wire
+		(pts
+			(xy 243.84 134.62) (xy 222.25 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ade6409-1aab-446f-aa03-8573b41e1592")
+	)
+	(wire
+		(pts
+			(xy 148.59 19.05) (xy 168.91 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7b52d321-e255-4748-af8e-753acd2c3871")
+	)
+	(wire
+		(pts
+			(xy 114.3 138.43) (xy 114.3 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7d4c1912-4ee3-4940-82fd-12b026a641c5")
+	)
+	(wire
+		(pts
+			(xy 251.46 77.47) (xy 260.35 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7e3e2815-4dab-4d25-9305-c2512031db30")
+	)
+	(wire
+		(pts
+			(xy 135.89 115.57) (xy 135.89 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7f248964-ef45-413e-a7c1-4c41228bb16f")
+	)
+	(wire
+		(pts
+			(xy 49.53 134.62) (xy 71.12 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7fef9c9d-a1ea-45c2-ac5c-d1ad0bc02541")
+	)
+	(wire
+		(pts
+			(xy 179.07 157.48) (xy 200.66 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7feff36a-25f4-4ca3-b641-25f8de042e42")
+	)
+	(wire
+		(pts
+			(xy 34.29 180.34) (xy 48.26 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "80b9e559-d1d0-493d-a992-48fca86a2e18")
+	)
+	(wire
+		(pts
+			(xy 49.53 62.23) (xy 49.53 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "816ee482-13a7-4f1c-97a0-d2fde57a6575")
+	)
+	(wire
+		(pts
+			(xy 179.07 130.81) (xy 179.07 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "833f4226-62a0-448c-8bf9-2d44b2d437e1")
+	)
+	(wire
+		(pts
+			(xy 157.48 62.23) (xy 157.48 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "83432d4e-f210-423a-93ff-3b40124b704b")
+	)
+	(wire
+		(pts
+			(xy 71.12 107.95) (xy 71.12 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "845ec6d8-0377-4ff8-91fe-67644e156788")
+	)
+	(wire
+		(pts
+			(xy 267.97 66.04) (xy 267.97 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "850ecf3f-e8ef-47b6-bb9a-dbc8659daa9b")
+	)
+	(wire
+		(pts
+			(xy 264.16 43.18) (xy 264.16 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "85fbf25f-2490-471c-b6bc-944f4df560f2")
+	)
+	(wire
+		(pts
+			(xy 149.86 146.05) (xy 149.86 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "89f033fb-6ec1-493e-b82f-58efe63e8ad7")
+	)
+	(wire
+		(pts
+			(xy 118.11 180.34) (xy 132.08 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8a46c332-8521-4c44-b178-3f2b5dd6d94c")
+	)
+	(wire
+		(pts
+			(xy 49.53 43.18) (xy 62.23 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8b3f2851-5e36-42d5-b12f-f5c188be4c03")
+	)
+	(wire
+		(pts
+			(xy 168.91 39.37) (xy 168.91 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8bc036b4-1f66-4c9e-90b2-8107b9d2c400")
+	)
+	(wire
+		(pts
+			(xy 114.3 92.71) (xy 114.3 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8c32cbe2-6b18-470c-b160-e72c4acd4635")
+	)
+	(wire
+		(pts
+			(xy 179.07 85.09) (xy 179.07 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8dc68ab0-b1ec-431e-a2cf-2e9abdeb143f")
+	)
+	(wire
+		(pts
+			(xy 114.3 69.85) (xy 114.3 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8e80e65c-d8c6-4f2c-8111-8aa94e715603")
+	)
+	(wire
+		(pts
+			(xy 243.84 69.85) (xy 243.84 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8ec502f0-e283-4562-a6d9-5af7bea139a4")
+	)
+	(wire
+		(pts
+			(xy 57.15 100.33) (xy 63.5 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "92e28d5a-497a-4566-93c7-17e095e2c1e7")
+	)
+	(wire
+		(pts
+			(xy 39.37 43.18) (xy 49.53 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "92f7c909-0858-43ae-9fd1-42579ca22bc3")
+	)
+	(wire
+		(pts
+			(xy 34.29 167.64) (xy 34.29 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9393556a-3ec1-485b-8e3d-b16b74b93893")
+	)
+	(wire
+		(pts
+			(xy 200.66 85.09) (xy 200.66 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9489eb3f-fcd5-459f-a71e-faa3a27a1b80")
+	)
+	(wire
+		(pts
+			(xy 168.91 43.18) (xy 179.07 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "94bc0b2b-fa99-4c0a-b9cd-6441ebe2a9a4")
+	)
+	(wire
+		(pts
+			(xy 208.28 123.19) (xy 214.63 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "94bf3557-a657-40d4-8fbd-6ce9d15a2841")
+	)
+	(wire
+		(pts
+			(xy 71.12 153.67) (xy 71.12 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "951aabf2-b486-4663-8fe6-c7c733fcd514")
+	)
+	(wire
+		(pts
+			(xy 157.48 85.09) (xy 157.48 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "95de0c29-20c1-4a1f-93ae-adb1a0fbc94f")
+	)
+	(wire
+		(pts
+			(xy 34.29 180.34) (xy 27.94 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "95efa404-a1e7-4985-8f1b-4d47f62de86c")
+	)
+	(wire
+		(pts
+			(xy 39.37 19.05) (xy 39.37 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "963467f7-9705-4948-90a6-042ee12bfeac")
+	)
+	(wire
+		(pts
+			(xy 186.69 100.33) (xy 193.04 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9755d767-a967-409a-b1e7-badbd91c8e89")
+	)
+	(wire
+		(pts
+			(xy 283.21 19.05) (xy 283.21 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9761c341-fc4d-4e20-8699-61346100332a")
+	)
+	(wire
+		(pts
+			(xy 57.15 77.47) (xy 63.5 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "985b16e9-ad98-43a4-a462-7acd05e66840")
+	)
+	(wire
+		(pts
+			(xy 135.89 107.95) (xy 135.89 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "985e9f89-4af9-49cf-90cc-d9355c248523")
+	)
+	(wire
+		(pts
+			(xy 92.71 85.09) (xy 92.71 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "99f94151-5f1b-4ab6-894f-8e0d95185e1b")
+	)
+	(wire
+		(pts
+			(xy 78.74 54.61) (xy 85.09 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9aaceffe-c183-41de-8a64-67c9f390a68f")
+	)
+	(wire
+		(pts
+			(xy 186.69 77.47) (xy 193.04 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9b066235-7795-4841-bdfb-4fb92ff7a3bc")
+	)
+	(wire
+		(pts
+			(xy 62.23 24.13) (xy 62.23 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9bc1929a-0faf-4587-a52b-0eab0e935c22")
+	)
+	(wire
+		(pts
+			(xy 148.59 19.05) (xy 148.59 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9c121f9b-8001-4dd8-9046-a29bb115a762")
+	)
+	(wire
+		(pts
+			(xy 93.98 43.18) (xy 114.3 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9fd38848-caa7-44e5-a1a6-b9532060b629")
+	)
+	(wire
+		(pts
+			(xy 41.91 146.05) (xy 34.29 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a04ec999-6637-4a51-a3b5-3330a92b43b2")
+	)
+	(wire
+		(pts
+			(xy 219.71 43.18) (xy 222.25 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a0ed04a8-b5bf-4813-b701-5d1abcd72b78")
+	)
+	(wire
+		(pts
+			(xy 222.25 111.76) (xy 243.84 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a1b27eab-5a83-44c6-b761-a4df4a37a89c")
+	)
+	(wire
+		(pts
+			(xy 186.69 43.18) (xy 199.39 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a5b5d57f-9e3a-480f-985a-fe452cce4d4a")
+	)
+	(wire
+		(pts
+			(xy 157.48 153.67) (xy 157.48 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a6341766-a845-4a99-b854-631c3df4da65")
+	)
+	(wire
+		(pts
+			(xy 146.05 180.34) (xy 160.02 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a76ad460-af64-4620-9f38-97c275097041")
+	)
+	(wire
+		(pts
+			(xy 62.23 19.05) (xy 93.98 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aaabb814-43d8-4678-955b-1c9a02ad19fe")
+	)
+	(wire
+		(pts
+			(xy 71.12 92.71) (xy 71.12 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aae81434-772c-450f-8cca-59b61cb821ab")
+	)
+	(wire
+		(pts
+			(xy 62.23 177.8) (xy 62.23 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ab0b1b27-ebf8-43b9-9bea-778525d1930e")
+	)
+	(wire
+		(pts
+			(xy 34.29 54.61) (xy 41.91 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ab25e755-08c5-4f5e-8015-14ff92a60998")
+	)
+	(wire
+		(pts
+			(xy 92.71 107.95) (xy 92.71 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ab6ab960-81d8-478c-a722-ea5f6ce83d85")
+	)
+	(wire
+		(pts
+			(xy 85.09 123.19) (xy 85.09 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "abaa4a06-7973-4e79-8a8e-a8111ff22249")
+	)
+	(wire
+		(pts
+			(xy 219.71 24.13) (xy 219.71 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ac4844f3-7b13-40ff-9fae-1a9ebe508ef4")
+	)
+	(wire
+		(pts
+			(xy 92.71 130.81) (xy 92.71 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ad63e760-1f72-45db-a081-8998fbe2e8c6")
+	)
+	(wire
+		(pts
+			(xy 92.71 69.85) (xy 92.71 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ad65d2e2-96fc-40df-ab41-16e6494596e3")
+	)
+	(wire
+		(pts
+			(xy 229.87 100.33) (xy 236.22 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b04c950a-3e08-4e87-be04-e9428b1eb11c")
+	)
+	(wire
+		(pts
+			(xy 121.92 100.33) (xy 128.27 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b0706838-99b8-4df5-b929-e3362dd23d37")
+	)
+	(wire
+		(pts
+			(xy 165.1 146.05) (xy 171.45 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b0c08db2-fc6a-4884-b4cd-136dfee83845")
+	)
+	(wire
+		(pts
+			(xy 104.14 167.64) (xy 104.14 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b288c1e6-0134-4838-85e7-1acf264a6907")
+	)
+	(wire
+		(pts
+			(xy 92.71 153.67) (xy 92.71 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b484f6b7-4f36-4875-a62c-7a55a719c3c0")
+	)
+	(wire
+		(pts
+			(xy 208.28 77.47) (xy 214.63 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b4c7f9d8-8644-4929-be74-5ccbefafa757")
+	)
+	(wire
+		(pts
+			(xy 100.33 123.19) (xy 106.68 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b4f2e1e7-eaf4-44d3-9d1c-13f442ed44bb")
+	)
+	(wire
+		(pts
+			(xy 243.84 138.43) (xy 243.84 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b5857ccd-1f3e-4b89-971c-695b1a7746c3")
+	)
+	(wire
+		(pts
+			(xy 34.29 177.8) (xy 34.29 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b6623ef4-d3a8-42fd-834d-60ee41de0b51")
+	)
+	(wire
+		(pts
+			(xy 200.66 43.18) (xy 219.71 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b810a95b-70bb-490c-aa30-18092c0a325e")
+	)
+	(wire
+		(pts
+			(xy 71.12 111.76) (xy 92.71 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b88049ff-10a5-4d7c-b5e1-82ff84f93eb0")
+	)
+	(wire
+		(pts
+			(xy 71.12 66.04) (xy 92.71 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba084e5b-bad0-4a63-b277-b990fd2c9f18")
+	)
+	(wire
+		(pts
+			(xy 157.48 130.81) (xy 157.48 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba212ef2-e12b-457e-b516-4a74b223887a")
+	)
+	(wire
+		(pts
+			(xy 101.6 31.75) (xy 106.68 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba62e5b0-8291-4be9-bd46-bce7730e49f4")
+	)
+	(wire
+		(pts
+			(xy 30.48 43.18) (xy 39.37 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba879e41-6d05-498b-9c4a-af9119fe263b")
+	)
+	(wire
+		(pts
+			(xy 92.71 115.57) (xy 92.71 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "babbcfe1-10c6-44ff-91a5-9300e8bbc03b")
+	)
+	(wire
+		(pts
+			(xy 143.51 54.61) (xy 149.86 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bbd1bd45-76d8-4e05-9810-4c15df343312")
+	)
+	(wire
+		(pts
+			(xy 49.53 66.04) (xy 71.12 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bbde1acd-1146-4d00-9e00-bc6fcb914df0")
+	)
+	(wire
+		(pts
+			(xy 49.53 111.76) (xy 71.12 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bbe97415-b0aa-42ba-bb4c-5c1551fb8bd3")
+	)
+	(wire
+		(pts
+			(xy 62.23 180.34) (xy 76.2 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bcdf6e14-1b62-459c-98c1-76a52b68dcfa")
+	)
+	(wire
+		(pts
+			(xy 121.92 146.05) (xy 128.27 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd35ede1-63f7-4488-9501-47d8ea96d2db")
+	)
+	(wire
+		(pts
+			(xy 41.91 123.19) (xy 34.29 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd73310b-255f-4fa6-bda9-7b47d0d914aa")
+	)
+	(wire
+		(pts
+			(xy 92.71 62.23) (xy 92.71 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "be0aec99-e960-494e-af77-419cf9fb6165")
+	)
+	(wire
+		(pts
+			(xy 165.1 123.19) (xy 171.45 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "be851622-5cfa-4253-8cd4-c35a385235e4")
+	)
+	(wire
+		(pts
+			(xy 121.92 85.09) (xy 128.27 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bec053b8-77d3-4d0c-86d4-f2e365e56ca4")
+	)
+	(wire
+		(pts
+			(xy 222.25 66.04) (xy 200.66 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c01d058b-2e16-4675-a562-3125c1fec331")
+	)
+	(wire
+		(pts
+			(xy 199.39 19.05) (xy 199.39 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c12c4d32-0102-4091-a0a2-9d5e04db2226")
+	)
+	(wire
+		(pts
+			(xy 71.12 85.09) (xy 71.12 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c13146de-cf42-4b5d-93eb-bcc783c27b48")
+	)
+	(wire
+		(pts
+			(xy 27.94 167.64) (xy 34.29 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c40f1560-f92b-4e3d-984b-c9da877627c5")
+	)
+	(wire
+		(pts
+			(xy 92.71 157.48) (xy 114.3 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c4e54fc4-a15d-4dc7-a0bc-f50a414bd86f")
+	)
+	(wire
+		(pts
+			(xy 39.37 39.37) (xy 39.37 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c585dd48-a980-4e85-b7df-d1a20e78fbe3")
+	)
+	(wire
+		(pts
+			(xy 114.3 115.57) (xy 114.3 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c8902db0-2ab8-469c-b995-e6ef385103f4")
+	)
+	(wire
+		(pts
+			(xy 222.25 92.71) (xy 222.25 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c90fa5a3-0968-463b-812d-6eb20a2413e2")
+	)
+	(wire
+		(pts
+			(xy 132.08 177.8) (xy 132.08 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c9e63d67-f8b6-4166-bba4-c8c36e29e4e1")
+	)
+	(wire
+		(pts
+			(xy 135.89 111.76) (xy 114.3 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c9fe75a9-953e-4464-aec6-3d5b7f76f66c")
+	)
+	(wire
+		(pts
+			(xy 222.25 134.62) (xy 200.66 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ca47ca4e-7ca4-42c1-9987-db0317c24745")
+	)
+	(wire
+		(pts
+			(xy 267.97 111.76) (xy 267.97 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cb523a40-e759-41ce-a91c-1c92213ff380")
+	)
+	(wire
+		(pts
+			(xy 222.25 88.9) (xy 200.66 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cb72e281-5192-4561-afe7-5f858fe87ba7")
+	)
+	(wire
+		(pts
+			(xy 49.53 138.43) (xy 49.53 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cc69679f-2d99-408b-a640-7cf06ea9e1f7")
+	)
+	(wire
+		(pts
+			(xy 114.3 19.05) (xy 148.59 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ce7ae78c-2988-491a-9ed7-6ba710ad7e5a")
+	)
+	(wire
+		(pts
+			(xy 71.12 134.62) (xy 92.71 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cf0b696f-50ec-4353-8677-3c534dcadfd7")
+	)
+	(wire
+		(pts
+			(xy 78.74 146.05) (xy 85.09 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cfe62c2f-2f57-4023-9749-35f3e35a521b")
+	)
+	(wire
+		(pts
+			(xy 191.77 31.75) (xy 176.53 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d21a36d0-a102-4a32-9537-defc6c92d67e")
+	)
+	(wire
+		(pts
+			(xy 165.1 100.33) (xy 171.45 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d3db5f34-4277-46f8-8d89-e13b0f2f6fea")
+	)
+	(wire
+		(pts
+			(xy 135.89 88.9) (xy 114.3 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4731b6b-f63e-4ec9-8143-0450946fb2b9")
+	)
+	(wire
+		(pts
+			(xy 199.39 43.18) (xy 200.66 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4f05f68-3bcd-49fc-8674-f528a5f56e04")
+	)
+	(wire
+		(pts
+			(xy 199.39 19.05) (xy 219.71 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d597cfe9-7b49-4b0f-aaa9-329afdaad0bd")
+	)
+	(wire
+		(pts
+			(xy 135.89 134.62) (xy 157.48 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d5f4bf05-5777-46dc-8221-72aa0842b2e5")
+	)
+	(wire
+		(pts
+			(xy 222.25 107.95) (xy 222.25 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d610843d-2ff8-4272-8292-0d22f00b9b0f")
+	)
+	(wire
+		(pts
+			(xy 143.51 146.05) (xy 143.51 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d68356ca-e156-401f-b9fd-7e018dcb966f")
+	)
+	(wire
+		(pts
+			(xy 76.2 180.34) (xy 90.17 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d6d927e1-13ac-411f-9cc4-10eea71b2288")
+	)
+	(wire
+		(pts
+			(xy 157.48 88.9) (xy 179.07 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d6deb239-212d-41a6-a688-ab718f0c522b")
+	)
+	(wire
+		(pts
+			(xy 208.28 54.61) (xy 214.63 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d75ff011-d13d-46b5-beab-d9b8b1200e58")
+	)
+	(wire
+		(pts
+			(xy 93.98 19.05) (xy 114.3 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d8d10fdf-14c4-4d44-a28e-61da3d41effc")
+	)
+	(wire
+		(pts
+			(xy 71.12 157.48) (xy 92.71 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d92d09b3-e4f0-49ef-a0cb-85d83971b64f")
+	)
+	(wire
+		(pts
+			(xy 114.3 19.05) (xy 114.3 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d9d1dd31-be26-427c-9bd3-2476c646c8f3")
+	)
+	(wire
+		(pts
+			(xy 132.08 180.34) (xy 146.05 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dab07e1d-f097-46dc-9ae7-0d9531f0db89")
+	)
+	(wire
+		(pts
+			(xy 149.86 137.16) (xy 170.18 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "db43a576-02e9-4276-8083-1d13d7e5f16c")
+	)
+	(wire
+		(pts
+			(xy 165.1 54.61) (xy 171.45 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dccf1390-c43f-4b0a-acc2-5832e8dbd07c")
+	)
+	(wire
+		(pts
+			(xy 135.89 43.18) (xy 148.59 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd07c2e2-1d58-4e7e-aecc-f1fd94eb2674")
+	)
+	(wire
+		(pts
+			(xy 90.17 177.8) (xy 90.17 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd7af9bd-62e2-4d7e-84f5-4a1b9fdbd849")
+	)
+	(wire
+		(pts
+			(xy 266.7 24.13) (xy 266.7 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd7b6fdd-38cf-4423-bb3c-2622a47a142a")
+	)
+	(wire
+		(pts
+			(xy 135.89 130.81) (xy 135.89 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df09332d-7558-432f-9735-64a54575eb94")
+	)
+	(wire
+		(pts
+			(xy 135.89 66.04) (xy 157.48 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df26e5fd-6f36-4663-813e-050e347487fd")
+	)
+	(wire
+		(pts
+			(xy 243.84 115.57) (xy 243.84 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df82c01f-d1ef-455e-85fa-82fe4624895e")
+	)
+	(wire
+		(pts
+			(xy 243.84 85.09) (xy 243.84 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e08ba57e-649d-42e0-b9bd-9679844a53e2")
+	)
+	(wire
+		(pts
+			(xy 132.08 167.64) (xy 132.08 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e0af6792-07e2-44a7-9866-474df1f65abb")
+	)
+	(wire
+		(pts
+			(xy 71.12 62.23) (xy 71.12 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e105c726-cf2c-4294-83b7-0941b99f28b6")
+	)
+	(wire
+		(pts
+			(xy 57.15 146.05) (xy 63.5 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e1eda210-6d83-4cf6-a26b-27427c284179")
+	)
+	(wire
+		(pts
+			(xy 243.84 153.67) (xy 243.84 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e22ac4d3-031b-4d30-b026-3c4be3c07beb")
+	)
+	(wire
+		(pts
+			(xy 135.89 138.43) (xy 135.89 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e2607be0-0869-46cd-96cf-c1c2ad76d79e")
+	)
+	(wire
+		(pts
+			(xy 200.66 115.57) (xy 200.66 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e289e094-e977-41e9-8823-05c025612b47")
+	)
+	(wire
+		(pts
+			(xy 118.11 167.64) (xy 118.11 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e2d7d64e-5641-47fb-a352-dc0b43aa11dd")
+	)
+	(wire
+		(pts
+			(xy 93.98 39.37) (xy 93.98 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e3116380-8d64-4f68-9a15-0f6e06b6efce")
+	)
+	(wire
+		(pts
+			(xy 100.33 54.61) (xy 106.68 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e37d4997-75b0-4e08-9334-9c0779cadee1")
+	)
+	(wire
+		(pts
+			(xy 49.53 130.81) (xy 49.53 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e45260e3-6561-41c9-b5ea-8045c16e7b4c")
+	)
+	(wire
+		(pts
+			(xy 49.53 92.71) (xy 49.53 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e490066b-bf11-46b4-8075-4941cf250cfe")
+	)
+	(wire
+		(pts
+			(xy 243.84 88.9) (xy 222.25 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e56f668d-f9de-479d-a7f6-05de553382cb")
+	)
+	(wire
+		(pts
+			(xy 76.2 177.8) (xy 76.2 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e5c51108-ae5e-4bc5-ae56-39ded0e90d23")
+	)
+	(wire
+		(pts
+			(xy 114.3 39.37) (xy 114.3 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e7609e35-2d58-4210-b48c-aa0ea68f2a16")
+	)
+	(wire
+		(pts
+			(xy 229.87 123.19) (xy 236.22 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e7fd1a3f-1578-4810-9657-a4999b9b1e3d")
+	)
+	(wire
+		(pts
+			(xy 259.08 31.75) (xy 254 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e8026e4b-cf3c-4131-aa16-41a7baa5932f")
+	)
+	(wire
+		(pts
+			(xy 76.2 167.64) (xy 76.2 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e83baaa8-fb02-4ba5-8e02-354c538514ac")
+	)
+	(wire
+		(pts
+			(xy 160.02 177.8) (xy 160.02 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ea500155-887e-46f7-9fb8-eeec4248cb50")
+	)
+	(wire
+		(pts
+			(xy 200.66 153.67) (xy 200.66 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ea7e004b-66ff-4c37-a94e-ab86b8dcb2ac")
+	)
+	(wire
+		(pts
+			(xy 179.07 92.71) (xy 179.07 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eaaca217-4c23-4ed5-b1cc-89ec15bb51e1")
+	)
+	(wire
+		(pts
+			(xy 246.38 43.18) (xy 264.16 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ebb212a9-1977-4f0b-ba8c-a270e29461a9")
+	)
+	(wire
+		(pts
+			(xy 243.84 66.04) (xy 267.97 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ec116602-2671-4e54-b3f9-8416349a0aed")
+	)
+	(wire
+		(pts
+			(xy 121.92 123.19) (xy 128.27 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ec89f3fc-7e40-4abe-be7b-bc3e429995ba")
+	)
+	(wire
+		(pts
+			(xy 243.84 157.48) (xy 267.97 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ee119ee8-dbc8-4d73-879a-df47d7d695f4")
+	)
+	(wire
+		(pts
+			(xy 71.12 130.81) (xy 71.12 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ee25d19a-1616-438e-bc5c-6d486402950a")
+	)
+	(wire
+		(pts
+			(xy 92.71 88.9) (xy 114.3 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eeabedb6-a188-4676-b9b4-f477390ff6f4")
+	)
+	(wire
+		(pts
+			(xy 157.48 111.76) (xy 179.07 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f0473bf9-4199-46ca-9638-1e3d0c0fc916")
+	)
+	(wire
+		(pts
+			(xy 179.07 138.43) (xy 179.07 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f0f5a386-c849-4d51-bec4-83fd9db22dc7")
+	)
+	(wire
+		(pts
+			(xy 135.89 134.62) (xy 114.3 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f21be5ca-14b9-41ef-bd55-ba719619b905")
+	)
+	(wire
+		(pts
+			(xy 93.98 19.05) (xy 93.98 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f2f9be36-ffda-4ddf-bf86-6c77068f3c9b")
+	)
+	(wire
+		(pts
+			(xy 264.16 43.18) (xy 266.7 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f3bc0c45-f30e-4828-8712-107cb8221a5a")
+	)
+	(wire
+		(pts
+			(xy 92.71 46.99) (xy 92.71 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f3f07a53-1590-48e7-9af7-826844cabff6")
+	)
+	(wire
+		(pts
+			(xy 114.3 43.18) (xy 135.89 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f51df4bc-7fee-43e6-b546-fa37fb0f77c1")
+	)
+	(wire
+		(pts
+			(xy 179.07 69.85) (xy 179.07 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f783e1a7-f73f-4f4e-b35e-2aed9436f57b")
+	)
+	(wire
+		(pts
+			(xy 179.07 46.99) (xy 179.07 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f80ed24d-e2e5-4654-971f-5180dc59abee")
+	)
+	(wire
+		(pts
+			(xy 71.12 88.9) (xy 92.71 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8167121-fc92-48dd-bd4a-a0beaf8ce888")
+	)
+	(wire
+		(pts
+			(xy 179.07 43.18) (xy 186.69 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f889d20c-5459-4a76-a4ea-53556b0c6d75")
+	)
+	(wire
+		(pts
+			(xy 179.07 88.9) (xy 200.66 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f89083bf-97c5-402a-82d6-c4f089aab1a0")
+	)
+	(wire
+		(pts
+			(xy 229.87 146.05) (xy 236.22 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f89eaba8-dd6a-48de-89e1-bbc1ecb179fd")
+	)
+	(wire
+		(pts
+			(xy 34.29 167.64) (xy 48.26 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f9892ca7-6c0d-441a-bf98-8789b4d149a8")
+	)
+	(wire
+		(pts
+			(xy 62.23 43.18) (xy 62.23 39.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "faff1d9f-bfef-4532-ad8f-f7e644741db1")
+	)
+	(wire
+		(pts
+			(xy 200.66 92.71) (xy 200.66 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fb364e63-56d7-4a71-a37e-0644d5acf241")
+	)
+	(wire
+		(pts
+			(xy 179.07 111.76) (xy 200.66 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fb7cd29b-b75d-4c0b-a71a-3f192f62d8c4")
+	)
+	(wire
+		(pts
+			(xy 73.66 115.57) (xy 85.09 115.57)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fc48993a-f5b4-43c3-ac46-839ba62b2c68")
+	)
+	(wire
+		(pts
+			(xy 186.69 123.19) (xy 193.04 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fcb116f7-eb01-4d09-97b1-98e35c275ce2")
+	)
+	(wire
+		(pts
+			(xy 212.09 31.75) (xy 207.01 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fd7b5ef2-b2da-4ac9-ba90-ae9dfc008710")
+	)
+	(wire
+		(pts
+			(xy 114.3 153.67) (xy 114.3 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fe2f39f5-d11e-42ff-a3e2-026a561eb00c")
+	)
+	(wire
+		(pts
+			(xy 222.25 157.48) (xy 200.66 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "feba972e-fdf6-48ea-bbc8-bb1402270289")
+	)
+	(wire
+		(pts
+			(xy 200.66 107.95) (xy 200.66 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ff888835-d941-4d17-a005-12ce31125f5f")
+	)
+	(label "ROW2"
+		(at 73.66 115.57 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "14bee216-b14f-42c2-997a-4a87c688f355")
+	)
+	(label "DOUT3"
+		(at 260.35 77.47 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1d9d761d-0960-46df-a78c-28ca54e37d6b")
+	)
+	(label "DOUT3"
+		(at 34.29 100.33 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "210f7111-f98d-4dab-91c8-6d563670919b")
+	)
+	(label "ROW1"
+		(at 85.09 130.81 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2ce74551-a088-4161-b9e2-4a3abea63387")
+	)
+	(label "DOUT4"
+		(at 260.35 100.33 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2f82f83f-a07f-46d7-bbf3-57f5ca55b97d")
+	)
+	(label "DOUT2"
+		(at 34.29 77.47 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6473133d-39fe-4ef9-8a38-3e34c5e6e7c6")
+	)
+	(label "STAR"
+		(at 170.18 137.16 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "72237042-66d2-4279-8a80-cd14bca862d2")
+	)
+	(label "TOP"
+		(at 125.73 137.16 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7855047f-4259-4bff-8db6-718f1c96ccab")
+	)
+	(label "DOUT5"
+		(at 34.29 146.05 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7ea808bd-f097-47bd-b1a0-d7b472e8984d")
+	)
+	(label "DOUT2"
+		(at 260.35 54.61 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "99c6517c-2719-4814-804c-e5cc2a7c30d6")
+	)
+	(label "TOP"
+		(at 261.62 146.05 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a5690989-e6fa-4507-ae41-bcb56519f155")
+	)
+	(label "ROW2"
+		(at 128.27 85.09 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c846a100-3bb8-44a0-aa56-b27c5ae79e2f")
+	)
+	(label "STAR"
+		(at 25.4 31.75 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d13d3f71-d123-452e-b32e-52a1fc0e2ab6")
+	)
+	(label "ROW1"
+		(at 34.29 54.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d8aa487d-3620-4b82-9536-c8ada3bb06b9")
+	)
+	(label "DOUT4"
+		(at 34.29 123.19 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d9e7b5da-8a92-4784-91c7-1f6555ed7e02")
+	)
+	(label "DOUT5"
+		(at 260.35 123.19 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "e0b00b83-4dbe-4d80-8aab-5ffed5555bc6")
+	)
+	(hierarchical_label "VDD"
+		(shape input)
+		(at 30.48 19.05 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3bf42e14-214a-4ac0-8607-855f1ec4ba76")
+	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 30.48 43.18 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5166822e-2838-402a-822a-8d8ec87b9865")
+	)
+	(hierarchical_label "VDD"
+		(shape input)
+		(at 27.94 167.64 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5b594913-fe84-46f2-b790-39af4069d9ba")
+	)
+	(hierarchical_label "DIN"
+		(shape input)
+		(at 39.37 68.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "816e17ea-336c-4e71-b8d5-cb76c20aec5d")
+	)
+	(hierarchical_label "GND"
+		(shape input)
+		(at 27.94 180.34 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "97006822-f021-485c-8ce6-708e1e3bf3d6")
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 71.12 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "02aeb785-595a-4276-aa60-e373616d53b9")
+		(property "Reference" "D242"
+			(at 81.28 116.8714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 81.28 119.4114 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 72.39 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 73.66 132.715 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 71.12 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a7730f17-8187-4f9a-a4ae-f92da7916ac5")
+		)
+		(pin "3"
+			(uuid "6052a2d6-e17a-4b1d-98b5-fdb7a4a1f76f")
+		)
+		(pin "4"
+			(uuid "965cd603-522b-4a7b-8d24-85edeb9f962b")
+		)
+		(pin "2"
+			(uuid "13be71c7-ac03-4eff-bbd0-de1473252a34")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D242")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 71.12 146.05 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0428a854-3b94-4651-b6ed-fe80e801ee3f")
+		(property "Reference" "D252"
+			(at 81.28 152.3686 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 81.28 149.8286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 72.39 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 73.66 136.525 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 71.12 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9bc02894-f123-490e-9060-88acc49aecbe")
+		)
+		(pin "3"
+			(uuid "035029f0-d9a7-404f-971f-9d34576068b6")
+		)
+		(pin "4"
+			(uuid "b388bbb3-9a43-43dc-b873-ddc63b25a243")
+		)
+		(pin "2"
+			(uuid "6470e546-0183-4c34-813e-7052c0b46829")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D252")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 92.71 100.33 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "07e62663-c2b5-4d66-95aa-b5c3d8c051fc")
+		(property "Reference" "D233"
+			(at 102.87 106.6486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 102.87 104.1086 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 93.98 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 95.25 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 92.71 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1f611b12-df03-4e3e-9cf2-366e2d8a75ab")
+		)
+		(pin "3"
+			(uuid "6072a455-801e-45cf-8e84-acf9c2b133af")
+		)
+		(pin "4"
+			(uuid "8a5230bd-ab18-47b2-ab1e-f5e79a6915b0")
+		)
+		(pin "2"
+			(uuid "78db2fc7-f0af-4619-9b5e-22405cf14511")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D233")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 146.05 173.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "113e5b16-0ce6-4402-a63b-e5ff8855e5f7")
+		(property "Reference" "C209"
+			(at 149.86 172.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22uf"
+			(at 149.86 175.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 147.0152 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 146.05 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 146.05 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OLI_ID" "22uf_0603"
+			(at 146.05 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ce1147b4-0518-4d76-b49f-d6f17402fd71")
+		)
+		(pin "2"
+			(uuid "afbdbfac-a1b1-454a-9f38-e813aa52e5d8")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "C209")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 104.14 173.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "11a5d0d8-41a4-4813-a76c-74cd115010e9")
+		(property "Reference" "C206"
+			(at 107.95 172.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22uf"
+			(at 107.95 175.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 105.1052 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 104.14 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 104.14 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OLI_ID" "22uf_0603"
+			(at 104.14 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ab10d095-12a6-466d-94c7-5101a721ce26")
+		)
+		(pin "2"
+			(uuid "49e232a2-c47f-4fc0-bcf0-f0475770400f")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "C206")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 92.71 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "16501e06-f115-4b30-ac23-4214c9ffdafa")
+		(property "Reference" "D223"
+			(at 102.87 71.1514 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 102.87 73.6914 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 93.98 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 95.25 86.995 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 92.71 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "44e31ff6-9691-4acb-befb-7998ecaaff01")
+		)
+		(pin "3"
+			(uuid "f478a854-ed79-4235-82c9-93aec8eaf3ed")
+		)
+		(pin "4"
+			(uuid "20e33deb-e3b7-4485-9e13-81e8dbf0bc31")
+		)
+		(pin "2"
+			(uuid "57367893-a01f-4b53-9814-c3f672a7680d")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D223")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 222.25 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1ff3b912-8679-407b-9e4c-77e447a78cb3")
+		(property "Reference" "D249"
+			(at 232.41 116.8714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 232.41 119.4114 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 223.52 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 224.79 132.715 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 222.25 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "48edaf9b-f842-47fa-ae59-106fd7db0dfb")
+		)
+		(pin "3"
+			(uuid "cd8623d2-fbe0-480c-b470-a25cd81a244f")
+		)
+		(pin "4"
+			(uuid "578f0c44-b865-4ef5-a744-3af1c0eb4d3e")
+		)
+		(pin "2"
+			(uuid "10f9f3b3-bd88-4491-be3a-4d72796a0dce")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D249")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 48.26 173.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2be88240-5086-4bfe-bd0c-bb4aa658b48c")
+		(property "Reference" "C202"
+			(at 52.07 172.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22uf"
+			(at 52.07 175.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 49.2252 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 48.26 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 48.26 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OLI_ID" "22uf_0603"
+			(at 48.26 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "972bf143-7f2e-4621-bdb6-82969a85175c")
+		)
+		(pin "2"
+			(uuid "0e6fbee8-cd0c-4f24-aa0b-88c368b95053")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "C202")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 157.48 54.61 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2d8b3faa-a47f-4d25-b496-a280a96efbfe")
+		(property "Reference" "D216"
+			(at 167.64 60.9286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 167.64 58.3886 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 158.75 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 160.02 45.085 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 157.48 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9df2f7c6-596d-495b-8ff0-c5b4ea998196")
+		)
+		(pin "3"
+			(uuid "bd3e933d-df88-4a0c-8a12-bd9a410c535f")
+		)
+		(pin "4"
+			(uuid "f4192efe-7d23-4062-a4f0-ccbf209ed498")
+		)
+		(pin "2"
+			(uuid "faaad41a-5970-48ab-95ee-3ee94a501b7c")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D216")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 222.25 54.61 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "30421639-3686-4e22-b6d4-5991a0717981")
+		(property "Reference" "D219"
+			(at 232.41 60.9286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 232.41 58.3886 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 223.52 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 224.79 45.085 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 222.25 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9b696839-2ffb-47ca-8dc5-0801579f30da")
+		)
+		(pin "3"
+			(uuid "496bc603-2133-4e5c-914a-0c206d854246")
+		)
+		(pin "4"
+			(uuid "75aa595b-478c-46da-9aef-0a2a6e751ee6")
+		)
+		(pin "2"
+			(uuid "4a6430db-fd62-41f8-9cd1-2f81b3a7eb84")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D219")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 92.71 146.05 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "31700230-8cc2-4501-bc46-87dbee1adbd1")
+		(property "Reference" "D253"
+			(at 102.87 152.3686 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 102.87 149.8286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 93.98 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 95.25 136.525 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 92.71 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4b6a34b7-79f7-4525-9772-6e36fef6d0b4")
+		)
+		(pin "3"
+			(uuid "30e3f2ff-2e33-4179-9371-b2122368508d")
+		)
+		(pin "4"
+			(uuid "bd9c6443-5082-48a4-ba5c-f2783b5c0975")
+		)
+		(pin "2"
+			(uuid "5b17e6cb-feb2-43c9-90ef-589d4d264b2c")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D253")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 49.53 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3302ef55-72b1-4335-a1d7-b54387a329fa")
+		(property "Reference" "D241"
+			(at 59.69 116.8714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 59.69 119.4114 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 50.8 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 52.07 132.715 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 49.53 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e36727f3-fb1e-4329-a452-200d7b508078")
+		)
+		(pin "3"
+			(uuid "b6876414-930f-47b8-a78c-71d886236e63")
+		)
+		(pin "4"
+			(uuid "dd5760d2-71e9-49a4-a309-763308006c11")
+		)
+		(pin "2"
+			(uuid "7a300a0c-37a6-4fff-983f-142c28afbfbb")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D241")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 168.91 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "36bb1f75-40f7-41af-8573-d2df01c885ca")
+		(property "Reference" "D207"
+			(at 179.07 25.4314 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 179.07 27.9714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 170.18 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 171.45 41.275 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 168.91 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7d28a117-c65c-43b0-9d61-14829286b849")
+		)
+		(pin "3"
+			(uuid "1113857a-1d80-40f0-a836-c7c6f44a96f4")
+		)
+		(pin "4"
+			(uuid "090e95a0-7051-43e5-84d1-f42a742dd279")
+		)
+		(pin "2"
+			(uuid "4456f607-4ccb-44a0-9383-a61b21d111a0")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D207")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 243.84 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3bf5875c-899f-40af-9330-1debeb6305ce")
+		(property "Reference" "D250"
+			(at 254 116.8714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 254 119.4114 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 245.11 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 246.38 132.715 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 243.84 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6555686c-8d00-46a5-8949-f31363a1086b")
+		)
+		(pin "3"
+			(uuid "aa115bf5-ad8c-4c61-bff9-0a0ba77cd284")
+		)
+		(pin "4"
+			(uuid "74b128a4-5aef-470e-8825-ca110230899f")
+		)
+		(pin "2"
+			(uuid "a66c050b-045f-4319-a49f-77834056a0b6")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D250")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 114.3 54.61 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3fb982db-cd39-43a4-a9ef-46792272eb46")
+		(property "Reference" "D214"
+			(at 124.46 60.9286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 124.46 58.3886 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 115.57 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 116.84 45.085 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 114.3 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7f07c079-a8d7-4413-b44e-c083d8e53f6c")
+		)
+		(pin "3"
+			(uuid "916b063f-b675-4942-ba3a-3dbeb1d7b77c")
+		)
+		(pin "4"
+			(uuid "f66f5ee6-d316-4b95-98ba-6874d2d71385")
+		)
+		(pin "2"
+			(uuid "3037341e-df0f-4742-85fe-cc7d9a9fb075")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D214")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 200.66 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "411fd3c7-bbd0-4082-9f7e-5c36895a1a36")
+		(property "Reference" "D228"
+			(at 210.82 71.1514 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 210.82 73.6914 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 201.93 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 203.2 86.995 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 200.66 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "dea91c79-45b9-4557-86ac-f8c2e591f0f3")
+		)
+		(pin "3"
+			(uuid "dd25082f-8fbb-4944-bf95-e1939667edef")
+		)
+		(pin "4"
+			(uuid "42ba9cc9-b072-4088-92fa-7457e38ca27d")
+		)
+		(pin "2"
+			(uuid "3b7ee35e-9473-4c65-8ca2-55539928d8ab")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D228")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 135.89 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "41466e19-668e-4d42-966c-6a3769d184aa")
+		(property "Reference" "D225"
+			(at 146.05 71.1514 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 146.05 73.6914 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 137.16 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 138.43 86.995 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 135.89 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9a265eb0-e6ca-48d0-b4bb-53447a439440")
+		)
+		(pin "3"
+			(uuid "5d1a95b8-bcf0-4f1d-8d61-9109bb74f79b")
+		)
+		(pin "4"
+			(uuid "464a4e96-e9b5-46c7-92e3-20b184b78537")
+		)
+		(pin "2"
+			(uuid "eab38674-395f-41ee-9e37-70a0d03e5e7a")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D225")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 157.48 146.05 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "44b8447b-08ec-45ea-94c6-8bb4b149d204")
+		(property "Reference" "D256"
+			(at 147.32 152.3686 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 147.32 149.8286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 156.21 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 154.94 136.525 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 157.48 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "66254458-6b9f-40b9-90b1-8e3c48561b38")
+		)
+		(pin "3"
+			(uuid "48577aff-e20c-4542-9f1e-d0ad53f42941")
+		)
+		(pin "4"
+			(uuid "bf06e296-983c-415b-9ee6-c37b078dca26")
+		)
+		(pin "2"
+			(uuid "960fc3f8-48fb-4704-a5df-555a608edb73")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D256")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 222.25 100.33 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "454c3eba-a4a2-4153-8df0-72edb644887f")
+		(property "Reference" "D239"
+			(at 232.41 106.6486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 232.41 104.1086 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 223.52 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 224.79 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 222.25 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "42699561-5f23-4cce-a982-687029a15612")
+		)
+		(pin "3"
+			(uuid "5e525d1e-0a74-491d-ad30-dd9c35b5103b")
+		)
+		(pin "4"
+			(uuid "ff9adbe7-b420-4ebb-a23b-87e16f150ada")
+		)
+		(pin "2"
+			(uuid "a6c7315d-0384-4cdf-9295-28c353f652f9")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D239")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 200.66 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "46767222-a82d-4fbd-975e-2860f0a875f3")
+		(property "Reference" "D248"
+			(at 210.82 116.8714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 210.82 119.4114 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 201.93 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 203.2 132.715 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 200.66 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0a8b4ae0-d1b6-451d-bfe9-c534e539020b")
+		)
+		(pin "3"
+			(uuid "d32229f7-db78-4fa0-82ea-f49ecfb2bcb3")
+		)
+		(pin "4"
+			(uuid "f751813a-eb9e-41ec-a6ef-a4bb0082aab0")
+		)
+		(pin "2"
+			(uuid "f109076e-337c-489d-aed4-4b68affce701")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D248")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 243.84 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4e56c9c7-0bd7-4541-af15-febb6cc92c30")
+		(property "Reference" "D230"
+			(at 254 71.1514 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 254 73.6914 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 245.11 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 246.38 86.995 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 243.84 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "29619ff8-00f1-4949-8ca1-4a601921deaa")
+		)
+		(pin "3"
+			(uuid "b03b68bc-9413-4bdd-a45e-030347d24f5c")
+		)
+		(pin "4"
+			(uuid "3a1e828f-21d2-4aff-a688-dcabc5892044")
+		)
+		(pin "2"
+			(uuid "4c00f173-f9bc-4e12-a47d-13c8210d15ed")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D230")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 135.89 146.05 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "50842c4a-3483-4a10-b254-d2f3c59d0c20")
+		(property "Reference" "D255"
+			(at 146.05 152.3686 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 146.05 149.8286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 137.16 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 138.43 136.525 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 135.89 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "31ba1984-5ff2-471f-b135-74e35bb5e499")
+		)
+		(pin "3"
+			(uuid "f4b422a3-d35b-48cd-a5d0-ad9f7b6be1b4")
+		)
+		(pin "4"
+			(uuid "1e4a8bf1-2174-4a99-81de-1ce24b1b1808")
+		)
+		(pin "2"
+			(uuid "f1292407-1ed8-425a-9ab4-05b3fce91e9f")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D255")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 49.53 100.33 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "52f64470-1752-4c37-9b08-90c2475b017e")
+		(property "Reference" "D231"
+			(at 59.69 106.6486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 59.69 104.1086 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 50.8 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 52.07 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 49.53 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2cf62e77-baab-4311-b703-6603a9faf485")
+		)
+		(pin "3"
+			(uuid "461d8723-550b-4977-918f-272ec033ad99")
+		)
+		(pin "4"
+			(uuid "2811b839-dca2-4e3b-a4bf-57dff0df43db")
+		)
+		(pin "2"
+			(uuid "9b5dbb0b-34f1-4857-a6f2-7c7cc66fe1a4")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D231")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 186.69 43.18 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "56f43ae2-b9f8-436f-bfe9-581e2594b543")
+		(property "Reference" "#FLG202"
+			(at 186.69 41.275 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 186.69 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 186.69 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 186.69 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 186.69 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "33413f0a-eda0-4218-8380-769e23280411")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "#FLG202")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 39.37 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "576fedb0-6d7a-4a36-86a3-0a9a847a425f")
+		(property "Reference" "D204"
+			(at 49.53 25.4314 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 49.53 27.9714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 40.64 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 41.91 41.275 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 39.37 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b65a9c8d-0c0d-4b24-bb03-252c9e550adf")
+		)
+		(pin "3"
+			(uuid "089435c3-61ea-49c7-87c6-61c5d8e06b8a")
+		)
+		(pin "4"
+			(uuid "88639bc0-4ee1-4b51-ad45-073ab346a273")
+		)
+		(pin "2"
+			(uuid "b7ce19d4-b422-49f3-a7b9-35059c164e29")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D204")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 34.29 173.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "588a3c98-b402-4a72-97c2-39c1ca640696")
+		(property "Reference" "C201"
+			(at 38.1 172.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22uf"
+			(at 38.1 175.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 35.2552 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 34.29 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 34.29 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OLI_ID" "22uf_0603"
+			(at 34.29 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a7a6ef12-d2ae-4825-b0b3-d4bba0d726e4")
+		)
+		(pin "2"
+			(uuid "1ea928d8-89c9-41ef-a537-a89e70fb7623")
+		)
+		(instances
+			(project ""
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "C201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 199.39 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5978eb95-73e9-45ec-9e72-0a2ff0a8085d")
+		(property "Reference" "D201"
+			(at 209.55 25.4314 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 209.55 27.9714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 200.66 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 201.93 41.275 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 199.39 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3f2fa538-a6c4-4ffc-b07d-255dbd707845")
+		)
+		(pin "3"
+			(uuid "3d3bf5be-a220-40ce-81f6-7a66eaf70a48")
+		)
+		(pin "4"
+			(uuid "a658b241-263f-4e5f-97da-c73f1a0f604e")
+		)
+		(pin "2"
+			(uuid "94ea6cf2-0f56-4d88-95a7-bedb4d18c4a0")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 92.71 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5a1487c3-9775-430e-b01f-1779e9a8e42d")
+		(property "Reference" "D243"
+			(at 102.87 116.8714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 102.87 119.4114 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 93.98 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 95.25 132.715 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 92.71 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9889dd56-9845-40f3-b2f7-5c7160f2fdcc")
+		)
+		(pin "3"
+			(uuid "ae891b96-ba98-4fb9-ae32-2743dca1aacd")
+		)
+		(pin "4"
+			(uuid "378c420b-848b-41fc-902c-5fcce8495149")
+		)
+		(pin "2"
+			(uuid "afa0598b-3333-4fe4-bd09-87fc0546a21a")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D243")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 135.89 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5a750246-5737-4092-a52b-baa1285d1242")
+		(property "Reference" "D245"
+			(at 146.05 116.8714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 146.05 119.4114 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 137.16 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 138.43 132.715 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 135.89 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e37c27f1-6760-46c2-bdc7-a30851cd04bd")
+		)
+		(pin "3"
+			(uuid "3a12bc64-3592-43a4-b61c-26cc1d06749e")
+		)
+		(pin "4"
+			(uuid "f4c58b81-e1d7-4e42-bd65-34d640c36102")
+		)
+		(pin "2"
+			(uuid "e853b315-f0e0-4dca-ae13-3c3ef7a29ffc")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D245")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 243.84 100.33 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5ce1afe4-03f4-4b0e-9ea0-c5941d146a12")
+		(property "Reference" "D240"
+			(at 254 106.6486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 254 104.1086 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 245.11 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 246.38 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 243.84 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d7f58181-8fa9-4dc2-bd6d-3ad753d91152")
+		)
+		(pin "3"
+			(uuid "eef9b9f2-b759-47d7-962b-9f9fd11d4c96")
+		)
+		(pin "4"
+			(uuid "9e70091f-d3db-4903-b099-f843a2419768")
+		)
+		(pin "2"
+			(uuid "d42e0d43-177a-4f72-8603-161147e46cb1")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D240")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 114.3 146.05 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5faa1276-160c-4186-abe1-37fbabf883f9")
+		(property "Reference" "D254"
+			(at 124.46 152.3686 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 124.46 149.8286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 115.57 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 116.84 136.525 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 114.3 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "86aba547-c580-4455-b2ac-199e30c676ad")
+		)
+		(pin "3"
+			(uuid "3ccd1370-ebfc-4c76-9c7f-def9afb95962")
+		)
+		(pin "4"
+			(uuid "deb1d2c5-ea6f-4baf-af54-e6cdc0610b30")
+		)
+		(pin "2"
+			(uuid "9484766d-d6c8-4c1a-87c1-d8c2fc207584")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D254")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 62.23 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "600fec3e-d5b6-4b47-b2c3-12ec9cfeb83d")
+		(property "Reference" "D209"
+			(at 72.39 25.4314 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 72.39 27.9714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 63.5 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 64.77 41.275 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 62.23 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "571d66d7-b1d2-497a-8403-51c81e0e86a6")
+		)
+		(pin "3"
+			(uuid "5c7b3660-acb2-4ee2-8961-239898630875")
+		)
+		(pin "4"
+			(uuid "8c6b8991-336d-44da-9c31-f6fc97371ec2")
+		)
+		(pin "2"
+			(uuid "bf0106bf-ad04-48d6-a176-10c73b1827eb")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D209")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 114.3 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "64922053-f3c3-415d-88e8-7bd1f2909d14")
+		(property "Reference" "D244"
+			(at 124.46 116.8714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 124.46 119.4114 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 115.57 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 116.84 132.715 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 114.3 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "34e879d9-6d89-4211-893a-0bb7ae8ade4c")
+		)
+		(pin "3"
+			(uuid "233ea4fc-40f4-4aa0-9612-c7d732ed1726")
+		)
+		(pin "4"
+			(uuid "444044c5-212c-4196-bc36-5bd1eed09bf1")
+		)
+		(pin "2"
+			(uuid "3de49b71-2fd5-4266-ac32-e86b6e61b689")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D244")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 71.12 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6a800f0c-896a-4b1a-82f8-aeb9b332f709")
+		(property "Reference" "D222"
+			(at 81.28 71.1514 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 81.28 73.6914 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 72.39 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 73.66 86.995 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 71.12 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3cb11471-7821-4ede-8598-c7300c8f6d06")
+		)
+		(pin "3"
+			(uuid "c7a6ac77-62da-4343-9948-cf2864174db5")
+		)
+		(pin "4"
+			(uuid "2eda8875-76db-4382-8abe-fcc7e7744ffa")
+		)
+		(pin "2"
+			(uuid "3ba15668-ab06-482a-b56e-721147e2e184")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D222")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 93.98 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6bfd174b-5dd4-448b-8e7f-4223ef2ce059")
+		(property "Reference" "D203"
+			(at 104.14 25.4314 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 104.14 27.9714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 95.25 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 96.52 41.275 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 93.98 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f15645a2-d610-4552-931b-8aad918df969")
+		)
+		(pin "3"
+			(uuid "45092435-ef61-4059-8206-1270d0c14c6b")
+		)
+		(pin "4"
+			(uuid "00b96b34-b104-43f6-91cc-2c563a37cbdd")
+		)
+		(pin "2"
+			(uuid "24b89638-938a-4ec5-b8ca-d3b0d8974639")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D203")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 49.53 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6d35db14-dfdf-49aa-928b-04347cdbda70")
+		(property "Reference" "D221"
+			(at 59.69 71.1514 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 59.69 73.6914 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 50.8 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 52.07 86.995 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 49.53 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4d1a5915-c0a0-4e40-9683-761c62243605")
+		)
+		(pin "3"
+			(uuid "8135cf09-fcb1-4620-bd30-d8e1b20d607c")
+		)
+		(pin "4"
+			(uuid "13a15c2b-7530-4a40-aa32-60ab96a6f593")
+		)
+		(pin "2"
+			(uuid "6549a049-a006-44ce-86c0-f4b6199a61f3")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D221")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 148.59 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6de8bcd3-ccfb-417a-bef4-029c481ec936")
+		(property "Reference" "D202"
+			(at 158.75 25.4314 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 158.75 27.9714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_SK6805_PLCC4_2.4x2.7mm_P1.3mm"
+			(at 149.86 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 151.13 41.275 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 148.59 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4ae20df8-ace2-4517-bea4-37836f9d3bc0")
+		)
+		(pin "3"
+			(uuid "e05056d5-f191-443b-9c8d-4bd61af8ebfe")
+		)
+		(pin "4"
+			(uuid "8794d4ac-a9bd-4321-8014-70521fc0e54b")
+		)
+		(pin "2"
+			(uuid "d0f31cbf-eb29-4544-b496-932bf7f26684")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D202")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 200.66 54.61 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6f985913-c22c-4134-a2a8-cf780956e603")
+		(property "Reference" "D218"
+			(at 210.82 60.9286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 210.82 58.3886 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 201.93 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 203.2 45.085 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 200.66 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bdf3c826-b739-41a5-9bae-5c51cf49eab2")
+		)
+		(pin "3"
+			(uuid "0df626e7-a4fa-4cc7-9ecc-8c415f41685b")
+		)
+		(pin "4"
+			(uuid "e0a11ab9-60e3-40c7-a410-c31ec6d6327e")
+		)
+		(pin "2"
+			(uuid "5ead65a6-6339-4776-ba78-dc31e7ac008a")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D218")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 71.12 100.33 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "73b46898-0548-4325-aa41-54af8c8b9838")
+		(property "Reference" "D232"
+			(at 81.28 106.6486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 81.28 104.1086 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 72.39 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 73.66 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 71.12 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "feb8afda-6f7a-4604-b081-a0aca82054f2")
+		)
+		(pin "3"
+			(uuid "afdcc167-6aea-4cd0-a56f-fd9695818185")
+		)
+		(pin "4"
+			(uuid "b55919d5-6bf2-485a-a088-44cbaf32f9ab")
+		)
+		(pin "2"
+			(uuid "68b82023-fb6b-4358-8079-db01ee42a6e4")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D232")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 92.71 54.61 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "74964dc2-2b58-42b8-9f60-6de1aa90bf26")
+		(property "Reference" "D213"
+			(at 102.87 60.9286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 102.87 58.3886 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 93.98 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 95.25 45.085 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 92.71 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ca2cf090-fb1d-4d23-a61d-85b6168d4162")
+		)
+		(pin "3"
+			(uuid "ceae7c31-41ac-4b96-89b8-4db401e3e882")
+		)
+		(pin "4"
+			(uuid "240875c9-7eb7-4df2-820c-18e3a5490146")
+		)
+		(pin "2"
+			(uuid "b53fca8a-b2d5-4036-aca5-f450ee775733")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D213")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 76.2 173.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7c8c6f7e-cf78-45ff-b532-9dca6711c90b")
+		(property "Reference" "C204"
+			(at 80.01 172.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22uf"
+			(at 80.01 175.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 77.1652 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 76.2 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 76.2 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OLI_ID" "22uf_0603"
+			(at 76.2 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "34eb2614-5f61-4e96-b1c8-06b3cf5f379b")
+		)
+		(pin "2"
+			(uuid "4e5e4d33-ef6d-4e1d-8661-733075fc9bf7")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "C204")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 179.07 54.61 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "81d1f742-d4dd-444e-9804-e5c1e4ad7423")
+		(property "Reference" "D217"
+			(at 189.23 60.9286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 189.23 58.3886 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 180.34 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 181.61 45.085 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 179.07 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fa4de980-28b2-426e-8a79-b3bff8b90cd6")
+		)
+		(pin "3"
+			(uuid "a5279947-bbd8-4669-8f07-1387f445981f")
+		)
+		(pin "4"
+			(uuid "fd50439b-1162-49fb-9751-b6095e21fab5")
+		)
+		(pin "2"
+			(uuid "9f01442b-27b6-4f78-81c6-cabfc697a1ff")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D217")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 71.12 54.61 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8293dbc0-2ad4-49de-9b99-45f2753888b7")
+		(property "Reference" "D212"
+			(at 81.28 60.9286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 81.28 58.3886 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 72.39 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 73.66 45.085 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 71.12 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "714aac24-6337-4f0e-916d-277e0fb41a3f")
+		)
+		(pin "3"
+			(uuid "b86fc484-acf1-4ddb-a2a3-8971ec11aba1")
+		)
+		(pin "4"
+			(uuid "5899b79d-1768-40c9-812f-35e0904bfbc1")
+		)
+		(pin "2"
+			(uuid "747e35d1-a65a-4097-a3f4-ab8be916413f")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D212")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 157.48 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8d0e1071-7a87-4dde-941a-e9abda996b3f")
+		(property "Reference" "D246"
+			(at 167.64 116.8714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 167.64 119.4114 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 158.75 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 160.02 132.715 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 157.48 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9fcb654f-19a8-41e2-adbf-f94eb885987b")
+		)
+		(pin "3"
+			(uuid "61c9e3ed-4abe-4132-aaaa-e3a0c7bad71c")
+		)
+		(pin "4"
+			(uuid "fb84e6ed-8da1-4706-8c2e-839567f8071d")
+		)
+		(pin "2"
+			(uuid "38c8f7ad-33a1-4afb-8a85-33ffd2ae2899")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D246")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 243.84 54.61 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8d5f072e-a094-4217-9ee3-928d20090208")
+		(property "Reference" "D220"
+			(at 254 60.9286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 254 58.3886 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 245.11 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 246.38 45.085 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 243.84 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b30ca145-3423-43b1-aa07-d5c825094c23")
+		)
+		(pin "3"
+			(uuid "d97153d8-1d08-4699-9a3e-6b311f037a16")
+		)
+		(pin "4"
+			(uuid "2d1ac458-e442-45e6-b9cd-9c781f70dd82")
+		)
+		(pin "2"
+			(uuid "2c614b84-37b3-46f7-871c-dad8d2a1d1ca")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D220")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 179.07 146.05 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "90931b82-f4d0-4609-ab32-d59aabec10f6")
+		(property "Reference" "D257"
+			(at 168.91 152.3686 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 168.91 149.8286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 177.8 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 176.53 136.525 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 179.07 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "149271bd-15fd-4276-9bb5-1d2624e2e6ab")
+		)
+		(pin "3"
+			(uuid "6895ac19-b777-4ae1-9fc3-2037c1343e1a")
+		)
+		(pin "4"
+			(uuid "45989af0-f535-475b-8fe4-78defe9adc93")
+		)
+		(pin "2"
+			(uuid "836bd56e-2a35-4956-be15-e397761829db")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D257")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 132.08 173.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9670c68e-fba6-4e1d-87cb-b1b848e39b69")
+		(property "Reference" "C208"
+			(at 135.89 172.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22uf"
+			(at 135.89 175.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 133.0452 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 132.08 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 132.08 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OLI_ID" "22uf_0603"
+			(at 132.08 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "96d377ca-107e-4134-90d5-fbda9544c106")
+		)
+		(pin "2"
+			(uuid "76ca0ad6-7bd9-46fe-a65c-a58a1bee770a")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "C208")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 157.48 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "96e82a96-11c7-4bfd-a90c-f9b4f2a9c2a2")
+		(property "Reference" "D226"
+			(at 167.64 71.1514 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 167.64 73.6914 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 158.75 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 160.02 86.995 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 157.48 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c01f0389-ca16-47e6-b235-c59b987d9873")
+		)
+		(pin "3"
+			(uuid "537eb3f1-9a97-4d4d-966b-98ac1f506aa6")
+		)
+		(pin "4"
+			(uuid "af82d407-ca65-4850-b4df-bd47f990ae94")
+		)
+		(pin "2"
+			(uuid "c82fc4dc-8b4b-4adf-ad4e-627375df2b4f")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D226")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 114.3 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9c09601b-f529-4af5-8d28-56b396fdfe4d")
+		(property "Reference" "D224"
+			(at 124.46 71.1514 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 124.46 73.6914 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 115.57 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 116.84 86.995 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 114.3 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "90c8a5e3-2084-44d6-975d-1b3143ac6e59")
+		)
+		(pin "3"
+			(uuid "e76ceab0-d3b9-417d-881c-19eab9338446")
+		)
+		(pin "4"
+			(uuid "f59415da-ea6b-44d1-bbd0-72a2fa92e42c")
+		)
+		(pin "2"
+			(uuid "e30dd1b0-9a1d-4d0c-8076-7e96053689a0")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D224")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 114.3 100.33 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a17e54ea-a833-4c25-af6f-8ffe54cee80a")
+		(property "Reference" "D234"
+			(at 124.46 106.6486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 124.46 104.1086 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 115.57 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 116.84 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 114.3 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b038abca-9f94-4285-91f4-5c86a25e2a36")
+		)
+		(pin "3"
+			(uuid "410a44a7-15e8-4512-a59d-5859e4d87139")
+		)
+		(pin "4"
+			(uuid "00ef3180-6199-4769-944b-7a5c9293acda")
+		)
+		(pin "2"
+			(uuid "bde2d837-4fce-4872-9433-64205365a9df")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D234")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 114.3 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a8d32b5e-03de-49ca-8792-b90b29cdb2dc")
+		(property "Reference" "D208"
+			(at 124.46 25.4314 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 124.46 27.9714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 115.57 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 116.84 41.275 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 114.3 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7f75534b-0fda-4fad-b6aa-c163ca63def0")
+		)
+		(pin "3"
+			(uuid "21eb54ba-dec9-4d0b-b624-494c9556fc62")
+		)
+		(pin "4"
+			(uuid "675b0f26-2c19-4a8b-a02b-8df46a7daea2")
+		)
+		(pin "2"
+			(uuid "f513836a-3794-461d-a530-5f216dab7cef")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D208")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 49.53 54.61 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ab4c441d-ac85-4f28-ace7-fa6e63130c7a")
+		(property "Reference" "D211"
+			(at 59.69 60.9286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 59.69 58.3886 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 50.8 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 52.07 45.085 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 49.53 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "add69b4a-9573-4585-b3a1-56bc448b1da8")
+		)
+		(pin "3"
+			(uuid "c9bdd3ce-a4ee-4b9c-93b1-6c0522e52be1")
+		)
+		(pin "4"
+			(uuid "b4588fda-cec4-4c50-980c-ec145b8b69fd")
+		)
+		(pin "2"
+			(uuid "19fc3752-fe07-48db-87f8-54c471362957")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D211")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 200.66 146.05 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ab5ce43f-07fe-40f9-9ef9-9af3b66d214d")
+		(property "Reference" "D258"
+			(at 190.5 152.3686 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 190.5 149.8286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 199.39 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 198.12 136.525 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 200.66 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1b355beb-9f25-448d-8e22-a39b43fdb74b")
+		)
+		(pin "3"
+			(uuid "ad3756cd-84f9-4b6e-b525-c5f0e03db158")
+		)
+		(pin "4"
+			(uuid "93393c08-334e-43ff-bd8a-31443658aa02")
+		)
+		(pin "2"
+			(uuid "46d77ea8-2559-40c8-ac2e-562bfd84bf8d")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D258")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 135.89 54.61 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b6699083-16a0-480b-a221-e6388b141cba")
+		(property "Reference" "D215"
+			(at 146.05 60.9286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 146.05 58.3886 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 137.16 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 138.43 45.085 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 135.89 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "27b7c8cf-a8b4-4c2a-86a9-c29fb96d3ebf")
+		)
+		(pin "3"
+			(uuid "5d2b5b29-7b72-4943-8d0d-35636e2e6917")
+		)
+		(pin "4"
+			(uuid "e28c7f64-428b-435b-b973-a8f9bce56aaf")
+		)
+		(pin "2"
+			(uuid "cef38c5d-70c4-4179-8910-96f3ccaa2afe")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D215")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 135.89 100.33 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b8e4f4c9-bc1a-4264-92e8-a36ea4ad4e1b")
+		(property "Reference" "D235"
+			(at 146.05 106.6486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 146.05 104.1086 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 137.16 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 138.43 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 135.89 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "498cdac8-e12d-4b0a-acd4-ed640c21152b")
+		)
+		(pin "3"
+			(uuid "058103f1-2fa6-4b29-9d67-86d87487135e")
+		)
+		(pin "4"
+			(uuid "6694fb5c-5ac0-4226-99df-411185a2a3a9")
+		)
+		(pin "2"
+			(uuid "cf48569d-4b7f-4d16-89cd-f1ad9c2fa460")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D235")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 200.66 100.33 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bc4a0d1b-75d1-444e-afcb-34c67187c30f")
+		(property "Reference" "D238"
+			(at 210.82 106.6486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 210.82 104.1086 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 201.93 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 203.2 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 200.66 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ce494b3e-7057-4a05-981d-d5ae45682582")
+		)
+		(pin "3"
+			(uuid "107bd902-16d2-44b4-b899-d5c2ce1afcc2")
+		)
+		(pin "4"
+			(uuid "c85caf71-99ac-40a9-8ea9-a5573ef3449c")
+		)
+		(pin "2"
+			(uuid "80f473fb-d892-454b-bc94-b8bc9e195fb5")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D238")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 246.38 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c2140d8b-e46f-460b-b8ee-c8fbcaef004b")
+		(property "Reference" "D210"
+			(at 256.54 25.4314 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 256.54 27.9714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 247.65 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 248.92 41.275 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 246.38 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e303ffc0-ce8c-4921-9d59-a9bf1228c1b9")
+		)
+		(pin "3"
+			(uuid "3af76825-03e2-4878-bf30-ebf611e8d995")
+		)
+		(pin "4"
+			(uuid "db1fb1a2-ede6-45dc-972f-f5714e826ee5")
+		)
+		(pin "2"
+			(uuid "3b598ded-1af8-4c06-9409-9f4e1f6d88a0")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D210")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 49.53 146.05 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c69b9186-b094-4a76-9ce3-0f77f87868be")
+		(property "Reference" "D251"
+			(at 59.69 152.3686 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 59.69 149.8286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 50.8 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 52.07 136.525 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 49.53 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "dc4b4bd8-dd44-443e-875b-574f6232d1d7")
+		)
+		(pin "3"
+			(uuid "bd4c1a0a-d9f6-496a-bb3a-2fcf971e14a3")
+		)
+		(pin "4"
+			(uuid "53e13951-289a-4a25-8abe-64e26d122bf2")
+		)
+		(pin "2"
+			(uuid "9bf64583-44e3-43a2-be82-21e06208c91c")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D251")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 266.7 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c7c81ab2-e351-4be5-8103-3948021292e5")
+		(property "Reference" "D205"
+			(at 276.86 25.4314 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 276.86 27.9714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 267.97 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 269.24 41.275 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 266.7 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "51df20b7-d606-4b98-ae10-c291511dac9d")
+		)
+		(pin "3"
+			(uuid "c8b62ed5-27be-4809-b6fc-7f3f01d90388")
+		)
+		(pin "4"
+			(uuid "73139292-378a-4407-aecf-0acecbd2a4bf")
+		)
+		(pin "2"
+			(uuid "2b8b0900-183a-4fab-96a2-733e07b668c6")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D205")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 179.07 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c92ecacb-9411-49a3-adbf-61e562bb4c4c")
+		(property "Reference" "D247"
+			(at 189.23 116.8714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 189.23 119.4114 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 180.34 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 181.61 132.715 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 179.07 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c2924fab-9d80-477f-bbe7-c9c8bd455c99")
+		)
+		(pin "3"
+			(uuid "556b9feb-a881-48a4-8bb6-24c065cfb541")
+		)
+		(pin "4"
+			(uuid "eb49709f-2f59-42ef-b976-dbb425b315e1")
+		)
+		(pin "2"
+			(uuid "4ab181d2-3cb9-47c6-a938-1850851eb937")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D247")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 243.84 146.05 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cedb8ba9-370c-4e4d-84b6-6a69e6d4aefd")
+		(property "Reference" "D260"
+			(at 233.68 152.3686 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 233.68 149.8286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 242.57 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 241.3 136.525 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 243.84 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "82d2f4c3-71e1-45bc-a185-7b8b3852e2e3")
+		)
+		(pin "3"
+			(uuid "9d878686-f992-49b9-9f98-a5640da30ad3")
+		)
+		(pin "4"
+			(uuid "205fa9fe-e309-4ffc-8096-fa2031a84eed")
+		)
+		(pin "2"
+			(uuid "6eac10ed-ec86-434e-951a-214d34c8bbcf")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D260")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 62.23 173.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d0a67200-a2c3-415d-b36f-a8ca522f54ea")
+		(property "Reference" "C203"
+			(at 66.04 172.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22uf"
+			(at 66.04 175.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 63.1952 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 62.23 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 62.23 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OLI_ID" "22uf_0603"
+			(at 62.23 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "59c6a40d-0727-41f2-861c-3c04e76efc78")
+		)
+		(pin "2"
+			(uuid "8c89e45c-6e82-406f-a264-9c478da9cc66")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "C203")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 179.07 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d2b29bc7-4fbf-4fba-bdb8-27f57d140ce4")
+		(property "Reference" "D227"
+			(at 189.23 71.1514 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 189.23 73.6914 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 180.34 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 181.61 86.995 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 179.07 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b9e61e3a-5bfe-4e92-90a6-fa654c7c4ad0")
+		)
+		(pin "3"
+			(uuid "786bf88b-5588-4281-88a4-e53ea822e16d")
+		)
+		(pin "4"
+			(uuid "74d967a4-2c79-4eb3-a00b-25150efa1aa8")
+		)
+		(pin "2"
+			(uuid "2eaeea13-6dd8-4061-98cf-5b066e2b3a57")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D227")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 222.25 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dac6d2f1-3ea2-42a5-9dad-8391b7dc5f47")
+		(property "Reference" "D229"
+			(at 232.41 71.1514 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 232.41 73.6914 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 223.52 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 224.79 86.995 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 222.25 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "883f40fe-e254-4831-a48b-1d5676aea82c")
+		)
+		(pin "3"
+			(uuid "37f849dd-6f4b-4848-ac60-67523c20ffa7")
+		)
+		(pin "4"
+			(uuid "875ca09d-3dca-4fe1-80e3-14a9df98940d")
+		)
+		(pin "2"
+			(uuid "964416ae-9bf7-4a58-a417-4ad011177835")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D229")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 160.02 173.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dd6d730c-73d9-4f00-92ff-7ddcae545191")
+		(property "Reference" "C210"
+			(at 163.83 172.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22uf"
+			(at 163.83 175.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 160.9852 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 160.02 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 160.02 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OLI_ID" "22uf_0603"
+			(at 160.02 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4663f0bd-b6bb-45c9-9c77-2568f28b0a53")
+		)
+		(pin "2"
+			(uuid "1a5c6da9-7685-4ae8-96a0-2171848b2f2e")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "C210")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 118.11 173.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e035996e-e419-4c19-97bc-d2f25084b034")
+		(property "Reference" "C207"
+			(at 121.92 172.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22uf"
+			(at 121.92 175.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 119.0752 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 118.11 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 118.11 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OLI_ID" "22uf_0603"
+			(at 118.11 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0bc54e5b-b66c-47fc-84e8-b0ebb2329e11")
+		)
+		(pin "2"
+			(uuid "4e505f5f-8b10-45d0-8525-96179b04d95d")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "C207")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 179.07 100.33 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ef7ddbe1-6244-4255-9d20-b0c94ac61f2e")
+		(property "Reference" "D237"
+			(at 189.23 106.6486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 189.23 104.1086 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 180.34 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 181.61 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 179.07 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3541f9f5-b177-4621-a700-ae4f543245cf")
+		)
+		(pin "3"
+			(uuid "5b074f08-be4e-446d-af37-5dfd9189c2c8")
+		)
+		(pin "4"
+			(uuid "2505c07f-04e7-4d73-aa2d-63a054e9e517")
+		)
+		(pin "2"
+			(uuid "398e0535-7950-477a-9b52-f9adacb23025")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D237")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 219.71 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f04e434e-eb98-4ae9-bfe2-3aa681b766d0")
+		(property "Reference" "D206"
+			(at 224.79 26.035 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right bottom)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 220.98 37.465 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_SK6805_PLCC4_2.4x2.7mm_P1.3mm"
+			(at 220.98 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 222.25 41.275 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 219.71 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d3cda8b8-5973-4ae9-8237-2bdc60303008")
+		)
+		(pin "3"
+			(uuid "c6d9c309-c56e-451e-9af7-8c1ef4b30e3d")
+		)
+		(pin "4"
+			(uuid "f28acae3-89f4-4c84-a8b0-03bf52d2bd8d")
+		)
+		(pin "2"
+			(uuid "8547a433-b2fc-46c4-9890-4c9071a33ae5")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D206")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 90.17 173.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f3aa825d-cd07-4b8f-a96c-d53458f7e41c")
+		(property "Reference" "C205"
+			(at 93.98 172.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22uf"
+			(at 93.98 175.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+			(at 91.1352 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 90.17 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 90.17 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "OLI_ID" "22uf_0603"
+			(at 90.17 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cc9c2191-eb16-4636-8fdc-71a09fd747b4")
+		)
+		(pin "2"
+			(uuid "49ccad39-39db-49db-bf69-ed729c25d885")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "C205")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 185.42 19.05 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fbb946aa-1e2d-4bc4-85cf-5b0835476bf9")
+		(property "Reference" "#FLG201"
+			(at 185.42 17.145 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 185.42 13.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 185.42 19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 185.42 19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 185.42 19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c5af5799-136f-41ce-807f-e5d34edeb10c")
+		)
+		(instances
+			(project ""
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "#FLG201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 222.25 146.05 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fdb54675-1d8a-4160-bb3d-68832df1e9ed")
+		(property "Reference" "D259"
+			(at 212.09 152.3686 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 212.09 149.8286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 220.98 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 219.71 136.525 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 222.25 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "66be1f28-c90e-4884-b269-d16f9bb456da")
+		)
+		(pin "3"
+			(uuid "bd793cbe-53d9-4e0c-9735-ae40b5e826c8")
+		)
+		(pin "4"
+			(uuid "af3f4bca-ca63-40b2-86f5-60480bb832e6")
+		)
+		(pin "2"
+			(uuid "527a1bff-5d5e-41af-bfa0-5d5a7a3d48e4")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D259")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LED:SK6805")
+		(at 157.48 100.33 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fff0c8b5-ca13-4d01-b688-1c1bb7b4e551")
+		(property "Reference" "D236"
+			(at 167.64 106.6486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SK6805"
+			(at 167.64 104.1086 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "xmas:LED_SK6812_1.5x1.5mm"
+			(at 158.75 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/product-files/3484/3484_Datasheet.pdf"
+			(at 160.02 90.805 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "RGB LED with integrated controller"
+			(at 157.48 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "942e6bf6-0d2f-415b-a7ac-496c810ac04a")
+		)
+		(pin "3"
+			(uuid "48a41b4a-741d-4dc8-abfb-4e606f5c9ce9")
+		)
+		(pin "4"
+			(uuid "6e3a6c5b-8718-429d-b114-473db8ff2f64")
+		)
+		(pin "2"
+			(uuid "70fa0f24-7903-4cdc-bdae-02f964ebdf96")
+		)
+		(instances
+			(project "aity-xmas-tree-2026"
+				(path "/921a4d74-f9da-4055-9c51-8b549a0cefc0/008b473b-912b-4d85-8a5c-068e9112c08a"
+					(reference "D236")
+					(unit 1)
+				)
+			)
+		)
+	)
+)
