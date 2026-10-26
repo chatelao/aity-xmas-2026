@@ -1,0 +1,150 @@
+name: Compile Examples to UF2
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  find-examples:
+    runs-on: ubuntu-latest
+    outputs:
+      examples: ${{ steps.set-examples.outputs.examples }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - id: set-examples
+        name: Discover Arduino Example Directories
+        run: |
+          examples_json=$(find examples -mindepth 1 -maxdepth 1 -type d -exec test -e "{}/{}.ino" \; -print | xargs -I {} basename {} | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          if [ -z "$examples_json" ] || [ "$examples_json" = "[]" ]; then
+            # Fallback if no sketch dir matched directory name
+            examples_json=$(find examples -name "*.ino" -exec dirname {} \; | xargs -I {} basename {} | sort -u | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          fi
+          echo "examples=${examples_json}" >> $GITHUB_OUTPUT
+
+  compile:
+    needs: find-examples
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        example: ${{ fromJson(needs.find-examples.outputs.examples) }}
+        board:
+          - name: xiao_rp2040
+            fqbn: rp2040:rp2040:seeed_xiao_rp2040
+            core_url: https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+            core_package: rp2040:rp2040
+            family_id: "0xe48bff56"
+          - name: xiao_esp32c6
+            fqbn: esp32:esp32:XIAO_ESP32C6
+            core_url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+            core_package: esp32:esp32
+            family_id: "0x540ddf62"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install uf2conv
+        run: |
+          curl -sSL https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2conv.py -o uf2conv.py
+          curl -sSL https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2families.json -o uf2families.json
+          chmod +x uf2conv.py
+
+      - name: Install Core and Libraries
+        run: |
+          arduino-cli config init --overwrite
+          arduino-cli config set board_manager.additional_urls ${{ matrix.board.core_url }}
+          arduino-cli core update-index
+          arduino-cli core install ${{ matrix.board.core_package }}
+          arduino-cli lib install FastLED@3.9.14
+
+      - name: Compile Sketch
+        run: |
+          sketch_path="examples/${{ matrix.example }}"
+          output_dir="build_output"
+          mkdir -p "$output_dir"
+
+          arduino-cli compile --library . --fqbn ${{ matrix.board.fqbn }} --output-dir "$output_dir" "$sketch_path"
+
+      - name: Convert to UF2
+        run: |
+          output_dir="build_output"
+          target_uf2="${{ matrix.example }}_${{ matrix.board.name }}.uf2"
+
+          # Check if .uf2 was directly generated (e.g., Earle Philhower RP2040 core)
+          uf2_generated=$(find "$output_dir" -maxdepth 1 -name "*.uf2" | head -n 1)
+          if [ -n "$uf2_generated" ] && [ -f "$uf2_generated" ]; then
+            cp "$uf2_generated" "$target_uf2"
+          else
+            # Prefer merged.bin or main sketch .bin over bootloader/partitions .bin
+            bin_file=""
+            if [ -f "$output_dir/${{ matrix.example }}.ino.merged.bin" ]; then
+              bin_file="$output_dir/${{ matrix.example }}.ino.merged.bin"
+            elif [ -f "$output_dir/${{ matrix.example }}.ino.bin" ]; then
+              bin_file="$output_dir/${{ matrix.example }}.ino.bin"
+            else
+              bin_file=$(find "$output_dir" -maxdepth 1 -name "*.bin" ! -name "*bootloader*" ! -name "*partitions*" | head -n 1)
+            fi
+
+            if [ -z "$bin_file" ] || [ ! -f "$bin_file" ]; then
+              bin_file=$(find "$output_dir" -maxdepth 1 \( -name "*.hex" -o -name "*.elf" \) | head -n 1)
+            fi
+
+            if [ -z "$bin_file" ] || [ ! -f "$bin_file" ]; then
+              echo "Error: No suitable output binary found in $output_dir"
+              ls -la "$output_dir"
+              exit 1
+            fi
+
+            echo "Converting binary file: $bin_file to UF2..."
+            python3 uf2conv.py -c -b 0x0 -f ${{ matrix.board.family_id }} -o "$target_uf2" "$bin_file"
+          fi
+
+          mkdir -p dist
+          cp "$target_uf2" dist/
+
+      - name: Upload UF2 Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: uf2-${{ matrix.example }}-${{ matrix.board.name }}
+          path: dist/*.uf2
+
+  release:
+    needs: [find-examples, compile]
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: uf2-*
+          path: release_assets
+          merge-multiple: true
+
+      - name: Upload UF2 files to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release_assets/*.uf2
