@@ -65,6 +65,7 @@ jobs:
       - name: Install uf2conv
         run: |
           curl -sSL https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2conv.py -o uf2conv.py
+          curl -sSL https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2families.json -o uf2families.json
           chmod +x uf2conv.py
 
       - name: Install Core and Libraries
