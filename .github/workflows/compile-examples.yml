@@ -73,7 +73,7 @@ jobs:
           arduino-cli config set board_manager.additional_urls ${{ matrix.board.core_url }}
           arduino-cli core update-index
           arduino-cli core install ${{ matrix.board.core_package }}
-          arduino-cli lib install FastLED
+          arduino-cli lib install FastLED@3.9.14
 
       - name: Compile Sketch
         run: |
