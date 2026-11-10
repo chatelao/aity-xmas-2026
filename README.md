@@ -1,21 +1,23 @@
 # AITY Xmas Tree 2026
 
-An interactive Christmas tree PCB powered by a Seeed Studio XIAO ESP32-C6 microcontroller, featuring 60 addressable NeoPixel LEDs, a piezo speaker/buzzer, and test point outputs.
+An interactive Christmas tree PCB designed to work with either a **Seeed Studio XIAO RP2040** or a **Seeed Studio XIAO ESP32-C6** microcontroller module, featuring 60 addressable NeoPixel LEDs, a piezo speaker/buzzer, and test point outputs.
 
 ## Hardware Specifications
 
-- **Microcontroller:** Seeed Studio XIAO ESP32-C6
+- **Microcontroller:** Seeed Studio XIAO RP2040 or Seeed Studio XIAO ESP32-C6
 - **LEDs:** 60 x WS2812B NeoPixel RGB LEDs connected to pin `D10`
 - **Audio:** Speaker/Buzzer connected to pin `D0`
 - **Test Points:** TP101 – TP109 connected to pins `D1` – `D9`
 
 ## ASCII Pinout Diagram
 
+Both XIAO boards share the same standard XIAO form factor and 14-pin pinout:
+
 ```
                        +-------------------+
                        |   USB-C           |
                        |  [ Seeed XIAO ]   |
-                       |  [ ESP32-C6   ]   |
+                       | [RP2040/ESP32-C6] |
 (Speaker LS101) D0/A0 -| [1]          [14] |- 5V (VDD Power)
  (TestPoint 1)  D1/A1 -| [2]          [13] |- GND
  (TestPoint 3)  D2/A2 -| [3]          [12] |- 3V3 (NC)
@@ -28,28 +30,37 @@ An interactive Christmas tree PCB powered by a Seeed Studio XIAO ESP32-C6 microc
 
 ### Pin Mapping Table
 
-| Pin Number | XIAO Pin Name | CircuitPython Pin | Connection / Function |
-|------------|---------------|-------------------|-----------------------|
-| 1          | PA02_A0_D0    | `board.D0`        | Speaker (LS101)       |
-| 2          | PA4_A1_D1     | `board.D1`        | TestPoint 1 (TP101)   |
-| 3          | PA10_A2_D2    | `board.D2`        | TestPoint 3 (TP103)   |
-| 4          | PA11_A3_D3    | `board.D3`        | TestPoint 4 (TP104)   |
-| 5          | PA8_A4_D4_SDA | `board.D4`        | TestPoint 5 (TP105)   |
-| 6          | PA9_A5_D5_SCL | `board.D5`        | TestPoint 8 (TP108)   |
-| 7          | PB08_A6_D6_TX | `board.D6`        | TestPoint 6 (TP106)   |
-| 8          | PB09_A7_D7_RX | `board.D7`        | TestPoint 9 (TP109)   |
-| 9          | PA7_A8_D8_SCK | `board.D8`        | TestPoint 7 (TP107)   |
-| 10         | PA5_A9_D9_MISO| `board.D9`        | TestPoint 2 (TP102)   |
-| 11         | PA6_A10_D10   | `board.D10`       | NeoPixel LEDs Data In |
-| 12         | 3V3           | `board.3V3`       | Unconnected (NC)      |
-| 13         | GND           | `board.GND`       | Ground                |
-| 14         | 5V            | `board.5V`        | 5V Power (VDD)        |
+| Pin Number | XIAO Pin Name | RP2040 GPIO | ESP32-C6 GPIO | CircuitPython Pin | Connection / Function |
+|------------|---------------|-------------|---------------|-------------------|-----------------------|
+| 1          | A0 / D0       | GPIO26      | GPIO0 / PA02  | `board.D0`        | Speaker (LS101)       |
+| 2          | A1 / D1       | GPIO27      | GPIO1 / PA04  | `board.D1`        | TestPoint 1 (TP101)   |
+| 3          | A2 / D2       | GPIO28      | GPIO2 / PA10  | `board.D2`        | TestPoint 3 (TP103)   |
+| 4          | A3 / D3       | GPIO29      | GPIO3 / PA11  | `board.D3`        | TestPoint 4 (TP104)   |
+| 5          | SDA / D4      | GPIO6       | GPIO19 / PA08 | `board.D4`        | TestPoint 5 (TP105)   |
+| 6          | SCL / D5      | GPIO7       | GPIO20 / PA09 | `board.D5`        | TestPoint 8 (TP108)   |
+| 7          | TX / D6       | GPIO0       | GPIO21 / PB08 | `board.D6`        | TestPoint 6 (TP106)   |
+| 8          | RX / D7       | GPIO1       | GPIO22 / PB09 | `board.D7`        | TestPoint 9 (TP109)   |
+| 9          | SCK / D8      | GPIO2       | GPIO23 / PA07 | `board.D8`        | TestPoint 7 (TP107)   |
+| 10         | MISO / D9     | GPIO4       | GPIO9 / PA05  | `board.D9`        | TestPoint 2 (TP102)   |
+| 11         | MOSI / D10    | GPIO3       | GPIO18 / PA06 | `board.D10`       | NeoPixel LEDs Data In |
+| 12         | 3V3           | 3V3         | 3V3           | `board.3V3`       | Unconnected (NC)      |
+| 13         | GND           | GND         | GND           | `board.GND`       | Ground                |
+| 14         | 5V            | 5V          | 5V            | `board.5V`        | 5V Power (VDD)        |
+
+---
+
+## Platform Setup & Installation Guides
+
+Detailed instructions on how to install CircuitPython (web-only method) and transfer files (via web browser or file explorer) for each platform:
+
+- [**HOWTO_RP2040.md**](HOWTO_RP2040.md) — Guide for **Seeed Studio XIAO RP2040**
+- [**HOWTO_ESP32-C6.md**](HOWTO_ESP32-C6.md) — Guide for **Seeed Studio XIAO ESP32-C6**
 
 ---
 
 ## Example CircuitPython Script: Rainbow Animation
 
-Save the following script as `code.py` or `main.py` on the `CIRCUITPY` drive. Make sure the Adafruit `neopixel` library (`neopixel.mpy`) is placed in the `lib/` folder on your `CIRCUITPY` drive.
+Save the following script as `code.py` or `main.py` on the target device. Make sure the Adafruit `neopixel` library (`neopixel.mpy`) is placed in the `lib/` folder.
 
 ```python
 import time
@@ -102,7 +113,7 @@ while True:
 
 ## Setup Instructions
 
-1. Install CircuitPython on your Seeed Studio XIAO ESP32-C6.
-2. Download the Adafruit CircuitPython Library Bundle.
-3. Copy `neopixel.mpy` (and `rainbowio` if using external bundle) into the `lib/` folder on your `CIRCUITPY` drive.
-4. Save the example script above as `code.py` on your `CIRCUITPY` drive.
+1. Install CircuitPython on your board (see [HOWTO_RP2040.md](HOWTO_RP2040.md) for XIAO RP2040 or [HOWTO_ESP32-C6.md](HOWTO_ESP32-C6.md) for XIAO ESP32-C6).
+2. Obtain the Adafruit CircuitPython Library Bundle (or use the pre-packaged files in `circuitpython/default/`).
+3. Copy `neopixel.mpy` into the `lib/` directory on the target board (using file explorer for RP2040 or web workflow for ESP32-C6).
+4. Save the example script above (or `circuitpython/default/code.py`) as `code.py` on the target board.
