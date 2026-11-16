@@ -21,6 +21,8 @@ pixels = neopixel.NeoPixel(board.D10, 60, brightness=0.3, auto_write=False, pixe
 
 ## `tannenbaum_layout.py`
 
+Describes the physical and logical layout of the 60-LED Xmas tree PCB: pin definitions, the six tree segments (inner/outer star, three boughs, and stem), exact millimeter and normalized/polar coordinates for each LED, and helpers for distance lookups, segment fills, and gamma-corrected HSV conversion.
+
 ### Hardware constants
 
 | Constant | Value | Description |
@@ -127,6 +129,8 @@ pixels.show()
 ---
 
 ## `tannenbaum_palettes.py`
+
+Provides Christmas-themed base colors, eight 16-entry color palettes, and a stateless FastLED TwinkleFOX-style twinkle engine. Includes helpers for palette interpolation, attack/decay brightness waves, incandescent cool-down shifting, and single-call full-tree rendering with an optional separate star palette.
 
 ### Base colors
 
