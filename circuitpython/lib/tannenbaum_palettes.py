@@ -251,13 +251,13 @@ def compute_one_twinkle(ms, salt, palette16, speed=4, density=5, cool_incandesce
 def render_twinkle_tree(pixels_obj, ms, branch_palette, star_palette=None, speed=4, density=5, bg_color=BG_BLACK):
     """
     Rendert den gesamten 60-LED-Tannenbaum mit einem einzigen Funktionsaufruf.
-    Optional kann der Stern an der Spitze (Pixel 0..9) eine eigene Palette erhalten!
+    Optional kann der Stern an der Spitze (Pixel 50..59) eine eigene Palette erhalten!
     """
     if star_palette is None:
         star_palette = branch_palette
 
     for i in range(len(pixels_obj)):
-        pal = star_palette if i < 10 else branch_palette
+        pal = star_palette if i >= 50 else branch_palette
         pixels_obj[i] = compute_one_twinkle(
             ms, i, pal, speed=speed, density=density, bg_color=bg_color
         )

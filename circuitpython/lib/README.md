@@ -21,7 +21,7 @@ pixels = neopixel.NeoPixel(board.D10, 60, brightness=0.3, auto_write=False, pixe
 
 ## `tannenbaum_layout.py`
 
-Describes the physical and logical layout of the 60-LED Xmas tree PCB: pin definitions, the six tree segments (inner/outer star, three boughs, and stem), exact millimeter and normalized/polar coordinates for each LED, and helpers for distance lookups, segment fills, and gamma-corrected HSV conversion.
+Describes the physical and logical layout of the 60-LED Xmas tree PCB: pin definitions, the five tree segments (three boughs, stem, and star), exact millimeter and normalized/polar coordinates for each LED, and helpers for distance lookups, segment fills, and gamma-corrected HSV conversion.
 
 ### Hardware constants
 
@@ -36,12 +36,11 @@ Describes the physical and logical layout of the 60-LED Xmas tree PCB: pin defin
 
 | Constant | ID | LEDs | Index range | Description |
 |----------|----:|------:|-------------|-------------|
-| `SEG_STAR_INNER` | 0 | 5 | `(0, 5)` | Inner pentagon at the tree top |
-| `SEG_STAR_OUTER` | 1 | 5 | `(5, 10)` | Outer pentagon at the tree top |
-| `SEG_BOUGH_MID` | 2 | 14 | `(10, 24)` | Middle curved bough |
-| `SEG_BOUGH_LOW` | 3 | 18 | `(24, 42)` | Lower long bough (base) |
-| `SEG_BOUGH_HIGH` | 4 | 13 | `(42, 55)` | Upper bough |
-| `SEG_STEM` | 5 | 5 | `(55, 60)` | Connecting arc below the star |
+| `SEG_BOUGH_LOW` | 0 | 18 | `(0, 18)` | Lower long bough (base) |
+| `SEG_BOUGH_MID` | 1 | 14 | `(18, 32)` | Middle curved bough |
+| `SEG_BOUGH_HIGH` | 2 | 13 | `(32, 45)` | Upper bough |
+| `SEG_STEM` | 3 | 5 | `(45, 50)` | Connecting arc below the star |
+| `SEG_STAR` | 4 | 10 | `(50, 60)` | Star at the tree top (5 inner + 5 outer LEDs) |
 
 Index ranges are `(start, end)` with exclusive end, stored in `SEGMENTS`. `SEGMENT_NAMES` holds a German label for each segment.
 
@@ -49,17 +48,74 @@ Index ranges are `(start, end)` with exclusive end, stored in `SEGMENTS`. `SEGME
 from tannenbaum_layout import SEGMENTS, SEGMENT_NAMES, SEG_BOUGH_LOW
 
 start, end = SEGMENTS[SEG_BOUGH_LOW]
-print(SEGMENT_NAMES[SEG_BOUGH_LOW], start, end)  # Zweig Unten 24 42
+print(SEGMENT_NAMES[SEG_BOUGH_LOW], start, end)  # Zweig Unten 0 18
+```
+
+### Virtual segments (6 logical segments)
+
+Because the star LEDs (`50..59`) alternate between inner and outer points along the daisy chain, `VIRTUAL_SEGMENTS` provides index tuples for all 6 logical segments—including `VSEG_STAR_INNER` and `VSEG_STAR_OUTER` as separate segments alongside the 4 linear ones:
+
+| Constant | ID | LEDs | Indices | Description |
+|----------|----:|------:|---------|-------------|
+| `VSEG_BOUGH_LOW` | 0 | 18 | `0..17` | Lower long bough (base) |
+| `VSEG_BOUGH_MID` | 1 | 14 | `18..31` | Middle curved bough |
+| `VSEG_BOUGH_HIGH` | 2 | 13 | `32..44` | Upper bough |
+| `VSEG_STEM` | 3 | 5 | `45..49` | Connecting arc below the star |
+| `VSEG_STAR_INNER` | 4 | 5 | `(50, 53, 54, 57, 58)` | Inner star pentagon (clockwise) |
+| `VSEG_STAR_OUTER` | 5 | 5 | `(51, 52, 55, 56, 59)` | Outer star pentagon (clockwise) |
+
+Call `set_pixels(pixels)` once at startup, then address any of the 6 virtual segments by ID and color alone via `fill_vseg(vseg_id, color)` or `VirtualSegment(vseg_id)` (or pass `pixels` explicitly to `fill_virtual_segment(pixels, vseg_id, color)` / `VirtualSegment(pixels, vseg_id)`):
+
+**a) Address virtual segments as a whole**
+
+```python
+from tannenbaum_layout import (
+    set_pixels, fill_vseg, VirtualSegment,
+    VSEG_BOUGH_LOW, VSEG_BOUGH_MID, VSEG_BOUGH_HIGH,
+    VSEG_STEM, VSEG_STAR_INNER, VSEG_STAR_OUTER,
+)
+
+set_pixels(pixels)
+
+# Color the tree boughs, stem, and inner/outer star independently
+fill_vseg(VSEG_BOUGH_LOW,  (0, 120, 20))
+fill_vseg(VSEG_BOUGH_MID,  (0, 160, 30))
+fill_vseg(VSEG_BOUGH_HIGH, (0, 200, 40))
+fill_vseg(VSEG_STEM,       (120, 60, 10))
+fill_vseg(VSEG_STAR_INNER, (255, 180, 0))
+
+outer = VirtualSegment(VSEG_STAR_OUTER)
+outer.fill((255, 60, 0))
+outer[2] = (255, 255, 255)  # highlight top tip (LED 55)
+pixels.show()
+```
+
+**b) Run a pixel through one virtual segment after another**
+
+```python
+import time
+from tannenbaum_layout import set_pixels, VirtualSegment, VIRTUAL_SEGMENTS
+
+set_pixels(pixels)
+vsegs = [VirtualSegment(i) for i in range(len(VIRTUAL_SEGMENTS))]
+
+while True:
+    for vseg in vsegs:
+        for i in range(len(vseg)):
+            pixels.fill((0, 0, 0))
+            vseg[i] = (255, 180, 0)
+            pixels.show()
+            time.sleep(0.05)
 ```
 
 ### Coordinates & geometry
 
 | Constant | Description |
 |----------|-------------|
-| `PIXEL_COORDS` | Tuple of `(x_mm, y_mm, segment_id)` for each LED, from the KiCad layout |
-| `X_MIN`, `X_MAX` | Horizontal bounds in mm (111.0262 / 149.8776) |
-| `Y_MIN`, `Y_MAX` | Vertical bounds in mm (-96.2408 base / -27.5500 star tip) |
-| `WIDTH_MM`, `HEIGHT_MM` | Bounding-box size in mm (≈ 38.85 / 68.69) |
+| `PIXEL_COORDS` | Tuple of `(x_mm, y_mm, segment_id)` for each LED, from [`../tannenbaum_leds.svg`](../tannenbaum_leds.svg) |
+| `X_MIN`, `X_MAX` | Horizontal bounds in mm (`0.0` / `38.862`) |
+| `Y_MIN`, `Y_MAX` | Vertical bounds in mm (`0.0` base / `68.551` star tip) |
+| `WIDTH_MM`, `HEIGHT_MM` | Bounding-box size in mm (`38.862` / `68.551`) |
 | `CENTER_STAR` | Center of the 10 star LEDs |
 | `CENTER_STEM` | Center of the stem |
 | `CENTER_TREE` | Center of the bounding box |
@@ -73,9 +129,9 @@ print(SEGMENT_NAMES[SEG_BOUGH_LOW], start, end)  # Zweig Unten 24 42
 ```python
 from tannenbaum_layout import PIXEL_COORDS, NORM_COORDS, POLAR_TREE
 
-x, y, seg = PIXEL_COORDS[6]   # tip of the star
-nx, ny = NORM_COORDS[6]       # normalized position
-r, theta = POLAR_TREE[6]      # polar position around the tree center
+x, y, seg = PIXEL_COORDS[55]  # tip of the star
+nx, ny = NORM_COORDS[55]      # normalized position
+r, theta = POLAR_TREE[55]     # polar position around the tree center
 
 # Example: vertical gradient using normalized coordinates
 for i in range(60):
@@ -218,7 +274,7 @@ pixels.show()
 ```
 
 #### `render_twinkle_tree(pixels_obj, ms, branch_palette, star_palette=None, speed=4, density=5, bg_color=BG_BLACK)`
-Renders all pixels in one call. Pixels 0–9 (star) use `star_palette` if given. Does not call `show()`.
+Renders all pixels in one call. Pixels 50–59 (star) use `star_palette` if given. Does not call `show()`.
 
 ```python
 import time

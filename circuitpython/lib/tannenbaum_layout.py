@@ -14,121 +14,143 @@ PIN_BTN_A = board.D5
 PIN_BTN_B = board.D6
 
 # --- 2. Logische Segment-IDs des Tannenbaums ---
-SEG_STAR_INNER = 0   # 5 LEDs:  Inneres Pentagon an der Baumspitze
-SEG_STAR_OUTER = 1   # 5 LEDs:  Aeusseres Pentagon an der Baumspitze
-SEG_BOUGH_MID  = 2   # 14 LEDs: Mittlerer geschwungener Tannenzweig
-SEG_BOUGH_LOW  = 3   # 18 LEDs: Unterer langer Tannenzweig (Basis)
-SEG_BOUGH_HIGH = 4   # 13 LEDs: Oberer Tannenzweig
-SEG_STEM       = 5   # 5 LEDs:  Oberer Verbindungsbogen / Stiel unter dem Stern
+SEG_BOUGH_LOW  = 0   # 18 LEDs: Unterer langer Tannenzweig (Basis)
+SEG_BOUGH_MID  = 1   # 14 LEDs: Mittlerer geschwungener Tannenzweig
+SEG_BOUGH_HIGH = 2   # 13 LEDs: Oberer Tannenzweig
+SEG_STEM       = 3   # 5 LEDs:  Oberer Verbindungsbogen / Stiel unter dem Stern
+SEG_STAR       = 4   # 10 LEDs: Stern an der Baumspitze (5 Innen- & 5 Aussen-LEDs)
 
 # Segment-Bereiche als (start_index, end_index) fuer schnelles Slicing
 SEGMENTS = (
-    (0, 5),    # 0: SEG_STAR_INNER (5 LEDs)
-    (5, 10),   # 1: SEG_STAR_OUTER (5 LEDs)
-    (10, 24),  # 2: SEG_BOUGH_MID  (14 LEDs)
-    (24, 42),  # 3: SEG_BOUGH_LOW  (18 LEDs)
-    (42, 55),  # 4: SEG_BOUGH_HIGH (13 LEDs)
-    (55, 60),  # 5: SEG_STEM       (5 LEDs)
+    (0, 18),   # 0: SEG_BOUGH_LOW  (18 LEDs)
+    (18, 32),  # 1: SEG_BOUGH_MID  (14 LEDs)
+    (32, 45),  # 2: SEG_BOUGH_HIGH (13 LEDs)
+    (45, 50),  # 3: SEG_STEM       (5 LEDs)
+    (50, 60),  # 4: SEG_STAR       (10 LEDs)
 )
 
 SEGMENT_NAMES = (
-    "Stern Innen",
-    "Stern Aussen",
-    "Zweig Mitte",
     "Zweig Unten",
+    "Zweig Mitte",
     "Zweig Oben",
     "Stiel / Verbindungsbogen",
+    "Stern",
+)
+
+# --- 2b. Virtuelle Segmente (alle 6 logischen Segmente inkl. Stern Innen/Aussen) ---
+VSEG_BOUGH_LOW  = 0  # 18 LEDs: Unterer langer Tannenzweig (0..17)
+VSEG_BOUGH_MID  = 1  # 14 LEDs: Mittlerer geschwungener Tannenzweig (18..31)
+VSEG_BOUGH_HIGH = 2  # 13 LEDs: Oberer Tannenzweig (32..44)
+VSEG_STEM       = 3  # 5 LEDs:  Stiel / Verbindungsbogen (45..49)
+VSEG_STAR_INNER = 4  # 5 LEDs:  Inneres Stern-Pentagon (im Uhrzeigersinn)
+VSEG_STAR_OUTER = 5  # 5 LEDs:  Aeusseres Stern-Pentagon (im Uhrzeigersinn)
+
+VIRTUAL_SEGMENTS = (
+    tuple(range(0, 18)),   # 0: VSEG_BOUGH_LOW  (18 LEDs)
+    tuple(range(18, 32)),  # 1: VSEG_BOUGH_MID  (14 LEDs)
+    tuple(range(32, 45)),  # 2: VSEG_BOUGH_HIGH (13 LEDs)
+    tuple(range(45, 50)),  # 3: VSEG_STEM       (5 LEDs)
+    (50, 53, 54, 57, 58),  # 4: VSEG_STAR_INNER (5 LEDs)
+    (51, 52, 55, 56, 59),  # 5: VSEG_STAR_OUTER (5 LEDs)
+)
+
+VIRTUAL_SEGMENT_NAMES = (
+    "Zweig Unten",
+    "Zweig Mitte",
+    "Zweig Oben",
+    "Stiel / Verbindungsbogen",
+    "Stern Innen",
+    "Stern Aussen",
 )
 
 # --- 3. Exakte PCB-Koordinaten (x_mm, y_mm, segment_id) fuer Index 0..59 ---
+# Ursprung (0, 0) unten links, y nach oben wachsend (aus circuitpython/tannenbaum_leds.svg)
 PIXEL_COORDS = (
-    # Segment 0: (Stern Innen)
-    (138.7170, -32.1639, 0),  # Index 0
-    (132.2500, -29.5500, 0),  # Index 1
-    (125.6868, -32.2740, 0),  # Index 2
-    (129.3756, -38.1534, 0),  # Index 3
-    (136.1286, -39.8746, 0),  # Index 4
+    # Segment 0: (Unterer Zweig, rechts nach links)
+    (38.862,  8.912, 0),  # Index 0 -> Ganz rechts
+    (37.076,  6.998, 0),  # Index 1
+    (35.100,  5.281, 0),  # Index 2
+    (32.956,  3.781, 0),  # Index 3
+    (30.667,  2.512, 0),  # Index 4
+    (28.257,  1.491, 0),  # Index 5
+    (25.754,  0.726, 0),  # Index 6
+    (23.184,  0.227, 0),  # Index 7
+    (20.577,  0.000, 0),  # Index 8 -> Tiefster Punkt
+    (17.960,  0.046, 0),  # Index 9
+    (15.362,  0.365, 0),  # Index 10
+    (12.812,  0.955, 0),  # Index 11
+    (10.337,  1.807, 0),  # Index 12
+    ( 7.965,  2.914, 0),  # Index 13
+    ( 5.722,  4.262, 0),  # Index 14
+    ( 3.631,  5.838, 0),  # Index 15
+    ( 1.717,  7.623, 0),  # Index 16
+    ( 0.000,  9.599, 0),  # Index 17 -> Ganz links
 
-    # Segment 1: (Stern Aussen)
-    (136.8149, -32.7819, 1),  # Index 5
-    (132.2500, -27.5500, 1),  # Index 6 -> Hoechster Punkt (Spitze)
-    (127.5889, -32.8920, 1),  # Index 7
-    (128.2000, -39.7714, 1),  # Index 8
-    (134.8820, -38.2811, 1),  # Index 9
+    # Segment 1: (Mittlerer Zweig, rechts nach links-oben)
+    (36.328, 14.954, 1),  # Index 18
+    (33.885, 14.017, 1),  # Index 19
+    (31.357, 13.340, 1),  # Index 20
+    (28.773, 12.932, 1),  # Index 21
+    (26.159, 12.796, 1),  # Index 22
+    (23.546, 12.934, 1),  # Index 23
+    (20.961, 13.344, 1),  # Index 24
+    (18.434, 14.022, 1),  # Index 25
+    (15.991, 14.961, 1),  # Index 26
+    (13.660, 16.149, 1),  # Index 27
+    (11.465, 17.576, 1),  # Index 28
+    ( 9.432, 19.223, 1),  # Index 29
+    ( 7.582, 21.074, 1),  # Index 30
+    ( 5.936, 23.109, 1),  # Index 31
 
-    # Segment 2: (Mittlerer Zweig, rechts nach links-oben)
-    (147.3545, -81.2933, 2),  # Index 10
-    (144.9116, -82.2311, 2),  # Index 11
-    (142.3839, -82.9084, 2),  # Index 12
-    (139.7993, -83.3177, 2),  # Index 13
-    (137.1861, -83.4547, 2),  # Index 14
-    (134.5729, -83.3177, 2),  # Index 15
-    (131.9883, -82.9084, 2),  # Index 16
-    (129.4607, -82.2311, 2),  # Index 17
-    (127.0177, -81.2933, 2),  # Index 18
-    (124.6861, -80.1053, 2),  # Index 19
-    (122.4915, -78.6801, 2),  # Index 20
-    (120.4579, -77.0333, 2),  # Index 21
-    (118.6075, -75.1829, 2),  # Index 22
-    (116.9607, -73.1493, 2),  # Index 23
+    # Segment 2: (Oberer Zweig, rechts nach links-oben)
+    (36.468, 25.383, 2),  # Index 32
+    (33.855, 25.247, 2),  # Index 33
+    (31.243, 25.385, 2),  # Index 34
+    (28.658, 25.795, 2),  # Index 35
+    (26.131, 26.473, 2),  # Index 36
+    (23.688, 27.412, 2),  # Index 37
+    (21.357, 28.601, 2),  # Index 38
+    (19.163, 30.027, 2),  # Index 39
+    (17.130, 31.674, 2),  # Index 40
+    (15.280, 33.525, 2),  # Index 41
+    (13.634, 35.559, 2),  # Index 42
+    (12.209, 37.754, 2),  # Index 43
+    (11.022, 40.087, 2),  # Index 44
 
-    # Segment 3: (Unterer Zweig, rechts nach links)
-    (149.8776, -87.3257, 3),  # Index 24 -> Ganz rechts
-    (148.0930, -89.2395, 3),  # Index 25
-    (146.1180, -90.9563, 3),  # Index 26
-    (143.9745, -92.4572, 3),  # Index 27
-    (141.6858, -93.7259, 3),  # Index 28
-    (139.2770, -94.7483, 3),  # Index 29
-    (136.7746, -95.5134, 3),  # Index 30
-    (134.2058, -96.0127, 3),  # Index 31
-    (131.5990, -96.2408, 3),  # Index 32 -> Tiefster Punkt
-    (128.9826, -96.1951, 3),  # Index 33
-    (126.3853, -95.8762, 3),  # Index 34
-    (123.8356, -95.2876, 3),  # Index 35
-    (121.3613, -94.4356, 3),  # Index 36
-    (118.9897, -93.3297, 3),  # Index 37
-    (116.7467, -91.9820, 3),  # Index 38
-    (114.6568, -90.4071, 3),  # Index 39
-    (112.7430, -88.6225, 3),  # Index 40
-    (111.0262, -86.6476, 3),  # Index 41 -> Ganz links
+    # Segment 3: (Kurzer Bogen / Stiel unter dem Stern)
+    (19.869, 39.313, 3),  # Index 45
+    (21.903, 40.961, 3),  # Index 46
+    (23.754, 42.812, 3),  # Index 47
+    (25.401, 44.846, 3),  # Index 48
+    (27.009, 46.640, 3),  # Index 49
 
-    # Segment 4: (Oberer Zweig, rechts nach links-oben)
-    (147.4950, -70.8705, 4),  # Index 42
-    (144.8818, -71.0075, 4),  # Index 43
-    (142.2686, -70.8705, 4),  # Index 44
-    (139.6840, -70.4612, 4),  # Index 45
-    (137.1564, -69.7839, 4),  # Index 46
-    (134.7134, -68.8461, 4),  # Index 47
-    (132.3818, -67.6581, 4),  # Index 48
-    (130.1872, -66.2329, 4),  # Index 49
-    (128.1535, -64.5861, 4),  # Index 50
-    (126.3032, -62.7357, 4),  # Index 51
-    (124.6564, -60.7021, 4),  # Index 52
-    (123.2312, -58.5075, 4),  # Index 53
-    (122.0432, -56.1759, 4),  # Index 54
-
-    # Segment 5: (Kurzer Bogen / Stiel unter dem Stern)
-    (138.0086, -49.6069, 5),  # Index 55
-    (136.4000, -51.4000, 5),  # Index 56
-    (134.7532, -53.4336, 5),  # Index 57
-    (132.9028, -55.2840, 5),  # Index 58
-    (130.8692, -56.9308, 5),  # Index 59
+    # Segment 4: (Stern, 5 Innen- & 5 Aussen-LEDs im Zickzack)
+    (18.349, 58.095, 4),  # Index 50
+    (17.189, 56.466, 4),  # Index 51
+    (14.681, 63.964, 4),  # Index 52
+    (16.589, 63.365, 4),  # Index 53
+    (21.247, 66.711, 4),  # Index 54
+    (21.207, 68.551, 4),  # Index 55 -> Hoechster Punkt (Spitze)
+    (27.692, 64.094, 4),  # Index 56
+    (25.796, 63.456, 4),  # Index 57
+    (23.828, 57.956, 4),  # Index 58
+    (25.013, 56.345, 4),  # Index 59
 )
 
 # --- 4. Geometrische Referenzpunkte & Bounding-Box (in mm) ---
-X_MIN = 111.0262
-X_MAX = 149.8776
-Y_MIN = -96.2408  # Baum-Basis unten
-Y_MAX = -27.5500  # Stern-Spitze oben
+X_MIN = 0.0
+X_MAX = 38.862
+Y_MIN = 0.0       # Baum-Basis unten
+Y_MAX = 68.551    # Stern-Spitze oben
 
-WIDTH_MM  = X_MAX - X_MIN  # 38.8514 mm
-HEIGHT_MM = Y_MAX - Y_MIN  # 68.6908 mm
+WIDTH_MM  = X_MAX - X_MIN  # 38.862 mm
+HEIGHT_MM = Y_MAX - Y_MIN  # 68.551 mm
 
 # Wichtige Ankerpunkte fuer Explosionen, Wellen & Polar-Effekte
-CENTER_STAR = (132.1894, -34.3292)  # Exakter Mittelpunkt der 10 Stern-LEDs
-CENTER_STEM = (134.7532, -53.4336)  # Mitte des Stiels
-CENTER_TREE = (130.4519, -61.8954)  # Geometrisches Zentrum der Bounding-Box
-CENTER_BASE = (131.5990, -83.3177)  # Zentrum der unteren Zweig-Boegen
+CENTER_STAR = (21.1591, 61.9003)  # Exakter Mittelpunkt der 10 Stern-LEDs
+CENTER_STEM = (23.754, 42.812)    # Mitte des Stiels
+CENTER_TREE = (19.431, 34.2755)   # Geometrisches Zentrum der Bounding-Box
+CENTER_BASE = (20.577, 12.796)    # Zentrum der unteren Zweig-Boegen
 
 EPICENTERS = (
     CENTER_STAR,
@@ -176,11 +198,79 @@ def build_distance_lut(origin_xy):
     return tuple(math.sqrt((x - ox) ** 2 + (y - oy) ** 2) for x, y, _ in PIXEL_COORDS)
 
 
+_pixels = None
+
+
+def set_pixels(pixels_obj):
+    """Registriert das NeoPixel-Objekt einmalig fuer fill_seg(), fill_vseg() und VirtualSegment()."""
+    global _pixels
+    _pixels = pixels_obj
+
+
+def _require_pixels(pixels_obj):
+    px = _pixels if pixels_obj is None else pixels_obj
+    if px is None:
+        raise RuntimeError("NeoPixel-Objekt fehlt: erst set_pixels(pixels) aufrufen.")
+    return px
+
+
 def fill_segment(pixels_obj, seg_id, color):
-    """Faerbt ein einzelnes Segment (0..5) im NeoPixel-Puffer (ohne pixels.show() auszuloesen)."""
+    """Faerbt ein einzelnes Segment (0..4) im NeoPixel-Puffer (ohne pixels.show() auszuloesen)."""
     start, end = SEGMENTS[seg_id]
     for i in range(start, end):
         pixels_obj[i] = color
+
+
+def fill_seg(seg_id, color, pixels_obj=None):
+    """Wie fill_segment(), nutzt aber das per set_pixels() registrierte Objekt."""
+    fill_segment(_require_pixels(pixels_obj), seg_id, color)
+
+
+def fill_virtual_segment(pixels_obj, vseg_id, color):
+    """Faerbt ein virtuelles Segment (0..5, inkl. Stern Innen/Aussen) ohne pixels.show()."""
+    for i in VIRTUAL_SEGMENTS[vseg_id]:
+        pixels_obj[i] = color
+
+
+def fill_vseg(vseg_id, color, pixels_obj=None):
+    """Wie fill_virtual_segment(), nutzt aber das per set_pixels() registrierte Objekt."""
+    fill_virtual_segment(_require_pixels(pixels_obj), vseg_id, color)
+
+
+class VirtualSegment:
+    """Adressiert ein beliebiges der 6 virtuellen Segmente wie einen eigenen Mini-Strip."""
+
+    def __init__(self, vseg_or_pixels, vseg_id=None):
+        if isinstance(vseg_or_pixels, int):
+            self._pixels = _require_pixels(None)
+            self.vseg_id = vseg_or_pixels
+        else:
+            self._pixels = vseg_or_pixels
+            self.vseg_id = vseg_id
+        self.indices = VIRTUAL_SEGMENTS[self.vseg_id]
+
+    def __len__(self):
+        return len(self.indices)
+
+    def __getitem__(self, idx):
+        if isinstance(idx, slice):
+            return [self._pixels[i] for i in self.indices[idx]]
+        return self._pixels[self.indices[idx]]
+
+    def __setitem__(self, idx, color):
+        if isinstance(idx, slice):
+            for i, c in zip(self.indices[idx], color):
+                self._pixels[i] = c
+        else:
+            self._pixels[self.indices[idx]] = color
+
+    def __iter__(self):
+        return iter(self.indices)
+
+    def fill(self, color):
+        """Faerbt alle LEDs dieses virtuellen Segments (ohne pixels.show())."""
+        for i in self.indices:
+            self._pixels[i] = color
 
 
 def hsv_to_rgb_gamma(h, s, v):
