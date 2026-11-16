@@ -210,7 +210,7 @@
         chip.setAttribute("fill", `rgb(${coreR},${coreG},${coreB})`);
         chip.setAttribute("stroke", `rgb(${sr},${sg},${sb})`);
         glow.setAttribute("fill", `rgb(${sr},${sg},${sb})`);
-        glow.setAttribute("opacity", (0.25 + 0.7 * (maxC / 255)).toFixed(2));
+        glow.setAttribute("opacity", (0.92 * Math.pow(maxC / 255, 0.75)).toFixed(2));
       }
     }
   }
@@ -225,7 +225,7 @@
     } else {
       onboardChipNode.setAttribute("fill", `rgb(${sr},${sg},${sb})`);
       onboardGlowNode.setAttribute("fill", `rgb(${sr},${sg},${sb})`);
-      onboardGlowNode.setAttribute("opacity", (0.3 + 0.65 * (maxC / 255)).toFixed(2));
+      onboardGlowNode.setAttribute("opacity", (0.92 * Math.pow(maxC / 255, 0.75)).toFixed(2));
     }
   }
 

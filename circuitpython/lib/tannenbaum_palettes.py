@@ -206,6 +206,34 @@ def cool_like_incandescent(rgb, phase):
     return (r, g, b)
 
 
+def _avg_light(rgb):
+    return (rgb[0] + rgb[1] + rgb[2]) // 3
+
+
+def blend_palette_toward(current_pal, target_pal, max_changes=12):
+    """
+    Blendet eine 16-Eintrags-Palette schrittweise Richtung Zielpalette
+    (entspricht FastLEDs nblendPaletteTowardPalette). Gibt eine neue Palette zurueck.
+    """
+    out = []
+    changes = 0
+    for i in range(16):
+        cr, cg, cb = current_pal[i]
+        tr, tg, tb = target_pal[i]
+        nr, ng, nb = cr, cg, cb
+        if cr != tr and changes < max_changes:
+            nr = cr + 1 if cr < tr else cr - 1
+            changes += 1
+        if cg != tg and changes < max_changes:
+            ng = cg + 1 if cg < tg else cg - 1
+            changes += 1
+        if cb != tb and changes < max_changes:
+            nb = cb + 1 if cb < tb else cb - 1
+            changes += 1
+        out.append((nr, ng, nb))
+    return tuple(out)
+
+
 # --- 4. Die TwinkleFOX-Kernfunktion fuer ein einzelnes Pixel ---
 def compute_one_twinkle(ms, salt, palette16, speed=4, density=5, cool_incandescent=True, bg_color=BG_BLACK):
     """
@@ -232,18 +260,36 @@ def compute_one_twinkle(ms, salt, palette16, speed=4, density=5, cool_incandesce
 
     # Neuer PRNG-Hash fuer genau diesen Funken-Zyklus
     wave_hash = ((ticks * 2053) + 1384 + my_unique8) & 0xFFFF
-    deltabright = (wave_hash >> 8) & 0xFF
-    color_index = wave_hash & 0xFF
+    slowcycle8 = ((wave_hash >> 8) + (wave_hash & 0xFF)) & 0xFF
+    color_index = (slowcycle8 - salt) & 0xFF
 
-    # Pruefen, ob das Pixel in diesem Zyklus ueberhaupt aufleuchtet (Dichte-Schwelle)
-    threshold = 255 - (density * 28)
-    if deltabright >= threshold:
+    # Pruefen, ob das Pixel in diesem Zyklus ueberhaupt aufleuchtet (exakt wie TwinkleFOX.ino)
+    c = BLACK
+    if ((slowcycle8 & 0x0E) >> 1) < density:
         brightness = attack_decay_wave8(phase)
-        c = color_from_palette(palette16, color_index, brightness, blend=False)
-        if cool_incandescent:
-            c = cool_like_incandescent(c, phase)
+        if brightness > 0:
+            c = color_from_palette(palette16, color_index, brightness, blend=False)
+            if cool_incandescent:
+                c = cool_like_incandescent(c, phase)
+
+    # Sanftes Ueberblenden mit Hintergrundfarbe (verhindert schwarze Blitzer bei bg_color != BLACK)
+    if bg_color == BLACK:
         return c
 
+    bg_bright = _avg_light(bg_color)
+    c_bright = _avg_light(c)
+    deltabright = c_bright - bg_bright
+    if deltabright >= 32:
+        return c
+    if deltabright > 0:
+        amount = deltabright * 8
+        br, bg, bb = bg_color
+        cr, cg, cb = c
+        return (
+            br + int(((cr - br) * amount) / 256),
+            bg + int(((cg - bg) * amount) / 256),
+            bb + int(((cb - bb) * amount) / 256),
+        )
     return bg_color
 
 
