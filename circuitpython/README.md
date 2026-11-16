@@ -31,6 +31,7 @@ All example scripts drive the 60 NeoPixels on `board.D10` and use buttons on `bo
 | [`code.3-segmente.py`](code.3-segmente.py) | Highlights each of the 6 tree segments (star, boughs, stem) | Toggle auto / manual | Next segment |
 | [`code.4-koordinaten.py`](code.4-koordinaten.py) | Radial wave explosions from 3 epicenters using KiCad coordinates | Retrigger wave | Next epicenter |
 | [`code.5-maximal.py`](code.5-maximal.py) | 2D plasma, polar vortex, and gravity pulse with gamma correction | Switch mode | Shift palette |
+| [`code.7-twinkle.py`](code.7-twinkle.py) | Full-tree TwinkleFOX animation with 10 palettes & warm-gold star | Next palette | Cycle speed |
 
 ### Libraries (`lib/`)
 

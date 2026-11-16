@@ -221,6 +221,39 @@ async function runTests() {
       }
     }
 
+    // 4. URL Anchor Example Persistence Tests
+    {
+      const { context, page } = await openApp(browser, `${url}#ex3`, {
+        viewport: { width: 1280, height: 800 },
+        hasTouch: false,
+        isMobile: false,
+      });
+      try {
+        // Loads ex3 from initial URL anchor
+        assert.equal(await page.$eval("#example-select", (el) => el.value), "ex3");
+        assert.equal(await page.evaluate(() => window.location.hash), "#ex3");
+
+        // Changing select updates URL anchor
+        await page.selectOption("#example-select", "ex1");
+        assert.equal(await page.evaluate(() => window.location.hash), "#ex1");
+
+        // Reloading preserves ex1 from anchor
+        await page.reload({ waitUntil: "domcontentloaded" });
+        await page.waitForSelector("#pcb-leds rect");
+        assert.equal(await page.$eval("#example-select", (el) => el.value), "ex1");
+
+        // hashchange switches example
+        await page.evaluate(() => {
+          window.location.hash = "#ex4";
+        });
+        await page.waitForFunction(() => document.getElementById("example-select").value === "ex4");
+
+        console.log("PASS URL anchor persistence");
+      } finally {
+        await context.close();
+      }
+    }
+
     console.log("ALL GH PAGES RESPONSIVE, TOUCH & KEYBOARD TESTS PASSED");
   } finally {
     await browser.close();

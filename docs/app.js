@@ -303,7 +303,11 @@
 
   // Populate Examples
   const examples = window.XMAS_EXAMPLES || [];
-  let currentExample = examples[5] || examples[0]; // Default to 5: Maximal
+  function getExampleFromHash() {
+    const hashId = decodeURIComponent((window.location.hash || "").replace(/^#/, ""));
+    return examples.find((e) => e.id === hashId) || null;
+  }
+  let currentExample = getExampleFromHash() || examples[5] || examples[0]; // Default to 5: Maximal
 
   for (const ex of examples) {
     const opt = document.createElement("option");
@@ -312,7 +316,7 @@
     exampleSelect.appendChild(opt);
   }
 
-  function loadExample(id, autoRun = true) {
+  function loadExample(id, autoRun = true, updateHash = true) {
     const ex = examples.find((e) => e.id === id) || examples[0];
     if (!ex) return;
     currentExample = ex;
@@ -321,6 +325,9 @@
     hintD5.textContent = `D5: ${ex.d5}`;
     hintD6.textContent = `D6: ${ex.d6}`;
     setCode(ex.code);
+    if (updateHash && window.location.hash !== `#${ex.id}`) {
+      history.replaceState(null, "", `#${encodeURIComponent(ex.id)}`);
+    }
     if (autoRun) {
       runCurrentCode();
     }
@@ -434,6 +441,13 @@
 
   exampleSelect.addEventListener("change", () => {
     loadExample(exampleSelect.value, true);
+  });
+
+  window.addEventListener("hashchange", () => {
+    const ex = getExampleFromHash();
+    if (ex && ex.id !== currentExample?.id) {
+      loadExample(ex.id, true, false);
+    }
   });
 
   btnRun.addEventListener("click", runCurrentCode);
