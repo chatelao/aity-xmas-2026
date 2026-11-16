@@ -193,7 +193,7 @@ def build_page2_svg(palettes) -> str:
         '<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 210 297">',
         '  <rect width="210" height="297" fill="#FFFFFF"/>',
         '  <text x="12" y="17" font-family="DejaVu Sans, Arial, sans-serif" font-size="4.6" font-weight="bold" fill="#212529">AITY Xmas Tree 2026 — Color Palettes</text>',
-        '  <text x="198" y="17" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-size="3.0" fill="#6C757D">TwinkleFOX · 8 Palettes × 16 Entries</text>',
+        '  <text x="198" y="17" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-size="3.0" fill="#6C757D">TwinkleFOX · {0} Palettes × 16 Entries</text>'.format(len(palettes)),
         '  <rect x="12" y="21.5" width="186" height="9" rx="1.5" fill="#F8F9FA" stroke="#DEE2E6" stroke-width="0.3"/>',
         '  <text x="15" y="27" font-family="DejaVu Sans, Arial, sans-serif" font-size="2.8" fill="#495057">Import: <tspan font-family="DejaVu Sans Mono, monospace" font-weight="bold" fill="#212529">from tannenbaum_palettes import PALETTES</tspan>   ·   Usage: <tspan font-family="DejaVu Sans Mono, monospace" font-weight="bold" fill="#212529">PALETTES[id][0..15]</tspan></text>',
         '  <rect x="12" y="34" width="186" height="148" rx="2" fill="#FFFFFF" stroke="#CED4DA" stroke-width="0.35"/>',
@@ -203,26 +203,26 @@ def build_page2_svg(palettes) -> str:
     sw_x0 = 75.0
     sw_w = 6.8
     sw_gap = 0.7
-    sw_h = 8.2
+    sw_h = 6.8
 
     for col in range(16):
         cx = sw_x0 + col * (sw_w + sw_gap) + sw_w / 2.0
         lines.append(f'  <text x="{cx:.2f}" y="47.5" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="2.3" fill="#6C757D">{col}</text>')
 
-    row_y0 = 50.5
-    row_step = 15.8
+    row_y0 = 49.5
+    row_step = 13.0
 
     for r_idx, (title, const_name, colors) in enumerate(palettes):
         ry = row_y0 + r_idx * row_step
         if r_idx > 0:
-            lines.append(f'  <line x1="16" y1="{ry-2.2:.2f}" x2="194" y2="{ry-2.2:.2f}" stroke="#F1F3F5" stroke-width="0.3"/>')
-        lines.append(f'  <text x="16" y="{ry+3.6:.2f}" font-family="DejaVu Sans, Arial, sans-serif" font-size="2.9" font-weight="bold" fill="#212529">{esc(title)}</text>')
-        lines.append(f'  <text x="16" y="{ry+7.3:.2f}" font-family="DejaVu Sans Mono, monospace" font-size="2.3" fill="#6C757D">{esc(const_name)}</text>')
+            lines.append(f'  <line x1="16" y1="{ry-1.8:.2f}" x2="194" y2="{ry-1.8:.2f}" stroke="#F1F3F5" stroke-width="0.3"/>')
+        lines.append(f'  <text x="16" y="{ry+3.0:.2f}" font-family="DejaVu Sans, Arial, sans-serif" font-size="2.7" font-weight="bold" fill="#212529">{esc(title)}</text>')
+        lines.append(f'  <text x="16" y="{ry+6.2:.2f}" font-family="DejaVu Sans Mono, monospace" font-size="2.1" fill="#6C757D">{esc(const_name)}</text>')
         for col, hex_c in enumerate(colors):
             sx = sw_x0 + col * (sw_w + sw_gap)
             lines.append(f'  <rect x="{sx:.2f}" y="{ry:.2f}" width="{sw_w:.2f}" height="{sw_h:.2f}" rx="0.9" fill="{hex_c}" stroke="#ADB5BD" stroke-width="0.25"/>')
         uniq = list(dict.fromkeys(colors))
-        lines.append(f'  <text x="{sw_x0:.2f}" y="{ry+11.3:.2f}" font-family="DejaVu Sans Mono, monospace" font-size="2.0" fill="#868E96">{" · ".join(uniq)}</text>')
+        lines.append(f'  <text x="{sw_x0:.2f}" y="{ry+9.6:.2f}" font-family="DejaVu Sans Mono, monospace" font-size="1.9" fill="#868E96">{" · ".join(uniq)}</text>')
 
     lines.append('  <rect x="12" y="186" width="186" height="46" rx="2" fill="#FFFFFF" stroke="#CED4DA" stroke-width="0.35"/>')
     lines.append('  <text x="16" y="192.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="3.4" font-weight="bold" fill="#212529">Custom Palette Sketch</text>')

@@ -31,7 +31,12 @@ ICE_BLUE1  = (12, 60, 180)
 ICE_BLUE2  = (24, 128, 255)
 ICE_BLUE3  = (160, 220, 255)
 
-# --- 2. Die 8 TwinkleFOX 16-Eintrags-Paletten ---
+MAGENTA     = (255, 0, 200)
+LIGHT_GREEN = (100, 255, 120)
+MINT_CYAN   = (0, 220, 255)
+SOFT_VIOLET = (170, 80, 255)
+
+# --- 2. Die 10 TwinkleFOX 16-Eintrags-Paletten ---
 # Jede Palette hat exakt 16 Stuetzstellen fuer schnelles Bit-Shift-Indexing (0..15)
 
 # 0: Klassische amerikanische C9-Weihnachtsbaumkerzen (5 Farben)
@@ -98,6 +103,22 @@ PAL_BLUE_WHITE = (
     BLUE, WHITE, WHITE, WHITE
 )
 
+# 8: Klassischer Regenbogen (16 gleichmaessige Spektralfarben)
+PAL_RAINBOW = (
+    (255, 0, 0),   (255, 64, 0),  (255, 128, 0), (255, 192, 0),
+    (255, 255, 0), (128, 255, 0), (0, 255, 0),   (0, 255, 128),
+    (0, 255, 255), (0, 128, 255), (0, 0, 255),   (64, 0, 255),
+    (128, 0, 255), (192, 0, 255), (255, 0, 255), (255, 0, 128)
+)
+
+# 9: Magenta & Hellgruen mit Violett- und Cyan-Akzenten
+PAL_MAGENTA_GREEN = (
+    MAGENTA,     MAGENTA,     MAGENTA,     MAGENTA,
+    MAGENTA,     SOFT_VIOLET, SOFT_VIOLET, SOFT_VIOLET,
+    LIGHT_GREEN, LIGHT_GREEN, LIGHT_GREEN, LIGHT_GREEN,
+    LIGHT_GREEN, MINT_CYAN,   MINT_CYAN,   MINT_CYAN
+)
+
 # Alle Paletten in einer Liste zum Durchschalten per Taster D5/D6
 PALETTES = (
     PAL_RETRO_C9,
@@ -108,6 +129,8 @@ PALETTES = (
     PAL_SNOW,
     PAL_ICE,
     PAL_BLUE_WHITE,
+    PAL_RAINBOW,
+    PAL_MAGENTA_GREEN,
 )
 
 PALETTE_NAMES = (
@@ -119,6 +142,8 @@ PALETTE_NAMES = (
     "Glitzerschnee",
     "Eis-Kristall",
     "Blaue Winternacht",
+    "Regenbogen",
+    "Magenta-Hellgruen",
 )
 
 # Dezente Hintergrundfarbe fuer nicht aktive Funkel-Pixel (wie in TwinkleFOX)

@@ -122,7 +122,7 @@ pixels.show()
 
 ## `tannenbaum_palettes.py`
 
-Provides Christmas-themed base colors, eight 16-entry color palettes, and a stateless FastLED TwinkleFOX-style twinkle engine. Includes helpers for palette interpolation, attack/decay brightness waves, incandescent cool-down shifting, and single-call full-tree rendering with an optional separate star palette.
+Provides Christmas-themed base colors, ten 16-entry color palettes, and a stateless FastLED TwinkleFOX-style twinkle engine. Includes helpers for palette interpolation, attack/decay brightness waves, incandescent cool-down shifting, and single-call full-tree rendering with an optional separate star palette.
 
 ### Base colors
 
@@ -142,6 +142,10 @@ Provides Christmas-themed base colors, eight 16-entry color palettes, and a stat
 | `SNOW_WHITE` | `(224, 240, 255)` | Cold snow white |
 | `SNOW_HALF` | `(48, 56, 64)` | Dim snow |
 | `ICE_BLUE1`, `ICE_BLUE2`, `ICE_BLUE3` | dark → light blue | Ice blue levels |
+| `MAGENTA` | `(255, 0, 200)` | Vibrant magenta |
+| `LIGHT_GREEN` | `(100, 255, 120)` | Fresh light green |
+| `MINT_CYAN` | `(0, 220, 255)` | Bright cyan accent |
+| `SOFT_VIOLET` | `(170, 80, 255)` | Soft violet accent |
 | `BG_DARK_GREEN` | `(0, 5, 1)` | Faint green background |
 | `BG_WARM_DARK` | `(8, 4, 1)` | Faint warm background |
 | `BG_BLACK` | `(0, 0, 0)` | Black background (default) |
@@ -160,6 +164,8 @@ Each palette has exactly 16 entries. All are collected in `PALETTES`; `PALETTE_N
 | 5 | `PAL_SNOW` | Glitzerschnee | Dim snow with bright sparkles |
 | 6 | `PAL_ICE` | Eis-Kristall | Blue and cyan levels |
 | 7 | `PAL_BLUE_WHITE` | Blaue Winternacht | Blue night with white stars |
+| 8 | `PAL_RAINBOW` | Regenbogen | Classic 16-step rainbow spectrum |
+| 9 | `PAL_MAGENTA_GREEN` | Magenta-Hellgruen | Magenta and light green with violet & cyan accents |
 
 ```python
 from tannenbaum_palettes import PALETTES, PALETTE_NAMES
@@ -228,6 +234,6 @@ while True:
 
 ## Appendix: Color Palettes
 
-Visual overview of all 8 TwinkleFOX 16-entry palettes from [`tannenbaum_palettes.py`](tannenbaum_palettes.py):
+Visual overview of all 10 TwinkleFOX 16-entry palettes from [`tannenbaum_palettes.py`](tannenbaum_palettes.py):
 
 ![TwinkleFOX Color Palettes](palettes.svg)
