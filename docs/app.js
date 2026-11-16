@@ -145,12 +145,15 @@
         style: "cursor: crosshair;",
       });
 
-      chip.addEventListener("mouseenter", () => {
+      const inspectLed = () => {
         const [r, g, b] = lastRgb[i];
         inspectorEl.textContent = `LED #${i} · ${SEGMENT_NAMES[seg]} · RGB(${r}, ${g}, ${b})`;
-      });
+      };
+      chip.addEventListener("mouseenter", inspectLed);
+      chip.addEventListener("pointerdown", inspectLed);
+      chip.addEventListener("click", inspectLed);
       chip.addEventListener("mouseleave", () => {
-        inspectorEl.textContent = "Hover an LED to inspect index & RGB";
+        inspectorEl.textContent = "Hover or tap an LED to inspect index & RGB";
       });
 
       ledsGroup.appendChild(glow);
@@ -326,38 +329,71 @@
   // Emulated Board Buttons (D5 and D6, active-low)
   function bindBoardButton(name, btnEl, stateEl, latchEl) {
     let pointerHeld = false;
+    let keyHeld = false;
 
     const sync = () => {
-      const pressed = pointerHeld || latchEl.checked;
+      const pressed = pointerHeld || keyHeld || latchEl.checked;
       runtime.setButton(name, pressed);
       btnEl.classList.toggle("is-pressed", pressed);
       btnEl.setAttribute("aria-pressed", String(pressed));
       stateEl.textContent = pressed ? "LOW" : "HIGH";
     };
 
-    btnEl.addEventListener("pointerdown", (e) => {
+    const pressPointer = (e) => {
       e.preventDefault();
-      btnEl.setPointerCapture?.(e.pointerId);
-      pointerHeld = true;
-      sync();
-    });
+      if (e.pointerId !== undefined) {
+        btnEl.setPointerCapture?.(e.pointerId);
+      }
+      if (!pointerHeld) {
+        pointerHeld = true;
+        sync();
+      }
+    };
 
-    const release = () => {
+    const releasePointer = () => {
       if (pointerHeld) {
         pointerHeld = false;
         sync();
       }
     };
 
-    btnEl.addEventListener("pointerup", release);
-    btnEl.addEventListener("pointercancel", release);
-    btnEl.addEventListener("lostpointercapture", release);
+    btnEl.addEventListener("pointerdown", pressPointer);
+    btnEl.addEventListener("pointerup", releasePointer);
+    btnEl.addEventListener("pointercancel", releasePointer);
+    btnEl.addEventListener("lostpointercapture", releasePointer);
+    btnEl.addEventListener("touchstart", pressPointer, { passive: false });
+    btnEl.addEventListener("touchend", releasePointer);
+    btnEl.addEventListener("touchcancel", releasePointer);
+
+    btnEl.addEventListener("keydown", (e) => {
+      if ((e.key === " " || e.key === "Enter") && !e.repeat) {
+        e.preventDefault();
+        keyHeld = true;
+        sync();
+      }
+    });
+    btnEl.addEventListener("keyup", (e) => {
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault();
+        keyHeld = false;
+        sync();
+      }
+    });
+    btnEl.addEventListener("blur", () => {
+      if (keyHeld) {
+        keyHeld = false;
+        sync();
+      }
+    });
+
     latchEl.addEventListener("change", sync);
 
     return {
       setKeyHeld: (held) => {
-        pointerHeld = held;
-        sync();
+        if (keyHeld !== held) {
+          keyHeld = held;
+          sync();
+        }
       },
     };
   }
@@ -380,6 +416,11 @@
   window.addEventListener("keyup", (e) => {
     if (e.key === "5") d5Ctrl.setKeyHeld(false);
     if (e.key === "6") d6Ctrl.setKeyHeld(false);
+  });
+
+  window.addEventListener("blur", () => {
+    d5Ctrl.setKeyHeld(false);
+    d6Ctrl.setKeyHeld(false);
   });
 
   // Toolbar & Toggle events
