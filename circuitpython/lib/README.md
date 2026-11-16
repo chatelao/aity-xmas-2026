@@ -159,7 +159,7 @@ Provides Christmas-themed base colors, eight 16-entry color palettes, and a stat
 Each palette has exactly 16 entries. All are collected in `PALETTES`; `PALETTE_NAMES` holds matching labels.
 
 | Index | Constant | Name | Description |
-|-------|----------|------|-------------|
+|-------:|----------|------|-------------|
 | 0 | `PAL_RETRO_C9` | Retro C9 | Classic C9 bulbs: red, orange, green, blue |
 | 1 | `PAL_HOLLY` | Holly | Fir green with single red berries |
 | 2 | `PAL_FAIRY_LIGHT` | Fairy Light | Warm gold with brightness steps |
