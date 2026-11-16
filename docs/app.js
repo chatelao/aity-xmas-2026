@@ -32,16 +32,14 @@
     "Stiel",
   ];
 
-  const X_MIN = 111.0262;
-  const Y_MAX = -27.5500;
-  const PAD_X = 8.5;
-  const PAD_TOP = 6.5;
-
-  const SVG_NS = "http://www.w3.org/2000/svg";
+  const OUTLINE = window.XMAS_PCB_OUTLINE;
 
   function toSvg(x, y) {
-    return [x - X_MIN + PAD_X, Y_MAX - y + PAD_TOP];
+    // tannenbaum_layout.py negates KiCad Y; convert back to KiCad Y (-y) relative to outline origin
+    return [x - OUTLINE.xOrigin, (-y) - OUTLINE.yOrigin];
   }
+
+  const SVG_NS = "http://www.w3.org/2000/svg";
 
   function el(tag, attrs = {}) {
     const node = document.createElementNS(SVG_NS, tag);
@@ -87,66 +85,62 @@
 
   // Build Christmas Tree PCB SVG
   function buildTreeSvg() {
+    treeSvg.setAttribute("viewBox", OUTLINE.viewBox);
+
     // Defs for soft LED glow filter
     const defs = el("defs");
     const filter = el("filter", { id: "led-glow", x: "-100%", y: "-100%", width: "300%", height: "300%" });
-    filter.appendChild(el("feGaussianBlur", { stdDeviation: "1.35", result: "blur" }));
+    filter.appendChild(el("feGaussianBlur", { stdDeviation: "1.45", result: "blur" }));
     defs.appendChild(filter);
     treeSvg.appendChild(defs);
 
-    // Stylized Christmas tree PCB silhouette behind the 60 LEDs
+    // Exact KiCad Edge.Cuts PCB outline
     const pcbGroup = el("g", { id: "pcb-board" });
-    const treePath = [
-      "M 29.7 3.2",
-      "L 34.0 9.6 L 40.5 11.2 L 35.8 16.5 L 37.8 22.8 L 31.2 19.6",
-      "L 33.4 26.2 L 42.5 34.5 L 49.0 48.0 L 43.2 49.2",
-      "L 49.5 58.2 L 44.5 60.2 L 51.8 66.5 L 46.0 72.5",
-      "Q 29.7 79.5 13.5 72.5",
-      "L 5.2 66.0 L 12.2 59.5 L 7.5 53.0 L 15.0 47.0",
-      "L 10.5 36.0 L 20.5 28.0 L 23.0 19.6",
-      "L 18.2 22.8 L 20.2 16.5 L 15.5 11.2 L 22.0 9.6 L 26.2 3.2",
-      "Z"
-    ].join(" ");
-
     pcbGroup.appendChild(el("path", {
-      d: treePath,
+      d: OUTLINE.edgePath,
       fill: "#0c2b1c",
       stroke: "#c49a45",
       "stroke-width": "0.45",
       "stroke-linejoin": "round",
     }));
 
-    // XIAO MCU module silhouette at bottom trunk
+    // XIAO MCU module silhouette at exact KiCad placement (131.375, 98.105)
+    const xw = 17.5;
+    const xh = 21.0;
+    const xx = OUTLINE.xiao.x - xw / 2;
+    const xy = OUTLINE.xiao.y - xh / 2;
     pcbGroup.appendChild(el("rect", {
-      x: 21.2, y: 74.0, width: 17.0, height: 14.5, rx: 1.2,
+      x: xx.toFixed(2), y: xy.toFixed(2), width: xw, height: xh, rx: 1.2,
       fill: "#11161c", stroke: "#c49a45", "stroke-width": "0.35"
     }));
-    // USB-C port
+    // USB-C port at bottom edge of XIAO
     pcbGroup.appendChild(el("rect", {
-      x: 26.7, y: 86.8, width: 6.0, height: 2.6, rx: 0.5,
+      x: (OUTLINE.xiao.x - 3.2).toFixed(2), y: (xy + xh - 2.0).toFixed(2), width: 6.4, height: 3.0, rx: 0.5,
       fill: "#8b949e"
     }));
     const xiaoLabel = el("text", {
-      x: 29.7, y: 80.2, "text-anchor": "middle",
-      fill: "#c49a45", "font-size": "2.1", "font-family": "JetBrains Mono, monospace", "font-weight": "600"
+      x: OUTLINE.xiao.x.toFixed(2), y: (OUTLINE.xiao.y - 1.0).toFixed(2), "text-anchor": "middle",
+      fill: "#c49a45", "font-size": "2.4", "font-family": "JetBrains Mono, monospace", "font-weight": "600"
     });
     xiaoLabel.textContent = "XIAO";
     pcbGroup.appendChild(xiaoLabel);
 
     const silkLabel = el("text", {
-      x: 29.7, y: 83.4, "text-anchor": "middle",
-      fill: "#6e8f7b", "font-size": "1.45", "font-family": "JetBrains Mono, monospace"
+      x: OUTLINE.xiao.x.toFixed(2), y: (OUTLINE.xiao.y + 3.0).toFixed(2), "text-anchor": "middle",
+      fill: "#6e8f7b", "font-size": "1.6", "font-family": "JetBrains Mono, monospace"
     });
     silkLabel.textContent = "AITY 2026";
     pcbGroup.appendChild(silkLabel);
 
     // Onboard RGB LED (board.NEOPIXEL)
+    const obX = OUTLINE.xiao.x - 5.2;
+    const obY = OUTLINE.xiao.y + 4.5;
     onboardGlowNode = el("circle", {
-      cx: 24.4, cy: 83.8, r: 2.0,
+      cx: obX.toFixed(2), cy: obY.toFixed(2), r: 2.2,
       fill: "rgb(0,0,0)", opacity: "0", filter: "url(#led-glow)"
     });
     onboardChipNode = el("rect", {
-      x: 23.6, y: 83.0, width: 1.6, height: 1.6, rx: 0.3,
+      x: (obX - 0.85).toFixed(2), y: (obY - 0.85).toFixed(2), width: 1.7, height: 1.7, rx: 0.3,
       fill: "#263038", stroke: "#485460", "stroke-width": "0.18"
     });
     pcbGroup.appendChild(onboardGlowNode);

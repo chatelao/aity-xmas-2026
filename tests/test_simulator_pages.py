@@ -43,6 +43,7 @@ class TestPagesStructure(unittest.TestCase):
             "runtime.js",
             "examples.js",
             "py_libs.js",
+            "pcb_outline.js",
         ]
         for name in required:
             path = DOCS / name
@@ -83,7 +84,7 @@ class TestPagesStructure(unittest.TestCase):
                 self.assertTrue((DOCS / href).is_file(), f"Missing local stylesheet: {href}")
 
     def test_js_syntax_with_node(self):
-        for name in ("examples.js", "py_libs.js", "runtime.js", "app.js"):
+        for name in ("examples.js", "py_libs.js", "pcb_outline.js", "runtime.js", "app.js"):
             res = subprocess.run(
                 ["node", "--check", str(DOCS / name)],
                 capture_output=True,
@@ -385,7 +386,7 @@ class TestLocalHttpServing(unittest.TestCase):
             t = threading.Thread(target=httpd.serve_forever, daemon=True)
             t.start()
             try:
-                for path in ("index.html", "styles.css", "app.js", "runtime.js", "examples.js", "py_libs.js"):
+                for path in ("index.html", "styles.css", "app.js", "runtime.js", "examples.js", "py_libs.js", "pcb_outline.js"):
                     with urlopen(f"http://127.0.0.1:{port}/{path}", timeout=3) as resp:
                         self.assertEqual(resp.status, 200, f"HTTP {resp.status} for {path}")
                         self.assertGreater(len(resp.read()), 0)
