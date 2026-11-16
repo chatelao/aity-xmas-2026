@@ -104,48 +104,6 @@
       "stroke-linejoin": "round",
     }));
 
-    // XIAO MCU module silhouette at exact KiCad placement (131.375, 98.105)
-    const xw = 17.5;
-    const xh = 21.0;
-    const xx = OUTLINE.xiao.x - xw / 2;
-    const xy = OUTLINE.xiao.y - xh / 2;
-    pcbGroup.appendChild(el("rect", {
-      x: xx.toFixed(2), y: xy.toFixed(2), width: xw, height: xh, rx: 1.2,
-      fill: "#11161c", stroke: "#c49a45", "stroke-width": "0.35"
-    }));
-    // USB-C port at bottom edge of XIAO
-    pcbGroup.appendChild(el("rect", {
-      x: (OUTLINE.xiao.x - 3.2).toFixed(2), y: (xy + xh - 2.0).toFixed(2), width: 6.4, height: 3.0, rx: 0.5,
-      fill: "#8b949e"
-    }));
-    const xiaoLabel = el("text", {
-      x: OUTLINE.xiao.x.toFixed(2), y: (OUTLINE.xiao.y - 1.0).toFixed(2), "text-anchor": "middle",
-      fill: "#c49a45", "font-size": "2.4", "font-family": "JetBrains Mono, monospace", "font-weight": "600"
-    });
-    xiaoLabel.textContent = "XIAO";
-    pcbGroup.appendChild(xiaoLabel);
-
-    const silkLabel = el("text", {
-      x: OUTLINE.xiao.x.toFixed(2), y: (OUTLINE.xiao.y + 3.0).toFixed(2), "text-anchor": "middle",
-      fill: "#6e8f7b", "font-size": "1.6", "font-family": "JetBrains Mono, monospace"
-    });
-    silkLabel.textContent = "AITY 2026";
-    pcbGroup.appendChild(silkLabel);
-
-    // Onboard RGB LED (board.NEOPIXEL)
-    const obX = OUTLINE.xiao.x - 5.2;
-    const obY = OUTLINE.xiao.y + 4.5;
-    onboardGlowNode = el("circle", {
-      cx: obX.toFixed(2), cy: obY.toFixed(2), r: 2.2,
-      fill: "rgb(0,0,0)", opacity: "0", filter: "url(#led-glow)"
-    });
-    onboardChipNode = el("rect", {
-      x: (obX - 0.85).toFixed(2), y: (obY - 0.85).toFixed(2), width: 1.7, height: 1.7, rx: 0.3,
-      fill: "#263038", stroke: "#485460", "stroke-width": "0.18"
-    });
-    pcbGroup.appendChild(onboardGlowNode);
-    pcbGroup.appendChild(onboardChipNode);
-
     treeSvg.appendChild(pcbGroup);
 
     // Segment copper traces
