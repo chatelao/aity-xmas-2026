@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="428" viewBox="0 0 780 428">
+  <rect width="100%" height="100%" rx="8" fill="#0D1117"/>
+  <text x="16" y="34" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="bold" fill="#E6EDF3">TwinkleFOX Color Palettes (16 entries each)</text>
+  <text x="262.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">0</text>
+  <text x="294.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">1</text>
+  <text x="326.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">2</text>
+  <text x="358.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">3</text>
+  <text x="390.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">4</text>
+  <text x="422.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">5</text>
+  <text x="454.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">6</text>
+  <text x="486.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">7</text>
+  <text x="518.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">8</text>
+  <text x="550.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">9</text>
+  <text x="582.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">10</text>
+  <text x="614.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">11</text>
+  <text x="646.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">12</text>
+  <text x="678.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">13</text>
+  <text x="710.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">14</text>
+  <text x="742.0" y="50" text-anchor="middle" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">15</text>
+  <text x="16" y="68" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#E6EDF3">0: Retro C9</text>
+  <text x="16" y="81" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">PAL_RETRO_C9</text>
+  <rect x="246" y="58" width="30" height="26" rx="3" fill="#B80400" stroke="#30363D" stroke-width="1"/>
+  <rect x="278" y="58" width="30" height="26" rx="3" fill="#902C02" stroke="#30363D" stroke-width="1"/>
+  <rect x="310" y="58" width="30" height="26" rx="3" fill="#B80400" stroke="#30363D" stroke-width="1"/>
+  <rect x="342" y="58" width="30" height="26" rx="3" fill="#902C02" stroke="#30363D" stroke-width="1"/>
+  <rect x="374" y="58" width="30" height="26" rx="3" fill="#902C02" stroke="#30363D" stroke-width="1"/>
+  <rect x="406" y="58" width="30" height="26" rx="3" fill="#B80400" stroke="#30363D" stroke-width="1"/>
+  <rect x="438" y="58" width="30" height="26" rx="3" fill="#902C02" stroke="#30363D" stroke-width="1"/>
+  <rect x="470" y="58" width="30" height="26" rx="3" fill="#B80400" stroke="#30363D" stroke-width="1"/>
+  <rect x="502" y="58" width="30" height="26" rx="3" fill="#046202" stroke="#30363D" stroke-width="1"/>
+  <rect x="534" y="58" width="30" height="26" rx="3" fill="#046202" stroke="#30363D" stroke-width="1"/>
+  <rect x="566" y="58" width="30" height="26" rx="3" fill="#046202" stroke="#30363D" stroke-width="1"/>
+  <rect x="598" y="58" width="30" height="26" rx="3" fill="#046202" stroke="#30363D" stroke-width="1"/>
+  <rect x="630" y="58" width="30" height="26" rx="3" fill="#070758" stroke="#30363D" stroke-width="1"/>
+  <rect x="662" y="58" width="30" height="26" rx="3" fill="#070758" stroke="#30363D" stroke-width="1"/>
+  <rect x="694" y="58" width="30" height="26" rx="3" fill="#070758" stroke="#30363D" stroke-width="1"/>
+  <rect x="726" y="58" width="30" height="26" rx="3" fill="#E0A040" stroke="#30363D" stroke-width="1"/>
+  <text x="16" y="112" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#E6EDF3">1: Holly (Tannengruen &amp; Beeren)</text>
+  <text x="16" y="125" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">PAL_HOLLY</text>
+  <rect x="246" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="278" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="310" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="342" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="374" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="406" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="438" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="470" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="502" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="534" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="566" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="598" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="630" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="662" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="694" y="102" width="30" height="26" rx="3" fill="#00580C" stroke="#30363D" stroke-width="1"/>
+  <rect x="726" y="102" width="30" height="26" rx="3" fill="#B00402" stroke="#30363D" stroke-width="1"/>
+  <text x="16" y="156" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#E6EDF3">2: Fairy Light (Warmes Gold)</text>
+  <text x="16" y="169" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">PAL_FAIRY_LIGHT</text>
+  <rect x="246" y="146" width="30" height="26" rx="3" fill="#FF9D2A" stroke="#30363D" stroke-width="1"/>
+  <rect x="278" y="146" width="30" height="26" rx="3" fill="#FF9D2A" stroke="#30363D" stroke-width="1"/>
+  <rect x="310" y="146" width="30" height="26" rx="3" fill="#FF9D2A" stroke="#30363D" stroke-width="1"/>
+  <rect x="342" y="146" width="30" height="26" rx="3" fill="#FF9D2A" stroke="#30363D" stroke-width="1"/>
+  <rect x="374" y="146" width="30" height="26" rx="3" fill="#7F4E15" stroke="#30363D" stroke-width="1"/>
+  <rect x="406" y="146" width="30" height="26" rx="3" fill="#7F4E15" stroke="#30363D" stroke-width="1"/>
+  <rect x="438" y="146" width="30" height="26" rx="3" fill="#FF9D2A" stroke="#30363D" stroke-width="1"/>
+  <rect x="470" y="146" width="30" height="26" rx="3" fill="#FF9D2A" stroke="#30363D" stroke-width="1"/>
+  <rect x="502" y="146" width="30" height="26" rx="3" fill="#3F270A" stroke="#30363D" stroke-width="1"/>
+  <rect x="534" y="146" width="30" height="26" rx="3" fill="#3F270A" stroke="#30363D" stroke-width="1"/>
+  <rect x="566" y="146" width="30" height="26" rx="3" fill="#FF9D2A" stroke="#30363D" stroke-width="1"/>
+  <rect x="598" y="146" width="30" height="26" rx="3" fill="#FF9D2A" stroke="#30363D" stroke-width="1"/>
+  <rect x="630" y="146" width="30" height="26" rx="3" fill="#FF9D2A" stroke="#30363D" stroke-width="1"/>
+  <rect x="662" y="146" width="30" height="26" rx="3" fill="#FF9D2A" stroke="#30363D" stroke-width="1"/>
+  <rect x="694" y="146" width="30" height="26" rx="3" fill="#FF9D2A" stroke="#30363D" stroke-width="1"/>
+  <rect x="726" y="146" width="30" height="26" rx="3" fill="#FF9D2A" stroke="#30363D" stroke-width="1"/>
+  <text x="16" y="200" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#E6EDF3">3: Rot-Gruen-Weiss</text>
+  <text x="16" y="213" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">PAL_RED_GREEN_WHITE</text>
+  <rect x="246" y="190" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="278" y="190" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="310" y="190" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="342" y="190" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="374" y="190" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="406" y="190" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="438" y="190" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="470" y="190" width="30" height="26" rx="3" fill="#00FF00" stroke="#30363D" stroke-width="1"/>
+  <rect x="502" y="190" width="30" height="26" rx="3" fill="#00FF00" stroke="#30363D" stroke-width="1"/>
+  <rect x="534" y="190" width="30" height="26" rx="3" fill="#00FF00" stroke="#30363D" stroke-width="1"/>
+  <rect x="566" y="190" width="30" height="26" rx="3" fill="#00FF00" stroke="#30363D" stroke-width="1"/>
+  <rect x="598" y="190" width="30" height="26" rx="3" fill="#00FF00" stroke="#30363D" stroke-width="1"/>
+  <rect x="630" y="190" width="30" height="26" rx="3" fill="#00FF00" stroke="#30363D" stroke-width="1"/>
+  <rect x="662" y="190" width="30" height="26" rx="3" fill="#00FF00" stroke="#30363D" stroke-width="1"/>
+  <rect x="694" y="190" width="30" height="26" rx="3" fill="#FFFFFF" stroke="#30363D" stroke-width="1"/>
+  <rect x="726" y="190" width="30" height="26" rx="3" fill="#FFFFFF" stroke="#30363D" stroke-width="1"/>
+  <text x="16" y="244" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#E6EDF3">4: Zuckerstange (Rot-Weiss)</text>
+  <text x="16" y="257" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">PAL_RED_WHITE</text>
+  <rect x="246" y="234" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="278" y="234" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="310" y="234" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="342" y="234" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="374" y="234" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="406" y="234" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="438" y="234" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="470" y="234" width="30" height="26" rx="3" fill="#FF0000" stroke="#30363D" stroke-width="1"/>
+  <rect x="502" y="234" width="30" height="26" rx="3" fill="#FFFFFF" stroke="#30363D" stroke-width="1"/>
+  <rect x="534" y="234" width="30" height="26" rx="3" fill="#FFFFFF" stroke="#30363D" stroke-width="1"/>
+  <rect x="566" y="234" width="30" height="26" rx="3" fill="#FFFFFF" stroke="#30363D" stroke-width="1"/>
+  <rect x="598" y="234" width="30" height="26" rx="3" fill="#FFFFFF" stroke="#30363D" stroke-width="1"/>
+  <rect x="630" y="234" width="30" height="26" rx="3" fill="#FFFFFF" stroke="#30363D" stroke-width="1"/>
+  <rect x="662" y="234" width="30" height="26" rx="3" fill="#FFFFFF" stroke="#30363D" stroke-width="1"/>
+  <rect x="694" y="234" width="30" height="26" rx="3" fill="#FFFFFF" stroke="#30363D" stroke-width="1"/>
+  <rect x="726" y="234" width="30" height="26" rx="3" fill="#FFFFFF" stroke="#30363D" stroke-width="1"/>
+  <text x="16" y="288" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#E6EDF3">5: Glitzerschnee</text>
+  <text x="16" y="301" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">PAL_SNOW</text>
+  <rect x="246" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="278" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="310" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="342" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="374" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="406" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="438" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="470" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="502" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="534" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="566" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="598" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="630" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="662" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="694" y="278" width="30" height="26" rx="3" fill="#303840" stroke="#30363D" stroke-width="1"/>
+  <rect x="726" y="278" width="30" height="26" rx="3" fill="#E0F0FF" stroke="#30363D" stroke-width="1"/>
+  <text x="16" y="332" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#E6EDF3">6: Eis-Kristall</text>
+  <text x="16" y="345" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">PAL_ICE</text>
+  <rect x="246" y="322" width="30" height="26" rx="3" fill="#0C3CB4" stroke="#30363D" stroke-width="1"/>
+  <rect x="278" y="322" width="30" height="26" rx="3" fill="#0C3CB4" stroke="#30363D" stroke-width="1"/>
+  <rect x="310" y="322" width="30" height="26" rx="3" fill="#0C3CB4" stroke="#30363D" stroke-width="1"/>
+  <rect x="342" y="322" width="30" height="26" rx="3" fill="#0C3CB4" stroke="#30363D" stroke-width="1"/>
+  <rect x="374" y="322" width="30" height="26" rx="3" fill="#0C3CB4" stroke="#30363D" stroke-width="1"/>
+  <rect x="406" y="322" width="30" height="26" rx="3" fill="#0C3CB4" stroke="#30363D" stroke-width="1"/>
+  <rect x="438" y="322" width="30" height="26" rx="3" fill="#0C3CB4" stroke="#30363D" stroke-width="1"/>
+  <rect x="470" y="322" width="30" height="26" rx="3" fill="#0C3CB4" stroke="#30363D" stroke-width="1"/>
+  <rect x="502" y="322" width="30" height="26" rx="3" fill="#1880FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="534" y="322" width="30" height="26" rx="3" fill="#1880FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="566" y="322" width="30" height="26" rx="3" fill="#1880FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="598" y="322" width="30" height="26" rx="3" fill="#1880FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="630" y="322" width="30" height="26" rx="3" fill="#1880FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="662" y="322" width="30" height="26" rx="3" fill="#A0DCFF" stroke="#30363D" stroke-width="1"/>
+  <rect x="694" y="322" width="30" height="26" rx="3" fill="#A0DCFF" stroke="#30363D" stroke-width="1"/>
+  <rect x="726" y="322" width="30" height="26" rx="3" fill="#E0F0FF" stroke="#30363D" stroke-width="1"/>
+  <text x="16" y="376" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#E6EDF3">7: Blaue Winternacht</text>
+  <text x="16" y="389" font-family="DejaVu Sans Mono, monospace" font-size="10" fill="#8B949E">PAL_BLUE_WHITE</text>
+  <rect x="246" y="366" width="30" height="26" rx="3" fill="#0000FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="278" y="366" width="30" height="26" rx="3" fill="#0000FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="310" y="366" width="30" height="26" rx="3" fill="#0000FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="342" y="366" width="30" height="26" rx="3" fill="#0000FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="374" y="366" width="30" height="26" rx="3" fill="#0000FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="406" y="366" width="30" height="26" rx="3" fill="#0000FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="438" y="366" width="30" height="26" rx="3" fill="#0000FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="470" y="366" width="30" height="26" rx="3" fill="#0000FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="502" y="366" width="30" height="26" rx="3" fill="#0000FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="534" y="366" width="30" height="26" rx="3" fill="#0000FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="566" y="366" width="30" height="26" rx="3" fill="#0000FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="598" y="366" width="30" height="26" rx="3" fill="#0000FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="630" y="366" width="30" height="26" rx="3" fill="#0000FF" stroke="#30363D" stroke-width="1"/>
+  <rect x="662" y="366" width="30" height="26" rx="3" fill="#FFFFFF" stroke="#30363D" stroke-width="1"/>
+  <rect x="694" y="366" width="30" height="26" rx="3" fill="#FFFFFF" stroke="#30363D" stroke-width="1"/>
+  <rect x="726" y="366" width="30" height="26" rx="3" fill="#FFFFFF" stroke="#30363D" stroke-width="1"/>
+</svg>

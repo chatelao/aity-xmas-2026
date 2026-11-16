@@ -1,6 +1,6 @@
 # CircuitPython Libraries (`lib/`)
 
-Helper modules for the 60-LED Xmas tree PCB (D201–D260), compatible with the **Seeed Studio XIAO RP2040** and **XIAO ESP32-C6** running CircuitPython.
+Helper modules for the 60-LED Xmas tree PCB, compatible with the **Seeed Studio XIAO RP2040** and **XIAO ESP32-C6** running CircuitPython.
 
 Copy the files you need into the `lib/` folder on the `CIRCUITPY` drive (see [HOWTO_RP2040.md](../../HOWTO_RP2040.md) and [HOWTO_ESP32-C6.md](../../HOWTO_ESP32-C6.md)). Scripts also need the Adafruit `neopixel` library (`neopixel.mpy`, available in [`../default/lib/`](../default/lib/)).
 
@@ -27,21 +27,21 @@ Describes the physical and logical layout of the 60-LED Xmas tree PCB: pin defin
 
 | Constant | Value | Description |
 |----------|-------|-------------|
-| `NUM_PIXELS` | `60` | Number of NeoPixel LEDs (D201–D260) |
+| `NUM_PIXELS` | `60` | Number of NeoPixel LEDs |
 | `PIN_NEOPIXEL` | `board.D10` | NeoPixel data pin |
 | `PIN_BTN_A` | `board.D5` | Button A pin |
 | `PIN_BTN_B` | `board.D6` | Button B pin |
 
 ### Segments
 
-| Constant | ID | LEDs | Index range | Designators | Description |
-|----------|----:|------:|-------------|-------------|-------------|
-| `SEG_STAR_INNER` | 0 | 5 | `(0, 5)` | D201–D205 | Inner pentagon at the tree top |
-| `SEG_STAR_OUTER` | 1 | 5 | `(5, 10)` | D206–D210 | Outer pentagon at the tree top |
-| `SEG_BOUGH_MID` | 2 | 14 | `(10, 24)` | D211–D224 | Middle curved bough |
-| `SEG_BOUGH_LOW` | 3 | 18 | `(24, 42)` | D225–D242 | Lower long bough (base) |
-| `SEG_BOUGH_HIGH` | 4 | 13 | `(42, 55)` | D243–D255 | Upper bough |
-| `SEG_STEM` | 5 | 5 | `(55, 60)` | D256–D260 | Connecting arc below the star |
+| Constant | ID | LEDs | Index range | Description |
+|----------|----:|------:|-------------|-------------|
+| `SEG_STAR_INNER` | 0 | 5 | `(0, 5)` | Inner pentagon at the tree top |
+| `SEG_STAR_OUTER` | 1 | 5 | `(5, 10)` | Outer pentagon at the tree top |
+| `SEG_BOUGH_MID` | 2 | 14 | `(10, 24)` | Middle curved bough |
+| `SEG_BOUGH_LOW` | 3 | 18 | `(24, 42)` | Lower long bough (base) |
+| `SEG_BOUGH_HIGH` | 4 | 13 | `(42, 55)` | Upper bough |
+| `SEG_STEM` | 5 | 5 | `(55, 60)` | Connecting arc below the star |
 
 Index ranges are `(start, end)` with exclusive end, stored in `SEGMENTS`. `SEGMENT_NAMES` holds a German label for each segment.
 
@@ -61,7 +61,7 @@ print(SEGMENT_NAMES[SEG_BOUGH_LOW], start, end)  # Zweig Unten 24 42
 | `Y_MIN`, `Y_MAX` | Vertical bounds in mm (-96.2408 base / -27.5500 star tip) |
 | `WIDTH_MM`, `HEIGHT_MM` | Bounding-box size in mm (≈ 38.85 / 68.69) |
 | `CENTER_STAR` | Center of the 10 star LEDs |
-| `CENTER_STEM` | Center of the stem (D258) |
+| `CENTER_STEM` | Center of the stem |
 | `CENTER_TREE` | Center of the bounding box |
 | `CENTER_BASE` | Center of the lower boughs |
 | `EPICENTERS` | Tuple of the four centers above, for waves and explosions |
@@ -84,14 +84,6 @@ pixels.show()
 ```
 
 ### Functions
-
-#### `get_designator(index)`
-Returns the KiCad part name for a pixel index (raises `ValueError` outside 0–59).
-
-```python
-from tannenbaum_layout import get_designator
-print(get_designator(0))   # D201
-```
 
 #### `build_distance_lut(origin_xy)`
 Returns a tuple of the 60 distances (mm) from each LED to a point. Compute once, then reuse in the main loop to avoid `sqrt`.
@@ -231,3 +223,11 @@ while True:
     render_twinkle_tree(pixels, ms, PAL_HOLLY, star_palette=PAL_FAIRY_LIGHT)
     pixels.show()
 ```
+
+---
+
+## Appendix: Color Palettes
+
+Visual overview of all 8 TwinkleFOX 16-entry palettes from [`tannenbaum_palettes.py`](tannenbaum_palettes.py):
+
+![TwinkleFOX Color Palettes](palettes.svg)
