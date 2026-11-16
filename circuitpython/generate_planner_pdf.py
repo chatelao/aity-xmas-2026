@@ -8,6 +8,7 @@ Requires `rsvg-convert` (librsvg2-bin).
 """
 
 from pathlib import Path
+import re
 import subprocess
 import tempfile
 import xml.etree.ElementTree as ET
@@ -48,7 +49,13 @@ def parse_leds_svg(path: Path):
     for elem in root.findall(".//svg:polyline", ns):
         polylines.append((elem.attrib["points"], elem.attrib.get("stroke", "#495057")))
 
-    return leds, polylines
+    outline_d = None
+    for elem in root.findall(".//svg:path", ns):
+        if elem.attrib.get("id") == "pcb-outline":
+            outline_d = elem.attrib.get("d")
+            break
+
+    return leds, polylines, outline_d
 
 
 def parse_palettes_svg(path: Path):
@@ -96,11 +103,15 @@ def esc(text: str) -> str:
     )
 
 
-def build_page1_svg(leds, polylines) -> str:
+def build_page1_svg(leds, polylines, outline_d=None) -> str:
     xs = [c[2] for c in leds]
     ys = [c[3] for c in leds]
+    if outline_d:
+        for mx, my in re.findall(r"[ML]\s*([-\d.]+)\s+([-\d.]+)", outline_d):
+            xs.append(float(mx))
+            ys.append(float(my))
     x_min, x_max = min(xs), max(xs)
-    y_min = min(ys)
+    y_min, y_max = min(ys), max(ys)
 
     seg_colors = {}
     for _, seg, _, _, stroke in leds:
@@ -122,12 +133,16 @@ def build_page1_svg(leds, polylines) -> str:
         '  <text x="15" y="40" font-family="DejaVu Sans, Arial, sans-serif" font-size="3.4" font-weight="bold" fill="#212529">Reference Map (Pixel Index 0–59)</text>',
     ]
 
-    ref_scale = 1.66
+    ref_scale = min(76.0 / (x_max - x_min), 120.0 / (y_max - y_min))
     tree_w = (x_max - x_min) * ref_scale
     ref_ox = 12 + (84 - tree_w) / 2.0 - x_min * ref_scale
     ref_oy = 43.0 - y_min * ref_scale
 
     lines.append(f'  <g transform="translate({ref_ox:.3f},{ref_oy:.3f}) scale({ref_scale:.4f})">')
+    if outline_d:
+        lines.append(
+            f'    <path d="{outline_d}" fill="#F8F9FA" fill-opacity="0.5" stroke="#868E96" stroke-width="0.35" stroke-linejoin="round"/>'
+        )
     for pts, color in polylines:
         lines.append(
             f'    <polyline points="{pts}" fill="none" stroke="{color}" stroke-width="0.25" stroke-opacity="0.4" stroke-linecap="round" stroke-linejoin="round"/>'
@@ -165,7 +180,7 @@ def build_page1_svg(leds, polylines) -> str:
     frame_gap = 4.0
     frame_y = 188.0
     frame_h = 97.0
-    fr_scale = 0.96
+    fr_scale = min(38.0 / (x_max - x_min), 68.0 / (y_max - y_min))
     fr_tree_w = (x_max - x_min) * fr_scale
 
     for fi in range(4):
@@ -176,6 +191,10 @@ def build_page1_svg(leds, polylines) -> str:
         fox = fx + (frame_w - fr_tree_w) / 2.0 - x_min * fr_scale
         foy = frame_y + 9.5 - y_min * fr_scale
         lines.append(f'  <g transform="translate({fox:.3f},{foy:.3f}) scale({fr_scale:.4f})">')
+        if outline_d:
+            lines.append(
+                f'    <path d="{outline_d}" fill="none" stroke="#ADB5BD" stroke-width="0.4" stroke-linejoin="round"/>'
+            )
         for _, _, cx, cy, _ in leds:
             lines.append(f'    <circle cx="{cx:.3f}" cy="{cy:.3f}" r="0.86" fill="#FFFFFF" stroke="#495057" stroke-width="0.24"/>')
         lines.append('  </g>')
@@ -249,13 +268,13 @@ def build_page2_svg(palettes) -> str:
 
 
 def main():
-    leds, polylines = parse_leds_svg(LEDS_SVG)
+    leds, polylines, outline_d = parse_leds_svg(LEDS_SVG)
     palettes = parse_palettes_svg(PALETTES_SVG)
 
     with tempfile.TemporaryDirectory() as tmpdir:
         p1 = Path(tmpdir) / "page1.svg"
         p2 = Path(tmpdir) / "page2.svg"
-        p1.write_text(build_page1_svg(leds, polylines), encoding="utf-8")
+        p1.write_text(build_page1_svg(leds, polylines, outline_d), encoding="utf-8")
         p2.write_text(build_page2_svg(palettes), encoding="utf-8")
         subprocess.run(
             ["rsvg-convert", "-f", "pdf", "-o", str(OUT_PDF), str(p1), str(p2)],
