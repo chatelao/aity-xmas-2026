@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="44.8514mm" height="74.6908mm" viewBox="0 0 44.8514 74.6908">
+  <title>AITY Xmas Tree 2026 — 60 NeoPixel LEDs (D201–D260)</title>
+  <rect width="100%" height="100%" fill="#FFFFFF"/>
+<g transform="translate(3.000,3.000) scale(1.0000)">
+  <polyline points="27.691,4.614 21.224,2.000 14.661,4.724 18.349,10.603 25.102,12.325 27.691,4.614" fill="none" stroke="#D9480F" stroke-width="0.25" stroke-opacity="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="25.789,5.232 21.224,0.000 16.563,5.342 17.174,12.221 23.856,10.731 25.789,5.232" fill="none" stroke="#E67700" stroke-width="0.25" stroke-opacity="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="36.328,53.743 33.885,54.681 31.358,55.358 28.773,55.768 26.160,55.905 23.547,55.768 20.962,55.358 18.434,54.681 15.992,53.743 13.660,52.555 11.465,51.130 9.432,49.483 7.581,47.633 5.934,45.599" fill="none" stroke="#2B8A3E" stroke-width="0.25" stroke-opacity="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="38.851,59.776 37.067,61.690 35.092,63.406 32.948,64.907 30.660,66.176 28.251,67.198 25.748,67.963 23.180,68.463 20.573,68.691 17.956,68.645 15.359,68.326 12.809,67.738 10.335,66.886 7.963,65.780 5.721,64.432 3.631,62.857 1.717,61.073 0.000,59.098" fill="none" stroke="#1971C2" stroke-width="0.25" stroke-opacity="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="36.469,43.321 33.856,43.457 31.242,43.321 28.658,42.911 26.130,42.234 23.687,41.296 21.356,40.108 19.161,38.683 17.127,37.036 15.277,35.186 13.630,33.152 12.205,30.957 11.017,28.626" fill="none" stroke="#6741D9" stroke-width="0.25" stroke-opacity="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="26.982,22.057 25.374,23.850 23.727,25.884 21.877,27.734 19.843,29.381" fill="none" stroke="#C2255C" stroke-width="0.25" stroke-opacity="0.35" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle id="led-0" data-index="0" data-designator="D201" data-segment="0" cx="27.691" cy="4.614" r="0.86" fill="#FFFFFF" stroke="#D9480F" stroke-width="0.220"/>
+  <text x="27.691" y="4.914" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">0</text>
+  <circle id="led-1" data-index="1" data-designator="D202" data-segment="0" cx="21.224" cy="2.000" r="0.86" fill="#FFFFFF" stroke="#D9480F" stroke-width="0.220"/>
+  <text x="21.224" y="2.300" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">1</text>
+  <circle id="led-2" data-index="2" data-designator="D203" data-segment="0" cx="14.661" cy="4.724" r="0.86" fill="#FFFFFF" stroke="#D9480F" stroke-width="0.220"/>
+  <text x="14.661" y="5.024" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">2</text>
+  <circle id="led-3" data-index="3" data-designator="D204" data-segment="0" cx="18.349" cy="10.603" r="0.86" fill="#FFFFFF" stroke="#D9480F" stroke-width="0.220"/>
+  <text x="18.349" y="10.903" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">3</text>
+  <circle id="led-4" data-index="4" data-designator="D205" data-segment="0" cx="25.102" cy="12.325" r="0.86" fill="#FFFFFF" stroke="#D9480F" stroke-width="0.220"/>
+  <text x="25.102" y="12.625" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">4</text>
+  <circle id="led-5" data-index="5" data-designator="D206" data-segment="1" cx="25.789" cy="5.232" r="0.86" fill="#FFFFFF" stroke="#E67700" stroke-width="0.220"/>
+  <text x="25.789" y="5.532" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">5</text>
+  <circle id="led-6" data-index="6" data-designator="D207" data-segment="1" cx="21.224" cy="0.000" r="0.86" fill="#FFFFFF" stroke="#E67700" stroke-width="0.220"/>
+  <text x="21.224" y="0.300" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">6</text>
+  <circle id="led-7" data-index="7" data-designator="D208" data-segment="1" cx="16.563" cy="5.342" r="0.86" fill="#FFFFFF" stroke="#E67700" stroke-width="0.220"/>
+  <text x="16.563" y="5.642" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">7</text>
+  <circle id="led-8" data-index="8" data-designator="D209" data-segment="1" cx="17.174" cy="12.221" r="0.86" fill="#FFFFFF" stroke="#E67700" stroke-width="0.220"/>
+  <text x="17.174" y="12.521" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">8</text>
+  <circle id="led-9" data-index="9" data-designator="D210" data-segment="1" cx="23.856" cy="10.731" r="0.86" fill="#FFFFFF" stroke="#E67700" stroke-width="0.220"/>
+  <text x="23.856" y="11.031" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">9</text>
+  <circle id="led-10" data-index="10" data-designator="D211" data-segment="2" cx="36.328" cy="53.743" r="0.86" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="0.220"/>
+  <text x="36.328" y="54.043" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">10</text>
+  <circle id="led-11" data-index="11" data-designator="D212" data-segment="2" cx="33.885" cy="54.681" r="0.86" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="0.220"/>
+  <text x="33.885" y="54.981" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">11</text>
+  <circle id="led-12" data-index="12" data-designator="D213" data-segment="2" cx="31.358" cy="55.358" r="0.86" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="0.220"/>
+  <text x="31.358" y="55.658" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">12</text>
+  <circle id="led-13" data-index="13" data-designator="D214" data-segment="2" cx="28.773" cy="55.768" r="0.86" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="0.220"/>
+  <text x="28.773" y="56.068" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">13</text>
+  <circle id="led-14" data-index="14" data-designator="D215" data-segment="2" cx="26.160" cy="55.905" r="0.86" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="0.220"/>
+  <text x="26.160" y="56.205" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">14</text>
+  <circle id="led-15" data-index="15" data-designator="D216" data-segment="2" cx="23.547" cy="55.768" r="0.86" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="0.220"/>
+  <text x="23.547" y="56.068" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">15</text>
+  <circle id="led-16" data-index="16" data-designator="D217" data-segment="2" cx="20.962" cy="55.358" r="0.86" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="0.220"/>
+  <text x="20.962" y="55.658" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">16</text>
+  <circle id="led-17" data-index="17" data-designator="D218" data-segment="2" cx="18.434" cy="54.681" r="0.86" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="0.220"/>
+  <text x="18.434" y="54.981" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">17</text>
+  <circle id="led-18" data-index="18" data-designator="D219" data-segment="2" cx="15.992" cy="53.743" r="0.86" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="0.220"/>
+  <text x="15.992" y="54.043" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">18</text>
+  <circle id="led-19" data-index="19" data-designator="D220" data-segment="2" cx="13.660" cy="52.555" r="0.86" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="0.220"/>
+  <text x="13.660" y="52.855" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">19</text>
+  <circle id="led-20" data-index="20" data-designator="D221" data-segment="2" cx="11.465" cy="51.130" r="0.86" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="0.220"/>
+  <text x="11.465" y="51.430" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">20</text>
+  <circle id="led-21" data-index="21" data-designator="D222" data-segment="2" cx="9.432" cy="49.483" r="0.86" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="0.220"/>
+  <text x="9.432" y="49.783" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">21</text>
+  <circle id="led-22" data-index="22" data-designator="D223" data-segment="2" cx="7.581" cy="47.633" r="0.86" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="0.220"/>
+  <text x="7.581" y="47.933" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">22</text>
+  <circle id="led-23" data-index="23" data-designator="D224" data-segment="2" cx="5.934" cy="45.599" r="0.86" fill="#FFFFFF" stroke="#2B8A3E" stroke-width="0.220"/>
+  <text x="5.934" y="45.899" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">23</text>
+  <circle id="led-24" data-index="24" data-designator="D225" data-segment="3" cx="38.851" cy="59.776" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="38.851" y="60.076" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">24</text>
+  <circle id="led-25" data-index="25" data-designator="D226" data-segment="3" cx="37.067" cy="61.690" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="37.067" y="61.990" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">25</text>
+  <circle id="led-26" data-index="26" data-designator="D227" data-segment="3" cx="35.092" cy="63.406" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="35.092" y="63.706" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">26</text>
+  <circle id="led-27" data-index="27" data-designator="D228" data-segment="3" cx="32.948" cy="64.907" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="32.948" y="65.207" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">27</text>
+  <circle id="led-28" data-index="28" data-designator="D229" data-segment="3" cx="30.660" cy="66.176" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="30.660" y="66.476" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">28</text>
+  <circle id="led-29" data-index="29" data-designator="D230" data-segment="3" cx="28.251" cy="67.198" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="28.251" y="67.498" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">29</text>
+  <circle id="led-30" data-index="30" data-designator="D231" data-segment="3" cx="25.748" cy="67.963" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="25.748" y="68.263" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">30</text>
+  <circle id="led-31" data-index="31" data-designator="D232" data-segment="3" cx="23.180" cy="68.463" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="23.180" y="68.763" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">31</text>
+  <circle id="led-32" data-index="32" data-designator="D233" data-segment="3" cx="20.573" cy="68.691" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="20.573" y="68.991" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">32</text>
+  <circle id="led-33" data-index="33" data-designator="D234" data-segment="3" cx="17.956" cy="68.645" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="17.956" y="68.945" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">33</text>
+  <circle id="led-34" data-index="34" data-designator="D235" data-segment="3" cx="15.359" cy="68.326" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="15.359" y="68.626" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">34</text>
+  <circle id="led-35" data-index="35" data-designator="D236" data-segment="3" cx="12.809" cy="67.738" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="12.809" y="68.038" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">35</text>
+  <circle id="led-36" data-index="36" data-designator="D237" data-segment="3" cx="10.335" cy="66.886" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="10.335" y="67.186" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">36</text>
+  <circle id="led-37" data-index="37" data-designator="D238" data-segment="3" cx="7.963" cy="65.780" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="7.963" y="66.080" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">37</text>
+  <circle id="led-38" data-index="38" data-designator="D239" data-segment="3" cx="5.721" cy="64.432" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="5.721" y="64.732" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">38</text>
+  <circle id="led-39" data-index="39" data-designator="D240" data-segment="3" cx="3.631" cy="62.857" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="3.631" y="63.157" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">39</text>
+  <circle id="led-40" data-index="40" data-designator="D241" data-segment="3" cx="1.717" cy="61.073" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="1.717" y="61.373" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">40</text>
+  <circle id="led-41" data-index="41" data-designator="D242" data-segment="3" cx="0.000" cy="59.098" r="0.86" fill="#FFFFFF" stroke="#1971C2" stroke-width="0.220"/>
+  <text x="0.000" y="59.398" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">41</text>
+  <circle id="led-42" data-index="42" data-designator="D243" data-segment="4" cx="36.469" cy="43.321" r="0.86" fill="#FFFFFF" stroke="#6741D9" stroke-width="0.220"/>
+  <text x="36.469" y="43.621" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">42</text>
+  <circle id="led-43" data-index="43" data-designator="D244" data-segment="4" cx="33.856" cy="43.457" r="0.86" fill="#FFFFFF" stroke="#6741D9" stroke-width="0.220"/>
+  <text x="33.856" y="43.757" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">43</text>
+  <circle id="led-44" data-index="44" data-designator="D245" data-segment="4" cx="31.242" cy="43.321" r="0.86" fill="#FFFFFF" stroke="#6741D9" stroke-width="0.220"/>
+  <text x="31.242" y="43.621" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">44</text>
+  <circle id="led-45" data-index="45" data-designator="D246" data-segment="4" cx="28.658" cy="42.911" r="0.86" fill="#FFFFFF" stroke="#6741D9" stroke-width="0.220"/>
+  <text x="28.658" y="43.211" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">45</text>
+  <circle id="led-46" data-index="46" data-designator="D247" data-segment="4" cx="26.130" cy="42.234" r="0.86" fill="#FFFFFF" stroke="#6741D9" stroke-width="0.220"/>
+  <text x="26.130" y="42.534" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">46</text>
+  <circle id="led-47" data-index="47" data-designator="D248" data-segment="4" cx="23.687" cy="41.296" r="0.86" fill="#FFFFFF" stroke="#6741D9" stroke-width="0.220"/>
+  <text x="23.687" y="41.596" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">47</text>
+  <circle id="led-48" data-index="48" data-designator="D249" data-segment="4" cx="21.356" cy="40.108" r="0.86" fill="#FFFFFF" stroke="#6741D9" stroke-width="0.220"/>
+  <text x="21.356" y="40.408" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">48</text>
+  <circle id="led-49" data-index="49" data-designator="D250" data-segment="4" cx="19.161" cy="38.683" r="0.86" fill="#FFFFFF" stroke="#6741D9" stroke-width="0.220"/>
+  <text x="19.161" y="38.983" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">49</text>
+  <circle id="led-50" data-index="50" data-designator="D251" data-segment="4" cx="17.127" cy="37.036" r="0.86" fill="#FFFFFF" stroke="#6741D9" stroke-width="0.220"/>
+  <text x="17.127" y="37.336" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">50</text>
+  <circle id="led-51" data-index="51" data-designator="D252" data-segment="4" cx="15.277" cy="35.186" r="0.86" fill="#FFFFFF" stroke="#6741D9" stroke-width="0.220"/>
+  <text x="15.277" y="35.486" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">51</text>
+  <circle id="led-52" data-index="52" data-designator="D253" data-segment="4" cx="13.630" cy="33.152" r="0.86" fill="#FFFFFF" stroke="#6741D9" stroke-width="0.220"/>
+  <text x="13.630" y="33.452" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">52</text>
+  <circle id="led-53" data-index="53" data-designator="D254" data-segment="4" cx="12.205" cy="30.957" r="0.86" fill="#FFFFFF" stroke="#6741D9" stroke-width="0.220"/>
+  <text x="12.205" y="31.258" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">53</text>
+  <circle id="led-54" data-index="54" data-designator="D255" data-segment="4" cx="11.017" cy="28.626" r="0.86" fill="#FFFFFF" stroke="#6741D9" stroke-width="0.220"/>
+  <text x="11.017" y="28.926" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">54</text>
+  <circle id="led-55" data-index="55" data-designator="D256" data-segment="5" cx="26.982" cy="22.057" r="0.86" fill="#FFFFFF" stroke="#C2255C" stroke-width="0.220"/>
+  <text x="26.982" y="22.357" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">55</text>
+  <circle id="led-56" data-index="56" data-designator="D257" data-segment="5" cx="25.374" cy="23.850" r="0.86" fill="#FFFFFF" stroke="#C2255C" stroke-width="0.220"/>
+  <text x="25.374" y="24.150" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">56</text>
+  <circle id="led-57" data-index="57" data-designator="D258" data-segment="5" cx="23.727" cy="25.884" r="0.86" fill="#FFFFFF" stroke="#C2255C" stroke-width="0.220"/>
+  <text x="23.727" y="26.184" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">57</text>
+  <circle id="led-58" data-index="58" data-designator="D259" data-segment="5" cx="21.877" cy="27.734" r="0.86" fill="#FFFFFF" stroke="#C2255C" stroke-width="0.220"/>
+  <text x="21.877" y="28.034" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">58</text>
+  <circle id="led-59" data-index="59" data-designator="D260" data-segment="5" cx="19.843" cy="29.381" r="0.86" fill="#FFFFFF" stroke="#C2255C" stroke-width="0.220"/>
+  <text x="19.843" y="29.681" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="0.88" font-weight="bold" fill="#212529">59</text>
+</g>
+</svg>
