@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AITY Xmas Tree 2026 — Near-CircuitPython Simulator</title>
+  <meta name="description" content="Interactive browser simulator for the AITY Xmas Tree 2026 60-LED PCB. Write and run Near-CircuitPython animations with emulated D5 and D6 board buttons." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-brand">
+      <svg class="brand-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <polygon points="12,2 14.4,8.2 21,8.6 15.8,12.8 17.5,19.2 12,15.6 6.5,19.2 8.2,12.8 3,8.6 9.6,8.2" fill="#d4a853" />
+      </svg>
+      <div>
+        <h1>AITY Xmas Tree 2026</h1>
+        <span class="brand-sub">Near-CircuitPython 60-LED Simulator</span>
+      </div>
+    </div>
+
+    <div class="topbar-controls">
+      <label class="select-wrap" for="example-select">
+        <span class="select-label">Example</span>
+        <select id="example-select" aria-label="Select CircuitPython example"></select>
+      </label>
+      <div id="status-badge" class="status-badge status-loading" role="status" aria-live="polite">
+        <span class="status-dot"></span>
+        <span id="status-text">Initializing…</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <!-- Left Half: Christmas Tree PCB & Hardware Buttons -->
+    <section class="pane pane-tree" aria-label="Christmas Tree PCB Simulator">
+      <div class="pane-header">
+        <div class="pane-title">
+          <h2>Hardware Board</h2>
+          <span class="hw-chip">XIAO RP2040 / ESP32-C6 · 60× WS2812B (D10)</span>
+        </div>
+        <div class="tree-toggles">
+          <label class="toggle-check">
+            <input type="checkbox" id="toggle-indices" />
+            <span>LED Indices</span>
+          </label>
+          <label class="toggle-check">
+            <input type="checkbox" id="toggle-traces" checked />
+            <span>PCB Traces</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="pcb-stage">
+        <svg id="tree-svg" viewBox="0 0 56 92" role="img" aria-label="60-LED Christmas Tree PCB"></svg>
+        <div id="led-inspector" class="led-inspector">Hover an LED to inspect index &amp; RGB</div>
+      </div>
+
+      <div class="board-buttons-panel">
+        <div class="buttons-row">
+          <div class="hw-btn-group">
+            <button id="btn-d5" class="hw-btn" type="button" aria-pressed="false">
+              <span class="hw-btn-cap"></span>
+              <span class="hw-btn-label">BTN <strong>D5</strong></span>
+              <span class="hw-btn-state" id="state-d5">HIGH</span>
+            </button>
+            <div class="hw-btn-meta">
+              <span class="hw-btn-hint" id="hint-d5">—</span>
+              <label class="latch-toggle" title="Lock D5 held down">
+                <input type="checkbox" id="latch-d5" />
+                <span>Hold</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="hw-btn-group">
+            <button id="btn-d6" class="hw-btn" type="button" aria-pressed="false">
+              <span class="hw-btn-cap"></span>
+              <span class="hw-btn-label">BTN <strong>D6</strong></span>
+              <span class="hw-btn-state" id="state-d6">HIGH</span>
+            </button>
+            <div class="hw-btn-meta">
+              <span class="hw-btn-hint" id="hint-d6">—</span>
+              <label class="latch-toggle" title="Lock D6 held down">
+                <input type="checkbox" id="latch-d6" />
+                <span>Hold</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <p class="keyboard-tip">Press &amp; hold buttons with mouse/touch, or press keys <kbd>5</kbd> / <kbd>6</kbd> when editor is unfocused.</p>
+      </div>
+    </section>
+
+    <!-- Right Half: Near-CircuitPython Code Editor & Serial Console -->
+    <section class="pane pane-editor" aria-label="CircuitPython Code Editor">
+      <div class="pane-header">
+        <div class="pane-title">
+          <h2>code.py</h2>
+          <span class="example-desc" id="example-desc"></span>
+        </div>
+        <div class="editor-actions">
+          <button id="btn-run" class="action-btn action-primary" type="button" title="Run code (Ctrl+Enter)">
+            ▶ Run
+          </button>
+          <button id="btn-stop" class="action-btn action-secondary" type="button" title="Stop execution">
+            ■ Stop
+          </button>
+          <button id="btn-reset" class="action-btn action-ghost" type="button" title="Restore original example code">
+            ↺ Reset
+          </button>
+          <button id="btn-download" class="action-btn action-ghost" type="button" title="Download as code.py">
+            ↓ code.py
+          </button>
+        </div>
+      </div>
+
+      <div class="editor-container" id="editor-container">
+        <textarea id="code-fallback" class="code-fallback" spellcheck="false" aria-label="CircuitPython code editor"></textarea>
+      </div>
+
+      <div class="console-panel">
+        <div class="console-header">
+          <span>Serial Console</span>
+          <button id="btn-clear-console" class="console-clear" type="button">Clear</button>
+        </div>
+        <pre id="serial-console" class="serial-console" aria-live="polite"></pre>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+  <script src="examples.js"></script>
+  <script src="py_libs.js"></script>
+  <script src="runtime.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
