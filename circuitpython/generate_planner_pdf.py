@@ -7,6 +7,7 @@ Generate circuitpython/animation_planner_a4.pdf directly from:
 Requires `rsvg-convert` (librsvg2-bin).
 """
 
+import ast
 from pathlib import Path
 import re
 import subprocess
@@ -16,6 +17,7 @@ import xml.etree.ElementTree as ET
 HERE = Path(__file__).resolve().parent
 LEDS_SVG = HERE / "tannenbaum_leds.svg"
 PALETTES_SVG = HERE / "lib" / "palettes.svg"
+PALETTES_PY = HERE / "lib" / "tannenbaum_palettes.py"
 OUT_PDF = HERE / "animation_planner_a4.pdf"
 
 SEGMENT_NAMES = {
@@ -93,6 +95,26 @@ def parse_palettes_svg(path: Path):
         palettes.append((title, const_name, colors))
 
     return palettes
+
+
+def parse_single_colors(path: Path):
+    tree = ast.parse(path.read_text(encoding="utf-8"))
+    colors = []
+    for node in tree.body:
+        if not isinstance(node, ast.Assign) or len(node.targets) != 1:
+            continue
+        target = node.targets[0]
+        if not isinstance(target, ast.Name):
+            continue
+        if isinstance(node.value, ast.Tuple) and len(node.value.elts) == 3:
+            if all(
+                isinstance(e, ast.Constant) and isinstance(e.value, int)
+                for e in node.value.elts
+            ):
+                r, g, b = (e.value for e in node.value.elts)
+                if 0 <= r <= 255 and 0 <= g <= 255 and 0 <= b <= 255:
+                    colors.append((target.id, (r, g, b), f"#{r:02X}{g:02X}{b:02X}"))
+    return colors
 
 
 def esc(text: str) -> str:
@@ -206,7 +228,55 @@ def build_page1_svg(leds, polylines, outline_d=None) -> str:
     return "\n".join(lines) + "\n"
 
 
-def build_page2_svg(palettes) -> str:
+def build_page2_svg(single_colors) -> str:
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 210 297">',
+        '  <rect width="210" height="297" fill="#FFFFFF"/>',
+        '  <text x="12" y="17" font-family="DejaVu Sans, Arial, sans-serif" font-size="4.6" font-weight="bold" fill="#212529">AITY Xmas Tree 2026 — Single Colors</text>',
+        f'  <text x="198" y="17" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-size="3.0" fill="#6C757D">tannenbaum_palettes.py · {len(single_colors)} Named Colors</text>',
+        '  <rect x="12" y="21.5" width="186" height="9" rx="1.5" fill="#F8F9FA" stroke="#DEE2E6" stroke-width="0.3"/>',
+        '  <text x="15" y="27" font-family="DejaVu Sans, Arial, sans-serif" font-size="2.8" fill="#495057">Import: <tspan font-family="DejaVu Sans Mono, monospace" font-weight="bold" fill="#212529">from tannenbaum_palettes import RED, C9_RED, ...</tspan>   ·   Usage: <tspan font-family="DejaVu Sans Mono, monospace" font-weight="bold" fill="#212529">pixels[i] = COLOR</tspan></text>',
+        '  <rect x="12" y="34" width="186" height="192" rx="2" fill="#FFFFFF" stroke="#CED4DA" stroke-width="0.35"/>',
+        '  <text x="16" y="40.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="3.4" font-weight="bold" fill="#212529">Built-in Single Colors</text>',
+        '  <line x1="105" y1="44" x2="105" y2="222" stroke="#E9ECEF" stroke-width="0.35"/>',
+    ]
+
+    rows_per_col = (len(single_colors) + 1) // 2
+    row_y0 = 45.5
+    row_step = 12.5
+    sw_w = 13.0
+    sw_h = 9.0
+
+    for idx, (name, (r, g, b), hex_c) in enumerate(single_colors):
+        col = idx // rows_per_col
+        row = idx % rows_per_col
+        col_x = 16.0 if col == 0 else 109.0
+        ry = row_y0 + row * row_step
+        if row > 0:
+            lines.append(f'  <line x1="{col_x:.1f}" y1="{ry-1.75:.2f}" x2="{col_x+85:.1f}" y2="{ry-1.75:.2f}" stroke="#F1F3F5" stroke-width="0.3"/>')
+        lines.append(f'  <rect x="{col_x:.1f}" y="{ry:.2f}" width="{sw_w:.1f}" height="{sw_h:.1f}" rx="1.2" fill="{hex_c}" stroke="#ADB5BD" stroke-width="0.3"/>')
+        lines.append(f'  <text x="{col_x+16.0:.1f}" y="{ry+3.8:.2f}" font-family="DejaVu Sans Mono, monospace" font-size="2.9" font-weight="bold" fill="#212529">{esc(name)}</text>')
+        lines.append(f'  <text x="{col_x+16.0:.1f}" y="{ry+7.4:.2f}" font-family="DejaVu Sans Mono, monospace" font-size="2.2" fill="#6C757D">({r}, {g}, {b}) · {hex_c}</text>')
+
+    lines.append('  <rect x="12" y="230" width="186" height="55" rx="2" fill="#FFFFFF" stroke="#CED4DA" stroke-width="0.35"/>')
+    lines.append('  <text x="16" y="236.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="3.4" font-weight="bold" fill="#212529">Custom Single Colors</text>')
+    for slot in range(6):
+        col = slot // 3
+        row = slot % 3
+        sx = 16.0 if col == 0 else 109.0
+        sy = 241.0 + row * 14.0
+        lines.append(f'  <rect x="{sx:.1f}" y="{sy:.2f}" width="13.0" height="9.0" rx="1.2" fill="#FFFFFF" stroke="#CED4DA" stroke-width="0.3"/>')
+        lines.append(f'  <text x="{sx+16.0:.1f}" y="{sy+3.6:.2f}" font-family="DejaVu Sans, Arial, sans-serif" font-size="2.3" fill="#6C757D">Name:</text>')
+        lines.append(f'  <line x1="{sx+25.5:.1f}" y1="{sy+4.0:.2f}" x2="{sx+85.0:.1f}" y2="{sy+4.0:.2f}" stroke="#DEE2E6" stroke-width="0.3"/>')
+        lines.append(f'  <text x="{sx+16.0:.1f}" y="{sy+8.0:.2f}" font-family="DejaVu Sans, Arial, sans-serif" font-size="2.3" fill="#6C757D">RGB:</text>')
+        lines.append(f'  <line x1="{sx+25.5:.1f}" y1="{sy+8.4:.2f}" x2="{sx+85.0:.1f}" y2="{sy+8.4:.2f}" stroke="#DEE2E6" stroke-width="0.3"/>')
+
+    lines.append('</svg>')
+    return "\n".join(lines) + "\n"
+
+
+def build_page3_svg(palettes) -> str:
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 210 297">',
@@ -269,18 +339,21 @@ def build_page2_svg(palettes) -> str:
 
 def main():
     leds, polylines, outline_d = parse_leds_svg(LEDS_SVG)
+    single_colors = parse_single_colors(PALETTES_PY)
     palettes = parse_palettes_svg(PALETTES_SVG)
 
     with tempfile.TemporaryDirectory() as tmpdir:
         p1 = Path(tmpdir) / "page1.svg"
         p2 = Path(tmpdir) / "page2.svg"
+        p3 = Path(tmpdir) / "page3.svg"
         p1.write_text(build_page1_svg(leds, polylines, outline_d), encoding="utf-8")
-        p2.write_text(build_page2_svg(palettes), encoding="utf-8")
+        p2.write_text(build_page2_svg(single_colors), encoding="utf-8")
+        p3.write_text(build_page3_svg(palettes), encoding="utf-8")
         subprocess.run(
-            ["rsvg-convert", "-f", "pdf", "-o", str(OUT_PDF), str(p1), str(p2)],
+            ["rsvg-convert", "-f", "pdf", "-o", str(OUT_PDF), str(p1), str(p2), str(p3)],
             check=True,
         )
-    print(f"Generated {OUT_PDF} from {LEDS_SVG.name} and {PALETTES_SVG.name}")
+    print(f"Generated {OUT_PDF} from {LEDS_SVG.name}, {PALETTES_PY.name}, and {PALETTES_SVG.name}")
 
 
 if __name__ == "__main__":

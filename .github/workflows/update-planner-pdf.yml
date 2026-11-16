@@ -6,6 +6,7 @@ on:
     paths:
       - "circuitpython/tannenbaum_leds.svg"
       - "circuitpython/lib/palettes.svg"
+      - "circuitpython/lib/tannenbaum_palettes.py"
       - "circuitpython/generate_planner_pdf.py"
       - ".github/workflows/update-planner-pdf.yml"
   workflow_dispatch:
