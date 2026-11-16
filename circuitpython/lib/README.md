@@ -35,7 +35,7 @@ Describes the physical and logical layout of the 60-LED Xmas tree PCB: pin defin
 ### Segments
 
 | Constant | ID | LEDs | Index range | Designators | Description |
-|----------|----|------|-------------|-------------|-------------|
+|----------|----:|------:|-------------|-------------|-------------|
 | `SEG_STAR_INNER` | 0 | 5 | `(0, 5)` | D201–D205 | Inner pentagon at the tree top |
 | `SEG_STAR_OUTER` | 1 | 5 | `(5, 10)` | D206–D210 | Outer pentagon at the tree top |
 | `SEG_BOUGH_MID` | 2 | 14 | `(10, 24)` | D211–D224 | Middle curved bough |
