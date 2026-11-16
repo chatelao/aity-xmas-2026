@@ -1,15 +1,14 @@
 # code.2-lauflicht.py
 import time
-import board
 import digitalio
 import neopixel
+from tannenbaum_layout import NUM_PIXELS, PIN_NEOPIXEL, PIN_BTN_A, PIN_BTN_B
 
-NUM_PIXELS = 60
-pixels = neopixel.NeoPixel(board.D10, NUM_PIXELS, brightness=0.3, auto_write=False, pixel_order=neopixel.GRB)
+pixels = neopixel.NeoPixel(PIN_NEOPIXEL, NUM_PIXELS, brightness=0.3, auto_write=False, pixel_order=neopixel.GRB)
 
-btn_d5 = digitalio.DigitalInOut(board.D5)
+btn_d5 = digitalio.DigitalInOut(PIN_BTN_A)
 btn_d5.switch_to_input(pull=digitalio.Pull.UP)
-btn_d6 = digitalio.DigitalInOut(board.D6)
+btn_d6 = digitalio.DigitalInOut(PIN_BTN_B)
 btn_d6.switch_to_input(pull=digitalio.Pull.UP)
 
 SPEEDS = (0.08, 0.04, 0.015)  # Sekunden pro Schritt

@@ -1,29 +1,28 @@
 # code.1-sechs-LED.py
 # Hardware: Seeed XIAO RP2040 / XIAO ESP32-C6
-# Abhaengigkeiten: /lib/neopixel.mpy
+# Abhaengigkeiten: /lib/neopixel.mpy, /lib/tannenbaum_layout.py
 
 import time
-import board
 import digitalio
 import neopixel
+from tannenbaum_layout import NUM_PIXELS, PIN_NEOPIXEL, PIN_BTN_A, PIN_BTN_B
 
 # --- Hardware-Konfiguration ---
-NUM_PIXELS = 60
 # Hinweis: Echte WS2811 nutzen oft neopixel.RGB, WS2812B-Derivate neopixel.GRB
 PIXEL_ORDER = neopixel.GRB
 
 pixels = neopixel.NeoPixel(
-    board.D10,
+    PIN_NEOPIXEL,
     NUM_PIXELS,
     brightness=0.2,
     auto_write=False,
     pixel_order=PIXEL_ORDER
 )
 
-btn_d5 = digitalio.DigitalInOut(board.D5)
+btn_d5 = digitalio.DigitalInOut(PIN_BTN_A)
 btn_d5.switch_to_input(pull=digitalio.Pull.UP)
 
-btn_d6 = digitalio.DigitalInOut(board.D6)
+btn_d6 = digitalio.DigitalInOut(PIN_BTN_B)
 btn_d6.switch_to_input(pull=digitalio.Pull.UP)
 
 # --- Statische Farbtabelle (Tupel spart RAM) ---
