@@ -481,6 +481,15 @@
   const firmwareReleaseMeta = document.getElementById("firmware-release-meta");
   const firmwareMcuHint = document.getElementById("firmware-mcu-hint");
   const firmwareBaseSection = document.getElementById("firmware-base-section");
+  const firmwareWebSerialSection = document.getElementById("firmware-webserial-section");
+  const btnFlashCpWebSerial = document.getElementById("btn-flash-cp-webserial");
+  const btnFlashFileWebSerial = document.getElementById("btn-flash-file-webserial");
+  const webSerialFileInput = document.getElementById("webserial-file-input");
+  const webSerialEraseCheck = document.getElementById("webserial-erase-check");
+  const webSerialProgressWrap = document.getElementById("webserial-progress-wrap");
+  const webSerialProgress = document.getElementById("webserial-progress");
+  const webSerialProgressLabel = document.getElementById("webserial-progress-label");
+  const webSerialLog = document.getElementById("webserial-log");
   const btnInstallLibs = document.getElementById("btn-install-libs");
   const btnDownloadLibsZip = document.getElementById("btn-download-libs-zip");
   const firmwareLibsStatus = document.getElementById("firmware-libs-status");
@@ -490,10 +499,28 @@
 
   let selectedMcu = "xiao_rp2040";
   let releaseState = { status: "idle", data: null, error: null };
+  let isFlashing = false;
 
   function renderMcuHint() {
     const mcu = window.XmasFirmware?.TARGET_MCUS?.find((m) => m.id === selectedMcu);
     firmwareMcuHint.textContent = mcu ? mcu.hint : "";
+  }
+
+  function renderWebSerialSection() {
+    if (!firmwareWebSerialSection) return;
+    const isEsp = selectedMcu === "xiao_esp32c6";
+    firmwareWebSerialSection.hidden = !isEsp;
+    if (!isEsp) return;
+
+    const hasSerial = typeof navigator !== "undefined" && "serial" in navigator;
+    if (btnFlashCpWebSerial) btnFlashCpWebSerial.disabled = !hasSerial || isFlashing;
+    if (btnFlashFileWebSerial) btnFlashFileWebSerial.disabled = !hasSerial || isFlashing;
+
+    if (!hasSerial && webSerialLog) {
+      webSerialLog.hidden = false;
+      webSerialLog.textContent =
+        "WebSerial is not available in this browser. Use Chrome, Edge, Opera, or Firefox 151+.";
+    }
   }
 
   function renderBaseFirmwareSection() {
@@ -537,16 +564,6 @@
     boardLink.rel = "noopener noreferrer";
     boardLink.textContent = "circuitpython.org ↗";
     actions.appendChild(boardLink);
-
-    if (mcu.flashToolUrl) {
-      const toolLink = document.createElement("a");
-      toolLink.className = "action-btn action-secondary";
-      toolLink.href = mcu.flashToolUrl;
-      toolLink.target = "_blank";
-      toolLink.rel = "noopener noreferrer";
-      toolLink.textContent = mcu.flashToolLabel || "WebSerial ESPTool ↗";
-      actions.appendChild(toolLink);
-    }
 
     const dl = document.createElement("a");
     dl.className = "action-btn action-secondary firmware-dl-btn";
@@ -615,6 +632,7 @@
   function renderFirmwareModal() {
     renderMcuHint();
     renderBaseFirmwareSection();
+    renderWebSerialSection();
     renderLibsSection();
     firmwareList.textContent = "";
 
@@ -753,6 +771,53 @@
     }
   }
 
+  function appendWebSerialLog(line) {
+    if (!webSerialLog) return;
+    webSerialLog.hidden = false;
+    webSerialLog.textContent += (webSerialLog.textContent ? "\n" : "") + line;
+    webSerialLog.scrollTop = webSerialLog.scrollHeight;
+  }
+
+  async function runWebSerialFlash(segmentsPromise, label) {
+    if (isFlashing || !window.XmasFirmware) return;
+    isFlashing = true;
+    renderWebSerialSection();
+    if (webSerialLog) {
+      webSerialLog.hidden = false;
+      webSerialLog.textContent = "";
+    }
+    if (webSerialProgressWrap && webSerialProgress && webSerialProgressLabel) {
+      webSerialProgressWrap.hidden = false;
+      webSerialProgress.value = 0;
+      webSerialProgressLabel.textContent = "0%";
+    }
+
+    try {
+      appendWebSerialLog(`Preparing ${label}…`);
+      const segments = await segmentsPromise;
+      const eraseAll = Boolean(webSerialEraseCheck?.checked);
+      await window.XmasFirmware.flashEsp32WebSerial(segments, {
+        eraseAll,
+        onLog: appendWebSerialLog,
+        onProgress: (pct) => {
+          if (webSerialProgress && webSerialProgressLabel) {
+            webSerialProgress.value = pct;
+            webSerialProgressLabel.textContent = `${pct}%`;
+          }
+        },
+      });
+    } catch (err) {
+      if (err?.name !== "NotFoundError") {
+        appendWebSerialLog(`Error: ${err?.message || err}`);
+      } else {
+        appendWebSerialLog("Serial port selection cancelled.");
+      }
+    } finally {
+      isFlashing = false;
+      renderWebSerialSection();
+    }
+  }
+
   async function loadLatestFirmware(force = false) {
     if (releaseState.status === "loading") return;
     if (!force && releaseState.status === "ready") {
@@ -788,6 +853,35 @@
     btnFirmwareRefresh.addEventListener("click", () => loadLatestFirmware(true));
     if (btnInstallLibs) {
       btnInstallLibs.addEventListener("click", handleInstallLibs);
+    }
+    if (btnFlashCpWebSerial) {
+      btnFlashCpWebSerial.addEventListener("click", () => {
+        const mcu = window.XmasFirmware.TARGET_MCUS.find((m) => m.id === "xiao_esp32c6");
+        const rawUrl = window.XmasFirmware.getRawRepoUrl(null, mcu.circuitpythonRepoFile);
+        runWebSerialFlash(async () => {
+          const res = await fetch(rawUrl);
+          if (!res.ok) throw new Error(`Failed to fetch base firmware (HTTP ${res.status}).`);
+          const buf = await res.arrayBuffer();
+          return [{ address: 0x0, data: new Uint8Array(buf) }];
+        }, mcu.circuitpythonLabel);
+      });
+    }
+    if (btnFlashFileWebSerial && webSerialFileInput) {
+      btnFlashFileWebSerial.addEventListener("click", () => {
+        webSerialFileInput.value = "";
+        webSerialFileInput.click();
+      });
+      webSerialFileInput.addEventListener("change", () => {
+        const file = webSerialFileInput.files?.[0];
+        if (!file) return;
+        runWebSerialFlash(async () => {
+          const buf = await file.arrayBuffer();
+          if (file.name.toLowerCase().endsWith(".uf2")) {
+            return window.XmasFirmware.parseUf2ToSegments(buf);
+          }
+          return [{ address: 0x0, data: new Uint8Array(buf) }];
+        }, file.name);
+      });
     }
 
     firmwareModal.addEventListener("click", (e) => {

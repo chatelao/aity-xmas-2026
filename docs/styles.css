@@ -1043,3 +1043,60 @@ kbd {
 .firmware-libs-status.is-error {
   color: #ff7b72;
 }
+
+.webserial-panel {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+}
+
+.webserial-erase-opt {
+  font-size: 11.5px;
+}
+
+.webserial-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.webserial-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.webserial-progress-wrap[hidden] {
+  display: none;
+}
+
+.webserial-progress-wrap progress {
+  flex: 1;
+  height: 8px;
+  accent-color: var(--accent-green);
+}
+
+.webserial-progress-label {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  min-width: 36px;
+  text-align: right;
+}
+
+.webserial-log {
+  margin: 0;
+  padding: 8px 10px;
+  max-height: 110px;
+  overflow-y: auto;
+  border-radius: 6px;
+  background: #090d12;
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  color: #c9d1d9;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

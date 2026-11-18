@@ -187,6 +187,30 @@
           <div id="firmware-base-section" class="firmware-base-box"></div>
         </div>
 
+        <div id="firmware-webserial-section" class="firmware-section webserial-panel" hidden>
+          <div class="firmware-section-header">
+            <h3>Built-in WebSerial Flasher (ESP32-C6)</h3>
+            <label class="toggle-check webserial-erase-opt">
+              <input type="checkbox" id="webserial-erase-check" checked />
+              <span>Erase flash first</span>
+            </label>
+          </div>
+          <div class="webserial-actions">
+            <button id="btn-flash-cp-webserial" class="action-btn action-primary" type="button">
+              ⚡ Flash CircuitPython 10.3.1 (.bin)
+            </button>
+            <button id="btn-flash-file-webserial" class="action-btn action-secondary" type="button">
+              ⚡ Flash Local .bin / .uf2
+            </button>
+            <input type="file" id="webserial-file-input" accept=".bin,.uf2" hidden />
+          </div>
+          <div id="webserial-progress-wrap" class="webserial-progress-wrap" hidden>
+            <progress id="webserial-progress" max="100" value="0"></progress>
+            <span id="webserial-progress-label" class="webserial-progress-label">0%</span>
+          </div>
+          <pre id="webserial-log" class="webserial-log" hidden></pre>
+        </div>
+
         <div class="firmware-section">
           <div class="firmware-section-header">
             <h3>CircuitPython <code>/lib/</code> Libraries</h3>

@@ -81,6 +81,15 @@ class TestPagesStructure(unittest.TestCase):
             "mcu-tab-xiao_esp32c6",
             "firmware-mcu-hint",
             "firmware-base-section",
+            "firmware-webserial-section",
+            "btn-flash-cp-webserial",
+            "btn-flash-file-webserial",
+            "webserial-file-input",
+            "webserial-erase-check",
+            "webserial-progress-wrap",
+            "webserial-progress",
+            "webserial-progress-label",
+            "webserial-log",
             "btn-install-libs",
             "btn-download-libs-zip",
             "firmware-libs-status",
@@ -244,6 +253,24 @@ class TestPagesStructure(unittest.TestCase):
           assert.strictEqual(written['tannenbaum_layout.py'], '# layout');
           assert.strictEqual(written['tannenbaum_palettes.py'], '# palettes');
           assert.strictEqual(written['neopixel.mpy'].byteLength, 3);
+
+          // UF2 parser test (2 contiguous 4-byte blocks)
+          const uf2Buf = new ArrayBuffer(1024);
+          const dv = new DataView(uf2Buf);
+          for (let b = 0; b < 2; b++) {
+            const off = b * 512;
+            dv.setUint32(off, 0x0a324655, true);
+            dv.setUint32(off + 4, 0x9e5d5157, true);
+            dv.setUint32(off + 12, 0x10000 + b * 4, true);
+            dv.setUint32(off + 16, 4, true);
+            dv.setUint32(off + 508, 0x0ab16f30, true);
+            new Uint8Array(uf2Buf, off + 32, 4).set([65 + b, 66 + b, 67 + b, 68 + b]);
+          }
+          const segs = fw.parseUf2ToSegments(uf2Buf);
+          assert.strictEqual(segs.length, 1);
+          assert.strictEqual(segs[0].address, 0x10000);
+          assert.strictEqual(segs[0].data.length, 8);
+          assert.strictEqual(fw.uint8ArrayToBinaryString(segs[0].data), 'ABCDBCDE');
         })().catch((e) => {
           console.error(e);
           process.exit(1);
