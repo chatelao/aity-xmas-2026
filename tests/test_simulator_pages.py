@@ -41,14 +41,22 @@ class TestPagesStructure(unittest.TestCase):
             "styles.css",
             "app.js",
             "runtime.js",
+            "firmware.js",
             "examples.js",
             "py_libs.js",
             "pcb_outline.js",
+            "lib/neopixel.mpy",
         ]
         for name in required:
             path = DOCS / name
             self.assertTrue(path.is_file(), f"Missing docs/{name}")
             self.assertGreater(path.stat().st_size, 0, f"Empty docs/{name}")
+
+        self.assertEqual(
+            (DOCS / "lib" / "neopixel.mpy").read_bytes(),
+            (ROOT / "circuitpython" / "default" / "lib" / "neopixel.mpy").read_bytes(),
+            "docs/lib/neopixel.mpy out of sync with circuitpython/default/lib/neopixel.mpy",
+        )
 
     def test_index_html_elements_and_local_assets(self):
         html = (DOCS / "index.html").read_text(encoding="utf-8")
@@ -64,6 +72,20 @@ class TestPagesStructure(unittest.TestCase):
             "latch-d5",
             "latch-d6",
             "example-select",
+            "btn-firmware-modal",
+            "firmware-modal",
+            "btn-firmware-close",
+            "btn-firmware-refresh",
+            "firmware-release-meta",
+            "mcu-tab-xiao_rp2040",
+            "mcu-tab-xiao_esp32c6",
+            "firmware-mcu-hint",
+            "firmware-base-section",
+            "btn-install-libs",
+            "btn-download-libs-zip",
+            "firmware-libs-status",
+            "firmware-libs-list",
+            "firmware-list",
             "btn-run",
             "btn-stop",
             "btn-reset",
@@ -84,7 +106,7 @@ class TestPagesStructure(unittest.TestCase):
                 self.assertTrue((DOCS / href).is_file(), f"Missing local stylesheet: {href}")
 
     def test_js_syntax_with_node(self):
-        for name in ("examples.js", "py_libs.js", "pcb_outline.js", "runtime.js", "app.js"):
+        for name in ("examples.js", "py_libs.js", "pcb_outline.js", "runtime.js", "firmware.js", "app.js"):
             res = subprocess.run(
                 ["node", "--check", str(DOCS / name)],
                 capture_output=True,
@@ -92,6 +114,148 @@ class TestPagesStructure(unittest.TestCase):
                 check=False,
             )
             self.assertEqual(res.returncode, 0, f"JS syntax error in {name}: {res.stderr}")
+
+    def test_firmware_release_parser_and_fetch(self):
+        node_script = """
+        const assert = require('assert');
+        const fw = require(process.argv[1]);
+
+        assert.strictEqual(
+          fw.detectRepo({ hostname: 'chatelao.github.io', pathname: '/aity-xmas-2026/' }),
+          'chatelao/aity-xmas-2026'
+        );
+        assert.strictEqual(
+          fw.detectRepo({ hostname: 'localhost', pathname: '/' }),
+          'chatelao/aity-xmas-2026'
+        );
+        assert.strictEqual(fw.formatBytes(512), '512 B');
+        assert.strictEqual(fw.formatBytes(2048), '2.0 KB');
+        assert.strictEqual(
+          fw.TARGET_MCUS.find(m => m.id === 'xiao_rp2040').circuitpythonBoardUrl,
+          'https://circuitpython.org/board/seeeduino_xiao_rp2040/'
+        );
+        assert.strictEqual(
+          fw.TARGET_MCUS.find(m => m.id === 'xiao_esp32c6').circuitpythonBoardUrl,
+          'https://circuitpython.org/board/seeed_xiao_esp32c6/'
+        );
+
+        const parsed = fw.parseReleaseAssets({
+          tag_name: 'v1.2.3',
+          name: 'Release 1.2.3',
+          html_url: 'https://github.com/chatelao/aity-xmas-2026/releases/tag/v1.2.3',
+          published_at: '2026-11-18T10:00:00Z',
+          assets: [
+            {
+              name: 'TwinkleFox_xiao_rp2040.uf2',
+              browser_download_url: 'https://example.com/TwinkleFox_xiao_rp2040.uf2',
+              size: 45056,
+            },
+            {
+              name: 'TwinkleFox_xiao_esp32c6.uf2',
+              browser_download_url: 'https://example.com/TwinkleFox_xiao_esp32c6.uf2',
+              size: 120000,
+            },
+            {
+              name: 'AlphaDemo_xiao_rp2040.uf2',
+              browser_download_url: 'https://example.com/AlphaDemo_xiao_rp2040.uf2',
+              size: 10240,
+            },
+            {
+              name: 'adafruit-circuitpython-seeeduino_xiao_rp2040-de_DE-10.3.1.uf2',
+              browser_download_url: 'https://example.com/cp-rp2040.uf2',
+              size: 1925632,
+            },
+            {
+              name: 'adafruit-circuitpython-seeed_xiao_esp32c6-de_DE-10.3.1.bin',
+              browser_download_url: 'https://example.com/cp-esp32c6.bin',
+              size: 2045680,
+            },
+            {
+              name: 'circuitpython-lib.zip',
+              browser_download_url: 'https://example.com/circuitpython-lib.zip',
+              size: 8192,
+            },
+            {
+              name: 'neopixel.mpy',
+              browser_download_url: 'https://example.com/neopixel.mpy',
+              size: 1315,
+            },
+            {
+              name: 'tannenbaum_layout.py',
+              browser_download_url: 'https://example.com/tannenbaum_layout.py',
+              size: 9997,
+            },
+          ],
+        });
+
+        assert.strictEqual(parsed.tagName, 'v1.2.3');
+        assert.strictEqual(parsed.byMcu.xiao_rp2040.length, 2);
+        assert.strictEqual(parsed.byMcu.xiao_rp2040[0].exampleName, 'AlphaDemo');
+        assert.strictEqual(parsed.byMcu.xiao_rp2040[1].exampleName, 'TwinkleFox');
+        assert.strictEqual(parsed.byMcu.xiao_esp32c6.length, 1);
+        assert.strictEqual(parsed.byMcu.xiao_esp32c6[0].fileName, 'TwinkleFox_xiao_esp32c6.uf2');
+        assert.strictEqual(parsed.baseFirmware.xiao_rp2040.downloadUrl, 'https://example.com/cp-rp2040.uf2');
+        assert.strictEqual(parsed.baseFirmware.xiao_esp32c6.downloadUrl, 'https://example.com/cp-esp32c6.bin');
+        assert.strictEqual(parsed.libBundle.fileName, 'circuitpython-lib.zip');
+        assert.strictEqual(parsed.libFiles.length, 2);
+
+        (async () => {
+          const okRes = await fw.fetchLatestRelease('chatelao/aity-xmas-2026', async (url) => {
+            assert.strictEqual(url, 'https://api.github.com/repos/chatelao/aity-xmas-2026/releases/latest');
+            return {
+              ok: true,
+              status: 200,
+              json: async () => ({ tag_name: 'v1.0.0', assets: [] }),
+            };
+          });
+          assert.strictEqual(okRes.tagName, 'v1.0.0');
+
+          await assert.rejects(
+            () => fw.fetchLatestRelease('chatelao/aity-xmas-2026', async () => ({ ok: false, status: 404 })),
+            (err) => err.code === 'NO_RELEASE'
+          );
+
+          const written = {};
+          const mockDirHandle = {
+            getDirectoryHandle: async (name) => {
+              assert.strictEqual(name, 'lib');
+              return {
+                getFileHandle: async (fname) => ({
+                  createWritable: async () => ({
+                    write: async (data) => { written[fname] = data; },
+                    close: async () => {},
+                  }),
+                }),
+              };
+            },
+          };
+
+          const installed = await fw.installLibsToDirectory(mockDirHandle, {
+            fetchFn: async (path) => {
+              assert.strictEqual(path, 'lib/neopixel.mpy');
+              return { ok: true, status: 200, arrayBuffer: async () => new Uint8Array([1, 2, 3]).buffer };
+            },
+            pyLibs: {
+              'tannenbaum_layout.py': '# layout',
+              'tannenbaum_palettes.py': '# palettes',
+            },
+          });
+          assert.deepStrictEqual(installed, ['neopixel.mpy', 'tannenbaum_layout.py', 'tannenbaum_palettes.py']);
+          assert.strictEqual(written['tannenbaum_layout.py'], '# layout');
+          assert.strictEqual(written['tannenbaum_palettes.py'], '# palettes');
+          assert.strictEqual(written['neopixel.mpy'].byteLength, 3);
+        })().catch((e) => {
+          console.error(e);
+          process.exit(1);
+        });
+        """
+        res = subprocess.run(
+            ["node", "-e", node_script, str(DOCS / "firmware.js")],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(res.returncode, 0, f"firmware.js unit tests failed: {res.stderr}")
 
     def test_examples_match_source_files_verbatim(self):
         ex_js = (DOCS / "examples.js").read_text(encoding="utf-8")

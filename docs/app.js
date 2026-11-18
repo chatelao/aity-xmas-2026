@@ -473,6 +473,350 @@
     URL.revokeObjectURL(url);
   });
 
+  // Compiled Firmware (.uf2) Release Modal
+  const btnFirmwareModal = document.getElementById("btn-firmware-modal");
+  const firmwareModal = document.getElementById("firmware-modal");
+  const btnFirmwareClose = document.getElementById("btn-firmware-close");
+  const btnFirmwareRefresh = document.getElementById("btn-firmware-refresh");
+  const firmwareReleaseMeta = document.getElementById("firmware-release-meta");
+  const firmwareMcuHint = document.getElementById("firmware-mcu-hint");
+  const firmwareBaseSection = document.getElementById("firmware-base-section");
+  const btnInstallLibs = document.getElementById("btn-install-libs");
+  const btnDownloadLibsZip = document.getElementById("btn-download-libs-zip");
+  const firmwareLibsStatus = document.getElementById("firmware-libs-status");
+  const firmwareLibsList = document.getElementById("firmware-libs-list");
+  const firmwareList = document.getElementById("firmware-list");
+  const mcuTabs = Array.from(document.querySelectorAll(".mcu-tab"));
+
+  let selectedMcu = "xiao_rp2040";
+  let releaseState = { status: "idle", data: null, error: null };
+
+  function renderMcuHint() {
+    const mcu = window.XmasFirmware?.TARGET_MCUS?.find((m) => m.id === selectedMcu);
+    firmwareMcuHint.textContent = mcu ? mcu.hint : "";
+  }
+
+  function renderBaseFirmwareSection() {
+    if (!firmwareBaseSection || !window.XmasFirmware) return;
+    const mcu = window.XmasFirmware.TARGET_MCUS.find((m) => m.id === selectedMcu);
+    firmwareBaseSection.textContent = "";
+    if (!mcu) return;
+
+    const relAsset = releaseState.data?.baseFirmware?.[mcu.id] || null;
+    const downloadUrl = relAsset
+      ? relAsset.downloadUrl
+      : window.XmasFirmware.getRawRepoUrl(null, mcu.circuitpythonRepoFile);
+    const fileName = relAsset
+      ? relAsset.fileName
+      : mcu.circuitpythonRepoFile.split("/").pop();
+
+    const row = document.createElement("div");
+    row.className = "firmware-item";
+
+    const info = document.createElement("div");
+    info.className = "firmware-item-info";
+
+    const title = document.createElement("div");
+    title.className = "firmware-item-name";
+    title.textContent = mcu.circuitpythonLabel;
+
+    const meta = document.createElement("div");
+    meta.className = "firmware-item-meta";
+    meta.textContent = relAsset?.sizeLabel ? `${fileName} · ${relAsset.sizeLabel}` : fileName;
+
+    info.appendChild(title);
+    info.appendChild(meta);
+
+    const actions = document.createElement("div");
+    actions.className = "firmware-base-actions";
+
+    const boardLink = document.createElement("a");
+    boardLink.className = "action-btn action-ghost";
+    boardLink.href = mcu.circuitpythonBoardUrl;
+    boardLink.target = "_blank";
+    boardLink.rel = "noopener noreferrer";
+    boardLink.textContent = "circuitpython.org ↗";
+    actions.appendChild(boardLink);
+
+    if (mcu.flashToolUrl) {
+      const toolLink = document.createElement("a");
+      toolLink.className = "action-btn action-secondary";
+      toolLink.href = mcu.flashToolUrl;
+      toolLink.target = "_blank";
+      toolLink.rel = "noopener noreferrer";
+      toolLink.textContent = mcu.flashToolLabel || "WebSerial ESPTool ↗";
+      actions.appendChild(toolLink);
+    }
+
+    const dl = document.createElement("a");
+    dl.className = "action-btn action-secondary firmware-dl-btn";
+    dl.href = downloadUrl;
+    dl.download = fileName;
+    dl.target = "_blank";
+    dl.rel = "noopener noreferrer";
+    dl.textContent = "↓ Base";
+    actions.appendChild(dl);
+
+    row.appendChild(info);
+    row.appendChild(actions);
+    firmwareBaseSection.appendChild(row);
+  }
+
+  function renderLibsSection() {
+    if (!firmwareLibsList || !window.XmasFirmware) return;
+    firmwareLibsList.textContent = "";
+
+    const libBundle = releaseState.data?.libBundle || null;
+    if (btnDownloadLibsZip) {
+      if (libBundle) {
+        btnDownloadLibsZip.href = libBundle.downloadUrl;
+        btnDownloadLibsZip.download = libBundle.fileName;
+        btnDownloadLibsZip.textContent = libBundle.sizeLabel
+          ? `↓ libs.zip (${libBundle.sizeLabel})`
+          : "↓ libs.zip";
+        btnDownloadLibsZip.hidden = false;
+      } else {
+        btnDownloadLibsZip.hidden = true;
+      }
+    }
+
+    if (btnInstallLibs) {
+      const hasPicker = typeof window.showDirectoryPicker === "function";
+      btnInstallLibs.disabled = !hasPicker;
+      if (!hasPicker) {
+        btnInstallLibs.title = "Direct folder install requires Chrome, Edge, or Opera (File System Access API)";
+      }
+    }
+
+    const relLibsByName = new Map(
+      (releaseState.data?.libFiles || []).map((f) => [f.fileName, f])
+    );
+
+    for (const fileName of window.XmasFirmware.LIB_FILE_NAMES) {
+      const relAsset = relLibsByName.get(fileName);
+      const fallbackPath =
+        fileName === "neopixel.mpy"
+          ? "lib/neopixel.mpy"
+          : window.XmasFirmware.getRawRepoUrl(null, `circuitpython/lib/${fileName}`);
+
+      const chip = document.createElement("a");
+      chip.className = "firmware-lib-chip";
+      chip.href = relAsset ? relAsset.downloadUrl : fallbackPath;
+      chip.download = fileName;
+      chip.target = "_blank";
+      chip.rel = "noopener noreferrer";
+      chip.textContent = relAsset?.sizeLabel
+        ? `↓ ${fileName} (${relAsset.sizeLabel})`
+        : `↓ ${fileName}`;
+      firmwareLibsList.appendChild(chip);
+    }
+  }
+
+  function renderFirmwareModal() {
+    renderMcuHint();
+    renderBaseFirmwareSection();
+    renderLibsSection();
+    firmwareList.textContent = "";
+
+    if (releaseState.status === "loading") {
+      firmwareReleaseMeta.textContent = "Checking latest release…";
+      const msg = document.createElement("div");
+      msg.className = "firmware-empty";
+      msg.textContent = "Loading compiled examples from GitHub Releases…";
+      firmwareList.appendChild(msg);
+      return;
+    }
+
+    if (releaseState.status === "error") {
+      const err = releaseState.error;
+      firmwareReleaseMeta.textContent = "Release unavailable";
+      const box = document.createElement("div");
+      box.className = "firmware-empty firmware-error";
+
+      const p = document.createElement("p");
+      p.textContent = err?.message || "Could not load the latest release.";
+      box.appendChild(p);
+
+      const link = document.createElement("a");
+      link.className = "action-btn action-secondary";
+      link.href = err?.releasesUrl || `https://github.com/${window.XmasFirmware?.DEFAULT_REPO || "chatelao/aity-xmas-2026"}/releases`;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "Open GitHub Releases ↗";
+      box.appendChild(link);
+
+      firmwareList.appendChild(box);
+      return;
+    }
+
+    if (releaseState.status !== "ready" || !releaseState.data) {
+      return;
+    }
+
+    const rel = releaseState.data;
+    firmwareReleaseMeta.textContent = "";
+    const tagSpan = document.createElement("span");
+    tagSpan.className = "release-tag";
+    tagSpan.textContent = rel.tagName || "latest";
+    firmwareReleaseMeta.appendChild(tagSpan);
+
+    if (rel.publishedAt) {
+      const dateStr = new Date(rel.publishedAt).toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+      const dateSpan = document.createElement("span");
+      dateSpan.className = "release-date";
+      dateSpan.textContent = ` · ${dateStr}`;
+      firmwareReleaseMeta.appendChild(dateSpan);
+    }
+
+    if (rel.htmlUrl) {
+      const sep = document.createTextNode(" · ");
+      firmwareReleaseMeta.appendChild(sep);
+      const relLink = document.createElement("a");
+      relLink.className = "release-link";
+      relLink.href = rel.htmlUrl;
+      relLink.target = "_blank";
+      relLink.rel = "noopener noreferrer";
+      relLink.textContent = "View release ↗";
+      firmwareReleaseMeta.appendChild(relLink);
+    }
+
+    const items = rel.byMcu[selectedMcu] || [];
+    if (items.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "firmware-empty";
+      empty.textContent = "No compiled .uf2 examples found for this target MCU in the latest release.";
+      firmwareList.appendChild(empty);
+      return;
+    }
+
+    for (const item of items) {
+      const row = document.createElement("div");
+      row.className = "firmware-item";
+
+      const info = document.createElement("div");
+      info.className = "firmware-item-info";
+
+      const title = document.createElement("div");
+      title.className = "firmware-item-name";
+      title.textContent = item.exampleName;
+
+      const meta = document.createElement("div");
+      meta.className = "firmware-item-meta";
+      meta.textContent = item.sizeLabel ? `${item.fileName} · ${item.sizeLabel}` : item.fileName;
+
+      info.appendChild(title);
+      info.appendChild(meta);
+
+      const dl = document.createElement("a");
+      dl.className = "action-btn action-primary firmware-dl-btn";
+      dl.href = item.downloadUrl;
+      dl.download = item.fileName;
+      dl.target = "_blank";
+      dl.rel = "noopener noreferrer";
+      dl.textContent = "↓ .uf2";
+
+      row.appendChild(info);
+      row.appendChild(dl);
+      firmwareList.appendChild(row);
+    }
+  }
+
+  async function handleInstallLibs() {
+    if (!firmwareLibsStatus || !window.XmasFirmware) return;
+    if (typeof window.showDirectoryPicker !== "function") {
+      firmwareLibsStatus.className = "firmware-libs-status is-error";
+      firmwareLibsStatus.textContent =
+        "Direct folder install requires Chrome, Edge, or Opera. Please download the /lib/ files below.";
+      return;
+    }
+
+    try {
+      firmwareLibsStatus.className = "firmware-libs-status";
+      firmwareLibsStatus.textContent = "Select the CIRCUITPY root drive…";
+      const dirHandle = await window.showDirectoryPicker({ mode: "readwrite" });
+      firmwareLibsStatus.textContent = "Installing libraries to /lib/…";
+      const installed = await window.XmasFirmware.installLibsToDirectory(dirHandle);
+      firmwareLibsStatus.className = "firmware-libs-status is-success";
+      firmwareLibsStatus.textContent = `Installed ${installed.length} files to ${dirHandle.name}/lib/: ${installed.join(", ")}`;
+    } catch (err) {
+      if (err?.name === "AbortError") {
+        firmwareLibsStatus.className = "firmware-libs-status";
+        firmwareLibsStatus.textContent = "";
+        return;
+      }
+      firmwareLibsStatus.className = "firmware-libs-status is-error";
+      firmwareLibsStatus.textContent = `Install failed: ${err?.message || err}`;
+    }
+  }
+
+  async function loadLatestFirmware(force = false) {
+    if (releaseState.status === "loading") return;
+    if (!force && releaseState.status === "ready") {
+      renderFirmwareModal();
+      return;
+    }
+
+    releaseState = { status: "loading", data: null, error: null };
+    renderFirmwareModal();
+    try {
+      const data = await window.XmasFirmware.fetchLatestRelease();
+      releaseState = { status: "ready", data, error: null };
+    } catch (err) {
+      releaseState = { status: "error", data: null, error: err };
+    }
+    renderFirmwareModal();
+  }
+
+  function openFirmwareModal() {
+    firmwareModal.hidden = false;
+    loadLatestFirmware(false);
+    btnFirmwareClose.focus();
+  }
+
+  function closeFirmwareModal() {
+    firmwareModal.hidden = true;
+    btnFirmwareModal.focus();
+  }
+
+  if (btnFirmwareModal && firmwareModal) {
+    btnFirmwareModal.addEventListener("click", openFirmwareModal);
+    btnFirmwareClose.addEventListener("click", closeFirmwareModal);
+    btnFirmwareRefresh.addEventListener("click", () => loadLatestFirmware(true));
+    if (btnInstallLibs) {
+      btnInstallLibs.addEventListener("click", handleInstallLibs);
+    }
+
+    firmwareModal.addEventListener("click", (e) => {
+      if (e.target === firmwareModal) {
+        closeFirmwareModal();
+      }
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !firmwareModal.hidden) {
+        closeFirmwareModal();
+      }
+    });
+
+    for (const tab of mcuTabs) {
+      tab.addEventListener("click", () => {
+        const mcu = tab.dataset.mcu;
+        if (!mcu || mcu === selectedMcu) return;
+        selectedMcu = mcu;
+        for (const t of mcuTabs) {
+          const active = t.dataset.mcu === selectedMcu;
+          t.classList.toggle("is-active", active);
+          t.setAttribute("aria-selected", String(active));
+        }
+        renderFirmwareModal();
+      });
+    }
+  }
+
   // Load initial example and start Pyodide
   loadExample(currentExample.id, false);
   appendConsole("Initializing Python runtime (Pyodide)…", "sys");

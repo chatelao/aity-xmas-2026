@@ -144,7 +144,23 @@ jobs:
           path: release_assets
           merge-multiple: true
 
-      - name: Upload UF2 files to GitHub Release
+      - name: Stage CircuitPython /lib/ and base firmware assets
+        run: |
+          mkdir -p release_assets staging_cp/lib
+          cp circuitpython/default/lib/neopixel.mpy staging_cp/lib/
+          cp circuitpython/lib/tannenbaum_layout.py staging_cp/lib/
+          cp circuitpython/lib/tannenbaum_palettes.py staging_cp/lib/
+
+          (cd staging_cp && zip -r ../release_assets/circuitpython-lib.zip lib)
+
+          cp staging_cp/lib/neopixel.mpy release_assets/
+          cp staging_cp/lib/tannenbaum_layout.py release_assets/
+          cp staging_cp/lib/tannenbaum_palettes.py release_assets/
+
+          cp circuitpython/adafruit-circuitpython-seeeduino_xiao_rp2040-*.uf2 release_assets/
+          cp circuitpython/adafruit-circuitpython-seeed_xiao_esp32c6-*.bin release_assets/
+
+      - name: Upload Release Assets to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: release_assets/*.uf2
+          files: release_assets/*
