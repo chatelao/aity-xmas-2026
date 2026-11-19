@@ -560,6 +560,89 @@ pixels.show()
         with self.assertRaises(SyntaxError):
             asyncio.run(ns["_sim_execute"]("def broken(:\n  pass\n", bridge.run_id))
 
+    def test_unified_firmware(self):
+        import contextlib
+        import io
+
+        buf = io.StringIO()
+        sechs_led_snapshot = {}
+
+        async def scenario(bridge):
+            await asyncio.sleep(0.06)
+
+            # Single tap D6 -> next palette (wait > DOUBLE_TAP_S for commit)
+            bridge.buttons["D6"] = True
+            await asyncio.sleep(0.06)
+            bridge.buttons["D6"] = False
+            await asyncio.sleep(0.42)
+
+            # Single tap D5 -> previous palette
+            bridge.buttons["D5"] = True
+            await asyncio.sleep(0.06)
+            bridge.buttons["D5"] = False
+            await asyncio.sleep(0.42)
+
+            # Double tap D6 -> next mode (Mode 1: Sechs LEDs)
+            for _ in range(2):
+                bridge.buttons["D6"] = True
+                await asyncio.sleep(0.06)
+                bridge.buttons["D6"] = False
+                await asyncio.sleep(0.08)
+            await asyncio.sleep(0.06)
+            sechs_led_snapshot["first_six"] = list(bridge.leds[:6])
+            sechs_led_snapshot["rest"] = list(bridge.leds[6:])
+
+            # Double tap D5 -> previous mode (Mode 0: TwinkleFOX)
+            for _ in range(2):
+                bridge.buttons["D5"] = True
+                await asyncio.sleep(0.06)
+                bridge.buttons["D5"] = False
+                await asyncio.sleep(0.08)
+            await asyncio.sleep(0.06)
+
+            # Long hold D6 -> increase speed
+            bridge.buttons["D6"] = True
+            await asyncio.sleep(0.65)
+            bridge.buttons["D6"] = False
+            await asyncio.sleep(0.06)
+
+            # Long hold D5 -> decrease speed
+            bridge.buttons["D5"] = True
+            await asyncio.sleep(0.65)
+            bridge.buttons["D5"] = False
+            await asyncio.sleep(0.06)
+
+            # Cycle through all 8 modes via double tap D6
+            for _ in range(8):
+                for _ in range(2):
+                    bridge.buttons["D6"] = True
+                    await asyncio.sleep(0.05)
+                    bridge.buttons["D6"] = False
+                    await asyncio.sleep(0.07)
+                await asyncio.sleep(0.06)
+
+        with contextlib.redirect_stdout(buf):
+            bridge = self._run_sim(self.examples["unified"], scenario)
+
+        self.assertEqual(bridge.stderr, [])
+        self.assertGreater(bridge.led_frames, 10)
+        self.assertTrue(any(c != (0, 0, 0) for c in sechs_led_snapshot["first_six"]))
+        self.assertTrue(all(c == (0, 0, 0) for c in sechs_led_snapshot["rest"]))
+
+        out = buf.getvalue()
+        self.assertIn("UNIFIED FIRMWARE", out)
+        self.assertIn("Palette: Holly", out)
+        self.assertIn("Palette: Retro C9", out)
+        self.assertIn("Modus: 1: Sechs LEDs", out)
+        self.assertIn("Modus: 2: Lauflicht", out)
+        self.assertIn("Modus: 3: Segmente", out)
+        self.assertIn("Modus: 4: Koordinaten-Welle", out)
+        self.assertIn("Modus: 5: 2D-Plasma", out)
+        self.assertIn("Modus: 6: Polar-Wirbel", out)
+        self.assertIn("Modus: 7: Gravitations-Puls", out)
+        self.assertIn("Tempo: 1.4x", out)
+        self.assertIn("Tempo: 1.0x", out)
+
 
 class TestLocalHttpServing(unittest.TestCase):
     def test_serve_docs_over_http(self):

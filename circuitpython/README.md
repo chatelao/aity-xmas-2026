@@ -32,6 +32,7 @@ All example scripts drive the 60 NeoPixels on `board.D10` and use buttons on `bo
 | [`code.4-koordinaten.py`](code.4-koordinaten.py) | Radial wave explosions from 3 epicenters using KiCad coordinates | Retrigger wave | Next epicenter |
 | [`code.5-maximal.py`](code.5-maximal.py) | 2D plasma, polar vortex, and gravity pulse with gamma correction | Switch mode | Shift palette |
 | [`code.7-twinkle.py`](code.7-twinkle.py) | Full-tree TwinkleFOX animation with 10 palettes & warm-gold star | Next palette | Cycle speed |
+| [`code.unified.py`](code.unified.py) | Unified firmware combining all 8 modes (TwinkleFOX, Sechs LEDs, Lauflicht, Segmente, Koordinaten, Plasma, Vortex, Gravity) | Tap: Prev palette · 2×Tap: Prev mode · Hold: Slower | Tap: Next palette · 2×Tap: Next mode · Hold: Faster |
 
 ### Libraries (`lib/`)
 
