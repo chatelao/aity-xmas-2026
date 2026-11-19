@@ -331,7 +331,8 @@ class PdfPageBuilder:
                 i += 1
         if not path_cmds:
             return
-        self.cmds.append(" ".join(path_cmds))
+        for k in range(0, len(path_cmds), 8):
+            self.cmds.append(" ".join(path_cmds[k : k + 8]))
         if fill and stroke:
             self.cmds.append("B")
         elif fill:
@@ -365,6 +366,72 @@ class PdfPageBuilder:
 
     def stream_bytes(self) -> bytes:
         return ("\n".join(self.cmds) + "\n").encode("latin-1")
+
+
+def _rdp_simplify(pts, eps: float):
+    """Iterative Ramer-Douglas-Peucker polyline simplification."""
+    if len(pts) <= 3 or eps <= 0.0:
+        return pts
+    keep = [False] * len(pts)
+    keep[0] = True
+    keep[-1] = True
+    stack = [(0, len(pts) - 1)]
+    while stack:
+        s, e = stack.pop()
+        if e <= s + 1:
+            continue
+        ax, ay = pts[s]
+        bx, by = pts[e]
+        dx, dy = bx - ax, by - ay
+        len_sq = dx * dx + dy * dy
+        max_d = -1.0
+        idx = -1
+        for i in range(s + 1, e):
+            px, py = pts[i]
+            if len_sq == 0.0:
+                d = math.hypot(px - ax, py - ay)
+            else:
+                t = max(0.0, min(1.0, ((px - ax) * dx + (py - ay) * dy) / len_sq))
+                d = math.hypot(px - (ax + t * dx), py - (ay + t * dy))
+            if d > max_d:
+                max_d = d
+                idx = i
+        if max_d > eps and idx != -1:
+            keep[idx] = True
+            stack.append((s, idx))
+            stack.append((idx, e))
+    return [p for p, k in zip(pts, keep) if k]
+
+
+def _simplify_path_d(d: str, eps: float) -> str:
+    """Simplify each subpath in an M/L/Z SVG path string within tolerance eps."""
+    if not d:
+        return d
+    out_parts = []
+    chunks = re.split(r"([Zz])", d.strip())
+    i = 0
+    while i < len(chunks):
+        seg = chunks[i].strip()
+        closed = i + 1 < len(chunks) and chunks[i + 1] in ("Z", "z")
+        i += 2 if closed else 1
+        if not seg:
+            continue
+        sub_ms = re.split(r"(?=[Mm])", seg)
+        for sub in sub_ms:
+            sub = sub.strip()
+            if not sub:
+                continue
+            pts = [(float(x), float(y)) for x, y in re.findall(r"[MLml]\s*([-\d.]+)\s+([-\d.]+)", sub)]
+            if not pts:
+                continue
+            spts = _rdp_simplify(pts, eps)
+            cmds = [f"M {spts[0][0]:.4f} {spts[0][1]:.4f}"]
+            for x, y in spts[1:]:
+                cmds.append(f"L {x:.4f} {y:.4f}")
+            if closed:
+                cmds.append("Z")
+            out_parts.append(" ".join(cmds))
+    return " ".join(out_parts)
 
 
 def write_pdf_document(pages: list, out_pdf: Path):
@@ -1016,6 +1083,7 @@ def build_stencil_pages(stencils, height_cm: int, scale: float):
     max_ch = page_h - top_y - pad
 
     # Build card specs, automatically splitting oversized branch cards into 2 overlapping A4 halves
+    eps_pcb = 0.10 / scale
     cards = []
     for item in stencils:
         ow = item["w"] * scale
@@ -1023,16 +1091,17 @@ def build_stencil_pages(stencils, height_cm: int, scale: float):
         cw = max(48.0, ow + 2 * card_pad)
         ch = header_h + oh + 2 * card_pad
         is_multi = len(item["layers"]) > 1
+        s_edge_d = _simplify_path_d(item["edge_d"], eps_pcb) if item["edge_d"] else None
 
         if cw <= max_cw and ch <= max_ch:
             for layer_label, path_d, ghost_d, union_fill in item["layers"]:
                 cards.append({
                     "title": item["title"],
                     "layer_label": layer_label,
-                    "path_d": path_d,
-                    "ghost_d": ghost_d,
+                    "path_d": _simplify_path_d(path_d, eps_pcb),
+                    "ghost_d": _simplify_path_d(ghost_d, eps_pcb) if ghost_d else None,
                     "union_fill": union_fill,
-                    "edge_d": item["edge_d"],
+                    "edge_d": s_edge_d,
                     "is_multi": is_multi,
                     "ow": ow,
                     "oh": oh,
@@ -1050,10 +1119,10 @@ def build_stencil_pages(stencils, height_cm: int, scale: float):
                     cards.append({
                         "title": f"{item['title']} - Part {part_idx}/2",
                         "layer_label": layer_label,
-                        "path_d": path_d,
-                        "ghost_d": ghost_d,
+                        "path_d": _simplify_path_d(path_d, eps_pcb),
+                        "ghost_d": _simplify_path_d(ghost_d, eps_pcb) if ghost_d else None,
                         "union_fill": union_fill,
-                        "edge_d": item["edge_d"],
+                        "edge_d": s_edge_d,
                         "is_multi": is_multi,
                         "ow": half_ow,
                         "oh": oh,
