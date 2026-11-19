@@ -160,6 +160,9 @@ jobs:
           cp circuitpython/adafruit-circuitpython-seeeduino_xiao_rp2040-*.uf2 release_assets/
           cp circuitpython/adafruit-circuitpython-seeed_xiao_esp32c6-*.bin release_assets/
 
+          cp cutout_patterns/tree_cutout_a4_*.pdf release_assets/
+          (cd cutout_patterns && zip -r ../release_assets/cutout_patterns_svg.zip svg)
+
       - name: Upload Release Assets to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
