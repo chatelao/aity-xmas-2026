@@ -490,10 +490,13 @@
   const webSerialProgress = document.getElementById("webserial-progress");
   const webSerialProgressLabel = document.getElementById("webserial-progress-label");
   const webSerialLog = document.getElementById("webserial-log");
+  const btnInstallPortal = document.getElementById("btn-install-portal");
   const btnInstallLibs = document.getElementById("btn-install-libs");
   const btnDownloadLibsZip = document.getElementById("btn-download-libs-zip");
   const firmwareLibsStatus = document.getElementById("firmware-libs-status");
   const firmwareLibsList = document.getElementById("firmware-libs-list");
+  const firmwarePackagesSection = document.getElementById("firmware-packages-section");
+  const firmwarePackagesList = document.getElementById("firmware-packages-list");
   const firmwareList = document.getElementById("firmware-list");
   const mcuTabs = Array.from(document.querySelectorAll(".mcu-tab"));
 
@@ -741,6 +744,65 @@
       row.appendChild(dl);
       firmwareList.appendChild(row);
     }
+
+    if (firmwarePackagesSection && firmwarePackagesList) {
+      const pkgs = Array.isArray(release.packages) ? release.packages : [];
+      firmwarePackagesList.textContent = "";
+      firmwarePackagesSection.hidden = pkgs.length === 0;
+      for (const pkg of pkgs) {
+        const row = document.createElement("div");
+        row.className = "firmware-item";
+        const info = document.createElement("div");
+        info.className = "firmware-item-info";
+        const title = document.createElement("div");
+        title.className = "firmware-item-name";
+        title.textContent = pkg.fileName;
+        const meta = document.createElement("div");
+        meta.className = "firmware-item-meta";
+        meta.textContent = pkg.sizeLabel || "Release asset";
+        info.appendChild(title);
+        info.appendChild(meta);
+
+        const dl = document.createElement("a");
+        dl.className = "action-btn action-secondary firmware-dl-btn";
+        dl.href = pkg.downloadUrl;
+        dl.download = pkg.fileName;
+        dl.target = "_blank";
+        dl.rel = "noopener noreferrer";
+        dl.textContent = "↓ Download";
+        row.appendChild(info);
+        row.appendChild(dl);
+        firmwarePackagesList.appendChild(row);
+      }
+    }
+  }
+
+  async function handleInstallPortal() {
+    if (!firmwareLibsStatus || !window.XmasFirmware) return;
+    if (typeof window.showDirectoryPicker !== "function") {
+      firmwareLibsStatus.className = "firmware-libs-status is-error";
+      firmwareLibsStatus.textContent =
+        "Direct folder install requires Chrome, Edge, or Opera. Please download circuitpython-captive-portal-bundle.zip below.";
+      return;
+    }
+
+    try {
+      firmwareLibsStatus.className = "firmware-libs-status";
+      firmwareLibsStatus.textContent = "Select the CIRCUITPY root drive (or WebDAV folder)…";
+      const dirHandle = await window.showDirectoryPicker({ mode: "readwrite" });
+      firmwareLibsStatus.textContent = "Installing code.py, web_ui.html.gz, and /lib/…";
+      const installed = await window.XmasFirmware.installCaptivePortalToDirectory(dirHandle);
+      firmwareLibsStatus.className = "firmware-libs-status is-success";
+      firmwareLibsStatus.textContent = `Installed Captive Portal (${installed.length} files) to ${dirHandle.name}: ${installed.join(", ")}`;
+    } catch (err) {
+      if (err?.name === "AbortError") {
+        firmwareLibsStatus.className = "firmware-libs-status";
+        firmwareLibsStatus.textContent = "";
+        return;
+      }
+      firmwareLibsStatus.className = "firmware-libs-status is-error";
+      firmwareLibsStatus.textContent = `Install failed: ${err?.message || err}`;
+    }
   }
 
   async function handleInstallLibs() {
@@ -851,6 +913,9 @@
     btnFirmwareModal.addEventListener("click", openFirmwareModal);
     btnFirmwareClose.addEventListener("click", closeFirmwareModal);
     btnFirmwareRefresh.addEventListener("click", () => loadLatestFirmware(true));
+    if (btnInstallPortal) {
+      btnInstallPortal.addEventListener("click", handleInstallPortal);
+    }
     if (btnInstallLibs) {
       btnInstallLibs.addEventListener("click", handleInstallLibs);
     }

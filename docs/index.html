@@ -213,10 +213,13 @@
 
         <div class="firmware-section">
           <div class="firmware-section-header">
-            <h3>CircuitPython <code>/lib/</code> Libraries</h3>
+            <h3>CircuitPython <code>/lib/</code> &amp; Captive Portal</h3>
             <div class="firmware-libs-actions">
-              <button id="btn-install-libs" class="action-btn action-primary" type="button" title="Select your CIRCUITPY drive to install /lib/ files directly">
-                ⚡ Install /lib/ to CIRCUITPY
+              <button id="btn-install-portal" class="action-btn action-primary" type="button" title="Select your CIRCUITPY drive to install code.py, web_ui.html.gz, and /lib/">
+                ⚡ Install Captive Portal
+              </button>
+              <button id="btn-install-libs" class="action-btn action-secondary" type="button" title="Select your CIRCUITPY drive to install /lib/ files directly">
+                ⚡ Install /lib/ only
               </button>
               <a id="btn-download-libs-zip" class="action-btn action-secondary" href="#" target="_blank" rel="noopener noreferrer" hidden>
                 ↓ libs.zip
@@ -227,9 +230,16 @@
           <div id="firmware-libs-list" class="firmware-libs-list"></div>
         </div>
 
+        <div id="firmware-packages-section" class="firmware-section" hidden>
+          <div class="firmware-section-header">
+            <h3>Release Packages &amp; Bundles</h3>
+          </div>
+          <div id="firmware-packages-list" class="firmware-list" aria-live="polite"></div>
+        </div>
+
         <div class="firmware-section">
           <div class="firmware-section-header">
-            <h3>Compiled Arduino Examples (.uf2)</h3>
+            <h3>Compiled Firmware &amp; Examples (.uf2)</h3>
           </div>
           <div id="firmware-list" class="firmware-list" aria-live="polite"></div>
         </div>
