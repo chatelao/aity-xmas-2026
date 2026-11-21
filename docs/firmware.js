@@ -69,6 +69,8 @@
     };
     let libBundle = null;
     const libFiles = [];
+    const packages = [];
+    const PACKAGE_SUFFIXES = [".zip", ".bin"];
 
     for (const asset of assets) {
       const name = asset?.name || "";
@@ -121,12 +123,22 @@
         }
       }
       if (matched) continue;
+
+      if (PACKAGE_SUFFIXES.some((s) => name.endsWith(s)) || name === "code.portal.py" || name === "web_ui.html.gz") {
+        packages.push({
+          fileName: name,
+          downloadUrl: url,
+          size: asset.size,
+          sizeLabel: formatBytes(asset.size),
+        });
+      }
     }
 
     for (const mcu of TARGET_MCUS) {
       byMcu[mcu.id].sort((a, b) => a.exampleName.localeCompare(b.exampleName));
     }
     libFiles.sort((a, b) => a.fileName.localeCompare(b.fileName));
+    packages.sort((a, b) => a.fileName.localeCompare(b.fileName));
 
     return {
       tagName: release?.tag_name || "",
@@ -137,6 +149,7 @@
       baseFirmware,
       libBundle,
       libFiles,
+      packages,
     };
   }
 
@@ -206,6 +219,46 @@
 
     for (const item of payloads) {
       const fileHandle = await libDir.getFileHandle(item.fileName, { create: true });
+      const writable = await fileHandle.createWritable();
+      await writable.write(item.data);
+      await writable.close();
+      installed.push(item.fileName);
+    }
+
+    return installed;
+  }
+
+  async function buildCaptivePortalPayloads(fetchFn) {
+    const doFetch = fetchFn || (typeof fetch === "function" ? fetch.bind(globalThis) : null);
+    if (!doFetch) {
+      throw new Error("Fetch API is not available in this environment.");
+    }
+    const [codeRes, uiRes] = await Promise.all([
+      doFetch("portal/code.portal.py"),
+      doFetch("portal/web_ui.html.gz"),
+    ]);
+    if (!codeRes.ok) {
+      throw new Error(`Failed to load portal/code.portal.py (HTTP ${codeRes.status}).`);
+    }
+    if (!uiRes.ok) {
+      throw new Error(`Failed to load portal/web_ui.html.gz (HTTP ${uiRes.status}).`);
+    }
+    return [
+      { fileName: "code.py", data: await codeRes.text() },
+      { fileName: "web_ui.html.gz", data: await uiRes.arrayBuffer() },
+    ];
+  }
+
+  async function installCaptivePortalToDirectory(dirHandle, options = {}) {
+    if (!dirHandle) {
+      throw new Error("No target directory selected.");
+    }
+    const libInstalled = await installLibsToDirectory(dirHandle, options);
+    const rootPayloads = await buildCaptivePortalPayloads(options.fetchFn);
+    const installed = libInstalled.map((f) => `lib/${f}`);
+
+    for (const item of rootPayloads) {
+      const fileHandle = await dirHandle.getFileHandle(item.fileName, { create: true });
       const writable = await fileHandle.createWritable();
       await writable.write(item.data);
       await writable.close();
@@ -386,6 +439,8 @@
     fetchLatestRelease,
     buildLocalLibPayloads,
     installLibsToDirectory,
+    buildCaptivePortalPayloads,
+    installCaptivePortalToDirectory,
     parseUf2ToSegments,
     uint8ArrayToBinaryString,
     flashEsp32WebSerial,
