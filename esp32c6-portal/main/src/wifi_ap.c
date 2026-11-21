@@ -12,6 +12,7 @@
 #include "esp_wifi.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "lwip/ip4_addr.h"
 #endif
 
 #ifdef ESP_PLATFORM
