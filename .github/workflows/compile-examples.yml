@@ -184,6 +184,7 @@ jobs:
 
           cp circuitpython/code.unified.py pkg_esp32c6/circuitpython/code.py
           cp circuitpython/code.*.py pkg_esp32c6/circuitpython/
+          cp circuitpython/web_ui.html.gz pkg_esp32c6/circuitpython/
           cp staging_cp/lib/* pkg_esp32c6/circuitpython/lib/
           cp circuitpython/adafruit-circuitpython-seeed_xiao_esp32c6-*.bin pkg_esp32c6/
           cp release_assets/*_xiao_esp32c6.uf2 pkg_esp32c6/ || true
@@ -192,6 +193,7 @@ jobs:
 
           cp circuitpython/code.unified.py pkg_cp/code.py
           cp circuitpython/code.*.py pkg_cp/examples/
+          cp circuitpython/web_ui.html.gz pkg_cp/
           cp staging_cp/lib/* pkg_cp/lib/
           cp circuitpython/adafruit-circuitpython-seeeduino_xiao_rp2040-*.uf2 pkg_cp/
           cp circuitpython/adafruit-circuitpython-seeed_xiao_esp32c6-*.bin pkg_cp/

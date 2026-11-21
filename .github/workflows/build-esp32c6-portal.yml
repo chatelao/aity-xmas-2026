@@ -84,7 +84,9 @@ jobs:
           cp circuitpython/default/lib/neopixel.mpy staging_cp/lib/
           cp circuitpython/lib/tannenbaum_layout.py staging_cp/lib/
           cp circuitpython/lib/tannenbaum_palettes.py staging_cp/lib/
-          (cd staging_cp && zip -r ../dist/circuitpython-captive-portal-bundle.zip code.py web_ui.html.gz lib)
+          cp circuitpython/adafruit-circuitpython-seeed_xiao_esp32c6-*.bin staging_cp/
+          cp HOWTO_ESP32-C6.md LICENSE staging_cp/
+          (cd staging_cp && zip -r ../dist/circuitpython-captive-portal-bundle.zip .)
           cp circuitpython/code.portal.py dist/
           cp circuitpython/web_ui.html.gz dist/
 
