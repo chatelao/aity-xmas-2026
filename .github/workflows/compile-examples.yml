@@ -162,6 +162,7 @@ jobs:
 
           cp cutout_patterns/tree_cutout_a4_*.pdf release_assets/
           (cd cutout_patterns && zip -r ../release_assets/cutout_patterns_svg.zip svg)
+          (cd cutout_patterns && zip -r ../release_assets/ornament_laser_stencils_svg.zip laser_stencils)
 
       - name: Upload Release Assets to GitHub Release
         uses: softprops/action-gh-release@v2
