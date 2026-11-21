@@ -28,7 +28,7 @@ Each tree size (`40 cm`, `85 cm`, `105 cm`) is available as a complete manufactu
 - **LEDs:** 60 × **13 mm WS2812 RGB LED** strand / pixel strip (`5 V`, `DIN`, `GND`)
 - **Pattern Assembly:** Printer (A4 paper), scissors or hobby knife, metal ruler, glue stick or clear tape
 - **Woodworking:** Jigsaw (fine wood blade) or scroll saw, sandpaper (`120` & `240` grit), clamps, sacrificial scrap wood backing board
-- **Drilling:** Center punch / awl, `3 mm` pilot drill bit, **`13 mm` brad-point wood bit or Forstner bit** (plus a `12.5 mm` bit if you want to test for a tighter press-fit)
+- **Drilling:** Center punch / awl, **`1.5–2 mm` (`1/16"`) pilot drill bit**, **`0.4 inch` (`10 mm` / `13/32"`) brad-point wood bit** (front LED-only hole), and a **`13 mm` (or `14 mm`) Forstner bit with a depth-stop collar** (back counterbore pocket for the `12–13 mm` pixel body)
 - **Finishing (optional):** Wood primer, base paint, spray paint + ornament stencils, painter's tape / masking paper
 
 ---
@@ -61,20 +61,29 @@ Each tree size (`40 cm`, `85 cm`, `105 cm`) is available as a complete manufactu
 
 ---
 
-## Step 3: Center-Punch & Drill the 60 LED Holes (13 mm)
+## Step 3: Center-Punch & Drill the 60 Stepped LED Holes (`0.4"` Front + `12–13 mm` Back)
 
-1. **Mark all 60 LED centers (`0–59`):**
-   - With the paper template still attached, use an awl or center punch to make a clear dimple at the exact center of every blue **`(+)` crosshair** (`0` through `59`).
-   - Double-check that all 60 positions are punched before removing the paper.
-   - Peel off the paper template (keep it nearby so you can read the `0–59` LED order later!).
-2. **Test-fit on scrap MDF first:**
-   - Drill a test hole in a scrap piece of the same MDF using your **`13 mm` brad-point / Forstner bit**.
-   - Push one 13 mm WS2812 pixel into the hole. Some "13 mm" pixels measure `12.3–12.8 mm` at the collar — if `13 mm` is slightly loose, test a `12.5 mm` bit or plan to add a dab of hot glue from the back.
-3. **Drill the 60 holes:**
-   - Place a **sacrificial scrap wood board** tightly underneath the MDF to prevent tear-out on the back side.
-   - *(Recommended)* Drill a `3 mm` pilot hole at each center-punched dimple first — this keeps the `13 mm` bit from wandering.
-   - Drill straight down (perpendicular to the board; use a drill press or portable drill guide if available) with the `13 mm` bit at moderate speed.
-   - Lightly deburr the front and back edges of each hole with `240` grit sandpaper.
+Drilling a **`0.4 inch` (`10 mm`)** hole from the front for the LED dome and a **`12–13 mm`** counterbore pocket from the back for the larger pixel body gives the cleanest result: the pixel cannot push out through the front face, no collar shows on the front, and it works even on thicker MDF (`10–18 mm`).
+
+To keep the front and back holes **100% concentric**, drill in this exact order:
+
+1. **Center-punch all 60 LED centers (`0–59`):**
+   - With the paper template still attached to the **front**, use an awl or center punch to dimple the exact center of every blue **`(+)` crosshair** (`0` through `59`).
+   - Double-check that all 60 positions are punched, then peel off the paper template (keep it nearby so you can read the `0–59` LED order later!).
+2. **Drill `1.5–2 mm` (`1/16"`) pilot holes all the way through:**
+   - Place a **sacrificial scrap wood board** underneath the MDF.
+   - Drill a small `1.5–2 mm` pilot hole straight through at every center-punched dimple. This transfers all 60 exact centers to the **back** of the MDF while staying small enough to guide a Forstner bit's center spur.
+3. **Test-fit on scrap MDF first:**
+   - On a scrap piece of the same MDF, drill a `13 mm` (or `13.5–14 mm`, depending on your exact pixel body) Forstner counterbore from the back and a `0.4 inch` (`10 mm`) hole from the front.
+   - Verify that the LED dome/lens pokes cleanly through the `0.4"` front hole while the `12–13 mm` pixel body seats snugly in the back counterbore.
+4. **Drill the `12–13 mm` counterbore pockets from the BACK:**
+   - Flip the MDF over to the **back** face and clamp it flat.
+   - Fit your **Forstner bit** with a **depth-stop collar** (or drill-press depth stop) so that **`3–5 mm` of MDF remains** at the front face (for example: on `12 mm` MDF, drill `8 mm` deep; on `16 mm` MDF, drill `11–12 mm` deep).
+   - Center the Forstner spur on each `1.5–2 mm` pilot hole and drill the flat-bottomed pocket.
+5. **Drill the `0.4 inch` (`10 mm`) LED-only holes from the FRONT:**
+   - Flip the MDF back to the **front** face.
+   - Using the **`0.4 inch` (`10 mm` / `13/32"`) brad-point bit**, center the tip on each `1.5–2 mm` pilot hole and drill through the remaining `3–5 mm` of MDF into the back pocket.
+   - Lightly deburr the front edges with `240` grit sandpaper.
 
 ---
 
@@ -100,8 +109,8 @@ Each tree size (`40 cm`, `85 cm`, `105 cm`) is available as a complete manufactu
      - **`32–44`**: Upper bough (`SEG_BOUGH_HIGH`)
      - **`45–49`**: Stem / connecting arc (`SEG_STEM`)
      - **`50–59`**: Star (`SEG_STAR`)
-   - Push each pixel firmly through its `13 mm` hole until the front collar sits flush.
-   - If any pixel sits loosely, secure it from the back with a small dab of hot glue.
+   - Push each pixel firmly into its **`12–13 mm` back counterbore** until the LED dome seats cleanly in the **`0.4"` (`10 mm`) front hole**.
+   - Secure each pixel from the back with a small dab of hot glue or silicone if the counterbore is not a tight press-fit.
 3. **Connect to your XIAO controller (`RP2040` or `ESP32-C6`):**
    - `DIN` → **`D10`** (recommended: via a `330 Ω` inline resistor near the first LED)
    - `5V` → **`5V`** (for high brightness with 60 LEDs, use an external `5V` PSU capable of `2–3 A` and place a `470–1000 µF` capacitor across `5V` and `GND`)
