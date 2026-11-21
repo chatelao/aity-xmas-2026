@@ -224,6 +224,7 @@ def build_page1_svg(leds, polylines, outline_d=None) -> str:
             ly = frame_y + 81.0 + li * 5.2
             lines.append(f'  <line x1="{fx+3:.2f}" y1="{ly:.2f}" x2="{fx+frame_w-3:.2f}" y2="{ly:.2f}" stroke="#DEE2E6" stroke-width="0.3"/>')
 
+    lines.append('  <text x="105" y="292" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="2.6" fill="#6C757D">AITY Xmas Tree 2026 | License: CC-BY-NC-4.0 (https://creativecommons.org/licenses/by-nc/4.0/)</text>')
     lines.append('</svg>')
     return "\n".join(lines) + "\n"
 
@@ -272,6 +273,7 @@ def build_page2_svg(single_colors) -> str:
         lines.append(f'  <text x="{sx+16.0:.1f}" y="{sy+8.0:.2f}" font-family="DejaVu Sans, Arial, sans-serif" font-size="2.3" fill="#6C757D">RGB:</text>')
         lines.append(f'  <line x1="{sx+25.5:.1f}" y1="{sy+8.4:.2f}" x2="{sx+85.0:.1f}" y2="{sy+8.4:.2f}" stroke="#DEE2E6" stroke-width="0.3"/>')
 
+    lines.append('  <text x="105" y="292" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="2.6" fill="#6C757D">AITY Xmas Tree 2026 | License: CC-BY-NC-4.0 (https://creativecommons.org/licenses/by-nc/4.0/)</text>')
     lines.append('</svg>')
     return "\n".join(lines) + "\n"
 
@@ -333,6 +335,7 @@ def build_page3_svg(palettes) -> str:
         for gx in range(17, 195, 6):
             lines.append(f'  <circle cx="{gx}" cy="{gy}" r="0.22" fill="#CED4DA"/>')
 
+    lines.append('  <text x="105" y="292" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="2.6" fill="#6C757D">AITY Xmas Tree 2026 | License: CC-BY-NC-4.0 (https://creativecommons.org/licenses/by-nc/4.0/)</text>')
     lines.append('</svg>')
     return "\n".join(lines) + "\n"
 

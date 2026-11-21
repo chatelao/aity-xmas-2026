@@ -106,3 +106,8 @@ If you prefer a desktop file tree experience without native USB mass storage:
    - On macOS, open Finder, click **Go -> Connect to Server**, and enter `http://circuitpython.local/fs/`.
    - On Linux, use your file manager (Nautilus/Dolphin) to connect to `dav://circuitpython.local/fs/`.
    - Authenticate with the `CIRCUITPY_WEB_API_PASSWORD`. The board's filesystem will mount just like a folder in your file explorer!
+---
+
+## License
+
+Licensed under **Creative Commons Attribution-NonCommercial 4.0 International (CC-BY-NC-4.0)**. See [`LICENSE`](LICENSE) or <https://creativecommons.org/licenses/by-nc/4.0/>.

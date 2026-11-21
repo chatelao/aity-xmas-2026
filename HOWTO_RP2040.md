@@ -66,3 +66,8 @@ If you prefer coding and managing files entirely in your browser without desktop
    - Click **Save + Run** to immediately save the script to the board and restart execution.
    - Use the **Upload Files** or **Upload Folders** buttons to upload `lib/neopixel.mpy` or other assets directly onto the board.
    - Click the **Serial** tab to view live serial prints and access the interactive REPL.
+---
+
+## License
+
+Licensed under **Creative Commons Attribution-NonCommercial 4.0 International (CC-BY-NC-4.0)**. See [`LICENSE`](LICENSE) or <https://creativecommons.org/licenses/by-nc/4.0/>.

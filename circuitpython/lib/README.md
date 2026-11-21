@@ -293,3 +293,8 @@ while True:
 Visual overview of all 10 TwinkleFOX 16-entry palettes from [`tannenbaum_palettes.py`](tannenbaum_palettes.py):
 
 ![TwinkleFOX Color Palettes](palettes.svg)
+---
+
+## License
+
+Licensed under **Creative Commons Attribution-NonCommercial 4.0 International (CC-BY-NC-4.0)**. See [`LICENSE`](../../LICENSE) or <https://creativecommons.org/licenses/by-nc/4.0/>.

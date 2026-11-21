@@ -86,3 +86,8 @@ gcc -std=c11 -Wall -Wextra -Werror -Iesp32c6-portal/main/include \
 # Self-contained Web UI & gzip header sync verification
 node esp32c6-portal/test/test_web_ui.mjs
 ```
+---
+
+## License
+
+Licensed under **Creative Commons Attribution-NonCommercial 4.0 International (CC-BY-NC-4.0)**. See [`LICENSE`](../LICENSE) or <https://creativecommons.org/licenses/by-nc/4.0/>.

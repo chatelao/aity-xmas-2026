@@ -586,6 +586,13 @@ def build_overview_page(data, height_cm: int, scale: float, row_seq, tiles) -> P
         2.9,
         fill="#444444",
     )
+    p.text(
+        15,
+        282,
+        "License: CC-BY-NC-4.0 (Non-Commercial) - https://creativecommons.org/licenses/by-nc/4.0/",
+        2.8,
+        fill="#6C757D",
+    )
     return p
 
 
@@ -765,6 +772,7 @@ def build_tile_page(data, height_cm: int, scale: float, tile, tiles, n_rows: int
         bold=True,
     )
     p.text(page_w - MARGIN, 4.8, "Print 100% / Actual Size", 2.6, fill="#6C757D", anchor="end")
+    p.text(MARGIN, page_h - 4.0, "License: CC-BY-NC-4.0 (https://creativecommons.org/licenses/by-nc/4.0/)", 2.3, fill="#6C757D")
     return p
 
 
@@ -1231,6 +1239,7 @@ def build_stencil_pages(stencils, height_cm: int, scale: float):
             if has_clip:
                 p.pop()
 
+        p.text(pad, page_h - 5.0, "License: CC-BY-NC-4.0 (https://creativecommons.org/licenses/by-nc/4.0/)", 2.4, fill="#6C757D")
         pdf_pages.append(p)
     return pdf_pages
 

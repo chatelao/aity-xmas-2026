@@ -37,3 +37,8 @@ All example scripts drive the 60 NeoPixels on `board.D10` and use buttons on `bo
 ### Libraries (`lib/`)
 
 Reusable modules for geometry/segments ([`tannenbaum_layout.py`](lib/tannenbaum_layout.py)) and TwinkleFOX-style palettes and effects ([`tannenbaum_palettes.py`](lib/tannenbaum_palettes.py)). See [`lib/README.md`](lib/README.md) for full documentation and examples.
+---
+
+## License
+
+Licensed under **Creative Commons Attribution-NonCommercial 4.0 International (CC-BY-NC-4.0)**. See [`LICENSE`](../LICENSE) or <https://creativecommons.org/licenses/by-nc/4.0/>.

@@ -1,5 +1,7 @@
 # AITY Xmas Tree 2026
 
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC--BY--NC--4.0-lightgrey.svg)](LICENSE)
+
 An interactive Christmas tree PCB designed to work with either a **Seeed Studio XIAO RP2040** or a **Seeed Studio XIAO ESP32-C6** microcontroller module, featuring 60 addressable NeoPixel LEDs, a piezo speaker/buzzer, and test point outputs.
 
 ## Hardware Specifications
@@ -118,3 +120,10 @@ while True:
 2. Obtain the Adafruit CircuitPython Library Bundle (or use the pre-packaged files in `circuitpython/default/`).
 3. Copy `neopixel.mpy` into the `lib/` directory on the target board (using file explorer for RP2040 or web workflow for ESP32-C6).
 4. Save the example script above (or `circuitpython/default/code.py`) as `code.py` on the target board.
+
+---
+
+## License
+
+This project and all associated hardware designs, firmware, scripts, cutout patterns, laser stencils, and documentation are licensed under the **Creative Commons Attribution-NonCommercial 4.0 International (CC-BY-NC-4.0)** license. See [`LICENSE`](LICENSE) or <https://creativecommons.org/licenses/by-nc/4.0/> for details.
+

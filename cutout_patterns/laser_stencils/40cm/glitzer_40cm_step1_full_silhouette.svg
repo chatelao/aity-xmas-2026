@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="106.7329mm" height="106.6032mm" viewBox="0 0 106.7329 106.6032">
-  <title>Sparkle (Glitzer) (40 cm) - Layer 1/1: Full Silhouette</title>
+  <title>Sparkle (Glitzer) (40 cm) - Layer 1/1: Full Silhouette | CC-BY-NC-4.0</title>
   <g id="cut" stroke="#FF0000" stroke-width="0.1" fill="none" stroke-linejoin="round">
     <rect id="outer-border" x="0" y="0" width="106.7329" height="106.6032"/>
     <path id="stencil-cut" d="M 53.3157 50.0032 L 53.5000 50.1442 L 53.6932 50.4831 L 53.8398 50.8871 L 54.0920 51.8799 L 54.2349 52.1819 L 54.3880 52.3715 L 54.5847 52.5233 L 54.9076 52.6731 L 56.0337 52.9438 L 56.4185 53.0747 L 56.6510 53.2165 L 56.7329 53.3635 L 56.6964 53.4727 L 56.6253 53.5438 L 56.3727 53.6779 L 55.9735 53.7960 L 55.0546 53.9787 L 54.7928 54.1052 L 54.6120 54.2466 L 54.4165 54.4783 L 54.2803 54.7124 L 53.8863 55.8004 L 53.7157 56.1715 L 53.5044 56.4787 L 53.3859 56.5751 L 53.2787 56.6032 L 53.1590 56.5309 L 53.0924 56.3916 L 53.0205 55.7153 L 52.8771 55.2787 L 52.6060 54.8454 L 52.3197 54.5245 L 51.8173 54.1257 L 51.4586 53.9402 L 51.1024 53.8390 L 50.6610 53.7940 L 50.3442 53.6799 L 50.0851 53.4871 L 50.0189 53.3859 L 50.0000 53.2896 L 50.0514 53.1727 L 50.2076 53.0755 L 50.9815 52.9751 L 51.5373 52.7795 L 51.9514 52.5357 L 52.3213 52.2305 L 52.6960 51.7843 L 52.9064 51.3940 L 53.0193 50.9888 L 53.0498 50.4614 L 53.0944 50.2257 L 53.1622 50.0747 L 53.2819 50.0000 Z"/>
   </g>
   <g id="engrave-label" stroke="none" fill="#0000FF" font-family="Arial, Helvetica, sans-serif" font-size="4">
-    <text x="16" y="11.5">Sparkle (Glitzer) (40 cm) - Layer 1/1: Full Silhouette | 5cm border</text>
+    <text x="16" y="11.5">Sparkle (Glitzer) (40 cm) - Layer 1/1: Full Silhouette | 5cm border | CC-BY-NC-4.0</text>
   </g>
 </svg>

@@ -104,7 +104,7 @@ def build_stencil_svg(
             f'width="{card_w:.4f}mm" height="{card_h:.4f}mm" '
             f'viewBox="0 0 {card_w:.4f} {card_h:.4f}">'
         ),
-        f"  <title>{html.escape(title_text)}</title>",
+        f"  <title>{html.escape(title_text)} | CC-BY-NC-4.0</title>",
         '  <g id="cut" stroke="#FF0000" stroke-width="0.1" fill="none" stroke-linejoin="round">',
         f'    <rect id="outer-border" x="0" y="0" width="{card_w:.4f}" height="{card_h:.4f}"/>',
         f'    <path id="stencil-cut" d="{cut_d}"/>',
@@ -123,7 +123,7 @@ def build_stencil_svg(
     lines.extend([
         "  </g>",
         '  <g id="engrave-label" stroke="none" fill="#0000FF" font-family="Arial, Helvetica, sans-serif" font-size="4">',
-        f'    <text x="16" y="11.5">{html.escape(title_text)} | 5cm border</text>',
+        f'    <text x="16" y="11.5">{html.escape(title_text)} | 5cm border | CC-BY-NC-4.0</text>',
         "  </g>",
         "</svg>",
         "",
