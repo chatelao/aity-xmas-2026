@@ -1,0 +1,22 @@
+idf_component_register(
+    SRCS
+        "main.c"
+        "src/led_engine.c"
+        "src/audio_engine.c"
+        "src/nvs_manager.c"
+        "src/preset_store.c"
+        "src/dns_server.c"
+        "src/http_server.c"
+        "src/wifi_ap.c"
+    INCLUDE_DIRS
+        "include"
+    REQUIRES
+        driver
+        esp_event
+        esp_http_server
+        esp_netif
+        esp_timer
+        esp_wifi
+        lwip
+        nvs_flash
+)
