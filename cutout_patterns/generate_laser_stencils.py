@@ -131,6 +131,78 @@ def build_stencil_svg(
     return "\n".join(lines)
 
 
+def build_tree_svg(data: dict, height_cm: int, scale: float) -> str:
+    """Generate a 1:1 scale SVG of the tree outline + 60 LED holes for laser cutting."""
+    pad = 10.0  # 10 mm canvas padding around the tree outline
+    tree_w = data["width"] * scale
+    tree_h = data["height"] * scale
+    canvas_w = tree_w + 2.0 * pad
+    canvas_h = tree_h + 2.0 * pad
+
+    # Shift tree so (min_x, min_y) maps to (pad, pad) in 1:1 mm coordinates
+    # First normalize edge_path to (0, 0) then scale + offset by pad
+    tokens = re.findall(r"[MLZmlz]|[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?", data["edge_path"])
+    out_cmds = []
+    i = 0
+    cmd = None
+    while i < len(tokens):
+        tok = tokens[i]
+        if tok in ("M", "L", "Z", "m", "l", "z"):
+            cmd = tok.upper()
+            i += 1
+            if cmd == "Z":
+                out_cmds.append("Z")
+            continue
+        if cmd in ("M", "L") and i + 1 < len(tokens):
+            x = pad + (float(tokens[i]) - data["min_x"]) * scale
+            y = pad + (float(tokens[i + 1]) - data["min_y"]) * scale
+            out_cmds.append(f"{cmd} {x:.4f} {y:.4f}")
+            cmd = "L"
+            i += 2
+        else:
+            i += 1
+    edge_d = " ".join(out_cmds)
+
+    title_text = f"AITY Xmas Tree 2026 - {height_cm} cm Tree & 60 LEDs (1:1) | CC-BY-NC-4.0"
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        (
+            f'<svg xmlns="http://www.w3.org/2000/svg" '
+            f'width="{canvas_w:.4f}mm" height="{canvas_h:.4f}mm" '
+            f'viewBox="0 0 {canvas_w:.4f} {canvas_h:.4f}">'
+        ),
+        f"  <title>{html.escape(title_text)}</title>",
+        '  <g id="cut" stroke="#FF0000" stroke-width="0.1" fill="none" stroke-linejoin="round">',
+        f'    <path id="tree-outline" d="{edge_d}"/>',
+    ]
+
+    hole_r = 2.5  # 5 mm LED hole diameter
+    for idx, lx, ly in data["leds"]:
+        cx = pad + (lx - data["min_x"]) * scale
+        cy = pad + (ly - data["min_y"]) * scale
+        lines.append(f'    <circle id="led-{idx}-hole" cx="{cx:.4f}" cy="{cy:.4f}" r="{hole_r:.4f}"/>')
+
+    lines.append("  </g>")
+    lines.append('  <g id="engrave-leds" stroke="#0000FF" stroke-width="0.1" fill="none">')
+    cross_arm = 4.0
+    for idx, lx, ly in data["leds"]:
+        cx = pad + (lx - data["min_x"]) * scale
+        cy = pad + (ly - data["min_y"]) * scale
+        lines.append(f'    <line x1="{cx - cross_arm:.4f}" y1="{cy:.4f}" x2="{cx + cross_arm:.4f}" y2="{cy:.4f}"/>')
+        lines.append(f'    <line x1="{cx:.4f}" y1="{cy - cross_arm:.4f}" x2="{cx:.4f}" y2="{cy + cross_arm:.4f}"/>')
+    lines.append("  </g>")
+    lines.append('  <g id="engrave-label" stroke="none" fill="#0000FF" font-family="Arial, Helvetica, sans-serif">')
+    for idx, lx, ly in data["leds"]:
+        cx = pad + (lx - data["min_x"]) * scale
+        cy = pad + (ly - data["min_y"]) * scale
+        lines.append(f'    <text x="{cx + 3.4:.4f}" y="{cy + 1.1:.4f}" font-size="3">{idx}</text>')
+    lines.append(f'    <text x="{pad:.4f}" y="6.5" font-size="4">{html.escape(title_text)}</text>')
+    lines.append("  </g>")
+    lines.append("</svg>")
+    lines.append("")
+    return "\n".join(lines)
+
+
 def main():
     data = load_tree_and_leds()
     ornaments = load_ornament_stencils()
@@ -140,6 +212,10 @@ def main():
         scale = (height_cm * 10.0) / data["height"]
         height_dir = OUT_DIR / f"{height_cm}cm"
         height_dir.mkdir(parents=True, exist_ok=True)
+
+        tree_svg = build_tree_svg(data, height_cm, scale)
+        (height_dir / f"tree_{height_cm}cm_1to1.svg").write_text(tree_svg, encoding="utf-8")
+        total_files += 1
 
         for item in ornaments:
             slug = item["slug"]
@@ -159,7 +235,7 @@ def main():
                 out_path.write_text(svg_content, encoding="utf-8")
                 total_files += 1
 
-    print(f"Generated {total_files} laser-cut stencil SVGs in {OUT_DIR}")
+    print(f"Generated {total_files} laser-cut SVGs in {OUT_DIR}")
 
 
 if __name__ == "__main__":

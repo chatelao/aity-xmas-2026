@@ -163,7 +163,12 @@ jobs:
           cp cutout_patterns/tree_cutout_a4_*.pdf release_assets/
           (cd cutout_patterns && zip -r ../release_assets/cutout_patterns_svg.zip svg)
           for size in 40cm 85cm 105cm; do
-            (cd cutout_patterns/laser_stencils && zip -r ../../release_assets/ornament_laser_stencils_${size}.zip ${size})
+            pkg_dir="pkg_${size}"
+            mkdir -p "${pkg_dir}"
+            cp "cutout_patterns/tree_cutout_a4_${size}.pdf" "${pkg_dir}/"
+            cp cutout_patterns/laser_stencils/${size}/*.svg "${pkg_dir}/"
+            cp LICENSE "${pkg_dir}/"
+            (cd "${pkg_dir}" && zip -r "../release_assets/aity-xmas-tree-2026_${size}.zip" .)
           done
 
       - name: Upload Release Assets to GitHub Release
