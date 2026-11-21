@@ -76,13 +76,19 @@ To keep the front and back holes **100% concentric**, drill in this exact order:
 3. **Test-fit on scrap MDF first:**
    - On a scrap piece of the same MDF, drill a `13 mm` (or `13.5–14 mm`, depending on your exact pixel body) Forstner counterbore from the back and a `0.4 inch` (`10 mm`) hole from the front.
    - Verify that the LED dome/lens pokes cleanly through the `0.4"` front hole while the `12–13 mm` pixel body seats snugly in the back counterbore.
-4. **Drill the `12–13 mm` counterbore pockets from the BACK:**
-   - Flip the MDF over to the **back** face and clamp it flat.
-   - Fit your **Forstner bit** with a **depth-stop collar** (or drill-press depth stop) so that **`3–5 mm` of MDF remains** at the front face (for example: on `12 mm` MDF, drill `8 mm` deep; on `16 mm` MDF, drill `11–12 mm` deep).
-   - Center the Forstner spur on each `1.5–2 mm` pilot hole and drill the flat-bottomed pocket.
+4. **Drill the `12–13 mm` counterbore pockets from the BACK (16 mm MDF guide):**
+   - Flip the MDF over to the **back** face and clamp it **flat against a solid workbench** (an unsupported board can flex and cause uneven depth).
+   - **Target depth for 16 mm MDF:** Measure your actual MDF thickness (often `15.8–16.2 mm`). Drill **`11–12 mm` deep**, leaving **`4–5 mm` of solid MDF** at the front face. *(This is thick enough that the front won't bulge or break out, while still letting the LED dome sit flush in the `0.4"` front hole.)*
+   - **Measure from the outer cutting rim, NOT the center spur:** A Forstner bit's center spur sticks out `1.5–2 mm` ahead of the flat rim. Always measure your `11–12 mm` depth from the **flat outer cutting rim** of the bit.
+   - **Use a physical depth stop (choose one):**
+     - *Best — Drill press:* Lower the bit until the **outer rim** touches a `16 mm` scrap piece, set the quill depth stop to **`11–12 mm`**, and test on scrap first.
+     - *Best for hand drill — Spacer sleeve + stop collar:* Slip a short piece of PVC pipe or drilled wood block over the Forstner shank and lock a metal depth-stop collar behind it so **exactly `11–12 mm`** of the bit (from the outer rim) protrudes. When the sleeve touches the MDF, the drill physically cannot go deeper.
+     - *Quick method — Painter's tape flag:* Wrap a crisp flag of painter's tape around the bit **`11–12 mm` up from the outer rim** and stop the instant the bottom edge touches the surface.
+   - **Peck-drill with light pressure (`800–1200 RPM`):** Drill `4–5 mm`, lift the bit to clear packed MDF dust, then finish down to the stop. Packed dust makes you push harder, which is the #1 cause of sudden plunge-through.
+   - **Verify on scrap first:** Check the test pocket with calipers or a depth gauge to confirm `4–5 mm` of MDF remains before drilling all 60 holes.
 5. **Drill the `0.4 inch` (`10 mm`) LED-only holes from the FRONT:**
    - Flip the MDF back to the **front** face.
-   - Using the **`0.4 inch` (`10 mm` / `13/32"`) brad-point bit**, center the tip on each `1.5–2 mm` pilot hole and drill through the remaining `3–5 mm` of MDF into the back pocket.
+   - Using the **`0.4 inch` (`10 mm` / `13/32"`) brad-point bit**, center the tip on each `1.5–2 mm` pilot hole and drill through the remaining `4–5 mm` of MDF into the back pocket.
    - Lightly deburr the front edges with `240` grit sandpaper.
 
 ---
