@@ -167,6 +167,7 @@ jobs:
             mkdir -p "${pkg_dir}"
             cp "cutout_patterns/tree_cutout_a4_${size}.pdf" "${pkg_dir}/"
             cp cutout_patterns/laser_stencils/${size}/*.svg "${pkg_dir}/"
+            cp cutout_patterns/README.md "${pkg_dir}/TUTORIAL.md"
             cp LICENSE "${pkg_dir}/"
             (cd "${pkg_dir}" && zip -r "../release_assets/aity-xmas-tree-2026_${size}.zip" .)
           done
