@@ -172,6 +172,32 @@ jobs:
             (cd "${pkg_dir}" && zip -r "../release_assets/aity-xmas-tree-2026_${size}.zip" .)
           done
 
+          # Platform software packages (.zip)
+          mkdir -p pkg_rp2040/circuitpython/lib pkg_esp32c6/circuitpython/lib pkg_cp/lib pkg_cp/examples
+          cp circuitpython/code.unified.py pkg_rp2040/circuitpython/code.py
+          cp circuitpython/code.*.py pkg_rp2040/circuitpython/
+          cp staging_cp/lib/* pkg_rp2040/circuitpython/lib/
+          cp circuitpython/adafruit-circuitpython-seeeduino_xiao_rp2040-*.uf2 pkg_rp2040/
+          cp release_assets/*_xiao_rp2040.uf2 pkg_rp2040/ || true
+          cp HOWTO_RP2040.md LICENSE pkg_rp2040/
+          (cd pkg_rp2040 && zip -r ../release_assets/software_xiao_rp2040.zip .)
+
+          cp circuitpython/code.unified.py pkg_esp32c6/circuitpython/code.py
+          cp circuitpython/code.*.py pkg_esp32c6/circuitpython/
+          cp staging_cp/lib/* pkg_esp32c6/circuitpython/lib/
+          cp circuitpython/adafruit-circuitpython-seeed_xiao_esp32c6-*.bin pkg_esp32c6/
+          cp release_assets/*_xiao_esp32c6.uf2 pkg_esp32c6/ || true
+          cp HOWTO_ESP32-C6.md LICENSE pkg_esp32c6/
+          (cd pkg_esp32c6 && zip -r ../release_assets/software_xiao_esp32c6.zip .)
+
+          cp circuitpython/code.unified.py pkg_cp/code.py
+          cp circuitpython/code.*.py pkg_cp/examples/
+          cp staging_cp/lib/* pkg_cp/lib/
+          cp circuitpython/adafruit-circuitpython-seeeduino_xiao_rp2040-*.uf2 pkg_cp/
+          cp circuitpython/adafruit-circuitpython-seeed_xiao_esp32c6-*.bin pkg_cp/
+          cp circuitpython/animation_planner_a4.pdf circuitpython/README.md LICENSE pkg_cp/
+          (cd pkg_cp && zip -r ../release_assets/software_circuitpython.zip .)
+
       - name: Upload Release Assets to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
