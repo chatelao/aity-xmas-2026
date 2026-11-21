@@ -55,6 +55,7 @@ Detailed instructions on how to install CircuitPython (web-only method) and tran
 
 - [**HOWTO_RP2040.md**](HOWTO_RP2040.md) — Guide for **Seeed Studio XIAO RP2040**
 - [**HOWTO_ESP32-C6.md**](HOWTO_ESP32-C6.md) — Guide for **Seeed Studio XIAO ESP32-C6**
+- [**esp32c6-portal/README.md**](esp32c6-portal/README.md) — **ESP32-C6 Zero-Install Wi-Fi Captive Portal** (automatic browser redirect on AP join, full lighting/melody/preset control with 100% parity with `chatelao/android-xmas-tree-app`)
 
 ---
 
