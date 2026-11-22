@@ -78,14 +78,19 @@ jobs:
             -o dist/XmasTreePortal_xiao_esp32c6.uf2 \
             dist/XmasTreePortal_xiao_esp32c6.bin
 
-          mkdir -p staging_cp/lib
+          mkdir -p staging_cp/lib staging_cp/examples
           cp circuitpython/code.portal.py staging_cp/code.py
           cp circuitpython/web_ui.html.gz staging_cp/web_ui.html.gz
           cp circuitpython/default/lib/neopixel.mpy staging_cp/lib/
           cp circuitpython/lib/tannenbaum_layout.py staging_cp/lib/
           cp circuitpython/lib/tannenbaum_palettes.py staging_cp/lib/
+          cp circuitpython/code.*.py staging_cp/examples/
+          cp circuitpython/default/code.py staging_cp/examples/code.default-diag.py
+          cp circuitpython/animation_planner_a4.pdf staging_cp/examples/
+          cp circuitpython/README.md staging_cp/examples/README.md
           cp circuitpython/adafruit-circuitpython-seeed_xiao_esp32c6-*.bin staging_cp/
-          cp HOWTO_ESP32-C6.md LICENSE staging_cp/
+          cp circuitpython/adafruit-circuitpython-seeeduino_xiao_rp2040-*.uf2 staging_cp/
+          cp HOWTO_ESP32-C6.md HOWTO_RP2040.md README.md LICENSE staging_cp/
           (cd staging_cp && zip -r ../dist/circuitpython-captive-portal-bundle.zip .)
           cp circuitpython/code.portal.py dist/
           cp circuitpython/web_ui.html.gz dist/
