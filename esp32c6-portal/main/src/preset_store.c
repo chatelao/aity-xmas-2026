@@ -28,7 +28,7 @@ static void load_default_presets(void) {
 
     // Matches default presets in chatelao/android-xmas-tree-app PresetRepository.kt
     snprintf(s_presets[0].id, PRESET_ID_MAX_LEN, "default-classic");
-    snprintf(s_presets[0].name, PRESET_NAME_MAX_LEN, "Classic Christmas");
+    snprintf(s_presets[0].name, PRESET_NAME_MAX_LEN, "Klassische Weihnachten");
     s_presets[0].pattern_id = PATTERN_FESTIVE_CANDLE;
     s_presets[0].palette_id = 0;
     s_presets[0].red = 255;
@@ -41,7 +41,7 @@ static void load_default_presets(void) {
     s_presets[0].tempo = 100;
 
     snprintf(s_presets[1].id, PRESET_ID_MAX_LEN, "default-rainbow");
-    snprintf(s_presets[1].name, PRESET_NAME_MAX_LEN, "Rainbow Party");
+    snprintf(s_presets[1].name, PRESET_NAME_MAX_LEN, "Regenbogen-Party");
     s_presets[1].pattern_id = PATTERN_RAINBOW_WAVE;
     s_presets[1].palette_id = 0;
     s_presets[1].red = 0;
@@ -54,7 +54,7 @@ static void load_default_presets(void) {
     s_presets[1].tempo = 110;
 
     snprintf(s_presets[2].id, PRESET_ID_MAX_LEN, "default-silent-night");
-    snprintf(s_presets[2].name, PRESET_NAME_MAX_LEN, "Cozy Silent Night");
+    snprintf(s_presets[2].name, PRESET_NAME_MAX_LEN, "Gemuetliche Stille Nacht");
     s_presets[2].pattern_id = PATTERN_TWINKLE;
     s_presets[2].palette_id = 0;
     s_presets[2].red = 255;

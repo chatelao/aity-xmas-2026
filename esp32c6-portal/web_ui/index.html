@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>AITY Xmas Tree</title>
+<title>AITY Weihnachtsbaum</title>
 <style>
 :root{
   --bg:#091114;--bg2:#101c21;--card:#14242b;--card2:#1a2e37;
@@ -73,57 +73,57 @@ nav button .ic{font-size:17px;line-height:1}
   <div class="brand">
     <div class="logo" aria-hidden="true">&#127876;</div>
     <div>
-      <h1>AITY Xmas Tree</h1>
-      <div id="topbar-sub" class="sub">Connecting to tree...</div>
+      <h1>AITY Weihnachtsbaum</h1>
+      <div id="topbar-sub" class="sub">Verbinde mit Baum…</div>
     </div>
   </div>
-  <div id="conn-pill" class="pill">AP Ready</div>
+  <div id="conn-pill" class="pill">AP Bereit</div>
 </header>
 
 <main>
-  <!-- LIGHTS TAB -->
+  <!-- LICHTER TAB -->
   <section id="tab-lights">
     <div class="card">
       <div class="card-title">
-        <span>Live Preview (60 LEDs)</span>
-        <button id="btn-power" class="btn sm sec" type="button">Power Off</button>
+        <span>Live-Vorschau (60 LEDs)</span>
+        <button id="btn-power" class="btn sm sec" type="button">Ausschalten</button>
       </div>
       <div class="tree-box">
-        <canvas id="tree-canvas" width="210" height="230" aria-label="Live Xmas Tree Preview"></canvas>
+        <canvas id="tree-canvas" width="210" height="230" aria-label="Live-Vorschau Weihnachtsbaum"></canvas>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title"><span>Lighting Pattern</span><span id="pattern-badge" class="mono">TwinkleFOX</span></div>
+      <div class="card-title"><span>Leuchtmuster</span><span id="pattern-badge" class="mono">TwinkleFOX</span></div>
       <div id="pattern-chips" class="chips"></div>
       <div id="submode-wrap" class="hidden">
-        <div id="submode-title" class="sub" style="margin-bottom:6px;font-weight:600;color:var(--text)">Sub-Mode</div>
+        <div id="submode-title" class="sub" style="margin-bottom:6px;font-weight:600;color:var(--text)">Untermodus</div>
         <div id="submode-chips" class="chips"></div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title"><span>Color &amp; Intensity</span></div>
+      <div class="card-title"><span>Farbe &amp; Helligkeit</span></div>
       <div class="wheel-wrap">
-        <canvas id="color-wheel" width="144" height="144" aria-label="RGB Color Wheel"></canvas>
+        <canvas id="color-wheel" width="144" height="144" aria-label="RGB-Farbkreis"></canvas>
         <div class="color-info">
           <div id="color-preview" class="preview-dot"></div>
           <div id="rgb-label" class="mono">RGB(255, 120, 30)</div>
           <div class="swatches">
-            <div class="swatch" data-rgb="255,0,0" style="background:#ff0000" title="Red"></div>
-            <div class="swatch" data-rgb="0,200,50" style="background:#00c832" title="Green"></div>
+            <div class="swatch" data-rgb="255,0,0" style="background:#ff0000" title="Rot"></div>
+            <div class="swatch" data-rgb="0,200,50" style="background:#00c832" title="Grün"></div>
             <div class="swatch" data-rgb="255,190,0" style="background:#ffbe00" title="Gold"></div>
-            <div class="swatch" data-rgb="0,140,255" style="background:#008cff" title="Ice Blue"></div>
-            <div class="swatch" data-rgb="255,240,200" style="background:#fff0c8" title="Warm White"></div>
+            <div class="swatch" data-rgb="0,140,255" style="background:#008cff" title="Eisblau"></div>
+            <div class="swatch" data-rgb="255,240,200" style="background:#fff0c8" title="Warmweiß"></div>
           </div>
         </div>
       </div>
       <div class="slider-group">
-        <div class="slider-label">Brightness <span id="brightness-val">70%</span></div>
+        <div class="slider-label">Helligkeit <span id="brightness-val">70%</span></div>
         <input id="slider-brightness" type="range" min="0" max="100" value="70">
       </div>
       <div class="slider-group">
-        <div class="slider-label">Animation Speed <span id="speed-val">50%</span></div>
+        <div class="slider-label">Animationsgeschwindigkeit <span id="speed-val">50%</span></div>
         <input id="slider-speed" type="range" min="1" max="100" value="50">
       </div>
     </div>
@@ -132,15 +132,15 @@ nav button .ic{font-size:17px;line-height:1}
   <!-- AUDIO TAB -->
   <section id="tab-audio" class="hidden">
     <div class="card">
-      <div class="card-title"><span>Festive Melody Player</span><span id="audio-state-badge" class="mono">STOPPED</span></div>
+      <div class="card-title"><span>Festliche Melodien</span><span id="audio-state-badge" class="mono">GESTOPPT</span></div>
       <div id="melody-chips" class="chips"></div>
       <div class="row">
-        <button id="btn-play" class="btn" style="flex:1" type="button">&#9654; Play</button>
+        <button id="btn-play" class="btn" style="flex:1" type="button">&#9654; Abspielen</button>
         <button id="btn-pause" class="btn sec" style="flex:1" type="button">&#10074;&#10074; Pause</button>
-        <button id="btn-stop" class="btn sec" style="flex:1" type="button">&#9632; Stop</button>
+        <button id="btn-stop" class="btn sec" style="flex:1" type="button">&#9632; Stopp</button>
       </div>
       <div class="slider-group">
-        <div class="slider-label">Volume <span id="volume-val">60%</span></div>
+        <div class="slider-label">Lautstärke <span id="volume-val">60%</span></div>
         <input id="slider-volume" type="range" min="0" max="100" value="60">
       </div>
       <div class="slider-group">
@@ -150,7 +150,7 @@ nav button .ic{font-size:17px;line-height:1}
     </div>
 
     <div class="card">
-      <div class="card-title"><span>Speaker Tone Test</span><span class="mono">GPIO 0 / D0</span></div>
+      <div class="card-title"><span>Lautsprecher-Test</span><span class="mono">GPIO 0 / D0</span></div>
       <div class="chips">
         <button class="chip tone-btn" data-freq="523" type="button">C5 (523 Hz)</button>
         <button class="chip tone-btn" data-freq="659" type="button">E5 (659 Hz)</button>
@@ -163,15 +163,15 @@ nav button .ic{font-size:17px;line-height:1}
   <!-- PRESETS TAB -->
   <section id="tab-presets" class="hidden">
     <div class="card">
-      <div class="card-title"><span>Save Current Configuration</span></div>
+      <div class="card-title"><span>Aktuelle Einstellung speichern</span></div>
       <div class="row">
-        <input id="preset-name" type="text" maxlength="32" placeholder="e.g. Christmas Eve">
-        <button id="btn-save-preset" class="btn" type="button">Save</button>
+        <input id="preset-name" type="text" maxlength="32" placeholder="z. B. Heiligabend">
+        <button id="btn-save-preset" class="btn" type="button">Speichern</button>
       </div>
-      <div class="sub">Stored directly on ESP32-C6 flash (NVS) — shared with all connected phones.</div>
+      <div class="sub">Direkt im ESP32-C6 Flash (NVS) gespeichert — für alle verbundenen Geräte verfügbar.</div>
     </div>
     <div class="card">
-      <div class="card-title"><span>Saved Presets</span><span id="preset-count" class="mono">0</span></div>
+      <div class="card-title"><span>Gespeicherte Presets</span><span id="preset-count" class="mono">0</span></div>
       <div id="preset-list" style="display:flex;flex-direction:column;gap:8px"></div>
     </div>
   </section>
@@ -179,19 +179,19 @@ nav button .ic{font-size:17px;line-height:1}
   <!-- STATUS TAB -->
   <section id="tab-status" class="hidden">
     <div class="card">
-      <div class="card-title"><span>Tree Telemetry</span><button id="btn-refresh" class="btn sm sec" type="button">Refresh</button></div>
+      <div class="card-title"><span>Baum-Telemetrie</span><button id="btn-refresh" class="btn sm sec" type="button">Aktualisieren</button></div>
       <div class="kv">
-        <div class="k">Wi-Fi Access Point</div><div id="st-ssid" class="v">AITY-Xmas-Tree</div>
-        <div class="k">Portal Address</div><div id="st-ip" class="v">192.168.4.1</div>
-        <div class="k">Connected Devices</div><div id="st-sta" class="v">1</div>
-        <div class="k">Uptime</div><div id="st-uptime" class="v">0 s</div>
-        <div class="k">Active Pattern</div><div id="st-pattern" class="v">-</div>
-        <div class="k">Active Melody</div><div id="st-melody" class="v">-</div>
-        <div class="k">Playback State</div><div id="st-playback" class="v">-</div>
-        <div class="k">Brightness / Speed</div><div id="st-led" class="v">-</div>
-        <div class="k">Volume / Tempo</div><div id="st-audio" class="v">-</div>
-        <div class="k">Hardware Pins</div><div class="v">LED: D10 (GPIO18) · Audio: D0 (GPIO0)</div>
-        <div class="k">System Health</div><div id="st-error" class="v">OK</div>
+        <div class="k">WLAN-Access-Point</div><div id="st-ssid" class="v">AITY-Xmas-Tree</div>
+        <div class="k">Portal-Adresse</div><div id="st-ip" class="v">192.168.4.1</div>
+        <div class="k">Verbundene Geräte</div><div id="st-sta" class="v">1</div>
+        <div class="k">Laufzeit</div><div id="st-uptime" class="v">0 s</div>
+        <div class="k">Aktives Muster</div><div id="st-pattern" class="v">-</div>
+        <div class="k">Aktive Melodie</div><div id="st-melody" class="v">-</div>
+        <div class="k">Wiedergabe-Status</div><div id="st-playback" class="v">-</div>
+        <div class="k">Helligkeit / Tempo</div><div id="st-led" class="v">-</div>
+        <div class="k">Lautstärke / Tempo</div><div id="st-audio" class="v">-</div>
+        <div class="k">Hardware-Pins</div><div class="v">LED: D10 (GPIO18) · Audio: D0 (GPIO0)</div>
+        <div class="k">Systemzustand</div><div id="st-error" class="v">OK</div>
         <div class="k">Firmware</div><div id="st-fw" class="v">1.0.0</div>
       </div>
     </div>
@@ -199,7 +199,7 @@ nav button .ic{font-size:17px;line-height:1}
 </main>
 
 <nav>
-  <button data-tab="lights" class="active" type="button"><span class="ic">&#10024;</span>Lights</button>
+  <button data-tab="lights" class="active" type="button"><span class="ic">&#10024;</span>Lichter</button>
   <button data-tab="audio" type="button"><span class="ic">&#127925;</span>Audio</button>
   <button data-tab="presets" type="button"><span class="ic">&#11088;</span>Presets</button>
   <button data-tab="status" type="button"><span class="ic">&#128225;</span>Status</button>
@@ -209,20 +209,19 @@ nav button .ic{font-size:17px;line-height:1}
 
 <script>
 const PATTERNS=[
-  "Off","Static","Rainbow","Sparkle","Candle","Twinkle",
-  "Lauflicht","Segments","Shockwave","Plasma","Polar Vortex","Gravity Pulse","TwinkleFOX"
+  "Aus","Statisch","Regenbogen","Funkeln","Kerzenschein","Twinkle",
+  "Lauflicht","Segmente","Schockwelle","Plasma","Polar-Wirbel","Gravitations-Puls","TwinkleFOX"
 ];
 const PALETTES=[
-  ["Retro C9","#b80400"],["Holly","#00580c"],["Fairy Light","#ff9d2a"],["Red-Green-White","#e53935"],
-  ["Candy Cane","#ff5252"],["Glitter Snow","#e0f0ff"],["Ice Crystal","#1880ff"],["Blue Winter","#1e40af"],
-  ["Rainbow","#22c55e"],["Magenta-Green","#ff00c8"]
+  ["Retro C9","#b80400"],["Stechpalme","#00580c"],["Lichterkette","#ff9d2a"],["Rot-Grün-Weiß","#e53935"],
+  ["Zuckerstange","#ff5252"],["Glitzerschnee","#e0f0ff"],["Eiskristall","#1880ff"],["Blaue Winternacht","#1e40af"],
+  ["Regenbogen","#22c55e"],["Magenta-Grün","#ff00c8"]
 ];
-const EPICENTERS=["Star","Stem","Tree Center","Base"];
-const SEGMENTS=["Auto Cycle","Lower Bough","Middle Bough","Upper Bough","Stem","Star Inner","Star Outer"];
-const MELODIES=["Silent","Jingle Bells","We Wish You","Silent Night","Deck the Halls"];
-const PB_NAMES=["STOPPED","PLAYING","PAUSED"];
+const EPICENTERS=["Stern","Stiel","Baummitte","Basis"];
+const SEGMENTS=["Auto-Zyklus","Zweig Unten","Zweig Mitte","Zweig Oben","Stiel","Stern Innen","Stern Außen"];
+const MELODIES=["Stille","Jingle Bells","We Wish You","Stille Nacht","Deck the Halls"];
+const PB_NAMES=["GESTOPPT","SPIELT","PAUSIERT"];
 
-// 60-LED PCB coordinates (mm) for live mini preview
 const LEDS=[
   [38.9,8.9],[37.1,7.0],[35.1,5.3],[33.0,3.8],[30.7,2.5],[28.3,1.5],[25.8,0.7],[23.2,0.2],[20.6,0.0],
   [18.0,0.0],[15.4,0.4],[12.8,1.0],[10.3,1.8],[8.0,2.9],[5.7,4.3],[3.6,5.8],[1.7,7.6],[0.0,9.6],
@@ -290,15 +289,15 @@ function sendAudio(immediate,extra){
 
 function setConn(ok){
   const p=$("conn-pill");
-  p.textContent=ok?"AP Connected":"Reconnecting...";
+  p.textContent=ok?"AP Verbunden":"Verbinde neu…";
   p.classList.toggle("err",!ok);
 }
 
 function syncUI(){
   setConn(true);
-  $("topbar-sub").textContent=`Up ${st.uptime}s · Bright ${st.brightness}% · Vol ${st.volume}%`;
-  $("pattern-badge").textContent=PATTERNS[st.pattern_id]||"Off";
-  $("btn-power").textContent=st.pattern_id===0?"Turn On":"Power Off";
+  $("topbar-sub").textContent=`Laufzeit ${st.uptime}s · Helligkeit ${st.brightness}% · Lautst. ${st.volume}%`;
+  $("pattern-badge").textContent=PATTERNS[st.pattern_id]||"Aus";
+  $("btn-power").textContent=st.pattern_id===0?"Einschalten":"Ausschalten";
   $("color-preview").style.background=`rgb(${st.red},${st.green},${st.blue})`;
   $("rgb-label").textContent=`RGB(${st.red}, ${st.green}, ${st.blue})`;
   $("slider-brightness").value=st.brightness;
@@ -309,12 +308,11 @@ function syncUI(){
   $("volume-val").textContent=st.volume+"%";
   $("slider-tempo").value=st.tempo;
   $("tempo-val").textContent=st.tempo+"%";
-  $("audio-state-badge").textContent=PB_NAMES[st.playback_state]||"STOPPED";
+  $("audio-state-badge").textContent=PB_NAMES[st.playback_state]||"GESTOPPT";
   $("btn-play").disabled=st.playback_state===1;
   $("btn-pause").disabled=st.playback_state!==1;
   $("btn-stop").disabled=st.playback_state===0;
 
-  // Status tab
   $("st-ssid").textContent=st.ssid;
   $("st-ip").textContent=st.ip;
   $("st-sta").textContent=String(st.sta_count);
@@ -324,7 +322,7 @@ function syncUI(){
   $("st-playback").textContent=PB_NAMES[st.playback_state]||"-";
   $("st-led").textContent=`${st.brightness}% / ${st.speed}%`;
   $("st-audio").textContent=`${st.volume}% / ${st.tempo}%`;
-  $("st-error").textContent=st.error_code===0?"OK":"Error 0x"+st.error_code.toString(16);
+  $("st-error").textContent=st.error_code===0?"OK":"Fehler 0x"+st.error_code.toString(16);
   $("st-fw").textContent=st.firmware;
 
   renderChips();
@@ -342,7 +340,7 @@ function renderChips(){
   const sw=$("submode-wrap"),sc=$("submode-chips"),stitle=$("submode-title");
   sc.innerHTML="";
   if(st.pattern_id===12){
-    sw.classList.remove("hidden");stitle.textContent="TwinkleFOX Palette";
+    sw.classList.remove("hidden");stitle.textContent="TwinkleFOX-Palette";
     PALETTES.forEach(([name,col],i)=>{
       const b=document.createElement("button");
       b.type="button";b.className="chip"+(st.palette_id===i?" sel":"");
@@ -351,7 +349,7 @@ function renderChips(){
       sc.appendChild(b);
     });
   }else if(st.pattern_id===8){
-    sw.classList.remove("hidden");stitle.textContent="Shockwave Epicenter";
+    sw.classList.remove("hidden");stitle.textContent="Schockwellen-Zentrum";
     EPICENTERS.forEach((name,i)=>{
       const b=document.createElement("button");
       b.type="button";b.className="chip"+((st.palette_id%4)===i?" sel":"");b.textContent=name;
@@ -359,7 +357,7 @@ function renderChips(){
       sc.appendChild(b);
     });
   }else if(st.pattern_id===7){
-    sw.classList.remove("hidden");stitle.textContent="Tree Segment";
+    sw.classList.remove("hidden");stitle.textContent="Baum-Segment";
     SEGMENTS.forEach((name,i)=>{
       const b=document.createElement("button");
       b.type="button";b.className="chip"+(st.palette_id===i?" sel":"");b.textContent=name;
@@ -387,7 +385,7 @@ function renderPresets(){
   $("preset-count").textContent=String(st.presets.length);
   const list=$("preset-list");list.innerHTML="";
   if(!st.presets.length){
-    list.innerHTML='<div class="sub">No saved presets yet.</div>';return;
+    list.innerHTML='<div class="sub">Noch keine Presets gespeichert.</div>';return;
   }
   st.presets.forEach(p=>{
     const el=document.createElement("div");el.className="preset-item";
@@ -397,19 +395,18 @@ function renderPresets(){
     const meta=document.createElement("div");meta.className="preset-meta";
     const nm=document.createElement("div");nm.className="preset-name";nm.textContent=p.name;
     const sb=document.createElement("div");sb.className="preset-sub";
-    sb.textContent=`${PATTERNS[p.pattern_id]||"Off"} · ${MELODIES[p.melody_id]||"Silent"} · ${p.brightness}%`;
+    sb.textContent=`${PATTERNS[p.pattern_id]||"Aus"} · ${MELODIES[p.melody_id]||"Stille"} · ${p.brightness}%`;
     meta.append(nm,sb);
-    const ba=document.createElement("button");ba.type="button";ba.className="btn sm";ba.textContent="Apply";
-    ba.onclick=()=>api("/api/presets/apply",{id:p.id}).then(d=>{applyStatus(d);showToast("Applied: "+p.name);});
+    const ba=document.createElement("button");ba.type="button";ba.className="btn sm";ba.textContent="Anwenden";
+    ba.onclick=()=>api("/api/presets/apply",{id:p.id}).then(d=>{applyStatus(d);showToast("Aktiviert: "+p.name);});
     const bd=document.createElement("button");bd.type="button";bd.className="btn sm danger";bd.textContent="✕";
-    bd.setAttribute("aria-label","Delete "+p.name);
-    bd.onclick=()=>api("/api/presets/delete",{id:p.id}).then(d=>{st.presets=d;renderPresets();showToast("Deleted");});
+    bd.setAttribute("aria-label","Löschen "+p.name);
+    bd.onclick=()=>api("/api/presets/delete",{id:p.id}).then(d=>{st.presets=d;renderPresets();showToast("Gelöscht");});
     el.append(dot,meta,ba,bd);
     list.appendChild(el);
   });
 }
 
-// Color wheel drawing & interaction
 function initColorWheel(){
   const cv=$("color-wheel"),ctx=cv.getContext("2d"),r=cv.width/2,img=ctx.createImageData(cv.width,cv.height);
   for(let y=0;y<cv.height;y++)for(let x=0;x<cv.width;x++){
@@ -449,7 +446,6 @@ function hsv(h,s,v){
   return[Math.round((r+m)*255),Math.round((g+m)*255),Math.round((b+m)*255)];
 }
 
-// Lightweight live 60-LED tree preview
 function drawTree(){
   const cv=$("tree-canvas"),ctx=cv.getContext("2d");
   ctx.clearRect(0,0,cv.width,cv.height);
@@ -479,7 +475,6 @@ function drawTree(){
   requestAnimationFrame(drawTree);
 }
 
-// Event bindings
 document.querySelectorAll("nav button").forEach(btn=>{
   btn.onclick=()=>{
     document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
@@ -505,21 +500,20 @@ $("btn-stop").onclick=()=>{st.playback_state=0;syncUI();sendAudio(true);};
 $("slider-volume").oninput=e=>{st.volume=+e.target.value;syncUI();sendAudio(false);};
 $("slider-tempo").oninput=e=>{st.tempo=+e.target.value;syncUI();sendAudio(false);};
 document.querySelectorAll(".tone-btn").forEach(b=>{
-  b.onclick=()=>{sendAudio(true,{freq_hz:+b.dataset.freq,duration_ms:280});showToast("Tone "+b.dataset.freq+" Hz");};
+  b.onclick=()=>{sendAudio(true,{freq_hz:+b.dataset.freq,duration_ms:280});showToast("Ton "+b.dataset.freq+" Hz");};
 });
 $("btn-save-preset").onclick=()=>{
   const name=$("preset-name").value.trim();
-  if(!name){showToast("Enter a preset name");return;}
+  if(!name){showToast("Bitte Preset-Namen eingeben");return;}
   api("/api/presets",{
     name,pattern_id:st.pattern_id,palette_id:st.palette_id,
     red:st.red,green:st.green,blue:st.blue,brightness:st.brightness,speed:st.speed,
     melody_id:st.melody_id,volume:st.volume,tempo:st.tempo
-  }).then(d=>{st.presets=d;$("preset-name").value="";renderPresets();showToast("Saved: "+name);})
-    .catch(()=>showToast("Save failed"));
+  }).then(d=>{st.presets=d;$("preset-name").value="";renderPresets();showToast("Gespeichert: "+name);})
+    .catch(()=>showToast("Speichern fehlgeschlagen"));
 };
 $("btn-refresh").onclick=()=>api("/api/status").then(applyStatus).catch(()=>setConn(false));
 
-// Boot
 initColorWheel();
 syncUI();
 drawTree();
