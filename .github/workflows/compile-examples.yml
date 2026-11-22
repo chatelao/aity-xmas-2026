@@ -203,6 +203,13 @@ jobs:
           cp circuitpython/animation_planner_a4.pdf circuitpython/README.md LICENSE pkg_cp/
           (cd pkg_cp && zip -r ../release_assets/software_circuitpython.zip .)
 
+          # RP2040 Tester package (.zip)
+          mkdir -p pkg_rp2040_tester/lib
+          cp circuitpython/code.test.py pkg_rp2040_tester/code.py
+          cp circuitpython/default/lib/neopixel.mpy pkg_rp2040_tester/lib/
+          cp circuitpython/adafruit-circuitpython-seeeduino_xiao_rp2040-*.uf2 pkg_rp2040_tester/
+          (cd pkg_rp2040_tester && zip -r ../release_assets/rp2040-tester.zip .)
+
       - name: Upload Release Assets to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
