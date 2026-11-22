@@ -30,14 +30,14 @@ new vm.Script(scriptMatch[1], { filename: "web_ui/index.html" });
 
 // 4. Verify 100% feature parity with chatelao/android-xmas-tree-app
 const expectedPatterns = [
-  "Off", "Static", "Rainbow", "Sparkle", "Candle", "Twinkle",
-  "Lauflicht", "Segments", "Shockwave", "Plasma", "Polar Vortex", "Gravity Pulse", "TwinkleFOX",
+  "Aus", "Statisch", "Regenbogen", "Funkeln", "Kerzenschein", "Twinkle",
+  "Lauflicht", "Segmente", "Schockwelle", "Plasma", "Polar-Wirbel", "Gravitations-Puls", "TwinkleFOX",
 ];
 for (const p of expectedPatterns) {
   assert.ok(html.includes(`"${p}"`), `Missing pattern: ${p}`);
 }
 
-const expectedMelodies = ["Silent", "Jingle Bells", "We Wish You", "Silent Night", "Deck the Halls"];
+const expectedMelodies = ["Stille", "Jingle Bells", "We Wish You", "Stille Nacht", "Deck the Halls"];
 for (const m of expectedMelodies) {
   assert.ok(html.includes(`"${m}"`), `Missing melody: ${m}`);
 }

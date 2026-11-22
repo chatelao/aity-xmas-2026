@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AITY Xmas Tree 2026 — Near-CircuitPython Simulator</title>
-  <meta name="description" content="Interactive browser simulator for the AITY Xmas Tree 2026 60-LED PCB. Write and run Near-CircuitPython animations with emulated D5 and D6 board buttons." />
+  <title>AITY Weihnachtsbaum 2026 — CircuitPython-Simulator &amp; Web-Installer</title>
+  <meta name="description" content="Interaktiver Browser-Simulator für das AITY Weihnachtsbaum 2026 60-LED PCB. CircuitPython-Animationen mit emulierten D5/D6-Tastern testen und Firmware direkt flashen." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -19,49 +19,49 @@
         <polygon points="12,2 14.4,8.2 21,8.6 15.8,12.8 17.5,19.2 12,15.6 6.5,19.2 8.2,12.8 3,8.6 9.6,8.2" fill="#d4a853" />
       </svg>
       <div>
-        <h1>AITY Xmas Tree 2026</h1>
-        <span class="brand-sub">Near-CircuitPython 60-LED Simulator · <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">CC-BY-NC-4.0</a></span>
+        <h1>AITY Weihnachtsbaum 2026</h1>
+        <span class="brand-sub">CircuitPython 60-LED Simulator · <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;">CC-BY-NC-4.0</a></span>
       </div>
     </div>
 
     <div class="topbar-controls">
       <label class="select-wrap" for="example-select">
-        <span class="select-label">Example</span>
-        <select id="example-select" aria-label="Select CircuitPython example"></select>
+        <span class="select-label">Beispiel</span>
+        <select id="example-select" aria-label="CircuitPython-Beispiel auswählen"></select>
       </label>
-      <button id="btn-firmware-modal" class="action-btn action-secondary topbar-firmware-btn" type="button" title="Download compiled .uf2 examples from the latest GitHub release">
-        ↓ Firmware (.uf2)
+      <button id="btn-firmware-modal" class="action-btn action-secondary topbar-firmware-btn" type="button" title="Firmware, Captive Portal und Pakete aus dem neuesten GitHub-Release laden oder flashen">
+        ↓ Firmware &amp; Portal
       </button>
       <div id="status-badge" class="status-badge status-loading" role="status" aria-live="polite">
         <span class="status-dot"></span>
-        <span id="status-text">Initializing…</span>
+        <span id="status-text">Initialisiere…</span>
       </div>
     </div>
   </header>
 
   <main class="workspace">
-    <!-- Left Half: Christmas Tree PCB & Hardware Buttons -->
-    <section class="pane pane-tree" aria-label="Christmas Tree PCB Simulator">
+    <!-- Linke Hälfte: Weihnachtsbaum-PCB & Hardware-Taster -->
+    <section class="pane pane-tree" aria-label="Weihnachtsbaum PCB Simulator">
       <div class="pane-header">
         <div class="pane-title">
-          <h2>Hardware Board</h2>
+          <h2>Hardware-Board</h2>
           <span class="hw-chip">XIAO RP2040 / ESP32-C6 · 60× WS2812B (D10)</span>
         </div>
         <div class="tree-toggles">
           <label class="toggle-check">
             <input type="checkbox" id="toggle-indices" />
-            <span>LED Indices</span>
+            <span>LED-Indizes</span>
           </label>
           <label class="toggle-check">
             <input type="checkbox" id="toggle-traces" checked />
-            <span>PCB Traces</span>
+            <span>Leiterbahnen</span>
           </label>
         </div>
       </div>
 
       <div class="pcb-stage">
-        <svg id="tree-svg" viewBox="0 0 56 92" role="img" aria-label="60-LED Christmas Tree PCB"></svg>
-        <div id="led-inspector" class="led-inspector">Hover or tap an LED to inspect index &amp; RGB</div>
+        <svg id="tree-svg" viewBox="0 0 56 92" role="img" aria-label="60-LED Weihnachtsbaum PCB"></svg>
+        <div id="led-inspector" class="led-inspector">Maus über eine LED bewegen oder antippen, um Index &amp; RGB zu sehen</div>
       </div>
 
       <div class="board-buttons-panel">
@@ -69,14 +69,14 @@
           <div class="hw-btn-group">
             <button id="btn-d5" class="hw-btn" type="button" aria-pressed="false">
               <span class="hw-btn-cap"></span>
-              <span class="hw-btn-label">BTN <strong>D5</strong></span>
+              <span class="hw-btn-label">TASTER <strong>D5</strong></span>
               <span class="hw-btn-state" id="state-d5">HIGH</span>
             </button>
             <div class="hw-btn-meta">
               <span class="hw-btn-hint" id="hint-d5">—</span>
-              <label class="latch-toggle" title="Lock D5 held down">
+              <label class="latch-toggle" title="D5 gedrückt halten">
                 <input type="checkbox" id="latch-d5" />
-                <span>Hold</span>
+                <span>Halten</span>
               </label>
             </div>
           </div>
@@ -84,53 +84,53 @@
           <div class="hw-btn-group">
             <button id="btn-d6" class="hw-btn" type="button" aria-pressed="false">
               <span class="hw-btn-cap"></span>
-              <span class="hw-btn-label">BTN <strong>D6</strong></span>
+              <span class="hw-btn-label">TASTER <strong>D6</strong></span>
               <span class="hw-btn-state" id="state-d6">HIGH</span>
             </button>
             <div class="hw-btn-meta">
               <span class="hw-btn-hint" id="hint-d6">—</span>
-              <label class="latch-toggle" title="Lock D6 held down">
+              <label class="latch-toggle" title="D6 gedrückt halten">
                 <input type="checkbox" id="latch-d6" />
-                <span>Hold</span>
+                <span>Halten</span>
               </label>
             </div>
           </div>
         </div>
-        <p class="keyboard-tip">Press &amp; hold buttons with mouse/touch, or press keys <kbd>5</kbd> / <kbd>6</kbd> when editor is unfocused.</p>
+        <p class="keyboard-tip">Taster per Maus/Touch drücken &amp; halten oder Tasten <kbd>5</kbd> / <kbd>6</kbd> nutzen (wenn Editor nicht fokussiert).</p>
       </div>
     </section>
 
-    <!-- Right Half: Near-CircuitPython Code Editor & Serial Console -->
-    <section class="pane pane-editor" aria-label="CircuitPython Code Editor">
+    <!-- Rechte Hälfte: CircuitPython Code-Editor & Serielle Konsole -->
+    <section class="pane pane-editor" aria-label="CircuitPython Code-Editor">
       <div class="pane-header">
         <div class="pane-title">
           <h2>code.py</h2>
           <span class="example-desc" id="example-desc"></span>
         </div>
         <div class="editor-actions">
-          <button id="btn-run" class="action-btn action-primary" type="button" title="Run code (Ctrl+Enter)">
-            ▶ Run
+          <button id="btn-run" class="action-btn action-primary" type="button" title="Code ausführen (Strg+Enter)">
+            ▶ Start
           </button>
-          <button id="btn-stop" class="action-btn action-secondary" type="button" title="Stop execution">
-            ■ Stop
+          <button id="btn-stop" class="action-btn action-secondary" type="button" title="Ausführung stoppen">
+            ■ Stopp
           </button>
-          <button id="btn-reset" class="action-btn action-ghost" type="button" title="Restore original example code">
+          <button id="btn-reset" class="action-btn action-ghost" type="button" title="Original-Beispiel wiederherstellen">
             ↺ Reset
           </button>
-          <button id="btn-download" class="action-btn action-ghost" type="button" title="Download as code.py">
+          <button id="btn-download" class="action-btn action-ghost" type="button" title="Als code.py herunterladen">
             ↓ code.py
           </button>
         </div>
       </div>
 
       <div class="editor-container" id="editor-container">
-        <textarea id="code-fallback" class="code-fallback" spellcheck="false" aria-label="CircuitPython code editor"></textarea>
+        <textarea id="code-fallback" class="code-fallback" spellcheck="false" aria-label="CircuitPython Code-Editor"></textarea>
       </div>
 
       <div class="console-panel">
         <div class="console-header">
-          <span>Serial Console</span>
-          <button id="btn-clear-console" class="console-clear" type="button">Clear</button>
+          <span>Serielle Konsole</span>
+          <button id="btn-clear-console" class="console-clear" type="button">Leeren</button>
         </div>
         <pre id="serial-console" class="serial-console" aria-live="polite"></pre>
       </div>
@@ -141,21 +141,21 @@
     <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="firmware-modal-title">
       <div class="modal-header">
         <div>
-          <h2 id="firmware-modal-title">Download Compiled Examples (.uf2)</h2>
-          <p class="modal-subtitle">Pre-built firmware from the latest GitHub Release for both target MCUs</p>
+          <h2 id="firmware-modal-title">Firmware, Captive Portal &amp; Pakete</h2>
+          <p class="modal-subtitle">Vorkompilierte Firmware &amp; Bundles aus dem neuesten GitHub-Release für beide MCUs</p>
         </div>
-        <button id="btn-firmware-close" class="modal-close" type="button" aria-label="Close dialog">&times;</button>
+        <button id="btn-firmware-close" class="modal-close" type="button" aria-label="Dialog schließen">&times;</button>
       </div>
 
       <div class="modal-body">
         <div class="firmware-release-bar">
-          <div id="firmware-release-meta" class="firmware-release-meta">Checking latest release…</div>
-          <button id="btn-firmware-refresh" class="action-btn action-ghost firmware-refresh-btn" type="button" title="Refresh release assets">
-            ↺ Refresh
+          <div id="firmware-release-meta" class="firmware-release-meta">Prüfe neuestes Release…</div>
+          <button id="btn-firmware-refresh" class="action-btn action-ghost firmware-refresh-btn" type="button" title="Release-Assets aktualisieren">
+            ↺ Aktualisieren
           </button>
         </div>
 
-        <div class="mcu-tabs" role="tablist" aria-label="Target MCU">
+        <div class="mcu-tabs" role="tablist" aria-label="Ziel-MCU">
           <button
             id="mcu-tab-xiao_rp2040"
             class="mcu-tab is-active"
@@ -182,25 +182,25 @@
 
         <div class="firmware-section">
           <div class="firmware-section-header">
-            <h3>CircuitPython Base Firmware</h3>
+            <h3>CircuitPython-Basisfirmware</h3>
           </div>
           <div id="firmware-base-section" class="firmware-base-box"></div>
         </div>
 
         <div id="firmware-webserial-section" class="firmware-section webserial-panel" hidden>
           <div class="firmware-section-header">
-            <h3>Built-in WebSerial Flasher (ESP32-C6)</h3>
+            <h3>Integrierter WebSerial-Flasher (ESP32-C6)</h3>
             <label class="toggle-check webserial-erase-opt">
               <input type="checkbox" id="webserial-erase-check" checked />
-              <span>Erase flash first</span>
+              <span>Flash vorher löschen</span>
             </label>
           </div>
           <div class="webserial-actions">
             <button id="btn-flash-cp-webserial" class="action-btn action-primary" type="button">
-              ⚡ Flash CircuitPython 10.3.1 (.bin)
+              ⚡ CircuitPython 10.3.1 (.bin) flashen
             </button>
             <button id="btn-flash-file-webserial" class="action-btn action-secondary" type="button">
-              ⚡ Flash Local .bin / .uf2
+              ⚡ Lokale .bin / .uf2 flashen
             </button>
             <input type="file" id="webserial-file-input" accept=".bin,.uf2" hidden />
           </div>
@@ -215,11 +215,11 @@
           <div class="firmware-section-header">
             <h3>CircuitPython <code>/lib/</code> &amp; Captive Portal</h3>
             <div class="firmware-libs-actions">
-              <button id="btn-install-portal" class="action-btn action-primary" type="button" title="Select your CIRCUITPY drive to install code.py, web_ui.html.gz, and /lib/">
-                ⚡ Install Captive Portal
+              <button id="btn-install-portal" class="action-btn action-primary" type="button" title="CIRCUITPY-Laufwerk wählen, um code.py, web_ui.html.gz und /lib/ zu installieren">
+                ⚡ Captive Portal installieren
               </button>
-              <button id="btn-install-libs" class="action-btn action-secondary" type="button" title="Select your CIRCUITPY drive to install /lib/ files directly">
-                ⚡ Install /lib/ only
+              <button id="btn-install-libs" class="action-btn action-secondary" type="button" title="CIRCUITPY-Laufwerk wählen, um nur /lib/ zu installieren">
+                ⚡ Nur /lib/ installieren
               </button>
               <a id="btn-download-libs-zip" class="action-btn action-secondary" href="#" target="_blank" rel="noopener noreferrer" hidden>
                 ↓ libs.zip
@@ -232,14 +232,14 @@
 
         <div id="firmware-packages-section" class="firmware-section" hidden>
           <div class="firmware-section-header">
-            <h3>Release Packages &amp; Bundles</h3>
+            <h3>Release-Pakete &amp; Bundles</h3>
           </div>
           <div id="firmware-packages-list" class="firmware-list" aria-live="polite"></div>
         </div>
 
         <div class="firmware-section">
           <div class="firmware-section-header">
-            <h3>Compiled Firmware &amp; Examples (.uf2)</h3>
+            <h3>Kompilierte Firmware &amp; Beispiele (.uf2)</h3>
           </div>
           <div id="firmware-list" class="firmware-list" aria-live="polite"></div>
         </div>

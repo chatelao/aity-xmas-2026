@@ -189,7 +189,7 @@ static void test_nvs_and_presets(void) {
     char json[2048];
     size_t jlen = preset_store_to_json(json, sizeof(json));
     assert(jlen > 50);
-    assert(strstr(json, "Classic Christmas") != NULL);
+    assert(strstr(json, "Klassische Weihnachten") != NULL);
     assert(strstr(json, "My \\\"Festive\\\" Mode") != NULL);
 
     assert(preset_store_delete(saved.id));

@@ -85,17 +85,17 @@ SEG_COLORS = (
 
 DEFAULT_PRESETS = [
     {
-        "id": "default-classic", "name": "Classic Christmas",
+        "id": "default-classic", "name": "Klassische Weihnachten",
         "pattern_id": 4, "palette_id": 0, "red": 255, "green": 60, "blue": 10,
         "brightness": 85, "speed": 45, "melody_id": 1, "volume": 70, "tempo": 100,
     },
     {
-        "id": "default-rainbow", "name": "Rainbow Party",
+        "id": "default-rainbow", "name": "Regenbogen-Party",
         "pattern_id": 2, "palette_id": 0, "red": 0, "green": 255, "blue": 128,
         "brightness": 90, "speed": 75, "melody_id": 4, "volume": 75, "tempo": 110,
     },
     {
-        "id": "default-silent-night", "name": "Cozy Silent Night",
+        "id": "default-silent-night", "name": "Gemütliche Stille Nacht",
         "pattern_id": 5, "palette_id": 0, "red": 255, "green": 200, "blue": 100,
         "brightness": 55, "speed": 30, "melody_id": 3, "volume": 50, "tempo": 95,
     },
