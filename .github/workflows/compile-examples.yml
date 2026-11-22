@@ -47,7 +47,7 @@ jobs:
           - name: xiao_esp32c6
             fqbn: esp32:esp32:XIAO_ESP32C6
             core_url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
-            core_package: esp32:esp32
+            core_package: esp32:esp32@3.3.13
             family_id: "0x540ddf62"
 
     steps:
