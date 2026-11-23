@@ -25,7 +25,7 @@ from adafruit_httpserver import GET, POST, Redirect, Request, Response, Server
 # 1. HARDWARE- & ENSEMBLE-KONFIGURATION (an eigenes Board anpassen!)
 # ------------------------------------------------------------------------------
 NUM_LEDS = 60
-LED_PIN = getattr(board, "D5", getattr(board, "IO5", board.NEOPIXEL))
+LED_PIN = getattr(board, "D10", getattr(board, "IO18", board.NEOPIXEL))
 LED_BRIGHTNESS_HW = 1.0  # Dimmung/ABL erfolgt sauber per Software-Skalierung
 
 # Audio-Pins (I2S-DAC bevorzugt, sonst PWM + RC-Filter auf AUDIO_PWM_PIN)
