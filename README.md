@@ -2,6 +2,10 @@
 
 Ein interaktives Weihnachtsbaum-PCB für **Seeed Studio XIAO RP2040** oder **Seeed Studio XIAO ESP32-C6** mit 60 adressierbaren NeoPixel-LEDs, einem Piezo-Lautsprecher/Buzzer und Testpunkten.
 
+| Vorderseite (3D-Render) | Rückseite (3D-Render) |
+| :---: | :---: |
+| ![AITY Weihnachtsbaum 2026 PCB — Vorderseite](kicad/images/aity-xmas-tree-2026-3D_Top.png) | ![AITY Weihnachtsbaum 2026 PCB — Rückseite](kicad/images/aity-xmas-tree-2026-3D_Bottom.png) |
+
 ## Hardware-Spezifikationen
 
 - **Mikrocontroller:** Seeed Studio XIAO RP2040 oder Seeed Studio XIAO ESP32-C6
