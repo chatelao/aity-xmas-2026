@@ -25,6 +25,14 @@
     </div>
 
     <div class="topbar-controls">
+      <div class="mode-switcher" role="tablist" aria-label="Simulator-Modus">
+        <button id="mode-tab-single" class="mode-tab is-active" type="button" role="tab" aria-selected="true">
+          Einzel-PCB
+        </button>
+        <button id="mode-tab-show" class="mode-tab" type="button" role="tab" aria-selected="false">
+          10+2 Show (720 LEDs)
+        </button>
+      </div>
       <label class="select-wrap" for="example-select">
         <span class="select-label">Beispiel</span>
         <select id="example-select" aria-label="CircuitPython-Beispiel auswählen"></select>
@@ -39,7 +47,7 @@
     </div>
   </header>
 
-  <main class="workspace">
+  <main id="workspace-single" class="workspace">
     <!-- Linke Hälfte: Weihnachtsbaum-PCB & Hardware-Taster -->
     <section class="pane pane-tree" aria-label="Weihnachtsbaum PCB Simulator">
       <div class="pane-header">
@@ -133,6 +141,136 @@
           <button id="btn-clear-console" class="console-clear" type="button">Leeren</button>
         </div>
         <pre id="serial-console" class="serial-console" aria-live="polite"></pre>
+      </div>
+    </section>
+  </main>
+
+  <main id="workspace-show" class="workspace workspace-show" hidden>
+    <!-- Linke Hälfte: Skaliertes 3D-Ensemble (10+2 Bäume = 720 LEDs) -->
+    <section class="pane pane-show-stage" aria-label="10+2 Baum-Show 3D-Simulation">
+      <div class="pane-header">
+        <div class="pane-title">
+          <h2>10+2 Baum-Show (3D skaliert)</h2>
+          <span class="hw-chip" id="show-status-line">Akt 1: Erwachen &amp; Puls · 72 BPM · 12 Bäume (720 LEDs)</span>
+        </div>
+        <div class="show-cam-controls">
+          <button class="action-btn action-ghost show-cam-btn" type="button" data-show-cam="front">Front</button>
+          <button class="action-btn action-ghost show-cam-btn" type="button" data-show-cam="iso">Iso</button>
+          <button class="action-btn action-ghost show-cam-btn" type="button" data-show-cam="top">Draufsicht</button>
+          <label class="toggle-check">
+            <input type="checkbox" id="show-auto-orbit" />
+            <span>Auto-Orbit</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="show-canvas-wrap">
+        <canvas id="show-canvas" aria-label="3D-Simulation der 10+2 Weihnachtsbaum-Show"></canvas>
+        <div class="show-canvas-hint">Ziehen zum Drehen · Scrollen zum Zoomen · Baum anklicken zum Bearbeiten</div>
+      </div>
+    </section>
+
+    <!-- Rechte Hälfte: Show-Steuerung, Layout-Editor & Live-Formel -->
+    <section class="pane pane-show-controls" aria-label="Show-Steuerung und Parameter">
+      <div class="pane-header">
+        <div class="show-panel-tabs" role="tablist">
+          <button class="mode-tab is-active" type="button" data-show-panel="controls">Steuerung &amp; Layout</button>
+          <button class="mode-tab" type="button" data-show-panel="code">Render-Formel (code.8-show)</button>
+        </div>
+        <a class="action-btn action-ghost" href="https://github.com/chatelao/aity-xmas-2026/blob/main/circuitpython/code.8-show.py" target="_blank" rel="noopener noreferrer" title="Original CircuitPython Show-Firmware auf GitHub ansehen">
+          ↗ code.8-show.py
+        </a>
+      </div>
+
+      <div id="show-panel-controls" class="show-panel-body">
+        <!-- Transport & Timeline -->
+        <div class="show-card">
+          <div class="show-card-title">
+            <span>Show-Ablauf (6 Akte · 15 Min.)</span>
+            <span id="show-time-label" class="show-mono">00:00 / 15:00</span>
+          </div>
+          <div class="show-btn-row">
+            <button id="show-btn-play" class="action-btn action-primary" type="button">▶ Start</button>
+            <button id="show-btn-pause" class="action-btn action-secondary" type="button">⏸ Pause</button>
+            <button id="show-btn-restart" class="action-btn action-ghost" type="button">↺ 00:00</button>
+            <select id="show-speed" class="show-select" aria-label="Abspielgeschwindigkeit">
+              <option value="0.25">0.25×</option>
+              <option value="0.5">0.5×</option>
+              <option value="1" selected>1× Echtzeit</option>
+              <option value="2">2×</option>
+              <option value="4">4×</option>
+              <option value="8">8×</option>
+            </select>
+          </div>
+          <input id="show-timeline" class="show-range" type="range" min="0" max="899" value="0" aria-label="Show-Zeitachse" />
+          <div class="show-act-grid">
+            <button class="show-act-btn is-active" type="button" data-show-act="0">Auto-Show</button>
+            <button class="show-act-btn" type="button" data-show-act="1">Akt 1</button>
+            <button class="show-act-btn" type="button" data-show-act="2">Akt 2</button>
+            <button class="show-act-btn" type="button" data-show-act="3">Akt 3</button>
+            <button class="show-act-btn" type="button" data-show-act="4">Akt 4</button>
+            <button class="show-act-btn" type="button" data-show-act="5">Akt 5</button>
+            <button class="show-act-btn" type="button" data-show-act="6">Akt 6</button>
+          </div>
+        </div>
+
+        <!-- Helligkeit, Audio & Skalierung -->
+        <div class="show-card">
+          <div class="show-card-title"><span>Darstellung &amp; Synth-Audio</span></div>
+          <div class="show-sliders-grid">
+            <label class="show-slider-row">
+              <span>Helligkeit <strong id="show-dim-val">85%</strong></span>
+              <input id="show-dim" class="show-range" type="range" min="10" max="100" value="85" />
+            </label>
+            <label class="show-slider-row">
+              <span>Kleine Bäume (T01–T10) <strong id="show-small-boost-val">1.8×</strong></span>
+              <input id="show-small-boost" class="show-range" type="range" min="1.0" max="3.0" step="0.1" value="1.8" />
+            </label>
+            <label class="show-slider-row">
+              <span>Spiral-Windungen <strong id="show-turns-val">5.0</strong></span>
+              <input id="show-turns" class="show-range" type="range" min="2.0" max="8.0" step="0.5" value="5.0" />
+            </label>
+            <div class="show-audio-row">
+              <label class="toggle-check">
+                <input type="checkbox" id="show-audio-toggle" />
+                <span>Web-Synth Musik (PATTERNS)</span>
+              </label>
+              <input id="show-vol" class="show-range" type="range" min="0" max="100" value="35" aria-label="Musik-Lautstärke" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Modifizierbarer 10+2 Aufstellungsplan (TREE_LAYOUT) -->
+        <div class="show-card">
+          <div class="show-card-title">
+            <span>Aufstellungsplan (TREE_LAYOUT)</span>
+            <select id="show-tree-select" class="show-select" aria-label="Baum auswählen"></select>
+          </div>
+          <div class="show-layout-grid">
+            <label><span>X (mm)</span><input id="tree-cfg-x" type="number" step="20" /></label>
+            <label><span>Y Basis (mm)</span><input id="tree-cfg-y" type="number" step="10" /></label>
+            <label><span>Z (mm)</span><input id="tree-cfg-z" type="number" step="20" /></label>
+            <label><span>Höhe (mm)</span><input id="tree-cfg-h" type="number" min="20" step="10" /></label>
+            <label><span>Basis-Ø (mm)</span><input id="tree-cfg-d" type="number" min="10" step="5" /></label>
+            <label><span>Dichte (0–1)</span><input id="tree-cfg-dens" type="number" min="0.05" max="1" step="0.05" /></label>
+          </div>
+          <div class="show-btn-row" style="margin-top: 8px;">
+            <button id="show-reset-layout" class="action-btn action-ghost" type="button">↺ Layout zurücksetzen</button>
+            <button id="show-export-layout" class="action-btn action-secondary" type="button">📋 Python TREE_LAYOUT kopieren</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="show-panel-code" class="show-panel-body show-code-panel" hidden>
+        <div class="show-code-toolbar">
+          <span class="example-desc">Live-Renderfunktion für alle 720 LEDs (60 LEDs × 12 Bäume)</span>
+          <div class="show-btn-row">
+            <button id="show-btn-apply-code" class="action-btn action-primary" type="button">▶ Formel anwenden</button>
+            <button id="show-btn-reset-code" class="action-btn action-ghost" type="button">↺ Zurücksetzen</button>
+          </div>
+        </div>
+        <div id="show-code-error" class="show-code-error" hidden></div>
+        <textarea id="show-code-editor" class="show-code-editor" spellcheck="false" aria-label="Live Render-Formel"></textarea>
       </div>
     </section>
   </main>
@@ -256,5 +394,6 @@
   <script src="runtime.js"></script>
   <script src="firmware.js"></script>
   <script src="app.js"></script>
+  <script src="show_sim.js"></script>
 </body>
 </html>
