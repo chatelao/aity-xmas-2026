@@ -612,14 +612,15 @@ pixels.show()
             bridge.buttons["D5"] = False
             await asyncio.sleep(0.06)
 
-            # Cycle through all 8 modes via double tap D6
-            for _ in range(8):
+            # Cycle through all 13 modes via double tap D6
+            for _ in range(13):
                 for _ in range(2):
                     bridge.buttons["D6"] = True
-                    await asyncio.sleep(0.05)
+                    await asyncio.sleep(0.055)
                     bridge.buttons["D6"] = False
-                    await asyncio.sleep(0.07)
+                    await asyncio.sleep(0.055)
                 await asyncio.sleep(0.06)
+            await asyncio.sleep(0.15)
 
         with contextlib.redirect_stdout(buf):
             bridge = self._run_sim(self.examples["unified"], scenario)
@@ -640,6 +641,11 @@ pixels.show()
         self.assertIn("Modus: 5: 2D-Plasma", out)
         self.assertIn("Modus: 6: Polar-Wirbel", out)
         self.assertIn("Modus: 7: Gravitations-Puls", out)
+        self.assertIn("Modus: 8: Adventskranz", out)
+        self.assertIn("Modus: 9: Schlittenfahrt", out)
+        self.assertIn("Modus: 10: Stern von Bethlehem", out)
+        self.assertIn("Modus: 11: Kaminfeuer & Eis", out)
+        self.assertIn("Modus: 12: Stille Nacht Atemzug", out)
         self.assertIn("Tempo: 1.4x", out)
         self.assertIn("Tempo: 1.0x", out)
 

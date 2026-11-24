@@ -14,8 +14,11 @@ import digitalio
 import neopixel
 from tannenbaum_layout import (
     NUM_PIXELS, PIN_NEOPIXEL, PIN_BTN_A, PIN_BTN_B,
-    PIXEL_COORDS, CENTER_TREE, POLAR_TREE, Y_MAX,
-    EPICENTERS, VIRTUAL_SEGMENTS, build_distance_lut,
+    PIXEL_COORDS, NORM_COORDS, CENTER_TREE, CENTER_STAR, POLAR_TREE,
+    Y_MIN, Y_MAX, WIDTH_MM, HEIGHT_MM,
+    SEG_BOUGH_LOW, SEG_BOUGH_MID, SEG_BOUGH_HIGH, SEG_STEM, SEG_STAR, SEGMENTS,
+    VSEG_STAR_INNER, VSEG_STAR_OUTER, VIRTUAL_SEGMENTS,
+    EPICENTERS, GAMMA_LUT, build_distance_lut,
 )
 from tannenbaum_palettes import (
     PALETTES, PALETTE_NAMES, PAL_FAIRY_LIGHT,
@@ -36,6 +39,7 @@ btn_d6.switch_to_input(pull=digitalio.Pull.UP)
 # --- Geometrie-Vorberechnung ---
 DIST_LUT = tuple(build_distance_lut(ep) for ep in EPICENTERS)
 CX, CY = CENTER_TREE
+STAR_CX, STAR_CY = CENTER_STAR
 GEOM = tuple(
     (x, y, (x - CX) * 0.08, (y - CY) * 0.08, r, theta, seg)
     for (x, y, seg), (r, theta) in zip(PIXEL_COORDS, POLAR_TREE)
@@ -51,6 +55,11 @@ MODE_NAMES = (
     "5: 2D-Plasma",
     "6: Polar-Wirbel",
     "7: Gravitations-Puls",
+    "8: Adventskranz",
+    "9: Schlittenfahrt",
+    "10: Stern von Bethlehem",
+    "11: Kaminfeuer & Eis",
+    "12: Stille Nacht Atemzug",
 )
 NUM_MODES = len(MODE_NAMES)
 
@@ -283,7 +292,7 @@ while True:
             idx = int((theta / (2.0 * math.pi) + phase_t * 0.1) * 255) & 0xFF
             pixels[i] = color_from_palette(current_palette, idx, brightness=int(wave * 255))
 
-    else:
+    elif mode_idx == 7:
         # 7: Gravitations-Puls von der Sternspitze zur Basis
         y_front = Y_MAX - ((phase_t * 48.0) % 80.0)
         for i in range(NUM_PIXELS):
@@ -295,6 +304,128 @@ while True:
                 pixels[i] = color_from_palette(current_palette, idx, brightness=int(val * 255))
             else:
                 pixels[i] = (0, 0, 0)
+
+    elif mode_idx == 8:
+        # 8: Adventskranz (4 Kerzenzonen nacheinander + warmer weisser Stern)
+        pixels.fill((0, 0, 0))
+        candles = int((phase_t % 16.0) // 4.0) + 1
+        zones = (SEG_BOUGH_LOW, SEG_BOUGH_MID, SEG_BOUGH_HIGH)
+        for z_idx in range(min(candles, 3)):
+            start, end = SEGMENTS[zones[z_idx]]
+            for i in range(start, end):
+                flick = 0.72 + 0.28 * math.sin(phase_t * 6.5 + i * 1.3)
+                pixels[i] = (int(255 * flick), int(125 * flick), int(14 * flick))
+        if candles >= 4:
+            s_start, s_end = SEGMENTS[SEG_STEM]
+            for i in range(s_start, s_end):
+                flick = 0.75 + 0.25 * math.sin(phase_t * 5.2 + i)
+                pixels[i] = (int(180 * flick), int(95 * flick), int(15 * flick))
+            st_start, st_end = SEGMENTS[SEG_STAR]
+            for i in range(st_start, st_end):
+                shim = 0.88 + 0.12 * math.sin(phase_t * 4.2 + i)
+                pixels[i] = (int(255 * shim), int(240 * shim), int(205 * shim))
+
+    elif mode_idx == 9:
+        # 9: Schlittenfahrt durch die Sternennacht (X-Sweep + Silber-Gold-Glocken)
+        sweep_x = (phase_t * 26.0) % (WIDTH_MM + 14.0) - 7.0
+        bell_tick = int(phase_t * 5.0)
+        bell_frac = (phase_t * 5.0) - bell_tick
+        bell_a = (bell_tick * 23 + 7) % 50
+        bell_b = (bell_tick * 37 + 19) % NUM_PIXELS
+        bell_spark = (1.0 - bell_frac / 0.45) if bell_frac < 0.45 else 0.0
+        for i in range(NUM_PIXELS):
+            x = PIXEL_COORDS[i][0]
+            r, g, b = 4, 10, 48
+            dx = abs(x - sweep_x)
+            if dx < 6.5:
+                tr = 1.0 - dx / 6.5
+                r = int(r + (255 - r) * tr)
+                g = int(g + (225 - g) * tr)
+                b = int(b + (140 - b) * tr)
+            if bell_spark > 0.0 and (i == bell_a or i == bell_b):
+                r = min(255, int(r + (255 - r) * bell_spark))
+                g = min(255, int(g + (248 - g) * bell_spark))
+                b = min(255, int(b + (210 - b) * bell_spark))
+            pixels[i] = (r, g, b)
+
+    elif mode_idx == 10:
+        # 10: Stern von Bethlehem (Wegweiser in der Nacht)
+        cycle = phase_t % 10.0
+        breath = 0.55 + 0.45 * math.sin(phase_t * 3.1)
+        beam_active = cycle >= 4.0
+        p = (cycle - 4.0) / 6.0 if beam_active else 0.0
+        beam_y = Y_MAX - p * (HEIGHT_MM + 12.0)
+        cone_half = 0.45 + 0.35 * p
+
+        for i in range(NUM_PIXELS):
+            if i >= 50:
+                if i in VIRTUAL_SEGMENTS[4]:  # VSEG_STAR_INNER
+                    pixels[i] = (int(255 * breath), int(175 * breath), int(25 * breath))
+                else:  # VSEG_STAR_OUTER
+                    pixels[i] = (int(255 * breath), int(220 * breath), int(95 * breath))
+            else:
+                r, g, b = 6, 5, 4
+                if beam_active:
+                    x, y, _ = PIXEL_COORDS[i]
+                    if y >= beam_y - 4.0:
+                        ang = math.atan2(y - STAR_CY, x - STAR_CX)
+                        ang_diff = abs(ang + 1.5707963)
+                        cone = max(0.0, 1.0 - ang_diff / cone_half)
+                        pool = max(0.0, (1.0 - y / 16.0) * (p - 0.55) * 2.2) if p > 0.55 and y < 16.0 else 0.0
+                        glow = min(1.0, max(cone, pool))
+                        r = int(6 + 249 * glow)
+                        g = int(5 + 215 * glow)
+                        b = int(4 + 135 * glow)
+                pixels[i] = (r, g, b)
+
+    elif mode_idx == 11:
+        # 11: Kaminfeuer am Eisblick (ny < 0.45 Glut vs ny >= 0.45 Gletscher-Eis)
+        for i in range(NUM_PIXELS):
+            nx, ny = NORM_COORDS[i]
+            if ny < 0.45:
+                ember = (
+                    0.50
+                    + 0.30 * math.sin(phase_t * 3.8 + i * 1.7)
+                    + 0.20 * math.sin(phase_t * 7.1 + nx * 9.0)
+                )
+                pixels[i] = (
+                    min(255, int(255 * ember)),
+                    min(255, int(75 * ember * ember + 25 * ember)),
+                    int(6 * ember),
+                )
+            else:
+                tw = max(0.0, math.sin(phase_t * 2.9 + i * 2.3 + nx * 11.0)) ** 10
+                pixels[i] = (
+                    12 + int(225 * tw),
+                    42 + int(205 * tw),
+                    72 + int(183 * tw),
+                )
+
+    else:
+        # 12: Stille Nacht Atemzug (4s Einatmen, 1s Halten, 6s Ausatmen + Gamma-LUT)
+        c = phase_t % 11.0
+        if c < 4.0:
+            raw_b = 0.5 - 0.5 * math.cos(math.pi * (c / 4.0))
+        elif c < 5.0:
+            raw_b = 1.0
+        else:
+            raw_b = 0.5 + 0.5 * math.cos(math.pi * ((c - 5.0) / 6.0))
+        g_b = GAMMA_LUT[int(raw_b * 255)] / 255.0
+        pilot_r, pilot_g, pilot_b = color_from_palette(PAL_FAIRY_LIGHT, 32)
+        star_scale = 0.28 + 0.72 * g_b
+        for i in range(NUM_PIXELS):
+            if i >= 50:
+                pixels[i] = (
+                    int(pilot_r * star_scale),
+                    int(pilot_g * star_scale),
+                    int(pilot_b * star_scale),
+                )
+            else:
+                pixels[i] = (
+                    int(85 * g_b),
+                    int((88 + 95 * g_b) * g_b),
+                    int((12 + 48 * g_b) * g_b),
+                )
 
     pixels.show()
     time.sleep(0.015)
