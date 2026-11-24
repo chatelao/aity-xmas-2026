@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="230.00mm" height="182.00mm"
+     viewBox="0 0 230.00 182.00">
+  <title>AITY Weihnachtsbaum 2026 - Flat-Mail Klappkarte A6 (1:1)</title>
+  <style>
+    .cut { fill: none; stroke: #d00000; stroke-width: 0.22; stroke-linejoin: round; stroke-linecap: round; }
+    .fold { fill: none; stroke: #0055cc; stroke-width: 0.22; stroke-dasharray: 3,2; }
+    .perf { fill: none; stroke: #d00000; stroke-width: 0.22; stroke-dasharray: 1.8,1.2; }
+    .engrave { fill: none; stroke: #2b6cb0; stroke-width: 0.2; stroke-linejoin: round; }
+    .ref { fill: none; stroke: #888888; stroke-width: 0.18; stroke-dasharray: 1.5,1.5; }
+    .guide { fill: none; stroke: #444444; stroke-width: 0.2; }
+    .label { font-family: sans-serif; font-size: 3.1px; fill: #333333; }
+    .label-sm { font-family: sans-serif; font-size: 2.3px; fill: #555555; }
+    .title { font-family: sans-serif; font-size: 4.3px; font-weight: bold; fill: #1b4332; }
+  </style>
+
+  <text x="10.00" y="7.5" class="title">Variante A: „Flat-Mail“ DIN-A6 Klappkarte (offen 210 × 148 mm, geprüft)</text>
+  <text x="10.00" y="11.5" class="label-sm">4 C-Haltelaschen greifen exakt in die Ast-Taillen (verdecken 0 LEDs) • Gestrichelt = XIAO/USB-C Zone hinten</text>
+  <rect x="10.00" y="18.00" width="210.00" height="148.00" class="cut"/>
+  <line x1="115.00" y1="18.00" x2="115.00" y2="166.00" class="fold"/>
+  <g id="inside_left">
+    <text x="62.50" y="34.00" text-anchor="middle" class="title">Frohe Weihnachten!</text>
+    <text x="62.50" y="40.00" text-anchor="middle" class="label-sm">Dein AITY Weihnachtsbaum 2026 • 60 NeoPixel &amp; Musik</text>
+    <rect x="22.00" y="46.00" width="81" height="54" rx="3" ry="3" class="ref"/>
+    <text x="62.50" y="74.00" text-anchor="middle" class="label-sm">Platz für persönliche Widmung</text>
+    <rect x="22.00" y="108.00" width="30" height="30" rx="2" ry="2" class="ref"/>
+    <text x="37.00" y="124.00" text-anchor="middle" class="label-sm">WLAN-QR</text>
+    <text x="56.00" y="115.00" class="label-sm">1. USB-C hinten oben einstecken</text>
+    <text x="56.00" y="122.00" class="label-sm">2. WLAN „AITY-XMAS“ verbinden</text>
+    <text x="56.00" y="129.00" class="label-sm">3. 9 Goldkugeln = Touch-Pins!</text>
+    <text x="62.50" y="154.00" text-anchor="middle" class="label-sm">Nur 5V USB • Kein Spielzeug &lt; 3 J. • Elektronik-Recycling</text>
+  </g>
+  <g id="inside_right">
+    <path d="M 167.57 40.20 L 168.07 40.39 L 168.46 40.97 L 170.51 46.95 L 176.52 47.30 L 177.02 47.46 L 177.36 47.93 L 177.44 48.66 L 177.14 49.12 L 172.42 53.18 L 173.98 59.39 L 173.92 60.14 L 173.22 60.89 L 175.10 63.94 L 177.61 67.01 L 179.80 69.14 L 181.44 70.40 L 183.25 71.59 L 183.84 72.33 L 183.99 72.84 L 183.97 73.43 L 183.75 73.99 L 183.25 74.70 L 182.02 75.78 L 180.02 76.81 L 180.10 77.20 L 180.69 78.16 L 182.55 80.59 L 184.58 82.61 L 186.83 84.35 L 189.86 86.16 L 190.36 86.83 L 190.46 87.34 L 190.40 88.02 L 189.83 89.04 L 188.93 89.85 L 187.77 90.61 L 185.17 91.74 L 185.05 92.06 L 185.31 92.66 L 187.30 95.53 L 190.05 98.39 L 192.50 100.24 L 196.09 102.18 L 196.62 102.94 L 196.74 103.58 L 196.66 104.10 L 196.03 105.04 L 194.99 105.96 L 193.83 106.74 L 190.93 108.02 L 190.78 108.32 L 191.00 108.90 L 193.03 111.80 L 195.77 114.69 L 198.17 116.60 L 201.84 118.85 L 202.17 119.42 L 202.21 120.24 L 202.11 120.62 L 201.78 121.07 L 200.78 121.84 L 198.64 122.79 L 196.62 123.41 L 194.55 123.83 L 192.45 124.03 L 190.31 124.01 L 188.26 123.83 L 187.84 123.90 L 187.68 124.32 L 188.07 125.74 L 188.11 126.72 L 187.68 127.38 L 187.04 127.70 L 183.67 127.77 L 180.79 127.43 L 178.24 126.68 L 175.64 125.44 L 175.11 125.43 L 174.71 125.79 L 174.51 126.32 L 174.61 129.11 L 174.84 131.15 L 175.37 133.84 L 176.58 137.81 L 176.54 138.80 L 176.17 139.37 L 175.59 139.74 L 174.91 139.78 L 160.42 139.80 L 159.48 139.73 L 159.01 139.49 L 158.58 138.99 L 158.41 138.37 L 158.52 137.69 L 159.58 134.30 L 160.26 130.77 L 160.47 128.43 L 160.49 126.42 L 160.41 125.90 L 160.07 125.49 L 159.77 125.38 L 159.38 125.45 L 156.50 126.80 L 154.08 127.46 L 150.76 127.82 L 148.19 127.73 L 147.40 127.38 L 146.94 126.71 L 146.93 125.94 L 147.37 124.32 L 147.22 123.89 L 144.27 124.05 L 142.19 124.01 L 140.11 123.76 L 138.07 123.31 L 136.12 122.68 L 133.94 121.63 L 133.07 120.86 L 132.80 120.06 L 132.95 119.18 L 133.36 118.69 L 137.33 116.27 L 138.64 115.26 L 140.29 113.73 L 142.43 111.27 L 144.23 108.58 L 144.29 108.25 L 144.08 107.97 L 141.29 106.79 L 139.28 105.33 L 138.70 104.66 L 138.41 104.09 L 138.31 103.55 L 138.39 102.99 L 138.65 102.51 L 139.09 102.10 L 142.71 100.12 L 144.09 99.13 L 145.59 97.84 L 148.26 94.90 L 149.88 92.35 L 149.99 91.97 L 149.81 91.71 L 147.14 90.55 L 145.37 89.19 L 144.88 88.57 L 144.64 88.01 L 144.57 87.42 L 144.71 86.77 L 145.24 86.08 L 147.95 84.52 L 150.65 82.46 L 152.61 80.44 L 154.28 78.31 L 154.87 77.32 L 154.99 76.77 L 153.06 75.79 L 151.64 74.54 L 151.08 73.46 L 151.05 72.93 L 151.19 72.35 L 151.79 71.59 L 153.32 70.60 L 155.29 69.07 L 157.57 66.88 L 159.71 64.27 L 161.72 60.98 L 161.08 60.07 L 161.03 59.49 L 162.55 53.30 L 161.89 52.60 L 157.97 49.22 L 157.65 48.79 L 157.54 48.36 L 157.58 48.16 L 157.62 48.02 L 157.90 47.53 L 158.46 47.30 L 163.76 47.02 L 164.49 46.89 L 166.55 41.06 L 166.62 40.88 L 167.00 40.33 L 167.44 40.20 Z" class="ref"/>
+    <path d="M 150.00,72.70 L 156.00,74.20 L 156.00,79.20 L 150.00,80.70" class="cut"/>
+    <path d="M 185.00,72.70 L 179.00,74.20 L 179.00,79.20 L 185.00,80.70" class="cut"/>
+    <path d="M 154.50,122.50 L 160.70,124.00 L 160.70,130.00 L 154.50,131.00" class="cut"/>
+    <path d="M 180.50,122.50 L 174.30,124.00 L 174.30,130.00 L 180.50,131.00" class="cut"/>
+    <line x1="150.00" y1="72.70" x2="150.00" y2="80.70" class="fold"/>
+    <line x1="185.00" y1="72.70" x2="185.00" y2="80.70" class="fold"/>
+    <line x1="154.50" y1="122.50" x2="154.50" y2="131.00" class="fold"/>
+    <line x1="180.50" y1="122.50" x2="180.50" y2="131.00" class="fold"/>
+    <rect x="154.66" y="97.20" width="24.0" height="31.0" rx="2" ry="2" class="ref"/>
+    <text x="166.66" y="113.20" text-anchor="middle" class="label-sm">XIAO + USB-C ↑</text>
+    <text x="167.50" y="28.00" text-anchor="middle" class="label">Baum-Halterung (4 Asttal-Laschen)</text>
+  </g>
+  <g id="calibration">
+    <line x1="10.00" y1="177.50" x2="60.00" y2="177.50" class="guide"/>
+    <line x1="10.00" y1="176.00" x2="10.00" y2="179.00" class="guide"/>
+    <line x1="60.00" y1="176.00" x2="60.00" y2="179.00" class="guide"/>
+    <text x="35.00" y="175.70" text-anchor="middle" class="label-sm">Kalibrierung: exakt 50 mm (1:1 ohne Skalierung drucken/lasern)</text>
+  </g>
+
+</svg>
