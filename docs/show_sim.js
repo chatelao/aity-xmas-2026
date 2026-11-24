@@ -649,8 +649,8 @@ return [r, g, b];`;
       requestAnimationFrame(tick);
     }
 
-    // Mode switching
-    function setMode(mode) {
+    // Mode switching & permalink support (#show, ?mode=show, &act=1..6)
+    function setMode(mode, updateUrl = true) {
       const isShow = mode === "show";
       state.active = isShow;
       singleWorkspace.hidden = isShow;
@@ -663,10 +663,46 @@ return [r, g, b];`;
         audio.setEnabled(false);
         audioToggle.checked = false;
       }
+      if (updateUrl && window.history && window.history.replaceState) {
+        const targetHash = isShow ? "#show" : "#single";
+        if (window.location.hash !== targetHash) {
+          const url = new URL(window.location.href);
+          url.hash = targetHash;
+          window.history.replaceState(null, "", url.toString());
+        }
+      }
     }
 
-    viewSingleBtn.addEventListener("click", () => setMode("single"));
-    viewShowBtn.addEventListener("click", () => setMode("show"));
+    function applyUrlPermalink() {
+      const url = new URL(window.location.href);
+      const hash = url.hash.replace(/^#/, "");
+      const hashParams = new URLSearchParams(hash.includes("=") ? hash : "");
+      const queryMode = url.searchParams.get("mode");
+      const isShow =
+        hash === "show" ||
+        hash.startsWith("show&") ||
+        hashParams.get("mode") === "show" ||
+        queryMode === "show";
+
+      const actParam = Number(hashParams.get("act") || url.searchParams.get("act"));
+      if (actParam >= 1 && actParam <= 6) {
+        state.forcedAct = actParam;
+        state.showMs = ACTS[actParam - 1][2];
+        for (const b of actButtons) {
+          b.classList.toggle("is-active", Number(b.dataset.showAct) === actParam);
+        }
+      }
+
+      if (isShow) {
+        setMode("show", false);
+      } else if (hash === "single" || queryMode === "single") {
+        setMode("single", false);
+      }
+    }
+
+    viewSingleBtn.addEventListener("click", () => setMode("single", true));
+    viewShowBtn.addEventListener("click", () => setMode("show", true));
+    window.addEventListener("hashchange", applyUrlPermalink);
 
     // Transport events
     btnPlay.addEventListener("click", () => { state.playing = true; });
@@ -876,6 +912,7 @@ return [r, g, b];`;
     rebuildCoords();
     populateTreeSelect();
     compileRenderCode(DEFAULT_RENDER_CODE);
+    applyUrlPermalink();
     requestAnimationFrame(tick);
   }
 
