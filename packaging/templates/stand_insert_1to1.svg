@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="185.00mm" height="98.00mm"
+     viewBox="0 0 185.00 98.00">
+  <title>AITY Weihnachtsbaum 2026 - Klemm-Standfuß &amp; Sternclip 1:1</title>
+  <style>
+    .cut { fill: none; stroke: #d00000; stroke-width: 0.22; stroke-linejoin: round; stroke-linecap: round; }
+    .fold { fill: none; stroke: #0055cc; stroke-width: 0.22; stroke-dasharray: 3,2; }
+    .perf { fill: none; stroke: #d00000; stroke-width: 0.22; stroke-dasharray: 1.8,1.2; }
+    .engrave { fill: none; stroke: #2b6cb0; stroke-width: 0.2; stroke-linejoin: round; }
+    .ref { fill: none; stroke: #888888; stroke-width: 0.18; stroke-dasharray: 1.5,1.5; }
+    .guide { fill: none; stroke: #444444; stroke-width: 0.2; }
+    .label { font-family: sans-serif; font-size: 3.1px; fill: #333333; }
+    .label-sm { font-family: sans-serif; font-size: 2.3px; fill: #555555; }
+    .title { font-family: sans-serif; font-size: 4.3px; font-weight: bold; fill: #1b4332; }
+  </style>
+
+  <text x="10.00" y="8" class="title">Klemm-Standfuß &amp; Sternhals-Aufhängeclip (1:1, geprüft)</text>
+  <text x="10.00" y="12.5" class="label-sm">1,75 mm FR4-Klemmschlitze halten den konischen Stamm (14→18,2 mm) spielfrei • Inkl. Sternclip (9,9 mm Hals)</text>
+  <g id="stand_base">
+    <rect x="10.00" y="22.00" width="74.00" height="46.00" rx="4" ry="4" class="cut"/>
+    <rect x="37.50" y="40.00" width="19.00" height="1.80" rx="0.4" ry="0.4" class="cut"/>
+    <rect x="38.50" y="33.00" width="2.00" height="18.00" class="cut"/>
+    <rect x="53.50" y="33.00" width="2.00" height="18.00" class="cut"/>
+    <text x="47.00" y="29.00" text-anchor="middle" class="label">Grundplatte (74 × 46 mm)</text>
+    <text x="47.00" y="64.00" text-anchor="middle" class="label-sm">Mitte hinten offen für USB-C Bogen</text>
+  </g>
+  <g id="stand_cheeks">
+    <path d="M 96.00,46.00 L 103.00,46.00 L 103.00,48.00 L 121.00,48.00 L 121.00,46.00 L 128.00,46.00 L 116.00,22.00 L 107.87,22.00 L 107.87,32.50 L 106.12,32.50 L 106.12,22.00 L 102.00,22.00 Z" class="cut"/>
+    <text x="112.00" y="43.00" text-anchor="middle" class="label-sm">Klemmwange L</text>
+    <path d="M 96.00,76.00 L 103.00,76.00 L 103.00,78.00 L 121.00,78.00 L 121.00,76.00 L 128.00,76.00 L 116.00,52.00 L 107.87,52.00 L 107.87,62.50 L 106.12,62.50 L 106.12,52.00 L 102.00,52.00 Z" class="cut"/>
+    <text x="112.00" y="73.00" text-anchor="middle" class="label-sm">Klemmwange R</text>
+  </g>
+  <g id="star_hanger_clip">
+    <path d="M 144.10,55.00 L 140.50,55.00 Q 138.00,55.00 138.00,52.50 L 138.00,40.00 Q 138.00,33.00 148.00,33.00 Q 158.00,33.00 158.00,40.00 L 158.00,52.50 Q 158.00,55.00 155.50,55.00 L 151.90,55.00 L 151.90,51.80 L 153.30,50.50 L 153.30,43.50 L 142.70,43.50 L 142.70,50.50 L 144.10,51.80 Z" class="cut"/>
+    <circle cx="148.00" cy="38.00" r="2.10" class="cut"/>
+    <text x="148.00" y="58.50" text-anchor="middle" class="label-sm">Stern-Aufhängeclip</text>
+  </g>
+  <g id="calibration">
+    <line x1="10.00" y1="93.00" x2="60.00" y2="93.00" class="guide"/>
+    <line x1="10.00" y1="91.50" x2="10.00" y2="94.50" class="guide"/>
+    <line x1="60.00" y1="91.50" x2="60.00" y2="94.50" class="guide"/>
+    <text x="35.00" y="91.20" text-anchor="middle" class="label-sm">Kalibrierung: exakt 50 mm (1:1 ohne Skalierung drucken/lasern)</text>
+  </g>
+
+</svg>

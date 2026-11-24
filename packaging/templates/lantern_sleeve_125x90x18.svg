@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="297.00mm" height="210.00mm"
+     viewBox="0 0 297.00 210.00">
+  <title>AITY Weihnachtsbaum 2026 - Variante G Laternen-Sleeve 125x90x18 mm</title>
+  <style>
+    .cut { fill: none; stroke: #d00000; stroke-width: 0.22; stroke-linejoin: round; stroke-linecap: round; }
+    .fold { fill: none; stroke: #0055cc; stroke-width: 0.22; stroke-dasharray: 3,2; }
+    .perf { fill: none; stroke: #d00000; stroke-width: 0.22; stroke-dasharray: 1.8,1.2; }
+    .engrave { fill: none; stroke: #2b6cb0; stroke-width: 0.2; stroke-linejoin: round; }
+    .ref { fill: none; stroke: #888888; stroke-width: 0.18; stroke-dasharray: 1.5,1.5; }
+    .guide { fill: none; stroke: #444444; stroke-width: 0.2; }
+    .label { font-family: sans-serif; font-size: 3.1px; fill: #333333; }
+    .label-sm { font-family: sans-serif; font-size: 2.3px; fill: #555555; }
+    .title { font-family: sans-serif; font-size: 4.3px; font-weight: bold; fill: #1b4332; }
+  </style>
+
+  <text x="12" y="10" class="title">Variante G (NEU): „Laternen-Sleeve“ Diffusor-Schuber (125 × 90 × 18 mm, DIN A4)</text>
+  <text x="12" y="14.5" class="label-sm">Frontfenster innen mit Pergaminpapier (115 g/m²) hinterkleben → Schachtel leuchtet im Betrieb als Tischlaterne!</text>
+  <path d="M 33.00,46.50 L 231.00,46.50 L 264.00,49.50 L 264.00,168.50 L 231.00,171.50 L 33.00,171.50 Z" class="cut"/>
+  <path d="M 78.34 57.70 L 79.54 58.16 L 80.31 59.30 L 82.10 64.51 L 87.29 64.81 L 88.44 65.18 L 89.30 66.37 L 89.48 68.03 L 88.77 69.12 L 84.60 72.71 L 85.99 78.26 L 85.87 79.78 L 85.59 80.08 L 86.82 82.07 L 89.21 84.99 L 91.28 87.00 L 92.81 88.18 L 94.77 89.47 L 95.69 90.62 L 95.99 91.65 L 95.96 92.74 L 95.58 93.71 L 94.87 94.71 L 93.37 96.03 L 92.21 96.62 L 92.01 95.64 L 92.42 96.31 L 94.17 98.60 L 96.07 100.48 L 98.17 102.11 L 101.38 104.02 L 102.26 105.21 L 102.47 106.26 L 102.36 107.47 L 101.51 108.99 L 100.34 110.04 L 98.98 110.93 L 96.85 111.86 L 97.16 111.02 L 97.12 110.93 L 98.96 113.58 L 101.54 116.26 L 103.81 117.97 L 107.61 120.03 L 108.55 121.35 L 108.75 122.57 L 108.59 123.66 L 107.66 125.04 L 106.40 126.15 L 105.05 127.06 L 102.53 128.17 L 102.91 127.40 L 102.83 127.19 L 104.69 129.85 L 107.28 132.58 L 109.53 134.37 L 113.44 136.77 L 114.15 137.98 L 114.21 139.40 L 113.98 140.28 L 113.36 141.13 L 112.05 142.14 L 109.66 143.20 L 107.49 143.87 L 105.27 144.32 L 103.01 144.53 L 100.73 144.51 L 98.81 144.34 L 99.43 144.24 L 99.75 143.40 L 100.06 144.51 L 100.12 146.14 L 99.21 147.54 L 97.90 148.19 L 94.09 148.27 L 90.98 147.90 L 88.20 147.09 L 85.78 145.93 L 86.17 145.94 L 86.48 145.66 L 86.51 145.57 L 86.60 148.00 L 86.82 149.92 L 87.32 152.48 L 88.58 156.62 L 88.52 158.27 L 87.75 159.46 L 86.56 160.21 L 85.45 160.28 L 70.86 160.30 L 69.56 160.20 L 68.56 159.69 L 67.72 158.71 L 67.37 157.45 L 67.55 156.34 L 68.62 152.93 L 69.27 149.56 L 69.47 147.36 L 69.48 145.53 L 69.49 145.54 L 69.67 145.76 L 70.13 145.93 L 70.33 145.89 L 67.51 147.21 L 64.85 147.94 L 61.31 148.32 L 58.34 148.22 L 56.90 147.58 L 55.94 146.18 L 55.92 144.75 L 56.30 143.38 L 56.67 144.45 L 54.79 144.55 L 52.58 144.51 L 50.35 144.24 L 48.17 143.76 L 46.06 143.08 L 43.60 141.89 L 42.27 140.72 L 41.75 139.18 L 42.03 137.53 L 42.86 136.54 L 46.97 134.03 L 48.17 133.11 L 49.71 131.68 L 51.73 129.36 L 53.30 127.00 L 53.19 127.63 L 53.62 128.19 L 51.04 127.10 L 48.75 125.44 L 47.94 124.50 L 47.47 123.58 L 47.29 122.58 L 47.44 121.51 L 47.94 120.58 L 48.70 119.87 L 52.40 117.85 L 53.66 116.95 L 55.04 115.76 L 57.56 112.99 L 58.99 110.73 L 58.85 111.24 L 59.32 111.92 L 56.87 110.85 L 54.80 109.27 L 54.07 108.34 L 53.67 107.40 L 53.55 106.35 L 53.81 105.12 L 54.73 103.93 L 57.61 102.27 L 60.15 100.34 L 61.97 98.45 L 63.54 96.46 L 63.95 95.76 L 63.77 96.58 L 62.71 96.04 L 60.93 94.48 L 60.10 92.87 L 60.03 91.79 L 60.30 90.68 L 61.26 89.47 L 62.95 88.38 L 64.80 86.93 L 66.96 84.86 L 68.98 82.40 L 70.42 80.04 L 70.12 79.60 L 70.01 78.37 L 71.39 72.74 L 71.35 72.69 L 67.36 69.25 L 66.77 68.45 L 66.50 67.40 L 66.63 66.76 L 66.75 66.40 L 67.34 65.34 L 68.62 64.82 L 74.08 64.53 L 73.86 64.57 L 75.65 59.50 L 75.81 59.15 L 76.55 58.04 L 77.72 57.70 Z" class="cut"/>
+  <line x1="123.00" y1="46.50" x2="123.00" y2="171.50" class="fold"/>
+  <line x1="141.00" y1="46.50" x2="141.00" y2="171.50" class="fold"/>
+  <line x1="231.00" y1="46.50" x2="231.00" y2="171.50" class="fold"/>
+  <circle cx="173.19" cy="115.47" r="1.4" class="cut"/>
+  <circle cx="176.69" cy="115.47" r="1.4" class="cut"/>
+  <circle cx="180.19" cy="115.47" r="1.4" class="cut"/>
+  <path d="M 179.00,171.50 L 179.00,157.50 L 193.00,157.50 L 193.00,171.50" class="perf"/>
+  <text x="78.00" y="53.50" text-anchor="middle" class="label">FRONT (Pergamin-Fenster)</text>
+  <text x="186.00" y="53.50" text-anchor="middle" class="label">RÜCKSEITE (90 × 125 mm)</text>
+  <text x="176.69" y="111.97" text-anchor="middle" class="label-sm">Buzzer-Schalllöcher</text>
+  <text x="186.00" y="155.50" text-anchor="middle" class="label-sm">USB-C Perforation</text>
+  <text x="256.50" y="109.00" text-anchor="middle" transform="rotate(-90 256.50 109.00)" class="label-sm">KLEBELASCHE (15 mm)</text>
+  <g id="calibration">
+    <line x1="12.00" y1="204.50" x2="112.00" y2="204.50" class="guide"/>
+    <line x1="12.00" y1="203.00" x2="12.00" y2="206.00" class="guide"/>
+    <line x1="112.00" y1="203.00" x2="112.00" y2="206.00" class="guide"/>
+    <text x="62.00" y="202.70" text-anchor="middle" class="label-sm">Kalibrierung: exakt 100 mm (1:1 ohne Skalierung drucken/lasern)</text>
+  </g>
+
+</svg>
