@@ -3,9 +3,10 @@
 # Abhaengigkeiten: /lib/neopixel.mpy, /lib/tannenbaum_layout.py
 
 import time
+import neopixel
 from tannenbaum_layout import NUM_PIXELS, init_pixels, init_buttons
 
-pixels = init_pixels(brightness=0.2)
+pixels = init_pixels(brightness=0.2, pixel_order=neopixel.GRB)
 btn_d5, btn_d6 = init_buttons()
 
 RED = (255, 0, 0)
