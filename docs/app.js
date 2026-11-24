@@ -77,27 +77,51 @@
   function buildTreeSvg() {
     treeSvg.setAttribute("viewBox", OUTLINE.viewBox);
 
-    // Defs for soft LED glow filter
+    // Defs for multi-layer LED bloom filters
     const defs = el("defs");
-    const filter = el("filter", { id: "led-glow", x: "-100%", y: "-100%", width: "300%", height: "300%" });
-    filter.appendChild(el("feGaussianBlur", { stdDeviation: "1.45", result: "blur" }));
-    defs.appendChild(filter);
+    const wideFilter = el("filter", { id: "led-glow-wide", x: "-250%", y: "-250%", width: "600%", height: "600%" });
+    wideFilter.appendChild(el("feGaussianBlur", { stdDeviation: "2.55", result: "blur" }));
+    defs.appendChild(wideFilter);
+
+    const tightFilter = el("filter", { id: "led-glow-tight", x: "-150%", y: "-150%", width: "400%", height: "400%" });
+    tightFilter.appendChild(el("feGaussianBlur", { stdDeviation: "0.95", result: "blur" }));
+    defs.appendChild(tightFilter);
     treeSvg.appendChild(defs);
 
-    // Exact KiCad Edge.Cuts PCB outline
+    // Exact KiCad Edge.Cuts PCB outline + Design patterns (F.Cu gold & F.SilkS)
     const pcbGroup = el("g", { id: "pcb-board" });
     pcbGroup.appendChild(el("path", {
       d: OUTLINE.edgePath,
-      fill: "#0c2b1c",
+      fill: "#111613",
       stroke: "#c49a45",
-      "stroke-width": "0.45",
+      "stroke-width": "0.35",
       "stroke-linejoin": "round",
     }));
+
+    if (OUTLINE.goldPath) {
+      pcbGroup.appendChild(el("path", {
+        d: OUTLINE.goldPath,
+        fill: "#cfa24e",
+        "fill-rule": "evenodd",
+        opacity: "0.82",
+        "pointer-events": "none",
+      }));
+    }
+
+    if (OUTLINE.silkPath) {
+      pcbGroup.appendChild(el("path", {
+        d: OUTLINE.silkPath,
+        fill: "#dfd0b4",
+        "fill-rule": "evenodd",
+        opacity: "0.45",
+        "pointer-events": "none",
+      }));
+    }
 
     treeSvg.appendChild(pcbGroup);
 
     // Segment copper traces
-    tracesGroup = el("g", { id: "pcb-traces", opacity: "0.45" });
+    tracesGroup = el("g", { id: "pcb-traces", opacity: "0.32" });
     const segRanges = [[0, 18], [18, 32], [32, 45], [45, 50], [50, 60]];
     for (const [start, end] of segRanges) {
       const pts = [];
@@ -108,7 +132,7 @@
       tracesGroup.appendChild(el("polyline", {
         points: pts.join(" "),
         fill: "none",
-        stroke: "#2d6a4f",
+        stroke: "#255942",
         "stroke-width": "0.35",
         "stroke-linecap": "round",
         "stroke-linejoin": "round",
@@ -124,13 +148,24 @@
       const [x, y, seg] = PIXEL_COORDS[i];
       const [cx, cy] = toSvg(x, y);
 
-      const glow = el("circle", {
+      const outerGlow = el("circle", {
         cx: cx.toFixed(3),
         cy: cy.toFixed(3),
-        r: "2.35",
+        r: "4.6",
         fill: "rgb(0,0,0)",
         opacity: "0",
-        filter: "url(#led-glow)",
+        filter: "url(#led-glow-wide)",
+        style: "mix-blend-mode: screen; pointer-events: none;",
+      });
+
+      const innerGlow = el("circle", {
+        cx: cx.toFixed(3),
+        cy: cy.toFixed(3),
+        r: "2.2",
+        fill: "rgb(0,0,0)",
+        opacity: "0",
+        filter: "url(#led-glow-tight)",
+        style: "mix-blend-mode: screen; pointer-events: none;",
       });
 
       const chip = el("rect", {
@@ -139,8 +174,8 @@
         width: "1.7",
         height: "1.7",
         rx: "0.35",
-        fill: "#26322c",
-        stroke: "#4d6b59",
+        fill: "#1e2622",
+        stroke: "#3c4f44",
         "stroke-width": "0.18",
         style: "cursor: crosshair;",
       });
@@ -153,12 +188,13 @@
       chip.addEventListener("pointerdown", inspectLed);
       chip.addEventListener("click", inspectLed);
       chip.addEventListener("mouseleave", () => {
-        inspectorEl.textContent = "Hover or tap an LED to inspect index & RGB";
+        inspectorEl.textContent = "Maus über eine LED bewegen oder antippen, um Index & RGB zu sehen";
       });
 
-      ledsGroup.appendChild(glow);
+      ledsGroup.appendChild(outerGlow);
+      ledsGroup.appendChild(innerGlow);
       ledsGroup.appendChild(chip);
-      ledNodes.push({ glow, chip });
+      ledNodes.push({ outerGlow, innerGlow, chip });
 
       const lbl = el("text", {
         x: cx.toFixed(3),
@@ -177,13 +213,41 @@
     treeSvg.appendChild(indicesGroup);
   }
 
-  // Perceptual LED color mapping so low brightness (0.2) still looks vivid like a real WS2812B
-  function perceptualLedColor(r, g, b, brightness) {
-    const bGain = Math.pow(Math.max(0, Math.min(1, brightness)), 0.55);
-    const sr = Math.min(255, Math.round(r * bGain));
-    const sg = Math.min(255, Math.round(g * bGain));
-    const sb = Math.min(255, Math.round(b * bGain));
-    return [sr, sg, sb];
+  // Perceptual LED color & bloom mapping so low brightness (0.2) still looks vivid & luminous like a real WS2812B/SK6812
+  function perceptualLedVisuals(r, g, b, brightness) {
+    const maxRaw = Math.max(r, g, b);
+    if (maxRaw <= 1 || brightness <= 0.002) {
+      return { on: false };
+    }
+    const bGain = Math.min(1, Math.pow(Math.max(0, Math.min(1, brightness)), 0.30) * 1.12);
+    const rawLum = (maxRaw / 255) * bGain;
+    const lum = Math.min(1, Math.pow(rawLum, 0.58));
+
+    // Preserve pure vivid hue for the colored bloom
+    const invMax = 255 / maxRaw;
+    const hueR = Math.round(r * invMax);
+    const hueG = Math.round(g * invMax);
+    const hueB = Math.round(b * invMax);
+
+    // Hot LED die core: saturates toward white-hot at high luminance
+    const dieScale = Math.min(1, 0.35 + 0.65 * lum);
+    const whiteMix = Math.min(0.78, Math.pow(lum, 1.35) * 0.78);
+    const baseR = hueR * dieScale;
+    const baseG = hueG * dieScale;
+    const baseB = hueB * dieScale;
+    const coreR = Math.min(255, Math.round(baseR + (255 - baseR) * whiteMix));
+    const coreG = Math.min(255, Math.round(baseG + (255 - baseG) * whiteMix));
+    const coreB = Math.min(255, Math.round(baseB + (255 - baseB) * whiteMix));
+
+    return {
+      on: true,
+      lum,
+      hueColor: `rgb(${hueR},${hueG},${hueB})`,
+      coreColor: `rgb(${coreR},${coreG},${coreB})`,
+      rimColor: `rgb(${Math.round(baseR)},${Math.round(baseG)},${Math.round(baseB)})`,
+      innerOpacity: (0.95 * Math.pow(lum, 0.65)).toFixed(2),
+      outerOpacity: (0.72 * Math.pow(lum, 0.85)).toFixed(2),
+    };
   }
 
   function updateTreeLeds(flatColors, brightness) {
@@ -194,38 +258,35 @@
       const b = flatColors[i * 3 + 2];
       lastRgb[i] = [r, g, b];
 
-      const [sr, sg, sb] = perceptualLedColor(r, g, b, brightness);
-      const maxC = Math.max(sr, sg, sb);
-      const { glow, chip } = ledNodes[i];
+      const vis = perceptualLedVisuals(r, g, b, brightness);
+      const { outerGlow, innerGlow, chip } = ledNodes[i];
 
-      if (maxC <= 2) {
-        chip.setAttribute("fill", "#26322c");
-        chip.setAttribute("stroke", "#4d6b59");
-        glow.setAttribute("opacity", "0");
+      if (!vis.on) {
+        chip.setAttribute("fill", "#1e2622");
+        chip.setAttribute("stroke", "#3c4f44");
+        innerGlow.setAttribute("opacity", "0");
+        outerGlow.setAttribute("opacity", "0");
       } else {
-        // Boost core luminance slightly for realistic LED die appearance
-        const coreR = Math.min(255, Math.round(sr + (255 - sr) * 0.15 * (maxC / 255)));
-        const coreG = Math.min(255, Math.round(sg + (255 - sg) * 0.15 * (maxC / 255)));
-        const coreB = Math.min(255, Math.round(sb + (255 - sb) * 0.15 * (maxC / 255)));
-        chip.setAttribute("fill", `rgb(${coreR},${coreG},${coreB})`);
-        chip.setAttribute("stroke", `rgb(${sr},${sg},${sb})`);
-        glow.setAttribute("fill", `rgb(${sr},${sg},${sb})`);
-        glow.setAttribute("opacity", (0.92 * Math.pow(maxC / 255, 0.75)).toFixed(2));
+        chip.setAttribute("fill", vis.coreColor);
+        chip.setAttribute("stroke", vis.rimColor);
+        innerGlow.setAttribute("fill", vis.hueColor);
+        innerGlow.setAttribute("opacity", vis.innerOpacity);
+        outerGlow.setAttribute("fill", vis.hueColor);
+        outerGlow.setAttribute("opacity", vis.outerOpacity);
       }
     }
   }
 
   function updateOnboardLed(r, g, b, brightness) {
     if (!onboardChipNode || !onboardGlowNode) return;
-    const [sr, sg, sb] = perceptualLedColor(r, g, b, brightness);
-    const maxC = Math.max(sr, sg, sb);
-    if (maxC <= 2) {
+    const vis = perceptualLedVisuals(r, g, b, brightness);
+    if (!vis.on) {
       onboardChipNode.setAttribute("fill", "#263038");
       onboardGlowNode.setAttribute("opacity", "0");
     } else {
-      onboardChipNode.setAttribute("fill", `rgb(${sr},${sg},${sb})`);
-      onboardGlowNode.setAttribute("fill", `rgb(${sr},${sg},${sb})`);
-      onboardGlowNode.setAttribute("opacity", (0.92 * Math.pow(maxC / 255, 0.75)).toFixed(2));
+      onboardChipNode.setAttribute("fill", vis.coreColor);
+      onboardGlowNode.setAttribute("fill", vis.hueColor);
+      onboardGlowNode.setAttribute("opacity", vis.innerOpacity);
     }
   }
 

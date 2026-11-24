@@ -60,10 +60,16 @@
 
   const TREE_IDS = Object.keys(DEFAULT_TREE_LAYOUT);
 
-  // Gamma 2.4 LUT matching code.8-show.py
+  // Exact normalized AITY Christmas Tree silhouette (u_x in [-0.5, 0.5], u_y in [0, 1])
+  const TREE_SILHOUETTE = [[0.001, 1.0], [0.13, 0.929], [0.139, 0.91], [0.082, 0.792], [0.201, 0.697], [0.237, 0.666], [0.18, 0.632], [0.246, 0.574], [0.331, 0.527], [0.292, 0.494], [0.285, 0.444], [0.42, 0.37], [0.396, 0.34], [0.338, 0.31], [0.495, 0.21], [0.494, 0.188], [0.39, 0.16], [0.293, 0.16], [0.291, 0.125], [0.155, 0.132], [0.101, 0.135], [0.131, 0.02], [0.107, 0.0], [-0.129, 0.008], [-0.104, 0.091], [-0.107, 0.144], [-0.193, 0.124], [-0.296, 0.131], [-0.335, 0.158], [-0.452, 0.172], [-0.498, 0.207], [-0.392, 0.262], [-0.337, 0.32], [-0.419, 0.359], [-0.409, 0.379], [-0.277, 0.451], [-0.293, 0.494], [-0.33, 0.526], [-0.243, 0.576], [-0.18, 0.633], [-0.237, 0.671], [-0.176, 0.71], [-0.093, 0.801], [-0.137, 0.909], [-0.144, 0.918], [-0.142, 0.921], [-0.043, 0.933], [-0.013, 0.993]];
+
+  // Exact normalized 60-LED PCB coordinates from tannenbaum_layout.py
+  const LED_NORM_COORDS = [[0.2547, 0.3579], [0.229, 0.3387], [0.2005, 0.3214], [0.1696, 0.3064], [0.1366, 0.2936], [0.1019, 0.2834], [0.0659, 0.2757], [0.0288, 0.2707], [-0.0087, 0.2684], [-0.0464, 0.2689], [-0.0839, 0.2721], [-0.1206, 0.278], [-0.1563, 0.2866], [-0.1904, 0.2977], [-0.2227, 0.3112], [-0.2529, 0.327], [-0.2804, 0.3449], [-0.3052, 0.3648], [0.2182, 0.4185], [0.183, 0.4091], [0.1466, 0.4023], [0.1094, 0.3982], [0.0717, 0.3969], [0.034, 0.3983], [-0.0032, 0.4024], [-0.0396, 0.4092], [-0.0748, 0.4186], [-0.1084, 0.4305], [-0.14, 0.4449], [-0.1693, 0.4614], [-0.1959, 0.48], [-0.2197, 0.5004], [0.2202, 0.5233], [0.1826, 0.5219], [0.1449, 0.5233], [0.1077, 0.5274], [0.0713, 0.5342], [0.0361, 0.5436], [0.0025, 0.5556], [-0.0291, 0.5699], [-0.0584, 0.5864], [-0.085, 0.605], [-0.1088, 0.6254], [-0.1293, 0.6475], [-0.1464, 0.6709], [-0.0189, 0.6631], [0.0104, 0.6797], [0.037, 0.6982], [0.0608, 0.7187], [0.0839, 0.7367], [-0.0408, 0.8517], [-0.0575, 0.8353], [-0.0937, 0.9106], [-0.0662, 0.9046], [0.0009, 0.9382], [0.0004, 0.9567], [0.0938, 0.9119], [0.0665, 0.9055], [0.0381, 0.8503], [0.0552, 0.8341]];
+
+  // Perceptual LED brightness LUT (monitors already apply sRGB gamma, so lift midtones for realistic LED vibrance)
   const GAMMA_LUT = new Uint8Array(256);
   for (let i = 0; i < 256; i++) {
-    GAMMA_LUT[i] = Math.min(255, Math.max(0, Math.round(Math.pow(i / 255.0, 2.4) * 255.0)));
+    GAMMA_LUT[i] = i === 0 ? 0 : Math.min(255, Math.max(1, Math.round(Math.pow(i / 255.0, 0.72) * 255.0)));
   }
 
   function hsvToRgb(h, s, v) {
@@ -353,15 +359,12 @@ return [r, g, b];`;
     function rebuildCoords() {
       for (const id of TREE_IDS) {
         const [tx, tyBase, tz, hMm, dMm] = state.layout[id];
-        const rBase = dMm / 2.0;
         const coords = [];
         for (let i = 0; i < NUM_LEDS; i++) {
-          const u = i / (NUM_LEDS - 1);
-          const r = rBase * (1.0 - u);
-          const ang = u * state.turns * 2.0 * Math.PI;
-          const wx = tx + r * Math.cos(ang);
-          const wy = tyBase + u * hMm;
-          const wz = tz + r * Math.sin(ang);
+          const [ux, uy] = LED_NORM_COORDS[i];
+          const wx = tx + ux * dMm;
+          const wy = tyBase + uy * hMm;
+          const wz = tz;
           coords.push([wx, wy, wz]);
         }
         state.worldCoords[id] = coords;
@@ -515,13 +518,17 @@ return [r, g, b];`;
         const isHero = treeId === "T11" || treeId === "T12";
         const visScale = isHero ? 1.0 : state.smallBoost;
         const coords = state.worldCoords[treeId];
-        const scale = state.dim * densityScale;
+        // Keep all 12 trees visually vibrant in the 3D simulator (densityScale is an ABL hardware limit)
+        const scale = state.dim * (isHero ? densityScale : Math.max(0.85, densityScale));
 
-        // Project tree base and tip for wireframe silhouette & selection
+        // Project tree silhouette & center for selection
         const baseProj = projectPoint(tx, tyBase, tz, w, h);
         const tipProj = projectPoint(tx, tyBase + hMm * visScale, tz, w, h);
-        const leftProj = projectPoint(tx - (dMm * 0.5 * visScale), tyBase, tz, w, h);
-        const rightProj = projectPoint(tx + (dMm * 0.5 * visScale), tyBase, tz, w, h);
+        const silProj = [];
+        for (const [ux, uy] of TREE_SILHOUETTE) {
+          const sp = projectPoint(tx + ux * dMm * visScale, tyBase + uy * hMm * visScale, tz, w, h);
+          if (sp) silProj.push(sp);
+        }
 
         if (baseProj && tipProj) {
           const isSelected = treeId === state.selectedTree;
@@ -533,8 +540,7 @@ return [r, g, b];`;
             isSelected,
             baseProj,
             tipProj,
-            leftProj,
-            rightProj,
+            silProj,
             isHero,
           });
         }
@@ -579,15 +585,16 @@ return [r, g, b];`;
       state.projectedTrees = treeHitList;
 
       for (const t of treeHitList) {
-        if (t.leftProj && t.rightProj) {
+        if (t.silProj.length >= 3) {
           ctx.beginPath();
-          ctx.moveTo(t.tipProj.sx, t.tipProj.sy);
-          ctx.lineTo(t.leftProj.sx, t.leftProj.sy);
-          ctx.lineTo(t.rightProj.sx, t.rightProj.sy);
+          ctx.moveTo(t.silProj[0].sx, t.silProj[0].sy);
+          for (let i = 1; i < t.silProj.length; i++) {
+            ctx.lineTo(t.silProj[i].sx, t.silProj[i].sy);
+          }
           ctx.closePath();
-          ctx.fillStyle = t.isSelected ? "rgba(56, 189, 248, 0.08)" : "rgba(20, 60, 40, 0.22)";
+          ctx.fillStyle = t.isSelected ? "rgba(56, 189, 248, 0.10)" : "rgba(17, 24, 20, 0.55)";
           ctx.fill();
-          ctx.strokeStyle = t.isSelected ? "rgba(56, 189, 248, 0.75)" : "rgba(45, 106, 79, 0.35)";
+          ctx.strokeStyle = t.isSelected ? "rgba(56, 189, 248, 0.85)" : "rgba(196, 154, 69, 0.45)";
           ctx.lineWidth = t.isSelected ? 1.5 : 1;
           ctx.stroke();
         }
@@ -606,18 +613,50 @@ return [r, g, b];`;
         const lum = Math.max(led.r, led.g, led.b) / 255;
         const baseRadius = Math.max(1.8, led.scale * (led.isHero ? 6.5 : 4.8));
 
-        if (lum > 0.04) {
+        if (lum <= 0.02) {
           ctx.beginPath();
-          ctx.arc(led.sx, led.sy, baseRadius * (1.8 + lum * 1.4), 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${led.r}, ${led.g}, ${led.b}, ${(0.18 + lum * 0.28).toFixed(3)})`;
+          ctx.arc(led.sx, led.sy, baseRadius, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(38, 50, 44, 0.65)";
           ctx.fill();
         }
+      }
+
+      ctx.save();
+      ctx.globalCompositeOperation = "lighter";
+      for (const led of ledDrawList) {
+        const maxC = Math.max(led.r, led.g, led.b);
+        const lum = maxC / 255;
+        if (lum <= 0.02) continue;
+
+        const invMax = 255 / maxC;
+        const hr = Math.round(led.r * invMax);
+        const hg = Math.round(led.g * invMax);
+        const hb = Math.round(led.b * invMax);
+
+        const baseRadius = Math.max(1.8, led.scale * (led.isHero ? 6.5 : 4.8));
+        const haloRadius = baseRadius * (2.6 + lum * 2.2);
+
+        const grad = ctx.createRadialGradient(led.sx, led.sy, baseRadius * 0.25, led.sx, led.sy, haloRadius);
+        grad.addColorStop(0, `rgba(${hr}, ${hg}, ${hb}, ${(0.75 * lum).toFixed(3)})`);
+        grad.addColorStop(0.35, `rgba(${hr}, ${hg}, ${hb}, ${(0.38 * lum).toFixed(3)})`);
+        grad.addColorStop(1, `rgba(${hr}, ${hg}, ${hb}, 0)`);
+
+        ctx.beginPath();
+        ctx.arc(led.sx, led.sy, haloRadius, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        const whiteMix = Math.min(0.75, Math.pow(lum, 1.3) * 0.75);
+        const cr = Math.min(255, Math.round(led.r + (255 - led.r) * whiteMix));
+        const cg = Math.min(255, Math.round(led.g + (255 - led.g) * whiteMix));
+        const cb = Math.min(255, Math.round(led.b + (255 - led.b) * whiteMix));
 
         ctx.beginPath();
         ctx.arc(led.sx, led.sy, baseRadius, 0, Math.PI * 2);
-        ctx.fillStyle = lum > 0.02 ? `rgb(${led.r}, ${led.g}, ${led.b})` : "rgba(38, 50, 44, 0.65)";
+        ctx.fillStyle = `rgb(${cr}, ${cg}, ${cb})`;
         ctx.fill();
       }
+      ctx.restore();
 
       // Update HUD status
       const m = Math.floor(showMs / 60_000);
