@@ -7,6 +7,7 @@
 # ==============================================================================
 
 import gc
+import json
 import math
 import os
 import struct
@@ -25,15 +26,15 @@ from adafruit_httpserver import GET, POST, Redirect, Request, Response, Server
 # 1. HARDWARE- & ENSEMBLE-KONFIGURATION (an eigenes Board anpassen!)
 # ------------------------------------------------------------------------------
 NUM_LEDS = 60
-LED_PIN = getattr(board, "D10", getattr(board, "IO18", board.NEOPIXEL))
+LED_PIN = getattr(board, "D10", getattr(board, "IO18", None))
 LED_BRIGHTNESS_HW = 1.0  # Dimmung/ABL erfolgt sauber per Software-Skalierung
 
-# Audio-Pins (I2S-DAC bevorzugt, sonst PWM + RC-Filter auf AUDIO_PWM_PIN)
-USE_I2S_AUDIO = True
-I2S_BCLK_PIN = getattr(board, "D6", getattr(board, "IO6", None))
-I2S_LRCK_PIN = getattr(board, "D7", getattr(board, "IO7", None))
-I2S_DATA_PIN = getattr(board, "D8", getattr(board, "IO8", None))
-AUDIO_PWM_PIN = getattr(board, "D9", getattr(board, "IO9", None))
+# Audio-Pins (PCB-Lautsprecher LS101 an D0 per PWM, optional externer I2S-DAC)
+USE_I2S_AUDIO = False
+I2S_BCLK_PIN = getattr(board, "D6", getattr(board, "IO21", None))
+I2S_LRCK_PIN = getattr(board, "D7", getattr(board, "IO22", None))
+I2S_DATA_PIN = getattr(board, "D8", getattr(board, "IO23", None))
+AUDIO_PWM_PIN = getattr(board, "D0", getattr(board, "A0", None))
 AUDIO_SAMPLE_RATE = 22050
 AUDIO_LATENCY_OFFSET_MS = 25  # Ausgleich fuer Audio-Mixer-Puffer
 
@@ -149,6 +150,7 @@ class MusicEngine:
         self.audio = None
         self.mixer = None
         self.synth = None
+        self.pwm = None
         self.enabled = True
         self.volume = 0.35
         self.last_step_key = None
@@ -162,9 +164,17 @@ class MusicEngine:
 
                 self.audio = audiobusio.I2SOut(I2S_BCLK_PIN, I2S_LRCK_PIN, I2S_DATA_PIN)
             elif AUDIO_PWM_PIN:
-                import audiopwmio
+                try:
+                    import audiopwmio
 
-                self.audio = audiopwmio.PWMAudioOut(AUDIO_PWM_PIN)
+                    self.audio = audiopwmio.PWMAudioOut(AUDIO_PWM_PIN)
+                except Exception:
+                    import pwmio
+
+                    self.pwm = pwmio.PWMOut(
+                        AUDIO_PWM_PIN, duty_cycle=0, frequency=440, variable_frequency=True
+                    )
+                    return
             else:
                 return
 
@@ -189,20 +199,25 @@ class MusicEngine:
         except Exception as err:
             print("Audio-Init uebersprungen:", err)
             self.audio = None
+            self.pwm = None
 
     def set_volume(self, vol):
         self.volume = max(0.0, min(1.0, vol))
         if self.mixer:
             self.mixer.voice[0].level = self.volume if self.enabled else 0.0
+        elif self.pwm and (not self.enabled or self.volume <= 0.0):
+            self.pwm.duty_cycle = 0
 
     def silence(self):
         if self.synth and self.active_notes:
             self.synth.release(self.active_notes)
             self.active_notes = []
+        if self.pwm:
+            self.pwm.duty_cycle = 0
         self.last_step_key = None
 
     def update(self, show_ms, playing, is_coordinator):
-        if not self.synth or not self.enabled or not playing:
+        if (not self.synth and not self.pwm) or not self.enabled or not playing:
             self.silence()
             return
         # Standardmaessig spielt der Koordinator (z. B. am PA/Lautsprecher);
@@ -225,11 +240,20 @@ class MusicEngine:
             return
         self.last_step_key = key
 
+        lead_seq, bass_seq = PATTERNS[act_id]
+        if self.pwm:
+            note = lead_seq[step_in_bar]
+            if note is not None and self.volume > 0.0:
+                self.pwm.frequency = int(440.0 * (2.0 ** ((note - 69) / 12.0)))
+                self.pwm.duty_cycle = int(32768 * self.volume)
+            else:
+                self.pwm.duty_cycle = 0
+            return
+
         if self.active_notes:
             self.synth.release(self.active_notes)
             self.active_notes = []
 
-        lead_seq, bass_seq = PATTERNS[act_id]
         to_press = []
         if lead_seq[step_in_bar] is not None:
             to_press.append(synthio.Note(synthio.midi_to_hz(lead_seq[step_in_bar])))
@@ -251,7 +275,9 @@ def resolve_act(t_ms):
 # ------------------------------------------------------------------------------
 # 4. ZUSTANDSLOSE 3D-ANIMATIONEN (ALLE 12 BAEUME IM GEMEINSAMEN WELT-RAUM)
 # ------------------------------------------------------------------------------
-pixels = neopixel.NeoPixel(LED_PIN, NUM_LEDS, brightness=LED_BRIGHTNESS_HW, auto_write=False)
+pixels = neopixel.NeoPixel(
+    LED_PIN, NUM_LEDS, brightness=LED_BRIGHTNESS_HW, auto_write=False, pixel_order=neopixel.GRB
+)
 
 
 def hsv_to_rgb(h, s, v):
