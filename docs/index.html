@@ -187,8 +187,8 @@
         <!-- Transport & Timeline -->
         <div class="show-card">
           <div class="show-card-title">
-            <span>Show-Ablauf (6 Akte · 15 Min.)</span>
-            <span id="show-time-label" class="show-mono">00:00 / 15:00</span>
+            <span>Show-Ablauf (10 Akte · 21 Min.)</span>
+            <span id="show-time-label" class="show-mono">00:00 / 21:00</span>
           </div>
           <div class="show-btn-row">
             <button id="show-btn-play" class="action-btn action-primary" type="button">▶ Start</button>
@@ -203,7 +203,11 @@
               <option value="8">8×</option>
             </select>
           </div>
-          <input id="show-timeline" class="show-range" type="range" min="0" max="899" value="0" aria-label="Show-Zeitachse" />
+          <div class="show-timeline-block">
+            <div id="show-step-previews" class="show-step-previews" role="list" aria-label="Vorschau relevanter Show-Schritte"></div>
+            <div id="show-timeline-segments" class="show-timeline-segments" aria-hidden="true"></div>
+            <input id="show-timeline" class="show-range" type="range" min="0" max="1259" value="0" aria-label="Show-Zeitachse" />
+          </div>
           <div class="show-act-grid">
             <button class="show-act-btn is-active" type="button" data-show-act="0">Auto-Show</button>
             <button class="show-act-btn" type="button" data-show-act="1">Akt 1</button>
@@ -212,6 +216,10 @@
             <button class="show-act-btn" type="button" data-show-act="4">Akt 4</button>
             <button class="show-act-btn" type="button" data-show-act="5">Akt 5</button>
             <button class="show-act-btn" type="button" data-show-act="6">Akt 6</button>
+            <button class="show-act-btn" type="button" data-show-act="7">Akt 7</button>
+            <button class="show-act-btn" type="button" data-show-act="8">Akt 8</button>
+            <button class="show-act-btn" type="button" data-show-act="9">Akt 9</button>
+            <button class="show-act-btn" type="button" data-show-act="10">Akt 10</button>
           </div>
         </div>
 

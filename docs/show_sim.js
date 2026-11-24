@@ -1,7 +1,8 @@
 // AITY Xmas Tree 2026 — 10+2 Baum-Show 3D Simulation (port of circuitpython/code.8-show.py)
 (function () {
   const NUM_LEDS = 60;
-  const SHOW_TOTAL_MS = 900_000; // 15 minutes
+  const SHOW_TOTAL_MS = 1_260_000; // 21 minutes (10 acts)
+  const SHOW_TOTAL_LABEL = "21:00";
 
   // (act_id, name, start_ms, dur_ms, bpm, bars)
   const ACTS = [
@@ -11,7 +12,154 @@
     [4, "Akt 4: Polarlicht & Stille", 450_000, 150_000, 64, 40],
     [5, "Akt 5: Uhrwerk & Crescendo", 600_000, 180_000, 128, 96],
     [6, "Akt 6: Finale & Winterfrieden", 780_000, 120_000, 120, 60],
+    [7, "Akt 7: Zuckerstangen & Lametta", 900_000, 90_000, 120, 45],
+    [8, "Akt 8: Baumschmuck & Lichterkette", 990_000, 90_000, 92, 35],
+    [9, "Akt 9: Stern von Bethlehem", 1_080_000, 90_000, 68, 26],
+    [10, "Akt 10: Adventskerzen & Schlitten", 1_170_000, 90_000, 116, 44],
   ];
+
+  // Relevant animation milestones shown as preview thumbnails above the timeline
+  const SHOW_STEP_PREVIEWS = [
+    {
+      id: "act1a",
+      actId: 1,
+      shortAct: "1a",
+      label: "Glühwürmchen",
+      fullTitle: "Akt 1a: Glühwürmchen (T01–T10 erwachen)",
+      startMs: 0,
+      endMs: 90_000,
+      jumpMs: 0,
+      previewMs: 15_350,
+    },
+    {
+      id: "act1b",
+      actId: 1,
+      shortAct: "1b",
+      label: "Hero-Puls",
+      fullTitle: "Akt 1b: Hero-Puls (T11/T12 Basis erwacht)",
+      startMs: 90_000,
+      endMs: 120_000,
+      jumpMs: 90_000,
+      previewMs: 95_000,
+    },
+    {
+      id: "act2",
+      actId: 2,
+      shortAct: "2",
+      label: "3D-Ebene",
+      fullTitle: "Akt 2: Volumetrische 3D-Schnittebene & Doppelhelix",
+      startMs: 120_000,
+      endMs: 270_000,
+      jumpMs: 120_000,
+      previewMs: 154_000,
+    },
+    {
+      id: "act3",
+      actId: 3,
+      shortAct: "3",
+      label: "Dialog",
+      fullTitle: "Akt 3: S-Welle & Call-and-Response (T12 Gold ↔ T11 Blau)",
+      startMs: 270_000,
+      endMs: 450_000,
+      jumpMs: 270_000,
+      previewMs: 315_000,
+    },
+    {
+      id: "act4",
+      actId: 4,
+      shortAct: "4",
+      label: "Polarlicht",
+      fullTitle: "Akt 4: Polarlicht & fallende Schneeflocken",
+      startMs: 450_000,
+      endMs: 600_000,
+      jumpMs: 450_000,
+      previewMs: 537_000,
+    },
+    {
+      id: "act5",
+      actId: 5,
+      shortAct: "5",
+      label: "Schallwelle",
+      fullTitle: "Akt 5: Sphärische 3D-Schallwellen aus T12-Spitze",
+      startMs: 600_000,
+      endMs: 780_000,
+      jumpMs: 600_000,
+      previewMs: 660_197,
+    },
+    {
+      id: "act6a",
+      actId: 6,
+      shortAct: "6a",
+      label: "Supernova",
+      fullTitle: "Akt 6a: Finale Supernova-Wirbel",
+      startMs: 780_000,
+      endMs: 860_000,
+      jumpMs: 780_000,
+      previewMs: 810_000,
+    },
+    {
+      id: "act6b",
+      actId: 6,
+      shortAct: "6b",
+      label: "Kerzenlicht",
+      fullTitle: "Akt 6b: Winterfrieden & Kerzenflackern (60 BPM)",
+      startMs: 860_000,
+      endMs: 900_000,
+      jumpMs: 860_000,
+      previewMs: 875_000,
+    },
+    {
+      id: "act7",
+      actId: 7,
+      shortAct: "7",
+      label: "Zuckerstange",
+      fullTitle: "Akt 7: Zuckerstangen & Silber-Lametta",
+      startMs: 900_000,
+      endMs: 990_000,
+      jumpMs: 900_000,
+      previewMs: 912_000,
+    },
+    {
+      id: "act8",
+      actId: 8,
+      shortAct: "8",
+      label: "Baumschmuck",
+      fullTitle: "Akt 8: Christbaumkugeln & warme Lichterkette",
+      startMs: 990_000,
+      endMs: 1_080_000,
+      jumpMs: 990_000,
+      previewMs: 1_005_000,
+    },
+    {
+      id: "act9",
+      actId: 9,
+      shortAct: "9",
+      label: "Bethlehem",
+      fullTitle: "Akt 9: Stern von Bethlehem & Sternschnuppe",
+      startMs: 1_080_000,
+      endMs: 1_170_000,
+      jumpMs: 1_080_000,
+      previewMs: 1_090_800,
+    },
+    {
+      id: "act10",
+      actId: 10,
+      shortAct: "10",
+      label: "Schlitten",
+      fullTitle: "Akt 10: Adventskerzen & Rudolphs Rentierschlitten",
+      startMs: 1_170_000,
+      endMs: 1_260_000,
+      jumpMs: 1_170_000,
+      previewMs: 1_181_500,
+    },
+  ];
+
+  function formatTimeMs(ms) {
+    const clamped = ((ms % SHOW_TOTAL_MS) + SHOW_TOTAL_MS) % SHOW_TOTAL_MS;
+    const m = Math.floor(clamped / 60_000);
+    const sec = Math.floor((clamped % 60_000) / 1000);
+    return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+  }
 
   // (Lead-MIDI, Bass-MIDI) per 8th-note step
   const PATTERNS = {
@@ -38,6 +186,22 @@
     6: [
       [74, null, 78, null, 81, null, 79, 78],
       [38, null, null, null, 45, null, null, null],
+    ],
+    7: [
+      [66, 66, 66, null, 66, 69, 62, 64],
+      [38, null, 45, null, 38, null, 45, null],
+    ],
+    8: [
+      [60, 65, 65, 65, 67, 69, 69, null],
+      [41, null, null, null, 48, null, null, null],
+    ],
+    9: [
+      [67, null, 69, 67, 64, null, null, null],
+      [48, null, null, null, 43, null, null, null],
+    ],
+    10: [
+      [74, 74, 71, 74, 76, 74, 71, 69],
+      [43, null, 50, null, 43, null, 50, null],
     ],
   };
 
@@ -170,9 +334,9 @@ if (actId === 1) {
   const hue = 0.62 - 0.50 * ring;
   [r, g, b] = hsv_to_rgb(hue, 0.95, Math.max(ring, 0.15 * pulse));
 
-} else {
-  // Akt 6: Supernova-Wirbel -> sanftes Kerzenflackern (ab 860_000 ms)
-  if ((show_ms % 900000) < 860000) {
+} else if (actId === 6) {
+  // Akt 6: Supernova-Wirbel -> sanftes Kerzenflackern (ab 80_000 ms im Akt)
+  if (local_ms < 80000) {
     const ang = Math.atan2(wz, wx) + wy * 0.006 - t_s * 4.0;
     const swirl = 0.5 + 0.5 * Math.sin(ang * 2.0);
     [r, g, b] = hsv_to_rgb(0.08 + 0.06 * swirl, 0.75, 0.55 + 0.45 * pulse);
@@ -180,6 +344,127 @@ if (actId === 1) {
     const flicker = 0.45 + 0.35 * Math.sin(t_s * 7.3 + idx * 1.9 + wx * 0.02);
     const amp = flicker * (isHero ? 0.35 : 0.85);
     r = 1.0 * amp; g = 0.55 * amp; b = 0.15 * amp;
+  }
+
+} else if (actId === 7) {
+  // Akt 7: Zuckerstangen & Silber-Lametta (Rot/Weiss Spirale + Stern)
+  const isStar = idx >= 50;
+  const isStarOuter = idx === 51 || idx === 52 || idx === 55 || idx === 56 || idx === 59;
+  if (isStar) {
+    if (isStarOuter) {
+      const amp = 0.72 + 0.28 * pulse;
+      r = 1.0 * amp; g = 0.94 * amp; b = 0.86 * amp;
+    } else {
+      const amp = 0.55 + 0.45 * pulse;
+      r = 1.0 * amp; g = 0.76 * amp; b = 0.18 * amp;
+    }
+  } else {
+    const stripe = Math.sin(idx * 0.95 + wx * 0.004 - t_s * 5.2);
+    const edge = 0.72 + 0.28 * Math.abs(stripe);
+    if (stripe >= 0) {
+      r = 0.98 * edge; g = 0.06 * edge; b = 0.10 * edge;
+    } else {
+      r = 0.94 * edge; g = 0.90 * edge; b = 0.84 * edge;
+    }
+    const tinsel = Math.sin(idx * 12.7 + wx * 0.09 + t_s * 7.5);
+    if (tinsel > 0.965) {
+      r = 1.0; g = 0.96; b = 0.85;
+    }
+  }
+
+} else if (actId === 8) {
+  // Akt 8: Tannenbaum mit buntem Baumschmuck & warmer Lichterkette
+  const isStar = idx >= 50;
+  const isStarOuter = idx === 51 || idx === 52 || idx === 55 || idx === 56 || idx === 59;
+  if (isStar) {
+    const amp = isStarOuter ? (0.75 + 0.25 * pulse) : 0.72;
+    r = 1.0 * amp; g = 0.84 * amp; b = 0.26 * amp;
+  } else {
+    const treeCode = treeId.charCodeAt(1) * 3 + treeId.charCodeAt(2);
+    const isBauble = idx < 45 && ((idx + treeCode) % 5 === 0);
+    if (isBauble) {
+      const kind = ((Math.floor(idx / 5) + treeCode) % 4 + 4) % 4;
+      const shim = 0.78 + 0.22 * pulse;
+      if (kind === 0)      { r = 1.0 * shim; g = 0.08 * shim; b = 0.12 * shim; } // Rubinrot
+      else if (kind === 1) { r = 1.0 * shim; g = 0.72 * shim; b = 0.10 * shim; } // Gold
+      else if (kind === 2) { r = 0.12 * shim; g = 0.44 * shim; b = 1.0 * shim; } // Saphirblau
+      else                 { r = 0.95 * shim; g = 0.14 * shim; b = 0.54 * shim; } // Beeren-Magenta
+    } else {
+      const breath = 0.75 + 0.25 * Math.sin(t_s * 1.6 + wx * 0.002);
+      r = 0.03 * breath; g = 0.36 * breath; b = 0.07 * breath;
+      const chasePos = ((t_s * 18.0 + treeCode * 7.0) % 50 + 50) % 50;
+      const dist = Math.min(Math.abs(idx - chasePos), 50 - Math.abs(idx - chasePos));
+      if (dist < 2.2) {
+        const glow = 1.0 - dist / 2.2;
+        r = Math.min(1.0, r + 0.95 * glow);
+        g = Math.min(1.0, g + 0.76 * glow);
+        b = Math.min(1.0, b + 0.38 * glow);
+      }
+    }
+  }
+
+} else if (actId === 9) {
+  // Akt 9: Stern von Bethlehem & goldene Sternschnuppe ueber tiefer Winternacht
+  const isStar = idx >= 50;
+  const isStarOuter = idx === 51 || idx === 52 || idx === 55 || idx === 56 || idx === 59;
+  if (isStar) {
+    const breath = 0.76 + 0.24 * Math.sin(t_s * 2.2);
+    const boost = treeId === "T12" ? 1.0 : 0.88;
+    const amp = breath * boost * (isStarOuter ? 1.0 : 0.84);
+    r = 1.0 * amp; g = 0.88 * amp; b = 0.42 * amp;
+  } else {
+    const starlight = Math.pow(Math.max(0, Math.sin(idx * 2.3 + wx * 0.017 + t_s * 1.4)), 14);
+    r = 0.02 + 0.45 * starlight;
+    g = 0.05 + 0.55 * starlight;
+    b = 0.20 + 0.70 * starlight;
+  }
+  const u = (t_s % 4.5) / 4.5;
+  const cx = -1250.0 + 2500.0 * u;
+  const cy = 1080.0 - 1020.0 * u;
+  const dx = wx - cx;
+  const dy = wy - cy;
+  const along = (-dx * 0.925 + dy * 0.379);
+  const perp = Math.abs(dx * 0.379 + dy * 0.925);
+  if (along >= -90.0 && along <= 540.0 && perp < 170.0) {
+    const tail = along < 0 ? (1.0 + along / 90.0) : Math.max(0, 1.0 - along / 540.0);
+    const rad = Math.max(0, 1.0 - perp / 170.0);
+    const comet = tail * rad;
+    r = Math.max(r, 1.0 * comet);
+    g = Math.max(g, (0.68 + 0.28 * comet) * comet);
+    b = Math.max(b, (0.18 + 0.56 * comet) * comet);
+  }
+
+} else {
+  // Akt 10: Adventskerzen & Rudolphs Rentierschlitten
+  const isFlame = idx >= 32;
+  if (isFlame) {
+    const flick = 0.55 + 0.45 * Math.sin(t_s * 9.5 + idx * 1.7 + wx * 0.03);
+    r = 1.0 * flick;
+    g = (0.52 + 0.32 * flick) * flick;
+    b = 0.10 * flick;
+  } else {
+    const warm = 0.72 + 0.28 * Math.sin(t_s * 4.5 + idx * 0.7 + wx * 0.01);
+    r = 0.75 * warm;
+    g = 0.06 * warm;
+    b = 0.04 * warm;
+  }
+  const sleighX = -1350.0 + ((t_s * 680.0) % 2700.0);
+  const sleighY = 520.0 + 260.0 * Math.sin(t_s * 2.4);
+  const rDist = Math.hypot(wx - (sleighX + 170.0), wy - sleighY);
+  if (rDist < 190.0) {
+    const nose = Math.pow(1.0 - rDist / 190.0, 1.2);
+    r = Math.max(r, 1.0 * nose);
+    g = g * (1.0 - nose) + 0.05 * nose;
+    b = b * (1.0 - nose) + 0.08 * nose;
+  } else {
+    const dxSleigh = sleighX - wx;
+    const dySleigh = Math.abs(wy - sleighY);
+    if (dxSleigh >= -60.0 && dxSleigh <= 440.0 && dySleigh < 140.0) {
+      const trail = (1.0 - Math.max(0, dxSleigh) / 440.0) * (1.0 - dySleigh / 140.0);
+      r = Math.max(r, 1.0 * trail);
+      g = Math.max(g, 0.86 * trail);
+      b = Math.max(b, 0.42 * trail);
+    }
   }
 }
 
@@ -256,7 +541,7 @@ return [r, g, b];`;
       if (!this.ensureContext()) return;
       const tAudio = ((showMs % SHOW_TOTAL_MS) + SHOW_TOTAL_MS) % SHOW_TOTAL_MS;
       let { actId, bpm, localMs } = resolveAct(tAudio);
-      if (tAudio >= 860_000) {
+      if (tAudio >= 860_000 && tAudio < 900_000) {
         bpm = 60;
         localMs = tAudio - 860_000;
       }
@@ -299,6 +584,8 @@ return [r, g, b];`;
     const btnRestart = document.getElementById("show-btn-restart");
     const timelineSlider = document.getElementById("show-timeline");
     const timelineTime = document.getElementById("show-time-label");
+    const stepPreviewsEl = document.getElementById("show-step-previews");
+    const timelineSegmentsEl = document.getElementById("show-timeline-segments");
     const dimSlider = document.getElementById("show-dim");
     const dimLabel = document.getElementById("show-dim-val");
     const speedSelect = document.getElementById("show-speed");
@@ -356,6 +643,347 @@ return [r, g, b];`;
       projectedTrees: [],
     };
 
+    const stepThumbEntries = [];
+    let thumbRenderQueued = false;
+    let lastActiveStepId = "";
+
+    function projectThumbnailPoint(wx, wy, wz, width, height) {
+      const cx = 0;
+      const cy = 430;
+      const cz = 100;
+      const x = wx - cx;
+      const y = wy - cy;
+      const z = wz - cz;
+
+      const yaw = 0.12;
+      const pitch = 0.18;
+      const cosY = Math.cos(yaw);
+      const sinY = Math.sin(yaw);
+      const x1 = x * cosY - z * sinY;
+      const z1 = x * sinY + z * cosY;
+
+      const cosP = Math.cos(pitch);
+      const sinP = Math.sin(pitch);
+      const y2 = y * cosP - z1 * sinP;
+      const z2 = y * sinP + z1 * cosP;
+
+      const depth = 2400 + z2;
+      if (depth < 120) return null;
+      const focal = width * 1.02;
+      const scale = focal / depth;
+      return {
+        sx: width * 0.5 + x1 * scale,
+        sy: height * 0.62 - y2 * scale,
+        scale,
+        depth,
+      };
+    }
+
+    function renderStepThumbnail(entry) {
+      if (!state.renderFn) return;
+      const { step, canvas: tCanvas, ctx: tCtx } = entry;
+      const w = tCanvas.width;
+      const h = tCanvas.height;
+
+      tCtx.clearRect(0, 0, w, h);
+      const bgGrad = tCtx.createRadialGradient(w * 0.5, h * 0.58, 6, w * 0.5, h * 0.52, w * 0.72);
+      bgGrad.addColorStop(0, "#101a24");
+      bgGrad.addColorStop(1, "#06090e");
+      tCtx.fillStyle = bgGrad;
+      tCtx.fillRect(0, 0, w, h);
+
+      // Subtle horizon/ground line for spatial grounding
+      const gLeft = projectThumbnailPoint(-1200, 0, 120, w, h);
+      const gRight = projectThumbnailPoint(1200, 0, 120, w, h);
+      if (gLeft && gRight) {
+        tCtx.strokeStyle = "rgba(148, 163, 184, 0.14)";
+        tCtx.lineWidth = 1;
+        tCtx.beginPath();
+        tCtx.moveTo(gLeft.sx, gLeft.sy);
+        tCtx.lineTo(gRight.sx, gRight.sy);
+        tCtx.stroke();
+      }
+
+      const previewMs = step.previewMs;
+      const actInfo = ACTS[step.actId - 1];
+      const actStartMs = actInfo[2];
+      const bpm = actInfo[4];
+      const local_ms = Math.max(0, previewMs - actStartMs);
+      const t_s = (previewMs % SHOW_TOTAL_MS) / 1000.0;
+      const beat = (local_ms / 1000.0) * (bpm / 60.0);
+      const beat_frac = beat - Math.floor(beat);
+      const pulse = Math.exp(-4.5 * beat_frac);
+
+      const silDrawList = [];
+      const ledDrawList = [];
+
+      for (const treeId of TREE_IDS) {
+        const [tx, tyBase, tz, hMm, dMm, densityScale] = state.layout[treeId];
+        const isHero = treeId === "T11" || treeId === "T12";
+        const visScale = isHero ? 1.0 : state.smallBoost;
+        const coords = state.worldCoords[treeId];
+        if (!coords) continue;
+        const scale = state.dim * (isHero ? densityScale : Math.max(0.85, densityScale));
+
+        const baseProj = projectThumbnailPoint(tx, tyBase, tz, w, h);
+        const silProj = [];
+        for (let sIdx = 0; sIdx < TREE_SILHOUETTE.length; sIdx += 2) {
+          const [ux, uy] = TREE_SILHOUETTE[sIdx];
+          const sp = projectThumbnailPoint(tx + ux * dMm * visScale, tyBase + uy * hMm * visScale, tz, w, h);
+          if (sp) silProj.push(sp);
+        }
+        if (baseProj && silProj.length >= 3) {
+          silDrawList.push({ depth: baseProj.depth, silProj });
+        }
+
+        for (let idx = 0; idx < NUM_LEDS; idx++) {
+          const [wx, wy, wz] = coords[idx];
+          const dispX = tx + (wx - tx) * visScale;
+          const dispY = tyBase + (wy - tyBase) * visScale;
+          const dispZ = tz + (wz - tz) * visScale;
+          const p = projectThumbnailPoint(dispX, dispY, dispZ, w, h);
+          if (!p) continue;
+
+          let rgb;
+          try {
+            rgb = state.renderFn(
+              wx, wy, wz, idx, treeId, isHero,
+              step.actId, t_s, local_ms, previewMs, beat_frac, pulse, hsvToRgb
+            );
+          } catch {
+            rgb = [0, 0, 0];
+          }
+
+          const r = GAMMA_LUT[Math.min(255, Math.max(0, Math.floor((rgb[0] || 0) * scale * 255)))];
+          const g = GAMMA_LUT[Math.min(255, Math.max(0, Math.floor((rgb[1] || 0) * scale * 255)))];
+          const b = GAMMA_LUT[Math.min(255, Math.max(0, Math.floor((rgb[2] || 0) * scale * 255)))];
+
+          ledDrawList.push({
+            sx: p.sx,
+            sy: p.sy,
+            depth: p.depth,
+            scale: p.scale,
+            r, g, b,
+            isHero,
+          });
+        }
+      }
+
+      // Draw tree silhouettes back-to-front
+      silDrawList.sort((a, b) => b.depth - a.depth);
+      for (const t of silDrawList) {
+        tCtx.beginPath();
+        tCtx.moveTo(t.silProj[0].sx, t.silProj[0].sy);
+        for (let i = 1; i < t.silProj.length; i++) {
+          tCtx.lineTo(t.silProj[i].sx, t.silProj[i].sy);
+        }
+        tCtx.closePath();
+        tCtx.fillStyle = "rgba(17, 25, 21, 0.78)";
+        tCtx.fill();
+        tCtx.strokeStyle = "rgba(196, 154, 69, 0.34)";
+        tCtx.lineWidth = 0.85;
+        tCtx.stroke();
+      }
+
+      // Draw dim/unlit LEDs
+      ledDrawList.sort((a, b) => b.depth - a.depth);
+      for (const led of ledDrawList) {
+        const lum = Math.max(led.r, led.g, led.b) / 255;
+        if (lum <= 0.02) {
+          tCtx.beginPath();
+          tCtx.arc(led.sx, led.sy, 0.9, 0, Math.PI * 2);
+          tCtx.fillStyle = "rgba(46, 62, 54, 0.5)";
+          tCtx.fill();
+        }
+      }
+
+      // Draw lit LEDs with soft additive bloom so colors stay vivid at thumbnail scale
+      tCtx.save();
+      tCtx.globalCompositeOperation = "lighter";
+      for (const led of ledDrawList) {
+        const maxC = Math.max(led.r, led.g, led.b);
+        const lum = maxC / 255;
+        if (lum <= 0.02) continue;
+
+        const invMax = 255 / maxC;
+        const hr = Math.round(led.r * invMax);
+        const hg = Math.round(led.g * invMax);
+        const hb = Math.round(led.b * invMax);
+
+        const baseRadius = Math.max(1.0, led.scale * (led.isHero ? 11.0 : 8.5));
+        const haloRadius = baseRadius * (2.1 + lum * 1.4);
+
+        const grad = tCtx.createRadialGradient(led.sx, led.sy, baseRadius * 0.2, led.sx, led.sy, haloRadius);
+        grad.addColorStop(0, `rgba(${hr}, ${hg}, ${hb}, ${(0.58 * lum).toFixed(3)})`);
+        grad.addColorStop(0.4, `rgba(${hr}, ${hg}, ${hb}, ${(0.24 * lum).toFixed(3)})`);
+        grad.addColorStop(1, `rgba(${hr}, ${hg}, ${hb}, 0)`);
+
+        tCtx.beginPath();
+        tCtx.arc(led.sx, led.sy, haloRadius, 0, Math.PI * 2);
+        tCtx.fillStyle = grad;
+        tCtx.fill();
+
+        const whiteMix = Math.min(0.42, Math.pow(lum, 1.5) * 0.42);
+        const cr = Math.min(255, Math.round(led.r + (255 - led.r) * whiteMix));
+        const cg = Math.min(255, Math.round(led.g + (255 - led.g) * whiteMix));
+        const cb = Math.min(255, Math.round(led.b + (255 - led.b) * whiteMix));
+
+        tCtx.beginPath();
+        tCtx.arc(led.sx, led.sy, baseRadius, 0, Math.PI * 2);
+        tCtx.fillStyle = `rgb(${cr}, ${cg}, ${cb})`;
+        tCtx.fill();
+      }
+      tCtx.restore();
+    }
+
+    function renderAllStepThumbnails() {
+      thumbRenderQueued = false;
+      for (const entry of stepThumbEntries) {
+        renderStepThumbnail(entry);
+      }
+    }
+
+    function scheduleThumbnailRender() {
+      if (!stepThumbEntries.length || thumbRenderQueued) return;
+      thumbRenderQueued = true;
+      requestAnimationFrame(renderAllStepThumbnails);
+    }
+
+    function getActiveStepId(showMs) {
+      const t = ((showMs % SHOW_TOTAL_MS) + SHOW_TOTAL_MS) % SHOW_TOTAL_MS;
+      if (state.forcedAct >= 1 && state.forcedAct <= ACTS.length) {
+        if (state.forcedAct === 1) {
+          return resolveAct(t).localMs >= 90_000 ? "act1b" : "act1a";
+        }
+        if (state.forcedAct === 6) {
+          return resolveAct(t).localMs >= 80_000 ? "act6b" : "act6a";
+        }
+        const match = SHOW_STEP_PREVIEWS.find((s) => s.actId === state.forcedAct);
+        return match ? match.id : "act1a";
+      }
+      for (const step of SHOW_STEP_PREVIEWS) {
+        if (t >= step.startMs && t < step.endMs) {
+          return step.id;
+        }
+      }
+      return SHOW_STEP_PREVIEWS[0].id;
+    }
+
+    function updateActiveStepPreview(showMs) {
+      if (!stepThumbEntries.length) return;
+      const activeId = getActiveStepId(showMs);
+      if (activeId === lastActiveStepId) return;
+      lastActiveStepId = activeId;
+      for (const entry of stepThumbEntries) {
+        const isCurrent = entry.step.id === activeId;
+        entry.btn.classList.toggle("is-active", isCurrent);
+        entry.btn.setAttribute("aria-current", isCurrent ? "step" : "false");
+        if (entry.seg) {
+          entry.seg.classList.toggle("is-active", isCurrent);
+        }
+        if (isCurrent && stepPreviewsEl && stepPreviewsEl.scrollWidth > stepPreviewsEl.clientWidth) {
+          const targetLeft = entry.btn.offsetLeft - (stepPreviewsEl.clientWidth - entry.btn.offsetWidth) / 2;
+          stepPreviewsEl.scrollTo({ left: Math.max(0, targetLeft), behavior: "smooth" });
+        }
+      }
+    }
+
+    function jumpToStep(step) {
+      state.showMs = step.jumpMs;
+      state.forcedAct = 0;
+      for (const b of actButtons) {
+        b.classList.toggle("is-active", Number(b.dataset.showAct) === 0);
+      }
+      timelineSlider.value = String(Math.floor(state.showMs / 1000));
+      timelineTime.textContent = `${formatTimeMs(state.showMs)} / ${SHOW_TOTAL_LABEL}`;
+      lastActiveStepId = "";
+      updateActiveStepPreview(state.showMs);
+      syncPermalink();
+    }
+
+    function buildStepPreviews() {
+      if (!stepPreviewsEl) return;
+      stepPreviewsEl.innerHTML = "";
+      if (timelineSegmentsEl) timelineSegmentsEl.innerHTML = "";
+      stepThumbEntries.length = 0;
+
+      for (const step of SHOW_STEP_PREVIEWS) {
+        const startLabel = formatTimeMs(step.startMs);
+        const endLabel = step.endMs >= SHOW_TOTAL_MS ? SHOW_TOTAL_LABEL : formatTimeMs(step.endMs);
+        const tooltip = `${step.fullTitle} (${startLabel}–${endLabel})`;
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "show-step-thumb";
+        btn.setAttribute("role", "listitem");
+        btn.dataset.stepId = step.id;
+        btn.dataset.stepMs = String(step.jumpMs);
+        btn.title = tooltip;
+        btn.setAttribute("aria-label", `${step.fullTitle}, ab ${startLabel}`);
+
+        const media = document.createElement("span");
+        media.className = "show-step-thumb-media";
+
+        const tCanvas = document.createElement("canvas");
+        tCanvas.className = "show-step-thumb-canvas";
+        tCanvas.width = 160;
+        tCanvas.height = 100;
+        tCanvas.setAttribute("aria-hidden", "true");
+
+        const badge = document.createElement("span");
+        badge.className = "show-step-thumb-badge";
+        badge.textContent = step.shortAct;
+
+        const timeTag = document.createElement("span");
+        timeTag.className = "show-step-thumb-time";
+        timeTag.textContent = startLabel;
+
+        media.append(tCanvas, badge, timeTag);
+
+        const caption = document.createElement("span");
+        caption.className = "show-step-thumb-caption";
+        caption.textContent = step.label;
+
+        btn.append(media, caption);
+        stepPreviewsEl.appendChild(btn);
+
+        let seg = null;
+        if (timelineSegmentsEl) {
+          seg = document.createElement("button");
+          seg.type = "button";
+          seg.className = "show-timeline-seg";
+          seg.tabIndex = -1;
+          seg.style.flex = `${step.endMs - step.startMs} 0 0`;
+          seg.title = tooltip;
+          seg.dataset.stepId = step.id;
+          timelineSegmentsEl.appendChild(seg);
+        }
+
+        const setHover = (hovered) => {
+          btn.classList.toggle("is-hovered", hovered);
+          if (seg) seg.classList.toggle("is-hovered", hovered);
+        };
+
+        btn.addEventListener("pointerenter", () => setHover(true));
+        btn.addEventListener("pointerleave", () => setHover(false));
+        btn.addEventListener("click", () => jumpToStep(step));
+
+        if (seg) {
+          seg.addEventListener("pointerenter", () => setHover(true));
+          seg.addEventListener("pointerleave", () => setHover(false));
+          seg.addEventListener("click", () => jumpToStep(step));
+        }
+
+        stepThumbEntries.push({
+          step,
+          btn,
+          canvas: tCanvas,
+          ctx: tCanvas.getContext("2d"),
+          seg,
+        });
+      }
+    }
+
     function rebuildCoords() {
       for (const id of TREE_IDS) {
         const [tx, tyBase, tz, hMm, dMm] = state.layout[id];
@@ -386,6 +1014,7 @@ return [r, g, b];`;
         state.renderFn = fn;
         codeError.hidden = true;
         codeError.textContent = "";
+        scheduleThumbnailRender();
         return true;
       } catch (err) {
         codeError.hidden = false;
@@ -501,8 +1130,8 @@ return [r, g, b];`;
       const showMs = state.showMs;
       const t_s = (showMs % SHOW_TOTAL_MS) / 1000.0;
       const resolved = resolveAct(showMs);
-      const actId = state.forcedAct >= 1 && state.forcedAct <= 6 ? state.forcedAct : resolved.actId;
-      const bpm = state.forcedAct >= 1 && state.forcedAct <= 6 ? ACTS[actId - 1][4] : resolved.bpm;
+      const actId = state.forcedAct >= 1 && state.forcedAct <= ACTS.length ? state.forcedAct : resolved.actId;
+      const bpm = state.forcedAct >= 1 && state.forcedAct <= ACTS.length ? ACTS[actId - 1][4] : resolved.bpm;
       const local_ms = resolved.localMs;
 
       const beat = (local_ms / 1000.0) * (bpm / 60.0);
@@ -662,8 +1291,9 @@ return [r, g, b];`;
       const m = Math.floor(showMs / 60_000);
       const sec = Math.floor((showMs % 60_000) / 1000);
       const timeStr = `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
-      timelineTime.textContent = `${timeStr} / 15:00`;
+      timelineTime.textContent = `${timeStr} / ${SHOW_TOTAL_LABEL}`;
       timelineSlider.value = String(Math.floor(showMs / 1000));
+      updateActiveStepPreview(showMs);
 
       const actName = ACTS[actId - 1][1];
       statusLine.textContent = `${actName} · ${bpm} BPM · ${state.playing ? "Aktiv" : "Pause"} · 12 Bäume (720 LEDs)`;
@@ -697,7 +1327,7 @@ return [r, g, b];`;
     function buildShowHash() {
       const params = new URLSearchParams();
       params.set("t", String(Math.floor(state.showMs / 1000)));
-      if (state.forcedAct >= 1 && state.forcedAct <= 6) {
+      if (state.forcedAct >= 1 && state.forcedAct <= ACTS.length) {
         params.set("act", String(state.forcedAct));
       }
       params.set("yaw", state.camera.yaw.toFixed(3));
@@ -753,7 +1383,7 @@ return [r, g, b];`;
       const actRaw = hashParams.get("act") ?? url.searchParams.get("act");
       if (actRaw !== null) {
         const actParam = Number(actRaw);
-        if (actParam >= 1 && actParam <= 6) {
+        if (actParam >= 1 && actParam <= ACTS.length) {
           state.forcedAct = actParam;
           state.showMs = ACTS[actParam - 1][2];
           for (const b of actButtons) {
@@ -788,6 +1418,8 @@ return [r, g, b];`;
       } else if (hash === "single" || queryMode === "single") {
         setMode("single", false);
       }
+      lastActiveStepId = "";
+      updateActiveStepPreview(state.showMs);
     }
 
     viewSingleBtn.addEventListener("click", () => setMode("single", true));
@@ -805,12 +1437,14 @@ return [r, g, b];`;
 
     timelineSlider.addEventListener("input", () => {
       state.showMs = Number(timelineSlider.value) * 1000;
+      updateActiveStepPreview(state.showMs);
       syncPermalink();
     });
 
     dimSlider.addEventListener("input", () => {
       state.dim = Number(dimSlider.value) / 100;
       dimLabel.textContent = `${dimSlider.value}%`;
+      scheduleThumbnailRender();
     });
 
     speedSelect.addEventListener("change", () => {
@@ -828,24 +1462,28 @@ return [r, g, b];`;
     smallBoostSlider.addEventListener("input", () => {
       state.smallBoost = Number(smallBoostSlider.value);
       smallBoostLabel.textContent = `${state.smallBoost.toFixed(1)}×`;
+      scheduleThumbnailRender();
     });
 
     turnsSlider.addEventListener("input", () => {
       state.turns = Number(turnsSlider.value);
       turnsLabel.textContent = `${state.turns.toFixed(1)}`;
       rebuildCoords();
+      scheduleThumbnailRender();
     });
 
     for (const btn of actButtons) {
       btn.addEventListener("click", () => {
         const act = Number(btn.dataset.showAct);
         state.forcedAct = act;
-        if (act >= 1 && act <= 6) {
+        if (act >= 1 && act <= ACTS.length) {
           state.showMs = ACTS[act - 1][2];
         }
         for (const b of actButtons) {
           b.classList.toggle("is-active", Number(b.dataset.showAct) === act);
         }
+        lastActiveStepId = "";
+        updateActiveStepPreview(state.showMs);
         syncPermalink();
       });
     }
@@ -948,6 +1586,7 @@ return [r, g, b];`;
         Math.max(0.05, Math.min(1.0, Number(inpDens.value) || 0.35)),
       ];
       rebuildCoords();
+      scheduleThumbnailRender();
     }
 
     for (const inp of [inpX, inpY, inpZ, inpH, inpD, inpDens]) {
@@ -961,6 +1600,7 @@ return [r, g, b];`;
       turnsLabel.textContent = "5.0";
       rebuildCoords();
       populateTreeSelect();
+      scheduleThumbnailRender();
     });
 
     btnExportLayout.addEventListener("click", () => {
@@ -1008,8 +1648,11 @@ return [r, g, b];`;
     // Initialize
     rebuildCoords();
     populateTreeSelect();
+    buildStepPreviews();
     compileRenderCode(DEFAULT_RENDER_CODE);
+    renderAllStepThumbnails();
     applyUrlPermalink();
+    updateActiveStepPreview(state.showMs);
     requestAnimationFrame(tick);
   }
 

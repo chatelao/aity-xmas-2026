@@ -130,8 +130,13 @@ ACTS = (
     (4, "Akt 4: Polarlicht & Stille", 450_000, 150_000, 64, 40),
     (5, "Akt 5: Uhrwerk & Crescendo", 600_000, 180_000, 128, 96),
     (6, "Akt 6: Finale & Winterfrieden", 780_000, 120_000, 120, 60),  # 80s @120 + 40s @60
+    (7, "Akt 7: Zuckerstangen & Lametta", 900_000, 90_000, 120, 45),
+    (8, "Akt 8: Baumschmuck & Lichterkette", 990_000, 90_000, 92, 35),
+    (9, "Akt 9: Stern von Bethlehem", 1_080_000, 90_000, 68, 26),
+    (10, "Akt 10: Adventskerzen & Schlitten", 1_170_000, 90_000, 116, 44),
 )
-SHOW_TOTAL_MS = 900_000
+SHOW_TOTAL_MS = 1_260_000
+STAR_OUTER = (51, 52, 55, 56, 59)
 
 # Kompakte mehrstimmige Phrasen pro Akt (8 Schritte/Takt = Achtel-Raster):
 # (Lead-MIDI-Note oder None, Bass-MIDI-Note oder None)
@@ -142,6 +147,10 @@ PATTERNS = {
     4: ((67, None, None, None, 70, None, 69, None), (43, None, None, None, 39, None, None, None)),
     5: ((74, 69, 65, 69, 74, 69, 65, 69), (38, 38, 50, 38, 36, 36, 48, 36)),
     6: ((74, None, 78, None, 81, None, 79, 78), (38, None, None, None, 45, None, None, None)),
+    7: ((66, 66, 66, None, 66, 69, 62, 64), (38, None, 45, None, 38, None, 45, None)),
+    8: ((60, 65, 65, 65, 67, 69, 69, None), (41, None, None, None, 48, None, None, None)),
+    9: ((67, None, 69, 67, 64, None, None, None), (48, None, None, None, 43, None, None, None)),
+    10: ((74, 74, 71, 74, 76, 74, 71, 69), (43, None, 50, None, 43, None, 50, None)),
 }
 
 
@@ -227,8 +236,8 @@ class MusicEngine:
 
         t_audio = max(0, show_ms - AUDIO_LATENCY_OFFSET_MS) % SHOW_TOTAL_MS
         act_id, bpm, local_ms = resolve_act(t_audio)
-        # In Akt 6b (ab 860_000 ms) Tempo auf 60 BPM halbieren
-        if t_audio >= 860_000:
+        # In Akt 6b (ab 860_000 ms bis 900_000 ms) Tempo auf 60 BPM halbieren
+        if 860_000 <= t_audio < 900_000:
             bpm = 60
             local_ms = t_audio - 860_000
 
@@ -306,7 +315,7 @@ def hsv_to_rgb(h, s, v):
 def render_frame(show_ms, master_dim, forced_act=0):
     t_s = (show_ms % SHOW_TOTAL_MS) / 1000.0
     act_id, bpm, local_ms = resolve_act(show_ms)
-    if forced_act in (1, 2, 3, 4, 5, 6):
+    if 1 <= forced_act <= len(ACTS):
         act_id = forced_act
         bpm = ACTS[act_id - 1][4]
 
@@ -314,6 +323,7 @@ def render_frame(show_ms, master_dim, forced_act=0):
     beat_frac = beat - int(beat)
     pulse = math.exp(-4.5 * beat_frac)
     scale = master_dim * DENSITY_SCALE
+    tree_code = ord(TREE_ID[1]) * 3 + ord(TREE_ID[2])
 
     for idx in range(NUM_LEDS):
         wx, wy, wz = WORLD_COORDS[idx]
@@ -327,7 +337,7 @@ def render_frame(show_ms, master_dim, forced_act=0):
                 spark = 0.0
             elif IS_HERO:
                 spark = 0.6 * pulse if wy < 250 else 0.0
-            amp = (0.35 * spark + 0.65 * pulse * (1.0 if local_ms > 60_000 else 0.2))
+            amp = 0.35 * spark + 0.65 * pulse * (1.0 if local_ms > 60_000 else 0.2)
             r, g, b = 1.0 * amp, 0.52 * amp, 0.12 * amp
 
         elif act_id == 2:
@@ -361,7 +371,7 @@ def render_frame(show_ms, master_dim, forced_act=0):
             if aurora > 0.25:
                 hue = 0.42 + 0.18 * math.sin(wx * 0.003 + t_s * 0.2)
                 r, g, b = hsv_to_rgb(hue, 0.9, (aurora - 0.25) * 0.9)
-            snow_y = (1050.0 - ((t_s * 260.0 + idx * 97.0) % 1150.0))
+            snow_y = 1050.0 - ((t_s * 260.0 + idx * 97.0) % 1150.0)
             if abs(wy - snow_y) < 35.0 and ((idx + int(t_s)) % 7 == 0):
                 r, g, b = 0.95, 0.98, 1.0
 
@@ -376,9 +386,9 @@ def render_frame(show_ms, master_dim, forced_act=0):
             hue = 0.62 - 0.50 * ring
             r, g, b = hsv_to_rgb(hue, 0.95, max(ring, 0.15 * pulse))
 
-        else:
-            # Akt 6: Supernova-Wirbel -> sanftes Kerzenflackern (ab 860_000 ms)
-            if (show_ms % SHOW_TOTAL_MS) < 860_000:
+        elif act_id == 6:
+            # Akt 6: Supernova-Wirbel -> sanftes Kerzenflackern (ab 80_000 ms im Akt)
+            if local_ms < 80_000:
                 ang = math.atan2(wz, wx) + wy * 0.006 - t_s * 4.0
                 swirl = 0.5 + 0.5 * math.sin(ang * 2.0)
                 r, g, b = hsv_to_rgb(0.08 + 0.06 * swirl, 0.75, 0.55 + 0.45 * pulse)
@@ -386,6 +396,106 @@ def render_frame(show_ms, master_dim, forced_act=0):
                 flicker = 0.45 + 0.35 * math.sin(t_s * 7.3 + idx * 1.9 + wx * 0.02)
                 amp = flicker * (0.35 if IS_HERO else 0.85)
                 r, g, b = 1.0 * amp, 0.55 * amp, 0.15 * amp
+
+        elif act_id == 7:
+            # Akt 7: Zuckerstangen & Silber-Lametta (Rot/Weiss Spirale + Stern)
+            if idx >= 50:
+                if idx in STAR_OUTER:
+                    amp = 0.72 + 0.28 * pulse
+                    r, g, b = 1.0 * amp, 0.94 * amp, 0.86 * amp
+                else:
+                    amp = 0.55 + 0.45 * pulse
+                    r, g, b = 1.0 * amp, 0.76 * amp, 0.18 * amp
+            else:
+                stripe = math.sin(idx * 0.95 + wx * 0.004 - t_s * 5.2)
+                edge = 0.72 + 0.28 * abs(stripe)
+                if stripe >= 0.0:
+                    r, g, b = 0.98 * edge, 0.06 * edge, 0.10 * edge
+                else:
+                    r, g, b = 0.94 * edge, 0.90 * edge, 0.84 * edge
+                if math.sin(idx * 12.7 + wx * 0.09 + t_s * 7.5) > 0.965:
+                    r, g, b = 1.0, 0.96, 0.85
+
+        elif act_id == 8:
+            # Akt 8: Tannenbaum mit buntem Baumschmuck & warmer Lichterkette
+            if idx >= 50:
+                amp = (0.75 + 0.25 * pulse) if idx in STAR_OUTER else 0.72
+                r, g, b = 1.0 * amp, 0.84 * amp, 0.26 * amp
+            elif idx < 45 and ((idx + tree_code) % 5 == 0):
+                kind = ((idx // 5) + tree_code) % 4
+                shim = 0.78 + 0.22 * pulse
+                if kind == 0:
+                    r, g, b = 1.0 * shim, 0.08 * shim, 0.12 * shim
+                elif kind == 1:
+                    r, g, b = 1.0 * shim, 0.72 * shim, 0.10 * shim
+                elif kind == 2:
+                    r, g, b = 0.12 * shim, 0.44 * shim, 1.0 * shim
+                else:
+                    r, g, b = 0.95 * shim, 0.14 * shim, 0.54 * shim
+            else:
+                breath = 0.75 + 0.25 * math.sin(t_s * 1.6 + wx * 0.002)
+                r, g, b = 0.03 * breath, 0.36 * breath, 0.07 * breath
+                chase_pos = (t_s * 18.0 + tree_code * 7.0) % 50.0
+                dist = min(abs(idx - chase_pos), 50.0 - abs(idx - chase_pos))
+                if dist < 2.2:
+                    glow = 1.0 - dist / 2.2
+                    r = min(1.0, r + 0.95 * glow)
+                    g = min(1.0, g + 0.76 * glow)
+                    b = min(1.0, b + 0.38 * glow)
+
+        elif act_id == 9:
+            # Akt 9: Stern von Bethlehem & goldene Sternschnuppe ueber tiefer Winternacht
+            if idx >= 50:
+                breath = 0.76 + 0.24 * math.sin(t_s * 2.2)
+                boost = 1.0 if TREE_ID == "T12" else 0.88
+                amp = breath * boost * (1.0 if idx in STAR_OUTER else 0.84)
+                r, g, b = 1.0 * amp, 0.88 * amp, 0.42 * amp
+            else:
+                starlight = max(0.0, math.sin(idx * 2.3 + wx * 0.017 + t_s * 1.4)) ** 14
+                r = 0.02 + 0.45 * starlight
+                g = 0.05 + 0.55 * starlight
+                b = 0.20 + 0.70 * starlight
+            u = (t_s % 4.5) / 4.5
+            cx = -1250.0 + 2500.0 * u
+            cy = 1080.0 - 1020.0 * u
+            dx = wx - cx
+            dy = wy - cy
+            along = -dx * 0.925 + dy * 0.379
+            perp = abs(dx * 0.379 + dy * 0.925)
+            if -90.0 <= along <= 540.0 and perp < 170.0:
+                tail = (1.0 + along / 90.0) if along < 0.0 else max(0.0, 1.0 - along / 540.0)
+                rad = max(0.0, 1.0 - perp / 170.0)
+                comet = tail * rad
+                r = max(r, 1.0 * comet)
+                g = max(g, (0.68 + 0.28 * comet) * comet)
+                b = max(b, (0.18 + 0.56 * comet) * comet)
+
+        else:
+            # Akt 10: Adventskerzen & Rudolphs Rentierschlitten
+            if idx >= 32:
+                flick = 0.55 + 0.45 * math.sin(t_s * 9.5 + idx * 1.7 + wx * 0.03)
+                r = 1.0 * flick
+                g = (0.52 + 0.32 * flick) * flick
+                b = 0.10 * flick
+            else:
+                warm = 0.72 + 0.28 * math.sin(t_s * 4.5 + idx * 0.7 + wx * 0.01)
+                r, g, b = 0.75 * warm, 0.06 * warm, 0.04 * warm
+            sleigh_x = -1350.0 + ((t_s * 680.0) % 2700.0)
+            sleigh_y = 520.0 + 260.0 * math.sin(t_s * 2.4)
+            r_dist = math.hypot(wx - (sleigh_x + 170.0), wy - sleigh_y)
+            if r_dist < 190.0:
+                nose = (1.0 - r_dist / 190.0) ** 1.2
+                r = max(r, 1.0 * nose)
+                g = g * (1.0 - nose) + 0.05 * nose
+                b = b * (1.0 - nose) + 0.08 * nose
+            else:
+                dx_sleigh = sleigh_x - wx
+                dy_sleigh = abs(wy - sleigh_y)
+                if -60.0 <= dx_sleigh <= 440.0 and dy_sleigh < 140.0:
+                    trail = (1.0 - max(0.0, dx_sleigh) / 440.0) * (1.0 - dy_sleigh / 140.0)
+                    r = max(r, 1.0 * trail)
+                    g = max(g, 0.86 * trail)
+                    b = max(b, 0.42 * trail)
 
         ri = GAMMA_LUT[min(255, max(0, int(r * scale * 255.0)))]
         gi = GAMMA_LUT[min(255, max(0, int(g * scale * 255.0)))]
@@ -448,7 +558,9 @@ button.sec{background:#334155}button.act{background:#0f766e}input[type=range]{wi
 <div class="row"><button class="act" onclick="cmd({act:0})">Auto-Show</button>
 <button class="act" onclick="cmd({act:1})">Akt 1</button><button class="act" onclick="cmd({act:2})">Akt 2</button>
 <button class="act" onclick="cmd({act:3})">Akt 3</button><button class="act" onclick="cmd({act:4})">Akt 4</button>
-<button class="act" onclick="cmd({act:5})">Akt 5</button><button class="act" onclick="cmd({act:6})">Akt 6</button></div>
+<button class="act" onclick="cmd({act:5})">Akt 5</button><button class="act" onclick="cmd({act:6})">Akt 6</button>
+<button class="act" onclick="cmd({act:7})">Akt 7</button><button class="act" onclick="cmd({act:8})">Akt 8</button>
+<button class="act" onclick="cmd({act:9})">Akt 9</button><button class="act" onclick="cmd({act:10})">Akt 10</button></div>
 </div><script>
 async function cmd(p){await fetch('/api/control',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});upd();}
 async function upd(){const r=await fetch('/api/state');const s=await r.json();
@@ -519,7 +631,7 @@ class CaptivePortal:
             if "act" in data:
                 a = int(data["act"])
                 self.state["forced_act"] = a
-                if a in (1, 2, 3, 4, 5, 6):
+                if 1 <= a <= len(ACTS):
                     self.state["show_ms"] = ACTS[a - 1][2]
             if "dim" in data:
                 self.state["dim"] = max(0.05, min(1.0, float(data["dim"])))
