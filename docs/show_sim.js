@@ -61,7 +61,7 @@
   const TREE_IDS = Object.keys(DEFAULT_TREE_LAYOUT);
 
   // Exact normalized AITY Christmas Tree silhouette (u_x in [-0.5, 0.5], u_y in [0, 1])
-  const TREE_SILHOUETTE = [[0.001, 1.0], [0.13, 0.929], [0.139, 0.91], [0.082, 0.792], [0.201, 0.697], [0.237, 0.666], [0.18, 0.632], [0.246, 0.574], [0.331, 0.527], [0.292, 0.494], [0.285, 0.444], [0.42, 0.37], [0.396, 0.34], [0.338, 0.31], [0.495, 0.21], [0.494, 0.188], [0.39, 0.16], [0.293, 0.16], [0.291, 0.125], [0.155, 0.132], [0.101, 0.135], [0.131, 0.02], [0.107, 0.0], [-0.129, 0.008], [-0.104, 0.091], [-0.107, 0.144], [-0.193, 0.124], [-0.296, 0.131], [-0.335, 0.158], [-0.452, 0.172], [-0.498, 0.207], [-0.392, 0.262], [-0.337, 0.32], [-0.419, 0.359], [-0.409, 0.379], [-0.277, 0.451], [-0.293, 0.494], [-0.33, 0.526], [-0.243, 0.576], [-0.18, 0.633], [-0.237, 0.671], [-0.176, 0.71], [-0.093, 0.801], [-0.137, 0.909], [-0.144, 0.918], [-0.142, 0.921], [-0.043, 0.933], [-0.013, 0.993]];
+  const TREE_SILHOUETTE = [[0.0009, 1.0], [0.0433, 0.9322], [0.142, 0.9224], [0.0708, 0.8697], [0.0933, 0.8073], [0.0823, 0.7923], [0.1456, 0.7308], [0.2353, 0.6774], [0.2268, 0.6536], [0.1803, 0.6324], [0.19, 0.6189], [0.246, 0.5742], [0.3293, 0.5318], [0.3216, 0.5096], [0.2545, 0.4825], [0.2565, 0.4733], [0.3248, 0.4158], [0.4196, 0.3701], [0.411, 0.349], [0.3375, 0.3191], [0.3385, 0.3102], [0.4072, 0.2521], [0.4947, 0.2103], [0.5, 0.1964], [0.4195, 0.1646], [0.293, 0.1596], [0.2969, 0.1313], [0.2814, 0.1215], [0.1914, 0.1242], [0.1096, 0.1443], [0.1024, 0.1073], [0.1307, 0.02], [0.1248, 0.0043], [-0.1021, 0.0], [-0.131, 0.0144], [-0.1044, 0.0907], [-0.1071, 0.1437], [-0.1934, 0.1239], [-0.2783, 0.1212], [-0.2963, 0.1314], [-0.2922, 0.1597], [-0.4241, 0.1656], [-0.5, 0.1982], [-0.3921, 0.2617], [-0.3353, 0.3135], [-0.4066, 0.3461], [-0.4195, 0.3696], [-0.3157, 0.4213], [-0.2539, 0.4764], [-0.3189, 0.5081], [-0.3284, 0.5324], [-0.2428, 0.5757], [-0.1905, 0.6174], [-0.1803, 0.6328], [-0.2286, 0.6552], [-0.2351, 0.6772], [-0.1431, 0.7321], [-0.0833, 0.7914], [-0.0933, 0.8063], [-0.0714, 0.8685], [-0.143, 0.9201], [-0.0434, 0.9328], [-0.0009, 1.0]];
 
   // Exact normalized 60-LED PCB coordinates from tannenbaum_layout.py
   const LED_NORM_COORDS = [[0.2547, 0.3579], [0.229, 0.3387], [0.2005, 0.3214], [0.1696, 0.3064], [0.1366, 0.2936], [0.1019, 0.2834], [0.0659, 0.2757], [0.0288, 0.2707], [-0.0087, 0.2684], [-0.0464, 0.2689], [-0.0839, 0.2721], [-0.1206, 0.278], [-0.1563, 0.2866], [-0.1904, 0.2977], [-0.2227, 0.3112], [-0.2529, 0.327], [-0.2804, 0.3449], [-0.3052, 0.3648], [0.2182, 0.4185], [0.183, 0.4091], [0.1466, 0.4023], [0.1094, 0.3982], [0.0717, 0.3969], [0.034, 0.3983], [-0.0032, 0.4024], [-0.0396, 0.4092], [-0.0748, 0.4186], [-0.1084, 0.4305], [-0.14, 0.4449], [-0.1693, 0.4614], [-0.1959, 0.48], [-0.2197, 0.5004], [0.2202, 0.5233], [0.1826, 0.5219], [0.1449, 0.5233], [0.1077, 0.5274], [0.0713, 0.5342], [0.0361, 0.5436], [0.0025, 0.5556], [-0.0291, 0.5699], [-0.0584, 0.5864], [-0.085, 0.605], [-0.1088, 0.6254], [-0.1293, 0.6475], [-0.1464, 0.6709], [-0.0189, 0.6631], [0.0104, 0.6797], [0.037, 0.6982], [0.0608, 0.7187], [0.0839, 0.7367], [-0.0408, 0.8517], [-0.0575, 0.8353], [-0.0937, 0.9106], [-0.0662, 0.9046], [0.0009, 0.9382], [0.0004, 0.9567], [0.0938, 0.9119], [0.0665, 0.9055], [0.0381, 0.8503], [0.0552, 0.8341]];
@@ -671,6 +671,7 @@ return [r, g, b];`;
 
     // Animation loop
     let lastFrameTime = performance.now();
+    let lastPermalinkSync = 0;
     function tick(now) {
       const dt = Math.min(100, Math.max(0, now - lastFrameTime));
       lastFrameTime = now;
@@ -684,11 +685,37 @@ return [r, g, b];`;
         }
         audio.update(state.showMs, state.playing);
         drawFrame(now);
+        if (now - lastPermalinkSync >= 1000) {
+          lastPermalinkSync = now;
+          syncPermalink();
+        }
       }
       requestAnimationFrame(tick);
     }
 
-    // Mode switching & permalink support (#show, ?mode=show, &act=1..6)
+    // Mode switching & permalink support (#show&t=..&act=..&yaw=..&pitch=..&zoom=..)
+    function buildShowHash() {
+      const params = new URLSearchParams();
+      params.set("t", String(Math.floor(state.showMs / 1000)));
+      if (state.forcedAct >= 1 && state.forcedAct <= 6) {
+        params.set("act", String(state.forcedAct));
+      }
+      params.set("yaw", state.camera.yaw.toFixed(3));
+      params.set("pitch", state.camera.pitch.toFixed(3));
+      params.set("zoom", state.camera.zoom.toFixed(2));
+      return `#show&${params.toString()}`;
+    }
+
+    function syncPermalink() {
+      if (!state.active || !window.history || !window.history.replaceState) return;
+      const targetHash = buildShowHash();
+      if (window.location.hash !== targetHash) {
+        const url = new URL(window.location.href);
+        url.hash = targetHash;
+        window.history.replaceState(null, "", url.toString());
+      }
+    }
+
     function setMode(mode, updateUrl = true) {
       const isShow = mode === "show";
       state.active = isShow;
@@ -703,7 +730,7 @@ return [r, g, b];`;
         audioToggle.checked = false;
       }
       if (updateUrl && window.history && window.history.replaceState) {
-        const targetHash = isShow ? "#show" : "#single";
+        const targetHash = isShow ? buildShowHash() : "#single";
         if (window.location.hash !== targetHash) {
           const url = new URL(window.location.href);
           url.hash = targetHash;
@@ -723,13 +750,37 @@ return [r, g, b];`;
         hashParams.get("mode") === "show" ||
         queryMode === "show";
 
-      const actParam = Number(hashParams.get("act") || url.searchParams.get("act"));
-      if (actParam >= 1 && actParam <= 6) {
-        state.forcedAct = actParam;
-        state.showMs = ACTS[actParam - 1][2];
-        for (const b of actButtons) {
-          b.classList.toggle("is-active", Number(b.dataset.showAct) === actParam);
+      const actRaw = hashParams.get("act") ?? url.searchParams.get("act");
+      if (actRaw !== null) {
+        const actParam = Number(actRaw);
+        if (actParam >= 1 && actParam <= 6) {
+          state.forcedAct = actParam;
+          state.showMs = ACTS[actParam - 1][2];
+          for (const b of actButtons) {
+            b.classList.toggle("is-active", Number(b.dataset.showAct) === actParam);
+          }
         }
+      }
+
+      const tRaw = hashParams.get("t") ?? url.searchParams.get("t");
+      if (tRaw !== null && tRaw !== "" && Number.isFinite(Number(tRaw))) {
+        const tSec = Math.max(0, Number(tRaw));
+        state.showMs = (tSec * 1000) % SHOW_TOTAL_MS;
+      }
+
+      const yawRaw = hashParams.get("yaw") ?? url.searchParams.get("yaw");
+      if (yawRaw !== null && yawRaw !== "" && Number.isFinite(Number(yawRaw))) {
+        state.camera.yaw = Number(yawRaw);
+      }
+
+      const pitchRaw = hashParams.get("pitch") ?? url.searchParams.get("pitch");
+      if (pitchRaw !== null && pitchRaw !== "" && Number.isFinite(Number(pitchRaw))) {
+        state.camera.pitch = Math.max(-0.4, Math.min(1.45, Number(pitchRaw)));
+      }
+
+      const zoomRaw = hashParams.get("zoom") ?? url.searchParams.get("zoom");
+      if (zoomRaw !== null && zoomRaw !== "" && Number.isFinite(Number(zoomRaw))) {
+        state.camera.zoom = Math.max(0.45, Math.min(2.6, Number(zoomRaw)));
       }
 
       if (isShow) {
@@ -744,15 +795,17 @@ return [r, g, b];`;
     window.addEventListener("hashchange", applyUrlPermalink);
 
     // Transport events
-    btnPlay.addEventListener("click", () => { state.playing = true; });
-    btnPause.addEventListener("click", () => { state.playing = false; });
+    btnPlay.addEventListener("click", () => { state.playing = true; syncPermalink(); });
+    btnPause.addEventListener("click", () => { state.playing = false; syncPermalink(); });
     btnRestart.addEventListener("click", () => {
       state.showMs = 0;
       state.playing = true;
+      syncPermalink();
     });
 
     timelineSlider.addEventListener("input", () => {
       state.showMs = Number(timelineSlider.value) * 1000;
+      syncPermalink();
     });
 
     dimSlider.addEventListener("input", () => {
@@ -793,6 +846,7 @@ return [r, g, b];`;
         for (const b of actButtons) {
           b.classList.toggle("is-active", Number(b.dataset.showAct) === act);
         }
+        syncPermalink();
       });
     }
 
@@ -812,6 +866,7 @@ return [r, g, b];`;
           state.camera.pitch = 1.35;
           state.camera.zoom = 0.95;
         }
+        syncPermalink();
       });
     }
 
@@ -847,7 +902,9 @@ return [r, g, b];`;
     canvas.addEventListener("pointerup", (e) => {
       if (!dragging) return;
       dragging = false;
-      if (!dragMoved) {
+      if (dragMoved) {
+        syncPermalink();
+      } else {
         const rect = canvas.getBoundingClientRect();
         const cx = e.clientX - rect.left;
         const cy = e.clientY - rect.top;
@@ -871,6 +928,7 @@ return [r, g, b];`;
       e.preventDefault();
       const factor = e.deltaY < 0 ? 1.08 : 0.92;
       state.camera.zoom = Math.max(0.45, Math.min(2.6, state.camera.zoom * factor));
+      syncPermalink();
     }, { passive: false });
 
     // Tree layout editor
