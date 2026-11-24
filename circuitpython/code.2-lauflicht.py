@@ -1,39 +1,26 @@
 # code.2-lauflicht.py
 import time
-import digitalio
-import neopixel
-from tannenbaum_layout import NUM_PIXELS, PIN_NEOPIXEL, PIN_BTN_A, PIN_BTN_B
+from tannenbaum_layout import NUM_PIXELS, init_pixels, init_buttons
 
-pixels = neopixel.NeoPixel(PIN_NEOPIXEL, NUM_PIXELS, brightness=0.3, auto_write=False, pixel_order=neopixel.GRB)
-
-btn_d5 = digitalio.DigitalInOut(PIN_BTN_A)
-btn_d5.switch_to_input(pull=digitalio.Pull.UP)
-btn_d6 = digitalio.DigitalInOut(PIN_BTN_B)
-btn_d6.switch_to_input(pull=digitalio.Pull.UP)
+pixels = init_pixels(brightness=0.3)
+btn_d5, btn_d6 = init_buttons()
 
 SPEEDS = (0.08, 0.04, 0.015)  # Sekunden pro Schritt
 speed_idx = 1
 direction = 1
 head = 0
-
-last_d5 = True
-last_d6 = True
 last_step = time.monotonic()
 
 while True:
     now = time.monotonic()
 
     # Taster D5: Richtung umkehren
-    curr_d5 = btn_d5.value
-    if not curr_d5 and last_d5:
+    if btn_d5.pressed():
         direction *= -1
-    last_d5 = curr_d5
 
     # Taster D6: Geschwindigkeit wechseln
-    curr_d6 = btn_d6.value
-    if not curr_d6 and last_d6:
+    if btn_d6.pressed():
         speed_idx = (speed_idx + 1) % len(SPEEDS)
-    last_d6 = curr_d6
 
     # Zeitgesteuerter Animationsschritt (kein blockierendes sleep!)
     if (now - last_step) >= SPEEDS[speed_idx]:

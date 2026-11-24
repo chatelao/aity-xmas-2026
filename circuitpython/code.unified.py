@@ -10,10 +10,8 @@
 
 import time
 import math
-import digitalio
-import neopixel
 from tannenbaum_layout import (
-    NUM_PIXELS, PIN_NEOPIXEL, PIN_BTN_A, PIN_BTN_B,
+    NUM_PIXELS, init_pixels, init_buttons,
     PIXEL_COORDS, NORM_COORDS, CENTER_TREE, CENTER_STAR, POLAR_TREE,
     Y_MIN, Y_MAX, WIDTH_MM, HEIGHT_MM,
     SEG_BOUGH_LOW, SEG_BOUGH_MID, SEG_BOUGH_HIGH, SEG_STEM, SEG_STAR, SEGMENTS,
@@ -26,15 +24,8 @@ from tannenbaum_palettes import (
 )
 
 # --- Hardware-Setup ---
-pixels = neopixel.NeoPixel(
-    PIN_NEOPIXEL, NUM_PIXELS, brightness=0.35, auto_write=False, pixel_order=neopixel.GRB
-)
-
-btn_d5 = digitalio.DigitalInOut(PIN_BTN_A)
-btn_d5.switch_to_input(pull=digitalio.Pull.UP)
-
-btn_d6 = digitalio.DigitalInOut(PIN_BTN_B)
-btn_d6.switch_to_input(pull=digitalio.Pull.UP)
+pixels = init_pixels(brightness=0.35)
+btn_d5, btn_d6 = init_buttons()
 
 # --- Geometrie-Vorberechnung ---
 DIST_LUT = tuple(build_distance_lut(ep) for ep in EPICENTERS)

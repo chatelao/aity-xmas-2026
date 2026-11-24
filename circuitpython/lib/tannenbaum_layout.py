@@ -207,6 +207,65 @@ def set_pixels(pixels_obj):
     _pixels = pixels_obj
 
 
+def init_pixels(brightness=0.3, auto_write=False, pixel_order=None):
+    """Initialisiert den NeoPixel-Streifen (60 LEDs an PIN_NEOPIXEL) und registriert ihn."""
+    import neopixel
+
+    if pixel_order is None:
+        pixel_order = neopixel.GRB
+    px = neopixel.NeoPixel(
+        PIN_NEOPIXEL,
+        NUM_PIXELS,
+        brightness=brightness,
+        auto_write=auto_write,
+        pixel_order=pixel_order,
+    )
+    set_pixels(px)
+    return px
+
+
+class Button:
+    """Kapselt Pull-Up-Setup, Aktiv-Low-Logik, Entprellung und Flankenerkennung."""
+
+    def __init__(self, pin, debounce_s=0.05):
+        import digitalio
+
+        self._io = digitalio.DigitalInOut(pin)
+        self._io.switch_to_input(pull=digitalio.Pull.UP)
+        self._debounce_s = debounce_s
+        self._last_state = False
+        self._last_edge = -debounce_s
+
+    @property
+    def value(self):
+        """Rohwert des Pins (True = losgelassen, False = gedrueckt)."""
+        return self._io.value
+
+    @property
+    def is_pressed(self):
+        """True solange der Taster gedrueckt ist (Aktiv-Low gegen GND)."""
+        return not self._io.value
+
+    def pressed(self):
+        """True genau einmal pro Tastendruck (mit nicht-blockierender Entprellung)."""
+        import time
+
+        curr = self.is_pressed
+        just_pressed = False
+        if curr and not self._last_state:
+            now = time.monotonic()
+            if (now - self._last_edge) >= self._debounce_s:
+                self._last_edge = now
+                just_pressed = True
+        self._last_state = curr
+        return just_pressed
+
+
+def init_buttons(debounce_s=0.05):
+    """Initialisiert die beiden Taster D5 und D6 und gibt (btn_d5, btn_d6) zurueck."""
+    return Button(PIN_BTN_A, debounce_s=debounce_s), Button(PIN_BTN_B, debounce_s=debounce_s)
+
+
 def _require_pixels(pixels_obj):
     px = _pixels if pixels_obj is None else pixels_obj
     if px is None:

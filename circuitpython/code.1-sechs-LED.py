@@ -3,27 +3,10 @@
 # Abhaengigkeiten: /lib/neopixel.mpy, /lib/tannenbaum_layout.py
 
 import time
-import digitalio
-import neopixel
-from tannenbaum_layout import NUM_PIXELS, PIN_NEOPIXEL, PIN_BTN_A, PIN_BTN_B
+from tannenbaum_layout import init_pixels, init_buttons
 
-# --- Hardware-Konfiguration ---
-# Hinweis: Echte WS2811 nutzen oft neopixel.RGB, WS2812B-Derivate neopixel.GRB
-PIXEL_ORDER = neopixel.GRB
-
-pixels = neopixel.NeoPixel(
-    PIN_NEOPIXEL,
-    NUM_PIXELS,
-    brightness=0.2,
-    auto_write=False,
-    pixel_order=PIXEL_ORDER
-)
-
-btn_d5 = digitalio.DigitalInOut(PIN_BTN_A)
-btn_d5.switch_to_input(pull=digitalio.Pull.UP)
-
-btn_d6 = digitalio.DigitalInOut(PIN_BTN_B)
-btn_d6.switch_to_input(pull=digitalio.Pull.UP)
+pixels = init_pixels(brightness=0.2)
+btn_d5, btn_d6 = init_buttons()
 
 # --- Statische Farbtabelle (Tupel spart RAM) ---
 PRIMARY_3 = (
@@ -39,7 +22,7 @@ SECONDARY_3 = (
 )
 
 show_six = False
-last_d5 = True
+
 
 def render():
     pixels.fill((0, 0, 0))
@@ -50,19 +33,16 @@ def render():
             pixels[i + 3] = SECONDARY_3[i]
     pixels.show()
 
+
 render()
 
 while True:
-    curr_d5 = btn_d5.value
-    # Flankenerkennung (Taster gegen GND = False)
-    if not curr_d5 and last_d5:
+    if btn_d5.pressed():
         show_six = not show_six
         render()
-        time.sleep(0.05)  # Entprellung
-    last_d5 = curr_d5
 
     # D6: Alle LEDs dunkel schalten solange gedrueckt
-    if not btn_d6.value:
+    if btn_d6.is_pressed:
         pixels.fill((0, 0, 0))
         pixels.show()
     else:

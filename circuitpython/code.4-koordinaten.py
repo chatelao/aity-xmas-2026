@@ -1,18 +1,12 @@
 # code.4-koordinaten.py
 import time
-import digitalio
-import neopixel
 from tannenbaum_layout import (
-    NUM_PIXELS, PIN_NEOPIXEL, PIN_BTN_A, PIN_BTN_B,
-    PIXEL_COORDS, EPICENTERS, build_distance_lut,
+    NUM_PIXELS, PIXEL_COORDS, EPICENTERS,
+    init_pixels, init_buttons, build_distance_lut,
 )
 
-pixels = neopixel.NeoPixel(PIN_NEOPIXEL, NUM_PIXELS, brightness=0.35, auto_write=False, pixel_order=neopixel.GRB)
-
-btn_d5 = digitalio.DigitalInOut(PIN_BTN_A)
-btn_d5.switch_to_input(pull=digitalio.Pull.UP)
-btn_d6 = digitalio.DigitalInOut(PIN_BTN_B)
-btn_d6.switch_to_input(pull=digitalio.Pull.UP)
+pixels = init_pixels(brightness=0.35)
+btn_d5, btn_d6 = init_buttons()
 
 SEG_BASE_COLOR = (
     (0, 160, 255),   # Seg 0: Zweig Unten
@@ -30,22 +24,15 @@ t_explosion = time.monotonic()
 WAVE_SPEED = 45.0   # mm pro Sekunde
 WAVE_WIDTH = 9.0    # Halbwertsbreite der Wellenfront in mm
 
-last_d5 = True
-last_d6 = True
-
 while True:
     now = time.monotonic()
-    curr_d5 = btn_d5.value
-    curr_d6 = btn_d6.value
 
-    if not curr_d5 and last_d5:
+    if btn_d5.pressed():
         t_explosion = now
-    last_d5 = curr_d5
 
-    if not curr_d6 and last_d6:
+    if btn_d6.pressed():
         epi_idx = (epi_idx + 1) % len(EPICENTERS)
         t_explosion = now
-    last_d6 = curr_d6
 
     radius = (now - t_explosion) * WAVE_SPEED
     if radius > 95.0:

@@ -1,19 +1,13 @@
 # code.5-maximal.py
 import time
 import math
-import digitalio
-import neopixel
 from tannenbaum_layout import (
-    NUM_PIXELS, PIN_NEOPIXEL, PIN_BTN_A, PIN_BTN_B,
-    PIXEL_COORDS, CENTER_TREE, POLAR_TREE, Y_MAX, hsv_to_rgb_gamma,
+    NUM_PIXELS, PIXEL_COORDS, CENTER_TREE, POLAR_TREE, Y_MAX,
+    init_pixels, init_buttons, hsv_to_rgb_gamma,
 )
 
-pixels = neopixel.NeoPixel(PIN_NEOPIXEL, NUM_PIXELS, brightness=0.4, auto_write=False, pixel_order=neopixel.GRB)
-
-btn_d5 = digitalio.DigitalInOut(PIN_BTN_A)
-btn_d5.switch_to_input(pull=digitalio.Pull.UP)
-btn_d6 = digitalio.DigitalInOut(PIN_BTN_B)
-btn_d6.switch_to_input(pull=digitalio.Pull.UP)
+pixels = init_pixels(brightness=0.4)
+btn_d5, btn_d6 = init_buttons()
 
 # Geometrie-Vorberechnung relativ zum Baum-Zentrum CENTER_TREE
 CX, CY = CENTER_TREE
@@ -24,22 +18,16 @@ GEOM = tuple(
 
 mode = 0
 palette_shift = 0.0
-last_d5 = True
-last_d6 = True
 t0 = time.monotonic()
 
 while True:
     t = time.monotonic() - t0
-    curr_d5 = btn_d5.value
-    curr_d6 = btn_d6.value
 
-    if not curr_d5 and last_d5:
+    if btn_d5.pressed():
         mode = (mode + 1) % 3
-    last_d5 = curr_d5
 
-    if not curr_d6 and last_d6:
+    if btn_d6.pressed():
         palette_shift = (palette_shift + 0.25) % 1.0
-    last_d6 = curr_d6
 
     if mode == 0:
         # Modus 0: 2D-Interferenz-Plasmafeld
