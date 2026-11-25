@@ -24,13 +24,13 @@ Beide XIAO-Boards teilen sich denselben 14-Pin-Formfaktor:
                                             |   USB-C           |
                                             |  [ Seeed XIAO ]   |
                                             | [RP2040/ESP32-C6] |
-                     (Lautspr. LS101) D0/A0 -| [1]          [14] |- 5V (VDD Spannung)
-                       (Testpunkt 1)  D1/A1 -| [2]          [13] |- GND
-                       (Testpunkt 3)  D2/A2 -| [3]          [12] |- 3V3 (NC)
-  (TP104 / Config: GND=Wood, NC=PCB)  D3/A3 -| [4]          [11] |- D10/MOSI (60 × NeoPixel LEDs)
-                       (Testpunkt 5) D4/SDA -| [5]          [10] |- D9/MISO  (Testpunkt 2)
-             (Testpunkt 8 / Taster A) D5/SCL -| [6]          [9]  |- D8/SCK   (Testpunkt 7)
-              (Testpunkt 6 / Taster B) D6/TX -| [7]          [8]  |- D7/RX    (Testpunkt 9)
+                    (Lautspr. LS101) D0/A0 -| [1]          [14] |- 5V (VDD Spannung)
+                      (Testpunkt 1)  D1/A1 -| [2]          [13] |- GND
+                      (Testpunkt 3)  D2/A2 -| [3]          [12] |- 3V3 (NC)
+ (TP104 / Config: GND=Wood, NC=PCB)  D3/A3 -| [4]          [11] |- D10/MOSI (60 × NeoPixel LEDs)
+                      (Testpunkt 5) D4/SDA -| [5]          [10] |- D9/MISO  (Testpunkt 2)
+           (Testpunkt 8 / Taster A) D5/SCL -| [6]          [9]  |- D8/SCK   (Testpunkt 7)
+            (Testpunkt 6 / Taster B) D6/TX -| [7]          [8]  |- D7/RX    (Testpunkt 9)
                                             +-------------------+
 ```
 
