@@ -49,6 +49,7 @@
   const consoleEl = document.getElementById("serial-console");
   const toggleIndices = document.getElementById("toggle-indices");
   const toggleTraces = document.getElementById("toggle-traces");
+  const treeTypeSelect = document.getElementById("tree-type-select");
 
   const btnRun = document.getElementById("btn-run");
   const btnStop = document.getElementById("btn-stop");
@@ -68,10 +69,19 @@
   // LED state for inspection
   const lastRgb = Array.from({ length: 60 }, () => [0, 0, 0]);
   const ledNodes = [];
+  const tracePolylines = [];
+  let treeType = "PCB";
   let onboardChipNode = null;
   let onboardGlowNode = null;
   let tracesGroup = null;
   let indicesGroup = null;
+
+  function mapPhysicalIndex(i) {
+    if (treeType === "Holz" && i >= 18 && i < 32) {
+      return 49 - i;
+    }
+    return i;
+  }
 
   // Build Christmas Tree PCB SVG
   function buildTreeSvg() {
@@ -126,17 +136,20 @@
     for (const [start, end] of segRanges) {
       const pts = [];
       for (let i = start; i < end; i++) {
-        const [cx, cy] = toSvg(PIXEL_COORDS[i][0], PIXEL_COORDS[i][1]);
+        const coordIdx = mapPhysicalIndex(i);
+        const [cx, cy] = toSvg(PIXEL_COORDS[coordIdx][0], PIXEL_COORDS[coordIdx][1]);
         pts.push(`${cx.toFixed(2)},${cy.toFixed(2)}`);
       }
-      tracesGroup.appendChild(el("polyline", {
+      const poly = el("polyline", {
         points: pts.join(" "),
         fill: "none",
         stroke: "#255942",
         "stroke-width": "0.35",
         "stroke-linecap": "round",
         "stroke-linejoin": "round",
-      }));
+      });
+      tracePolylines.push({ start, end, poly });
+      tracesGroup.appendChild(poly);
     }
     treeSvg.appendChild(tracesGroup);
 
@@ -145,7 +158,8 @@
     indicesGroup = el("g", { id: "pcb-indices", style: "display:none; pointer-events:none;" });
 
     for (let i = 0; i < PIXEL_COORDS.length; i++) {
-      const [x, y, seg] = PIXEL_COORDS[i];
+      const coordIdx = mapPhysicalIndex(i);
+      const [x, y, seg] = PIXEL_COORDS[coordIdx];
       const [cx, cy] = toSvg(x, y);
 
       const outerGlow = el("circle", {
@@ -182,7 +196,9 @@
 
       const inspectLed = () => {
         const [r, g, b] = lastRgb[i];
-        inspectorEl.textContent = `LED #${i} · ${SEGMENT_NAMES[seg]} · RGB(${r}, ${g}, ${b})`;
+        const logIdx = mapPhysicalIndex(i);
+        const idxInfo = logIdx !== i ? `#${i} (logisch #${logIdx})` : `#${i}`;
+        inspectorEl.textContent = `LED ${idxInfo} · ${SEGMENT_NAMES[seg]} · RGB(${r}, ${g}, ${b})`;
       };
       chip.addEventListener("mouseenter", inspectLed);
       chip.addEventListener("pointerdown", inspectLed);
@@ -190,11 +206,6 @@
       chip.addEventListener("mouseleave", () => {
         inspectorEl.textContent = "Maus über eine LED bewegen oder antippen, um Index & RGB zu sehen";
       });
-
-      ledsGroup.appendChild(outerGlow);
-      ledsGroup.appendChild(innerGlow);
-      ledsGroup.appendChild(chip);
-      ledNodes.push({ outerGlow, innerGlow, chip });
 
       const lbl = el("text", {
         x: cx.toFixed(3),
@@ -207,10 +218,41 @@
       });
       lbl.textContent = String(i);
       indicesGroup.appendChild(lbl);
+
+      ledsGroup.appendChild(outerGlow);
+      ledsGroup.appendChild(innerGlow);
+      ledsGroup.appendChild(chip);
+      ledNodes.push({ outerGlow, innerGlow, chip, lbl });
     }
 
     treeSvg.appendChild(ledsGroup);
     treeSvg.appendChild(indicesGroup);
+  }
+
+  function updateTreeTypeVisuals() {
+    for (const { start, end, poly } of tracePolylines) {
+      const pts = [];
+      for (let i = start; i < end; i++) {
+        const coordIdx = mapPhysicalIndex(i);
+        const [cx, cy] = toSvg(PIXEL_COORDS[coordIdx][0], PIXEL_COORDS[coordIdx][1]);
+        pts.push(`${cx.toFixed(2)},${cy.toFixed(2)}`);
+      }
+      poly.setAttribute("points", pts.join(" "));
+    }
+    for (let i = 0; i < ledNodes.length; i++) {
+      const coordIdx = mapPhysicalIndex(i);
+      const [x, y] = PIXEL_COORDS[coordIdx];
+      const [cx, cy] = toSvg(x, y);
+      const node = ledNodes[i];
+      node.outerGlow.setAttribute("cx", cx.toFixed(3));
+      node.outerGlow.setAttribute("cy", cy.toFixed(3));
+      node.innerGlow.setAttribute("cx", cx.toFixed(3));
+      node.innerGlow.setAttribute("cy", cy.toFixed(3));
+      node.chip.setAttribute("x", (cx - 0.85).toFixed(3));
+      node.chip.setAttribute("y", (cy - 0.85).toFixed(3));
+      node.lbl.setAttribute("x", cx.toFixed(3));
+      node.lbl.setAttribute("y", (cy - 1.35).toFixed(3));
+    }
   }
 
   // Perceptual LED color & bloom mapping so low brightness (0.2) still looks vivid & luminous like a real WS2812B/SK6812
@@ -499,6 +541,14 @@
   toggleTraces.addEventListener("change", () => {
     tracesGroup.style.display = toggleTraces.checked ? "block" : "none";
   });
+
+  if (treeTypeSelect) {
+    treeTypeSelect.addEventListener("change", () => {
+      treeType = treeTypeSelect.value === "Holz" ? "Holz" : "PCB";
+      updateTreeTypeVisuals();
+      runtime.setTreeType(treeType);
+    });
+  }
 
   exampleSelect.addEventListener("change", () => {
     loadExample(exampleSelect.value, true);

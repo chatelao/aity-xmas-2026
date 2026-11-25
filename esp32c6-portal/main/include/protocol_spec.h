@@ -49,6 +49,14 @@ typedef enum {
     AUDIO_STATE_PAUSE = 2
 } audio_state_t;
 
+// Tree Hardware Types
+typedef enum {
+    TREE_TYPE_PCB  = 0,
+    TREE_TYPE_HOLZ = 1
+} tree_type_t;
+
+#define TREE_TYPE_COUNT 2
+
 // System Error Codes
 typedef enum {
     ERROR_CODE_OK               = 0x00,
@@ -66,6 +74,10 @@ static inline bool protocol_is_valid_melody(uint8_t id) {
 
 static inline bool protocol_is_valid_playback_state(uint8_t state) {
     return state <= AUDIO_STATE_PAUSE;
+}
+
+static inline bool protocol_is_valid_tree_type(uint8_t type) {
+    return type < TREE_TYPE_COUNT;
 }
 
 #ifdef __cplusplus

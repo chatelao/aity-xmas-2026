@@ -17,6 +17,7 @@ static const nvs_saved_state_t s_factory_defaults = {
     .blue = 30,
     .brightness = 70,
     .speed = 50,
+    .tree_type = TREE_TYPE_PCB,
     .melody_id = MELODY_SILENT,
     .volume = 60,
     .tempo = 100
@@ -33,6 +34,7 @@ static nvs_saved_state_t clamp_state(const nvs_saved_state_t *in) {
     if (out.brightness > 100) out.brightness = 100;
     if (out.speed < 1) out.speed = 1;
     if (out.speed > 100) out.speed = 100;
+    if (!protocol_is_valid_tree_type(out.tree_type)) out.tree_type = TREE_TYPE_PCB;
     if (!protocol_is_valid_melody(out.melody_id)) out.melody_id = MELODY_SILENT;
     if (out.volume > 100) out.volume = 100;
     if (out.tempo < 50) out.tempo = 50;
@@ -97,6 +99,7 @@ bool nvs_save_system_state(const nvs_saved_state_t *state) {
     ok &= (nvs_set_u8(handle, "blue", sanitized.blue) == ESP_OK);
     ok &= (nvs_set_u8(handle, "brightness", sanitized.brightness) == ESP_OK);
     ok &= (nvs_set_u8(handle, "speed", sanitized.speed) == ESP_OK);
+    ok &= (nvs_set_u8(handle, "tree_type", sanitized.tree_type) == ESP_OK);
     ok &= (nvs_set_u8(handle, "melody_id", sanitized.melody_id) == ESP_OK);
     ok &= (nvs_set_u8(handle, "volume", sanitized.volume) == ESP_OK);
     ok &= (nvs_set_u8(handle, "tempo", sanitized.tempo) == ESP_OK);
@@ -130,6 +133,7 @@ bool nvs_load_system_state(nvs_saved_state_t *out_state) {
         (void)nvs_get_u8(handle, "blue", &loaded.blue);
         (void)nvs_get_u8(handle, "brightness", &loaded.brightness);
         (void)nvs_get_u8(handle, "speed", &loaded.speed);
+        (void)nvs_get_u8(handle, "tree_type", &loaded.tree_type);
         (void)nvs_get_u8(handle, "melody_id", &loaded.melody_id);
         (void)nvs_get_u8(handle, "volume", &loaded.volume);
         (void)nvs_get_u8(handle, "tempo", &loaded.tempo);
@@ -153,7 +157,8 @@ bool nvs_apply_saved_state_to_engines(void) {
         .blue = saved.blue,
         .brightness = saved.brightness,
         .speed = saved.speed,
-        .palette_id = saved.palette_id
+        .palette_id = saved.palette_id,
+        .tree_type = saved.tree_type
     };
 
     audio_engine_cmd_t audio_cmd = {
@@ -180,6 +185,7 @@ bool nvs_save_current_engine_state(void) {
         .blue = led.blue,
         .brightness = led.brightness,
         .speed = led.speed,
+        .tree_type = led.tree_type,
         .melody_id = (uint8_t)audio.melody_id,
         .volume = audio.volume,
         .tempo = audio.tempo

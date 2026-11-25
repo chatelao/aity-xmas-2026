@@ -29,7 +29,13 @@ from tannenbaum_layout import (
     CENTER_TREE,
     POLAR_TREE,
     EPICENTERS,
+    SEGMENTS,
+    SEG_BOUGH_MID,
     VIRTUAL_SEGMENTS,
+    TREE_TYPE_PCB,
+    TREE_TYPE_HOLZ,
+    MappedPixels,
+    normalize_tree_type,
     build_distance_lut,
 )
 from tannenbaum_palettes import (
@@ -139,6 +145,7 @@ class TreeState:
         self.blue = 30
         self.brightness = 70
         self.speed = 50
+        self.tree_type = TREE_TYPE_PCB
         self.melody_id = 0
         self.playback_state = 0
         self.volume = 60
@@ -159,6 +166,12 @@ class TreeState:
             self.blue = max(0, min(255, int(d.get("blue", self.blue))))
             self.brightness = max(0, min(100, int(d.get("brightness", self.brightness))))
             self.speed = max(1, min(100, int(d.get("speed", self.speed))))
+            if "tree_type" in d:
+                raw_tt = d["tree_type"]
+                if isinstance(raw_tt, int):
+                    self.tree_type = TREE_TYPE_HOLZ if raw_tt == 1 else TREE_TYPE_PCB
+                else:
+                    self.tree_type = normalize_tree_type(raw_tt)
             self.melody_id = max(0, min(4, int(d.get("melody_id", self.melody_id))))
             self.volume = max(0, min(100, int(d.get("volume", self.volume))))
             self.tempo = max(50, min(200, int(d.get("tempo", self.tempo))))
@@ -188,6 +201,7 @@ class TreeState:
                     "blue": self.blue,
                     "brightness": self.brightness,
                     "speed": self.speed,
+                    "tree_type": self.tree_type,
                     "melody_id": self.melody_id,
                     "volume": self.volume,
                     "tempo": self.tempo,
@@ -212,6 +226,7 @@ class TreeState:
             "blue": self.blue,
             "brightness": self.brightness,
             "speed": self.speed,
+            "tree_type": self.tree_type,
             "melody_id": self.melody_id,
             "playback_state": self.playback_state,
             "volume": self.volume,
@@ -347,6 +362,12 @@ def render_frame(pixels, state, frame_idx):
         if bright < 100:
             for i in range(NUM_PIXELS):
                 pixels[i] = scale_rgb(pixels[i], bright)
+
+    if getattr(state, "tree_type", TREE_TYPE_PCB) == TREE_TYPE_HOLZ and not isinstance(pixels, MappedPixels):
+        s, e = SEGMENTS[SEG_BOUGH_MID]
+        for k in range((e - s) // 2):
+            a, b = s + k, e - 1 - k
+            pixels[a], pixels[b] = pixels[b], pixels[a]
 
     pixels.show()
 
@@ -600,6 +621,15 @@ def handle_http_request(raw_req, state, audio, ap_ip, sta_count, web_ui_gz):
             state.brightness = max(0, min(100, int(d["brightness"])))
         if "speed" in d:
             state.speed = max(1, min(100, int(d["speed"])))
+        if "tree_type" in d:
+            raw_tt = d["tree_type"]
+            if isinstance(raw_tt, int) and raw_tt in (0, 1):
+                state.tree_type = TREE_TYPE_HOLZ if raw_tt == 1 else TREE_TYPE_PCB
+            else:
+                try:
+                    state.tree_type = normalize_tree_type(raw_tt)
+                except ValueError:
+                    return json_resp({"error": "invalid tree_type"}, 400)
         state.save_state()
         return json_resp(state.status_dict(ap_ip, sta_count))
 

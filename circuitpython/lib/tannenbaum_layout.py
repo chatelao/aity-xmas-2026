@@ -13,6 +13,10 @@ PIN_NEOPIXEL = board.D10
 PIN_BTN_A = board.D5
 PIN_BTN_B = board.D6
 
+TREE_TYPE_PCB = "PCB"
+TREE_TYPE_HOLZ = "Holz"
+TREE_TYPES = (TREE_TYPE_PCB, TREE_TYPE_HOLZ)
+
 # --- 2. Logische Segment-IDs des Tannenbaums ---
 SEG_BOUGH_LOW  = 0   # 18 LEDs: Unterer langer Tannenzweig (Basis)
 SEG_BOUGH_MID  = 1   # 14 LEDs: Mittlerer geschwungener Tannenzweig
@@ -27,6 +31,17 @@ SEGMENTS = (
     (32, 45),  # 2: SEG_BOUGH_HIGH (13 LEDs)
     (45, 50),  # 3: SEG_STEM       (5 LEDs)
     (50, 60),  # 4: SEG_STAR       (10 LEDs)
+)
+
+# Physische LED-Index-Zuordnung je Baum-Variante:
+# - PCB (Standard): 1:1 (0..59)
+# - Holz: zweitlaengstes Segment (SEG_BOUGH_MID, 18..31) wird rueckwaerts angesteuert (31..18)
+PIXEL_MAP_PCB = tuple(range(NUM_PIXELS))
+PIXEL_MAP_HOLZ = tuple(
+    (SEGMENTS[SEG_BOUGH_MID][0] + SEGMENTS[SEG_BOUGH_MID][1] - 1 - i)
+    if SEGMENTS[SEG_BOUGH_MID][0] <= i < SEGMENTS[SEG_BOUGH_MID][1]
+    else i
+    for i in range(NUM_PIXELS)
 )
 
 SEGMENT_NAMES = (
@@ -199,6 +214,111 @@ def build_distance_lut(origin_xy):
 
 
 _pixels = None
+_tree_type = TREE_TYPE_PCB
+
+
+def normalize_tree_type(tree_type=None):
+    """Normalisiert 'PCB' oder 'Holz' (Default: aktueller Baum-Typ, initial 'PCB')."""
+    if tree_type is None:
+        return _tree_type
+    t = str(tree_type).strip().lower()
+    if t == "holz":
+        return TREE_TYPE_HOLZ
+    if t == "pcb":
+        return TREE_TYPE_PCB
+    raise ValueError("Unbekannter Tannenbaum-Typ: {!r} (erwartet 'PCB' oder 'Holz')".format(tree_type))
+
+
+def get_tree_type():
+    """Gibt den aktiven Tannenbaum-Typ zurueck ('PCB' oder 'Holz')."""
+    return _tree_type
+
+
+def set_tree_type(tree_type):
+    """Setzt den aktiven Tannenbaum-Typ ('PCB' oder 'Holz')."""
+    global _tree_type
+    _tree_type = normalize_tree_type(tree_type)
+    return _tree_type
+
+
+def get_pixel_map(tree_type=None):
+    """Gibt die 60er Index-Zuordnungstabelle fuer 'PCB' oder 'Holz' zurueck."""
+    if normalize_tree_type(tree_type) == TREE_TYPE_HOLZ:
+        return PIXEL_MAP_HOLZ
+    return PIXEL_MAP_PCB
+
+
+def map_pixel_index(idx, tree_type=None):
+    """Bildet einen logischen LED-Index (0..59) auf den physischen LED-Index ab."""
+    if normalize_tree_type(tree_type) == TREE_TYPE_HOLZ:
+        return PIXEL_MAP_HOLZ[idx]
+    return idx
+
+
+class MappedPixels:
+    """Wrapper um NeoPixel, der je nach Baum-Typ ('PCB' vs. 'Holz') Indizes abbildet."""
+
+    def __init__(self, pixels_obj, tree_type=None):
+        self._px = pixels_obj
+        self._fixed_tree_type = None if tree_type is None else normalize_tree_type(tree_type)
+
+    def _map(self, idx):
+        t = self._fixed_tree_type if self._fixed_tree_type is not None else _tree_type
+        if t == TREE_TYPE_HOLZ:
+            return PIXEL_MAP_HOLZ[idx]
+        return idx
+
+    def __len__(self):
+        return len(self._px)
+
+    def __getitem__(self, idx):
+        if isinstance(idx, slice):
+            return [self._px[self._map(i)] for i in range(*idx.indices(len(self._px)))]
+        return self._px[self._map(idx)]
+
+    def __setitem__(self, idx, color):
+        if isinstance(idx, slice):
+            for i, c in zip(range(*idx.indices(len(self._px))), color):
+                self._px[self._map(i)] = c
+        else:
+            self._px[self._map(idx)] = color
+
+    def fill(self, color):
+        self._px.fill(color)
+
+    def show(self):
+        self._px.show()
+
+    def deinit(self):
+        self._px.deinit()
+
+    @property
+    def brightness(self):
+        return self._px.brightness
+
+    @brightness.setter
+    def brightness(self, value):
+        self._px.brightness = value
+
+    @property
+    def auto_write(self):
+        return self._px.auto_write
+
+    @auto_write.setter
+    def auto_write(self, value):
+        self._px.auto_write = value
+
+    def __getattr__(self, name):
+        return getattr(self._px, name)
+
+
+def wrap_pixels(pixels_obj, tree_type=None):
+    """Umschliesst ein bestehendes NeoPixel-Objekt mit dem Baum-Typ-Mapping."""
+    if isinstance(pixels_obj, MappedPixels):
+        if tree_type is not None:
+            pixels_obj._fixed_tree_type = normalize_tree_type(tree_type)
+        return pixels_obj
+    return MappedPixels(pixels_obj, tree_type=tree_type)
 
 
 def set_pixels(pixels_obj):
@@ -207,10 +327,12 @@ def set_pixels(pixels_obj):
     _pixels = pixels_obj
 
 
-def init_pixels(brightness=0.3, auto_write=False, pixel_order=None):
+def init_pixels(brightness=0.3, auto_write=False, pixel_order=None, tree_type=None):
     """Initialisiert den NeoPixel-Streifen (60 LEDs an PIN_NEOPIXEL) und registriert ihn."""
     import neopixel
 
+    if tree_type is not None:
+        set_tree_type(tree_type)
     if pixel_order is None:
         pixel_order = neopixel.GRB
     px = neopixel.NeoPixel(
@@ -220,8 +342,9 @@ def init_pixels(brightness=0.3, auto_write=False, pixel_order=None):
         auto_write=auto_write,
         pixel_order=pixel_order,
     )
-    set_pixels(px)
-    return px
+    mapped = MappedPixels(px)
+    set_pixels(mapped)
+    return mapped
 
 
 class Button:

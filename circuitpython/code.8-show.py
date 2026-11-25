@@ -26,6 +26,7 @@ from adafruit_httpserver import GET, POST, Redirect, Request, Response, Server
 # 1. HARDWARE- & ENSEMBLE-KONFIGURATION (an eigenes Board anpassen!)
 # ------------------------------------------------------------------------------
 NUM_LEDS = 60
+TREE_TYPE = "PCB"  # "PCB" (Standard) oder "Holz" (zweitlaengstes Segment 18..31 rueckwaerts)
 LED_PIN = getattr(board, "D10", getattr(board, "IO18", None))
 LED_BRIGHTNESS_HW = 1.0  # Dimmung/ABL erfolgt sauber per Software-Skalierung
 
@@ -500,7 +501,8 @@ def render_frame(show_ms, master_dim, forced_act=0):
         ri = GAMMA_LUT[min(255, max(0, int(r * scale * 255.0)))]
         gi = GAMMA_LUT[min(255, max(0, int(g * scale * 255.0)))]
         bi = GAMMA_LUT[min(255, max(0, int(b * scale * 255.0)))]
-        pixels[idx] = (ri, gi, bi)
+        out_idx = (49 - idx) if (TREE_TYPE == "Holz" and 18 <= idx < 32) else idx
+        pixels[out_idx] = (ri, gi, bi)
 
     pixels.show()
 

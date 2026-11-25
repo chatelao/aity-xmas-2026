@@ -18,6 +18,7 @@ typedef struct {
     uint8_t brightness; // 0..100
     uint8_t speed;      // 1..100
     uint8_t palette_id; // 0..9 (TwinkleFOX palette / Shockwave epicenter / Segment mode)
+    uint8_t tree_type;  // 0 = PCB (default), 1 = Holz (segment 1 reversed)
 } led_engine_cmd_t;
 
 typedef struct {

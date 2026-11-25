@@ -126,6 +126,7 @@ size_t http_build_status_json(char *out_buf, size_t buf_size, uint32_t uptime_s,
         "{\"uptime\":%lu,\"pattern_id\":%u,\"palette_id\":%u,"
         "\"red\":%u,\"green\":%u,\"blue\":%u,"
         "\"brightness\":%u,\"speed\":%u,"
+        "\"tree_type\":\"%s\","
         "\"melody_id\":%u,\"playback_state\":%u,\"volume\":%u,\"tempo\":%u,"
         "\"sta_count\":%u,\"error_code\":%u,"
         "\"ssid\":\"%s\",\"ip\":\"%s\",\"firmware\":\"%s\"}",
@@ -137,6 +138,7 @@ size_t http_build_status_json(char *out_buf, size_t buf_size, uint32_t uptime_s,
         (unsigned)led.blue,
         (unsigned)led.brightness,
         (unsigned)led.speed,
+        (led.tree_type == TREE_TYPE_HOLZ) ? "Holz" : "PCB",
         (unsigned)audio.melody_id,
         (unsigned)audio.playback_state,
         (unsigned)audio.volume,
@@ -150,6 +152,17 @@ size_t http_build_status_json(char *out_buf, size_t buf_size, uint32_t uptime_s,
 
     if (n < 0) return 0;
     return ((size_t)n >= buf_size) ? (buf_size - 1) : (size_t)n;
+}
+
+static bool ascii_ieq(const char *a, const char *b) {
+    while (*a && *b) {
+        char ca = (*a >= 'A' && *a <= 'Z') ? (char)(*a + 32) : *a;
+        char cb = (*b >= 'A' && *b <= 'Z') ? (char)(*b + 32) : *b;
+        if (ca != cb) return false;
+        a++;
+        b++;
+    }
+    return *a == '\0' && *b == '\0';
 }
 
 bool http_handle_lighting_json(const char *json_body) {
@@ -186,6 +199,19 @@ bool http_handle_lighting_json(const char *json_body) {
     if (json_get_int(json_body, "speed", &val)) {
         if (val < 1 || val > 100) return false;
         cmd.speed = (uint8_t)val;
+    }
+    char tt_str[16];
+    if (json_get_string(json_body, "tree_type", tt_str, sizeof(tt_str))) {
+        if (ascii_ieq(tt_str, "holz")) {
+            cmd.tree_type = TREE_TYPE_HOLZ;
+        } else if (ascii_ieq(tt_str, "pcb")) {
+            cmd.tree_type = TREE_TYPE_PCB;
+        } else {
+            return false;
+        }
+    } else if (json_get_int(json_body, "tree_type", &val)) {
+        if (val < 0 || !protocol_is_valid_tree_type((uint8_t)val)) return false;
+        cmd.tree_type = (uint8_t)val;
     }
 
     if (!led_engine_send_command(&cmd)) return false;

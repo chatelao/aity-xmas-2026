@@ -13,6 +13,7 @@
       this.runId = 0;
       this.running = false;
       this.buttons = { D5: false, D6: false };
+      this.treeType = "PCB";
     }
 
     async init() {
@@ -65,6 +66,20 @@
       this.buttons[name] = Boolean(pressed);
     }
 
+    setTreeType(treeType) {
+      this.treeType = treeType === "Holz" ? "Holz" : "PCB";
+      if (this.pyodide) {
+        try {
+          this.pyodide.globals.set("_SIM_TREE_TYPE", this.treeType);
+          this.pyodide.runPython(
+            "import sys\nif 'tannenbaum_layout' in sys.modules:\n    sys.modules['tannenbaum_layout'].set_tree_type(_SIM_TREE_TYPE)\n"
+          );
+        } catch (_) {
+          // Ignore if layout module is not loaded yet
+        }
+      }
+    }
+
     stop() {
       this.runId += 1;
       this.running = false;
@@ -79,6 +94,10 @@
       this.onStatus("running", "Running");
 
       try {
+        pyodide.globals.set("_SIM_TREE_TYPE", this.treeType);
+        await pyodide.runPythonAsync(
+          "import tannenbaum_layout as _tl\n_tl.set_tree_type(_SIM_TREE_TYPE)\n"
+        );
         pyodide.globals.set("_USER_SOURCE_CODE", sourceCode);
         pyodide.globals.set("_TARGET_RUN_ID", myRunId);
         await pyodide.runPythonAsync("_sim_execute(_USER_SOURCE_CODE, _TARGET_RUN_ID)");

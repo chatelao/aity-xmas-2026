@@ -24,7 +24,8 @@ from tannenbaum_palettes import (
 )
 
 # --- Hardware-Setup ---
-pixels = init_pixels(brightness=0.35)
+TREE_TYPE = "PCB"  # "PCB" (Standard) oder "Holz" (zweitlaengstes Segment rueckwaerts)
+pixels = init_pixels(brightness=0.35, tree_type=TREE_TYPE)
 btn_d5, btn_d6 = init_buttons()
 
 # --- Geometrie-Vorberechnung ---

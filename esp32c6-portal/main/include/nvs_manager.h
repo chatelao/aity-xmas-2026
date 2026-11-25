@@ -19,6 +19,7 @@ typedef struct {
     uint8_t blue;
     uint8_t brightness;
     uint8_t speed;
+    uint8_t tree_type;
     uint8_t melody_id;
     uint8_t volume;
     uint8_t tempo;

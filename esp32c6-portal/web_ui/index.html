@@ -91,6 +91,13 @@ nav button .ic{font-size:17px;line-height:1}
       <div class="tree-box">
         <canvas id="tree-canvas" width="210" height="230" aria-label="Live-Vorschau Weihnachtsbaum"></canvas>
       </div>
+      <div class="row" style="padding-top:4px;border-top:1px solid var(--border)">
+        <span class="sub" style="font-weight:600;color:var(--text)">Baum-Variante</span>
+        <div id="tree-type-chips" class="chips">
+          <button class="chip sel" data-tree-type="PCB" type="button">PCB</button>
+          <button class="chip" data-tree-type="Holz" type="button">Holz</button>
+        </div>
+      </div>
     </div>
 
     <div class="card">
@@ -190,6 +197,7 @@ nav button .ic{font-size:17px;line-height:1}
         <div class="k">Wiedergabe-Status</div><div id="st-playback" class="v">-</div>
         <div class="k">Helligkeit / Tempo</div><div id="st-led" class="v">-</div>
         <div class="k">Lautstärke / Tempo</div><div id="st-audio" class="v">-</div>
+        <div class="k">Baum-Variante</div><div id="st-tree-type" class="v">PCB</div>
         <div class="k">Hardware-Pins</div><div class="v">LED: D10 (GPIO18) · Audio: D0 (GPIO0)</div>
         <div class="k">Systemzustand</div><div id="st-error" class="v">OK</div>
         <div class="k">Firmware</div><div id="st-fw" class="v">1.0.0</div>
@@ -234,7 +242,7 @@ const LEDS=[
 ];
 
 const st={
-  pattern_id:12,palette_id:0,red:255,green:120,blue:30,brightness:70,speed:50,
+  pattern_id:12,palette_id:0,red:255,green:120,blue:30,brightness:70,speed:50,tree_type:"PCB",
   melody_id:0,playback_state:0,volume:60,tempo:100,
   uptime:0,sta_count:1,error_code:0,ssid:"AITY-Xmas-Tree",ip:"192.168.4.1",firmware:"1.0.0",
   presets:[]
@@ -261,6 +269,9 @@ function applyStatus(d){
    "melody_id","playback_state","volume","tempo","uptime","sta_count","error_code"].forEach(k=>{
     if(typeof d[k]==="number")st[k]=d[k];
   });
+  if(d.tree_type==="Holz"||d.tree_type==="PCB")st.tree_type=d.tree_type;
+  else if(d.tree_type===1)st.tree_type="Holz";
+  else if(d.tree_type===0)st.tree_type="PCB";
   if(d.ssid)st.ssid=d.ssid;
   if(d.ip)st.ip=d.ip;
   if(d.firmware)st.firmware=d.firmware;
@@ -271,7 +282,7 @@ function sendLighting(immediate){
   const go=()=>api("/api/lighting",{
     pattern_id:st.pattern_id,palette_id:st.palette_id,
     red:st.red,green:st.green,blue:st.blue,
-    brightness:st.brightness,speed:st.speed
+    brightness:st.brightness,speed:st.speed,tree_type:st.tree_type
   }).then(applyStatus).catch(()=>setConn(false));
   clearTimeout(ledTimer);
   if(immediate)go();else ledTimer=setTimeout(go,80);
@@ -298,6 +309,8 @@ function syncUI(){
   $("topbar-sub").textContent=`Laufzeit ${st.uptime}s · Helligkeit ${st.brightness}% · Lautst. ${st.volume}%`;
   $("pattern-badge").textContent=PATTERNS[st.pattern_id]||"Aus";
   $("btn-power").textContent=st.pattern_id===0?"Einschalten":"Ausschalten";
+  document.querySelectorAll("#tree-type-chips .chip").forEach(c=>c.classList.toggle("sel",c.dataset.treeType===st.tree_type));
+  $("st-tree-type").textContent=st.tree_type==="Holz"?"Holz (Zweig Mitte rückwärts)":"PCB (Standard)";
   $("color-preview").style.background=`rgb(${st.red},${st.green},${st.blue})`;
   $("rgb-label").textContent=`RGB(${st.red}, ${st.green}, ${st.blue})`;
   $("slider-brightness").value=st.brightness;
@@ -492,6 +505,9 @@ document.querySelectorAll(".swatch").forEach(sw=>{
   };
 });
 $("btn-power").onclick=()=>{st.pattern_id=st.pattern_id===0?12:0;syncUI();sendLighting(true);};
+document.querySelectorAll("#tree-type-chips .chip").forEach(c=>{
+  c.onclick=()=>{st.tree_type=c.dataset.treeType;syncUI();sendLighting(true);showToast("Baum-Variante: "+st.tree_type);};
+});
 $("slider-brightness").oninput=e=>{st.brightness=+e.target.value;syncUI();sendLighting(false);};
 $("slider-speed").oninput=e=>{st.speed=+e.target.value;syncUI();sendLighting(false);};
 $("btn-play").onclick=()=>{if(st.melody_id===0)st.melody_id=1;st.playback_state=1;syncUI();sendAudio(true);};

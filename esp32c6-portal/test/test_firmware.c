@@ -247,26 +247,35 @@ static void test_http_portal_and_api(void) {
     assert(!http_is_portal_host("connectivitycheck.gstatic.com"));
     assert(!http_is_portal_host("captive.apple.com"));
 
-    // Lighting API
+    // Lighting API (including tree_type)
     assert(http_handle_lighting_json(
         "{\"pattern_id\":12,\"palette_id\":4,\"red\":255,\"green\":0,\"blue\":80,\"brightness\":88,\"speed\":62}"));
     assert(!http_handle_lighting_json("{\"pattern_id\":99}"));
+    assert(!http_handle_lighting_json("{\"tree_type\":\"Invalid\"}"));
 
     // Audio API
     assert(http_handle_audio_json(
         "{\"melody_id\":3,\"playback_state\":1,\"volume\":65,\"tempo\":115}"));
     assert(!http_handle_audio_json("{\"tempo\":10}"));
 
-    // Status JSON
+    // Status JSON (default tree_type is PCB)
     char status[512];
     size_t slen = http_build_status_json(status, sizeof(status), 42, 2);
     assert(slen > 50);
     assert(strstr(status, "\"uptime\":42") != NULL);
     assert(strstr(status, "\"pattern_id\":12") != NULL);
     assert(strstr(status, "\"palette_id\":4") != NULL);
+    assert(strstr(status, "\"tree_type\":\"PCB\"") != NULL);
     assert(strstr(status, "\"melody_id\":3") != NULL);
     assert(strstr(status, "\"sta_count\":2") != NULL);
     assert(strstr(status, "\"ssid\":\"AITY-Xmas-Tree\"") != NULL);
+
+    // Switch to Holz via HTTP API
+    assert(http_handle_lighting_json("{\"tree_type\":\"Holz\"}"));
+    slen = http_build_status_json(status, sizeof(status), 43, 2);
+    assert(slen > 50);
+    assert(strstr(status, "\"tree_type\":\"Holz\"") != NULL);
+    assert(http_handle_lighting_json("{\"tree_type\":\"PCB\"}"));
 
     // Presets API
     preset_store_init();
@@ -283,9 +292,45 @@ static void test_http_portal_and_api(void) {
     printf("[PASS] test_http_portal_and_api\n");
 }
 
+static void test_tree_type_pcb_vs_holz(void) {
+    led_engine_init();
+    led_engine_cmd_t state;
+    led_engine_get_current_state(&state);
+    assert(state.tree_type == TREE_TYPE_PCB);
+
+    led_engine_cmd_t cmd_pcb = {
+        .pattern_id = PATTERN_COMET_CHASE,
+        .red = 255, .green = 100, .blue = 50,
+        .brightness = 100, .speed = 50, .palette_id = 0,
+        .tree_type = TREE_TYPE_PCB
+    };
+    led_engine_cmd_t cmd_holz = cmd_pcb;
+    cmd_holz.tree_type = TREE_TYPE_HOLZ;
+
+    rgb_color_t px_pcb[LED_STRIP_NUM_LEDS];
+    rgb_color_t px_holz[LED_STRIP_NUM_LEDS];
+    // Frame 10 puts comet head inside Segment 1 (18..31)
+    assert(led_engine_render_frame(&cmd_pcb, 10, px_pcb, LED_STRIP_NUM_LEDS));
+    assert(led_engine_render_frame(&cmd_holz, 10, px_holz, LED_STRIP_NUM_LEDS));
+
+    for (uint16_t i = 0; i < 18; i++) {
+        assert(px_pcb[i].r == px_holz[i].r && px_pcb[i].g == px_holz[i].g && px_pcb[i].b == px_holz[i].b);
+    }
+    for (uint16_t i = 18; i < 32; i++) {
+        uint16_t rev = 49U - i;
+        assert(px_holz[i].r == px_pcb[rev].r && px_holz[i].g == px_pcb[rev].g && px_holz[i].b == px_pcb[rev].b);
+    }
+    for (uint16_t i = 32; i < LED_STRIP_NUM_LEDS; i++) {
+        assert(px_pcb[i].r == px_holz[i].r && px_pcb[i].g == px_holz[i].g && px_pcb[i].b == px_holz[i].b);
+    }
+
+    printf("[PASS] test_tree_type_pcb_vs_holz\n");
+}
+
 int main(void) {
     test_board_config();
     test_led_engine_all_patterns();
+    test_tree_type_pcb_vs_holz();
     test_audio_engine();
     test_nvs_and_presets();
     test_dns_captive_portal();

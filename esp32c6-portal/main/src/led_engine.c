@@ -30,7 +30,8 @@ static led_engine_cmd_t s_current_led_state = {
     .blue = 30,
     .brightness = 70,
     .speed = 50,
-    .palette_id = 0
+    .palette_id = 0,
+    .tree_type = TREE_TYPE_PCB
 };
 
 typedef struct {
@@ -233,6 +234,7 @@ void led_engine_init(void) {
     s_current_led_state.brightness = 70;
     s_current_led_state.speed = 50;
     s_current_led_state.palette_id = 0;
+    s_current_led_state.tree_type = TREE_TYPE_PCB;
 #ifdef ESP_PLATFORM
     portEXIT_CRITICAL(&s_led_mux);
     led_rmt_init();
@@ -266,6 +268,7 @@ bool led_engine_send_command(const led_engine_cmd_t *cmd) {
     if (sanitized.speed < 1) sanitized.speed = 1;
     if (sanitized.speed > 100) sanitized.speed = 100;
     if (sanitized.palette_id >= TWINKLE_PALETTE_COUNT) sanitized.palette_id = 0;
+    if (!protocol_is_valid_tree_type(sanitized.tree_type)) sanitized.tree_type = TREE_TYPE_PCB;
 
 #ifdef ESP_PLATFORM
     portENTER_CRITICAL(&s_led_mux);
@@ -623,6 +626,17 @@ bool led_engine_render_frame(const led_engine_cmd_t *cmd,
 
         default:
             return false;
+    }
+
+    // Holz-Variante: zweitlaengstes Segment (Segment 1: LEDs 18..31) rueckwaerts ansteuern
+    if (cmd->tree_type == TREE_TYPE_HOLZ && num_leds >= 32U) {
+        for (uint16_t k = 0; k < 7U; k++) {
+            uint16_t a = 18U + k;
+            uint16_t b = 31U - k;
+            rgb_color_t tmp = out_pixels[a];
+            out_pixels[a] = out_pixels[b];
+            out_pixels[b] = tmp;
+        }
     }
 
     return true;
