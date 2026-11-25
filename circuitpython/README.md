@@ -48,6 +48,7 @@ Reusable modules for geometry/segments ([`tannenbaum_layout.py`](lib/tannenbaum_
 | File | Generator Script | Description |
 |------|------------------|-------------|
 | [`cheatsheet_a4.pdf`](cheatsheet_a4.pdf) | [`generate_cheatsheet_pdf.py`](generate_cheatsheet_pdf.py) | 2-page printable A4 cheatsheet (German): Python basics (`if`/`elif`/`else`, `for`, `while`, functions) & `tannenbaum_*.py` usage (buttons `D5`/`D6`, single pixels, segments, `VirtualSegment`, 2D/polar coordinates, palettes & TwinkleFOX) |
+| [`cheatsheet_colors_a4.pdf`](cheatsheet_colors_a4.pdf) | [`generate_cheatsheet_colors_pdf.py`](generate_cheatsheet_colors_pdf.py) | 2-page printable A4 colors & palettes cheatsheet (German): all 27 named RGB colors, color mixing & dimming, HSV rainbow (`hsv_to_rgb_gamma`), all 10 TwinkleFOX 16-entry palettes with smooth gradients, `color_from_palette`, custom palettes & `render_twinkle_tree` |
 | [`animation_planner_a4.pdf`](animation_planner_a4.pdf) | [`generate_planner_pdf.py`](generate_planner_pdf.py) | 3-page printable A4 worksheet for sketching LED animations, single colors, and custom 16-entry palettes |
 
 ---
