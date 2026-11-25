@@ -207,7 +207,8 @@ jobs:
           cp staging_cp/lib/* pkg_cp/lib/
           cp circuitpython/adafruit-circuitpython-seeeduino_xiao_rp2040-*.uf2 pkg_cp/
           cp circuitpython/adafruit-circuitpython-seeed_xiao_esp32c6-*.bin pkg_cp/
-          cp circuitpython/animation_planner_a4.pdf circuitpython/README.md LICENSE pkg_cp/
+          cp circuitpython/animation_planner_a4.pdf circuitpython/cheatsheet_a4.pdf circuitpython/README.md LICENSE pkg_cp/
+          cp circuitpython/cheatsheet_a4.pdf release_assets/
           (cd pkg_cp && zip -r ../release_assets/software_circuitpython.zip .)
 
           # RP2040 Tester package (.zip)
