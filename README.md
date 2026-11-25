@@ -11,6 +11,8 @@ Ein interaktives Weihnachtsbaum-PCB für **Seeed Studio XIAO RP2040** oder **See
 - **Mikrocontroller:** Seeed Studio XIAO RP2040 oder Seeed Studio XIAO ESP32-C6
 - **LEDs:** 60 × WS2812B NeoPixel RGB-LEDs an Pin `D10`
 - **Audio:** Lautsprecher/Buzzer an Pin `D0`
+- **Taster (Default):** Taster A an `D5` (TP108) und Taster B an `D6` (TP106) — Aktiv-Low gegen `GND` (interner Pull-Up)
+- **Config-Pin:** `D3` (TP104) mit internem Pull-Up — `GND` (kurzgeschlossen) = **Wood Edition**, `N/C` (offen) = **PCB Edition**
 - **Testpunkte:** TP101 – TP109 an den Pins `D1` – `D9`
 
 ## ASCII-Pinout-Diagramm
@@ -18,18 +20,18 @@ Ein interaktives Weihnachtsbaum-PCB für **Seeed Studio XIAO RP2040** oder **See
 Beide XIAO-Boards teilen sich denselben 14-Pin-Formfaktor:
 
 ```
-                        +-------------------+
-                        |   USB-C           |
-                        |  [ Seeed XIAO ]   |
-                        | [RP2040/ESP32-C6] |
-(Lautspr. LS101) D0/A0 -| [1]          [14] |- 5V (VDD Spannung)
-  (Testpunkt 1)  D1/A1 -| [2]          [13] |- GND
-  (Testpunkt 3)  D2/A2 -| [3]          [12] |- 3V3 (NC)
-  (Testpunkt 4)  D3/A3 -| [4]          [11] |- D10/MOSI (60 × NeoPixel LEDs)
-  (Testpunkt 5) D4/SDA -| [5]          [10] |- D9/MISO  (Testpunkt 2)
-  (Testpunkt 8) D5/SCL -| [6]           [9] |- D8/SCK   (Testpunkt 7)
-  (Testpunkt 6)  D6/TX -| [7]           [8] |- D7/RX    (Testpunkt 9)
-                        +-------------------+
+                                            +-------------------+
+                                            |   USB-C           |
+                                            |  [ Seeed XIAO ]   |
+                                            | [RP2040/ESP32-C6] |
+                     (Lautspr. LS101) D0/A0 -| [1]          [14] |- 5V (VDD Spannung)
+                       (Testpunkt 1)  D1/A1 -| [2]          [13] |- GND
+                       (Testpunkt 3)  D2/A2 -| [3]          [12] |- 3V3 (NC)
+  (TP104 / Config: GND=Wood, NC=PCB)  D3/A3 -| [4]          [11] |- D10/MOSI (60 × NeoPixel LEDs)
+                       (Testpunkt 5) D4/SDA -| [5]          [10] |- D9/MISO  (Testpunkt 2)
+             (Testpunkt 8 / Taster A) D5/SCL -| [6]          [9]  |- D8/SCK   (Testpunkt 7)
+              (Testpunkt 6 / Taster B) D6/TX -| [7]          [8]  |- D7/RX    (Testpunkt 9)
+                                            +-------------------+
 ```
 
 ### Pin-Belegungstabelle
@@ -39,10 +41,10 @@ Beide XIAO-Boards teilen sich denselben 14-Pin-Formfaktor:
 | 1 | A0 / D0 | GPIO26 | GPIO0 / PA02 | `board.D0` | Lautsprecher (LS101) |
 | 2 | A1 / D1 | GPIO27 | GPIO1 / PA04 | `board.D1` | Testpunkt 1 (TP101) |
 | 3 | A2 / D2 | GPIO28 | GPIO2 / PA10 | `board.D2` | Testpunkt 3 (TP103) |
-| 4 | A3 / D3 | GPIO29 | GPIO3 / PA11 | `board.D3` | Testpunkt 4 (TP104) |
+| 4 | A3 / D3 | GPIO29 | GPIO3 / PA11 | `board.D3` | Testpunkt 4 (TP104) / Config-Pin (`GND` = Wood Edition, `N/C` = PCB Edition) |
 | 5 | SDA / D4 | GPIO6 | GPIO19 / PA08 | `board.D4` | Testpunkt 5 (TP105) |
-| 6 | SCL / D5 | GPIO7 | GPIO20 / PA09 | `board.D5` | Testpunkt 8 (TP108) |
-| 7 | TX / D6 | GPIO0 | GPIO21 / PB08 | `board.D6` | Testpunkt 6 (TP106) |
+| 6 | SCL / D5 | GPIO7 | GPIO20 / PA09 | `board.D5` | Testpunkt 8 (TP108) / Default-Taster A (Aktiv-Low gegen `GND`) |
+| 7 | TX / D6 | GPIO0 | GPIO21 / PB08 | `board.D6` | Testpunkt 6 (TP106) / Default-Taster B (Aktiv-Low gegen `GND`) |
 | 8 | RX / D7 | GPIO1 | GPIO22 / PB09 | `board.D7` | Testpunkt 9 (TP109) |
 | 9 | SCK / D8 | GPIO2 | GPIO23 / PA07 | `board.D8` | Testpunkt 7 (TP107) |
 | 10 | MISO / D9 | GPIO4 | GPIO9 / PA05 | `board.D9` | Testpunkt 2 (TP102) |
@@ -117,4 +119,4 @@ while True:
 
 1. CircuitPython installieren (siehe [HOWTO_RP2040.md](HOWTO_RP2040.md) oder [HOWTO_ESP32-C6.md](HOWTO_ESP32-C6.md)) — oder direkt über die **GitHub-Pages-Weboberfläche** flashen.
 2. `neopixel.mpy` (aus `circuitpython/default/lib/`) in den Ordner `lib/` auf dem Board kopieren.
-3. Das gewünschte Skript (z. B. `circuitpython/code.unified.py` oder `circuitpython/code.portal.py`) als `code.py` auf dem Board speichern.
+3. Das gewünschte Skript (z. B. `circuitpython/code.py`, `circuitpython/code.99-unified.py` oder `circuitpython/code.portal.py`) als `code.py` auf dem Board speichern.

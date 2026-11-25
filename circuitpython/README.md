@@ -26,13 +26,18 @@ All example scripts drive the 60 NeoPixels on `board.D10` and use buttons on `bo
 
 | Script | Description | `D5` | `D6` |
 |--------|-------------|------|------|
-| [`code.1-sechs-LED.py`](code.1-sechs-LED.py) | Static primary/secondary colors on the first 3 or 6 LEDs | Toggle 3 / 6 LEDs | Blank LEDs while held |
-| [`code.2-lauflicht.py`](code.2-lauflicht.py) | Non-blocking chasing light with fading trail | Reverse direction | Cycle speed |
-| [`code.3-segmente.py`](code.3-segmente.py) | Highlights each of the 6 tree segments (star, boughs, stem) | Toggle auto / manual | Next segment |
-| [`code.4-koordinaten.py`](code.4-koordinaten.py) | Radial wave explosions from 3 epicenters using KiCad coordinates | Retrigger wave | Next epicenter |
-| [`code.5-maximal.py`](code.5-maximal.py) | 2D plasma, polar vortex, and gravity pulse with gamma correction | Switch mode | Shift palette |
-| [`code.7-twinkle.py`](code.7-twinkle.py) | Full-tree TwinkleFOX animation with 10 palettes & warm-gold star | Next palette | Cycle speed |
-| [`code.unified.py`](code.unified.py) | Unified firmware combining all 8 modes (TwinkleFOX, Sechs LEDs, Lauflicht, Segmente, Koordinaten, Plasma, Vortex, Gravity) | Tap: Prev mode · Hold: Prev palette · 2×Tap: Slower | Tap: Next mode · Hold: Next palette · 2×Tap: Faster |
+| [`code.py`](code.py) | Default auto-stepping script (copy of `code.1-one-LED-auto.py`) | — | — |
+| [`code.1-one-LED-auto.py`](code.1-one-LED-auto.py) | Single red LED stepping forward automatically every 1 s | — | — |
+| [`code.2-one-LED-taster.py`](code.2-one-LED-taster.py) | Single moving red LED using `tannenbaum_layout` | Step forward (`0 → 59`) | Step backward (`59 → 0`) |
+| [`code.3-one-LED-neopixel.py`](code.3-one-LED-neopixel.py) | Single moving red LED using only `neopixel` (no `tannenbaum_layout`) | Step forward (`0 → 59`) | Step backward (`59 → 0`) |
+| [`code.4-sechs-LED.py`](code.4-sechs-LED.py) | Static primary/secondary colors on the first 3 or 6 LEDs | Toggle 3 / 6 LEDs | Blank LEDs while held |
+| [`code.5-lauflicht.py`](code.5-lauflicht.py) | Non-blocking chasing light with fading trail | Reverse direction | Cycle speed |
+| [`code.6-segmente.py`](code.6-segmente.py) | Highlights each of the 6 tree segments (star, boughs, stem) | Toggle auto / manual | Next segment |
+| [`code.7-koordinaten.py`](code.7-koordinaten.py) | Radial wave explosions from 3 epicenters using KiCad coordinates | Retrigger wave | Next epicenter |
+| [`code.8-maximal.py`](code.8-maximal.py) | 2D plasma, polar vortex, and gravity pulse with gamma correction | Switch mode | Shift palette |
+| [`code.9-twinkle.py`](code.9-twinkle.py) | Full-tree TwinkleFOX animation with 10 palettes & warm-gold star | Next palette | Cycle speed |
+| [`code.10-show.py`](code.10-show.py) | Synchronized 10+2 tree ESP-NOW show firmware with Wi-Fi captive portal & synthio audio | — | — |
+| [`code.99-unified.py`](code.99-unified.py) | Unified firmware combining all 8 modes (TwinkleFOX, Sechs LEDs, Lauflicht, Segmente, Koordinaten, Plasma, Vortex, Gravity) | Tap: Prev mode · Hold: Prev palette · 2×Tap: Slower | Tap: Next mode · Hold: Next palette · 2×Tap: Faster |
 | [`code.test.py`](code.test.py) | Hardware tester (XIAO RP2040): every 3rd LED cycles every 700 ms (3×R, 3×G, 3×B, 3×W) + onboard NeoPixel status for buttons | Onboard Green (White with D6) | Onboard Red (White with D5) |
 | [`code.portal.py`](code.portal.py) | **Zero-Install Wi-Fi Captive Portal** for **XIAO ESP32-C6** (`192.168.4.1` AP + DNS/HTTP redirect + [`web_ui.html.gz`](web_ui.html.gz), 100% parity with `android-xmas-tree-app`) | — | — |
 

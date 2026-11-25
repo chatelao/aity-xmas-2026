@@ -1,4 +1,4 @@
-// AITY Xmas Tree 2026 — 10+2 Baum-Show 3D Simulation (port of circuitpython/code.8-show.py)
+// AITY Xmas Tree 2026 — 10+2 Baum-Show 3D Simulation (port of circuitpython/code.10-show.py)
 (function () {
   const NUM_LEDS = 60;
   const SHOW_TOTAL_MS = 1_260_000; // 21 minutes (10 acts)
@@ -205,7 +205,7 @@
     ],
   };
 
-  // Default 10+2 ensemble layout from circuitpython/code.8-show.py
+  // Default 10+2 ensemble layout from circuitpython/code.10-show.py
   // [x_mm, y_base_mm, z_mm, height_mm, base_diam_mm, density_norm]
   const DEFAULT_TREE_LAYOUT = {
     T01: [-1050, 0, 360, 100, 70, 0.35],
@@ -263,7 +263,7 @@
     return { actId: 1, name: ACTS[0][1], bpm: 72, localMs: 0 };
   }
 
-  // Default modifiable shader function body (mirrors render_frame in code.8-show.py)
+  // Default modifiable shader function body (mirrors render_frame in code.10-show.py)
   const DEFAULT_RENDER_CODE = `// Modifizierbare 3D-Show-Formel (pro LED in allen 12 Baeumen)
 // Verfuegbar: wx, wy, wz (Weltkoordinaten in mm), idx (0..59),
 // treeId ("T01".."T12"), isHero (T11/T12), actId (1..6),

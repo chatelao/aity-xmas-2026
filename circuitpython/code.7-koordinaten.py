@@ -1,4 +1,4 @@
-# code.4-koordinaten.py
+# code.7-koordinaten.py
 import time
 from tannenbaum_layout import (
     NUM_PIXELS, PIXEL_COORDS, EPICENTERS,

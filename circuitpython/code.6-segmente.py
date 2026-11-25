@@ -1,4 +1,4 @@
-# code.3-segmente.py
+# code.6-segmente.py
 import time
 from tannenbaum_layout import (
     VIRTUAL_SEGMENTS, init_pixels, init_buttons, fill_vseg,

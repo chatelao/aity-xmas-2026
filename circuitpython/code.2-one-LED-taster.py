@@ -1,4 +1,4 @@
-# code.1a-one-LED.py
+# code.2-one-LED-taster.py
 # Hardware: Seeed XIAO RP2040 / XIAO ESP32-C6
 # Abhaengigkeiten: /lib/neopixel.mpy, /lib/tannenbaum_layout.py
 

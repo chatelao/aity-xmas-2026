@@ -1,4 +1,4 @@
-# code.7-twinkle.py
+# code.9-twinkle.py
 # Hardware: Seeed XIAO RP2040 / XIAO ESP32-C6
 # Abhaengigkeiten: /lib/neopixel.mpy, /lib/tannenbaum_layout.py, /lib/tannenbaum_palettes.py
 

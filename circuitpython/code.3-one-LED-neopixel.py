@@ -1,4 +1,4 @@
-# code.1d-one-LED.py
+# code.3-one-LED-neopixel.py
 # Hardware: Seeed XIAO RP2040 / XIAO ESP32-C6
 # Abhaengigkeiten: /lib/neopixel.mpy
 
