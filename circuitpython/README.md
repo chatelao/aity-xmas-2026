@@ -27,6 +27,7 @@ All example scripts drive the 60 NeoPixels on `board.D10` and use buttons on `bo
 | Script | Description | `D5` | `D6` |
 |--------|-------------|------|------|
 | [`code.py`](code.py) | Default auto-stepping script (copy of `code.1-one-LED-auto.py`) | — | — |
+| [`code.0-one-LED.py`](code.0-one-LED.py) | Minimal example: single red LED (`pixels[0]`) using `tannenbaum_layout` | — | — |
 | [`code.1-one-LED-auto.py`](code.1-one-LED-auto.py) | Single red LED stepping forward automatically every 1 s | — | — |
 | [`code.2-one-LED-taster.py`](code.2-one-LED-taster.py) | Single moving red LED using `tannenbaum_layout` | Step forward (`0 → 59`) | Step backward (`59 → 0`) |
 | [`code.3-one-LED-neopixel.py`](code.3-one-LED-neopixel.py) | Single moving red LED using only `neopixel` (no `tannenbaum_layout`) | Step forward (`0 → 59`) | Step backward (`59 → 0`) |
