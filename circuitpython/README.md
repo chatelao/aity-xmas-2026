@@ -41,9 +41,15 @@ All example scripts drive the 60 NeoPixels on `board.D10` and use buttons on `bo
 | [`code.test.py`](code.test.py) | Hardware tester (XIAO RP2040): every 3rd LED cycles every 700 ms (3×R, 3×G, 3×B, 3×W) + onboard NeoPixel status for buttons | Onboard Green (White with D6) | Onboard Red (White with D5) |
 | [`code.portal.py`](code.portal.py) | **Zero-Install Wi-Fi Captive Portal** for **XIAO ESP32-C6** (`192.168.4.1` AP + DNS/HTTP redirect + [`web_ui.html.gz`](web_ui.html.gz), 100% parity with `android-xmas-tree-app`) | — | — |
 
-### Libraries (`lib/`)
+### Libraries (`lib/`) & Printable A4 Sheets
 
 Reusable modules for geometry/segments ([`tannenbaum_layout.py`](lib/tannenbaum_layout.py)) and TwinkleFOX-style palettes and effects ([`tannenbaum_palettes.py`](lib/tannenbaum_palettes.py)). See [`lib/README.md`](lib/README.md) for full documentation and examples.
+
+| File | Generator Script | Description |
+|------|------------------|-------------|
+| [`cheatsheet_a4.pdf`](cheatsheet_a4.pdf) | [`generate_cheatsheet_pdf.py`](generate_cheatsheet_pdf.py) | 2-page printable A4 cheatsheet (German): Python basics (`if`/`elif`/`else`, `for`, `while`, functions) & `tannenbaum_*.py` usage (buttons `D5`/`D6`, single pixels, segments, `VirtualSegment`, 2D/polar coordinates, palettes & TwinkleFOX) |
+| [`animation_planner_a4.pdf`](animation_planner_a4.pdf) | [`generate_planner_pdf.py`](generate_planner_pdf.py) | 3-page printable A4 worksheet for sketching LED animations, single colors, and custom 16-entry palettes |
+
 ---
 
 ## License
