@@ -4,9 +4,9 @@
 # Abhaengigkeiten: /lib/neopixel.mpy, /lib/tannenbaum_layout.py, /lib/tannenbaum_palettes.py
 #
 # Steuerung ueber D5 (Zurueck / Langsamer) & D6 (Vor / Schneller):
-# - Einzelklick (Single Tap): Farbpalette wechseln (D5: vorherige, D6: naechste)
-# - Doppelklick (Double Tap): Modus wechseln (D5: vorheriger, D6: naechster)
-# - Gedrueckt halten (Long Hold): Geschwindigkeit anpassen (D5: langsamer, D6: schneller)
+# - Einzelklick (Single Tap): Sujet/Modus wechseln (D5: vorheriges, D6: naechstes)
+# - Langer Klick (Long Hold): Farbpalette wechseln (D5: vorherige, D6: naechste)
+# - Doppelklick (Double Tap): Geschwindigkeit anpassen (D5: langsamer, D6: schneller)
 
 import time
 import math
@@ -152,7 +152,7 @@ def reset_mode_state():
 
 
 print("=== AITY XMAS 2026 UNIFIED FIRMWARE ===")
-print("Double Tap D5/D6: Modus | Single Tap D5/D6: Palette | Long Hold D5/D6: Tempo")
+print("Single Tap D5/D6: Sujet | Long Hold D5/D6: Palette | Double Tap D5/D6: Tempo")
 print(f"Modus: {MODE_NAMES[mode_idx]} | Palette: {PALETTE_NAMES[pal_idx]} | Tempo: {SPEED_FACTORS[speed_idx]}x")
 
 while True:
@@ -166,29 +166,29 @@ while True:
 
     # --- Taster-Gesten auswerten ---
     for ev in gest_d5.update(now):
-        if ev == "double_tap":
+        if ev == "single_tap":
             mode_idx = (mode_idx - 1) % NUM_MODES
             reset_mode_state()
             print(f"Modus: {MODE_NAMES[mode_idx]}")
-        elif ev == "single_tap":
+        elif ev == "long_hold":
             pal_idx = (pal_idx - 1) % len(PALETTES)
             target_palette = PALETTES[pal_idx]
             print(f"Palette: {PALETTE_NAMES[pal_idx]}")
-        elif ev == "long_hold":
+        elif ev == "double_tap":
             if speed_idx > 0:
                 speed_idx -= 1
                 print(f"Tempo: {SPEED_FACTORS[speed_idx]}x (Stufe {speed_idx}/8)")
 
     for ev in gest_d6.update(now):
-        if ev == "double_tap":
+        if ev == "single_tap":
             mode_idx = (mode_idx + 1) % NUM_MODES
             reset_mode_state()
             print(f"Modus: {MODE_NAMES[mode_idx]}")
-        elif ev == "single_tap":
+        elif ev == "long_hold":
             pal_idx = (pal_idx + 1) % len(PALETTES)
             target_palette = PALETTES[pal_idx]
             print(f"Palette: {PALETTE_NAMES[pal_idx]}")
-        elif ev == "long_hold":
+        elif ev == "double_tap":
             if speed_idx < len(SPEED_FACTORS) - 1:
                 speed_idx += 1
                 print(f"Tempo: {SPEED_FACTORS[speed_idx]}x (Stufe {speed_idx}/8)")

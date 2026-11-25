@@ -570,29 +570,41 @@ pixels.show()
         async def scenario(bridge):
             await asyncio.sleep(0.06)
 
-            # Single tap D6 -> next palette (wait > DOUBLE_TAP_S for commit)
+            # Long hold D6 -> next palette (Holly)
+            bridge.buttons["D6"] = True
+            await asyncio.sleep(0.65)
+            bridge.buttons["D6"] = False
+            await asyncio.sleep(0.06)
+
+            # Long hold D5 -> previous palette (Retro C9)
+            bridge.buttons["D5"] = True
+            await asyncio.sleep(0.65)
+            bridge.buttons["D5"] = False
+            await asyncio.sleep(0.06)
+
+            # Single tap D6 -> next mode (Mode 1: Sechs LEDs)
             bridge.buttons["D6"] = True
             await asyncio.sleep(0.06)
             bridge.buttons["D6"] = False
             await asyncio.sleep(0.42)
+            sechs_led_snapshot["first_six"] = list(bridge.leds[:6])
+            sechs_led_snapshot["rest"] = list(bridge.leds[6:])
 
-            # Single tap D5 -> previous palette
+            # Single tap D5 -> previous mode (Mode 0: TwinkleFOX)
             bridge.buttons["D5"] = True
             await asyncio.sleep(0.06)
             bridge.buttons["D5"] = False
             await asyncio.sleep(0.42)
 
-            # Double tap D6 -> next mode (Mode 1: Sechs LEDs)
+            # Double tap D6 -> increase speed (1.4x)
             for _ in range(2):
                 bridge.buttons["D6"] = True
                 await asyncio.sleep(0.06)
                 bridge.buttons["D6"] = False
                 await asyncio.sleep(0.08)
             await asyncio.sleep(0.06)
-            sechs_led_snapshot["first_six"] = list(bridge.leds[:6])
-            sechs_led_snapshot["rest"] = list(bridge.leds[6:])
 
-            # Double tap D5 -> previous mode (Mode 0: TwinkleFOX)
+            # Double tap D5 -> decrease speed (1.0x)
             for _ in range(2):
                 bridge.buttons["D5"] = True
                 await asyncio.sleep(0.06)
@@ -600,26 +612,12 @@ pixels.show()
                 await asyncio.sleep(0.08)
             await asyncio.sleep(0.06)
 
-            # Long hold D6 -> increase speed
-            bridge.buttons["D6"] = True
-            await asyncio.sleep(0.65)
-            bridge.buttons["D6"] = False
-            await asyncio.sleep(0.06)
-
-            # Long hold D5 -> decrease speed
-            bridge.buttons["D5"] = True
-            await asyncio.sleep(0.65)
-            bridge.buttons["D5"] = False
-            await asyncio.sleep(0.06)
-
-            # Cycle through all 13 modes via double tap D6
+            # Cycle through all 13 modes via single tap D6
             for _ in range(13):
-                for _ in range(2):
-                    bridge.buttons["D6"] = True
-                    await asyncio.sleep(0.055)
-                    bridge.buttons["D6"] = False
-                    await asyncio.sleep(0.055)
+                bridge.buttons["D6"] = True
                 await asyncio.sleep(0.06)
+                bridge.buttons["D6"] = False
+                await asyncio.sleep(0.42)
             await asyncio.sleep(0.15)
 
         with contextlib.redirect_stdout(buf):
