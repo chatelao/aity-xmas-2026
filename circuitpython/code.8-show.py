@@ -399,44 +399,64 @@ def render_frame(show_ms, master_dim, forced_act=0):
                 r, g, b = 1.0 * amp, 0.55 * amp, 0.15 * amp
 
         elif act_id == 7:
-            # Akt 7: Zuckerstangen & Silber-Lametta (Rot/Weiss Spirale + Stern)
+            # Akt 7: Zuckerstangen & Silber-Lametta (pro Baum gegenlaeufige Spiralen & Akzentfarben)
+            tree_num = int(TREE_ID[1:])
             if idx >= 50:
+                alt = (1.0 if tree_num % 2 == 0 else -1.0) * 0.5 + 0.5
                 if idx in STAR_OUTER:
-                    amp = 0.72 + 0.28 * pulse
-                    r, g, b = 1.0 * amp, 0.94 * amp, 0.86 * amp
+                    amp = 0.70 + 0.30 * pulse
+                    r, g, b = 1.0 * amp, (0.86 + 0.10 * alt) * amp, (0.42 + 0.44 * alt) * amp
                 else:
-                    amp = 0.55 + 0.45 * pulse
-                    r, g, b = 1.0 * amp, 0.76 * amp, 0.18 * amp
+                    amp = 0.50 + 0.50 * pulse
+                    r, g, b = 1.0 * amp, (0.78 - 0.14 * alt) * amp, (0.20 + 0.18 * alt) * amp
             else:
-                stripe = math.sin(idx * 0.95 + wx * 0.004 - t_s * 5.2)
+                direction = -1.0 if tree_num % 2 == 0 else 1.0
+                stripe = math.sin(idx * 0.95 + tree_num * 0.65 + direction * t_s * 5.2)
                 edge = 0.72 + 0.28 * abs(stripe)
                 if stripe >= 0.0:
                     r, g, b = 0.98 * edge, 0.06 * edge, 0.10 * edge
+                elif 7 <= tree_num <= 10 and math.sin(idx * 0.32 + t_s * 1.4 + tree_num) > 0.35:
+                    r, g, b = 0.22 * edge, 0.92 * edge, 0.46 * edge
+                elif IS_HERO:
+                    r, g, b = 0.98 * edge, 0.88 * edge, 0.72 * edge
                 else:
-                    r, g, b = 0.94 * edge, 0.90 * edge, 0.84 * edge
-                if math.sin(idx * 12.7 + wx * 0.09 + t_s * 7.5) > 0.965:
+                    r, g, b = 0.94 * edge, 0.90 * edge, 0.86 * edge
+                if math.sin(idx * 12.7 + tree_num * 3.1 + t_s * 7.5) > 0.96:
                     r, g, b = 1.0, 0.96, 0.85
 
         elif act_id == 8:
-            # Akt 8: Tannenbaum mit buntem Baumschmuck & warmer Lichterkette
+            # Akt 8: Individuell geschmueckte Baeume (eigenes Farbthema pro Baum + Gegenlauf-Lichterkette)
+            tree_num = int(TREE_ID[1:])
             if idx >= 50:
-                amp = (0.75 + 0.25 * pulse) if idx in STAR_OUTER else 0.72
-                r, g, b = 1.0 * amp, 0.84 * amp, 0.26 * amp
-            elif idx < 45 and ((idx + tree_code) % 5 == 0):
-                kind = ((idx // 5) + tree_code) % 4
-                shim = 0.78 + 0.22 * pulse
-                if kind == 0:
-                    r, g, b = 1.0 * shim, 0.08 * shim, 0.12 * shim
-                elif kind == 1:
-                    r, g, b = 1.0 * shim, 0.72 * shim, 0.10 * shim
-                elif kind == 2:
-                    r, g, b = 0.12 * shim, 0.44 * shim, 1.0 * shim
+                star_glow = 0.72 + 0.28 * math.sin(t_s * 2.6 + tree_num * 0.7)
+                if TREE_ID == "T11":
+                    r, g, b = 0.92 * star_glow, 0.94 * star_glow, 1.0 * star_glow
                 else:
+                    amp = (0.76 + 0.24 * pulse) if idx in STAR_OUTER else star_glow
+                    r, g, b = 1.0 * amp, 0.84 * amp, 0.26 * amp
+            elif idx < 45 and ((idx + tree_num * 2) % 5 == 0):
+                shim = 0.76 + 0.24 * math.sin(t_s * 3.2 + idx * 0.8 + tree_num)
+                if TREE_ID == "T12":
+                    kind = 1 if idx % 2 == 0 else 0
+                elif TREE_ID == "T11":
+                    kind = 2 if idx % 2 == 0 else 4
+                else:
+                    kind = ((tree_num + 2) % 4) if (idx % 10 == 0) else (tree_num % 4)
+                if kind == 0:
+                    r, g, b = 1.0 * shim, 0.08 * shim, 0.14 * shim
+                elif kind == 1:
+                    r, g, b = 1.0 * shim, 0.74 * shim, 0.10 * shim
+                elif kind == 2:
+                    r, g, b = 0.12 * shim, 0.46 * shim, 1.0 * shim
+                elif kind == 3:
                     r, g, b = 0.95 * shim, 0.14 * shim, 0.54 * shim
+                else:
+                    r, g, b = 0.86 * shim, 0.93 * shim, 1.0 * shim
             else:
-                breath = 0.75 + 0.25 * math.sin(t_s * 1.6 + wx * 0.002)
-                r, g, b = 0.03 * breath, 0.36 * breath, 0.07 * breath
-                chase_pos = (t_s * 18.0 + tree_code * 7.0) % 50.0
+                breath = 0.72 + 0.28 * math.sin(t_s * 1.6 + tree_num * 0.55)
+                r, g, b = 0.03 * breath, (0.34 + 0.04 * (tree_num % 3)) * breath, 0.07 * breath
+                direction = 1.0 if tree_num % 2 == 0 else -1.0
+                chase_pos = (direction * t_s * 18.0 + tree_num * 9.0) % 50.0
                 dist = min(abs(idx - chase_pos), 50.0 - abs(idx - chase_pos))
                 if dist < 2.2:
                     glow = 1.0 - dist / 2.2
@@ -445,17 +465,24 @@ def render_frame(show_ms, master_dim, forced_act=0):
                     b = min(1.0, b + 0.38 * glow)
 
         elif act_id == 9:
-            # Akt 9: Stern von Bethlehem & goldene Sternschnuppe ueber tiefer Winternacht
+            # Akt 9: Stern von Bethlehem (wellenfoermiger Sternen-Chor & Sternschnuppen-Echo)
+            tree_num = int(TREE_ID[1:])
             if idx >= 50:
-                breath = 0.76 + 0.24 * math.sin(t_s * 2.2)
-                boost = 1.0 if TREE_ID == "T12" else 0.88
-                amp = breath * boost * (1.0 if idx in STAR_OUTER else 0.84)
-                r, g, b = 1.0 * amp, 0.88 * amp, 0.42 * amp
+                breath = 0.62 + 0.38 * math.sin(t_s * 2.2 - tree_num * 0.55)
+                boost = 1.0 if TREE_ID == "T12" else (0.92 if TREE_ID == "T11" else 0.85)
+                amp = breath * boost * (1.0 if idx in STAR_OUTER else 0.82)
+                if TREE_ID == "T12":
+                    r, g, b = 1.0 * amp, 0.93 * amp, 0.62 * amp
+                elif tree_num % 2 == 0:
+                    r, g, b = 1.0 * amp, 0.84 * amp, 0.34 * amp
+                else:
+                    r, g, b = 0.88 * amp, 0.92 * amp, 1.0 * amp
             else:
-                starlight = max(0.0, math.sin(idx * 2.3 + wx * 0.017 + t_s * 1.4)) ** 14
-                r = 0.02 + 0.45 * starlight
+                starlight = max(0.0, math.sin(idx * 2.3 + tree_num * 1.1 + t_s * 1.4)) ** 14
+                tint = (tree_num % 3) * 0.04
+                r = 0.02 + (0.45 + tint) * starlight
                 g = 0.05 + 0.55 * starlight
-                b = 0.20 + 0.70 * starlight
+                b = 0.18 + tint + 0.70 * starlight
             u = (t_s % 4.5) / 4.5
             cx = -1250.0 + 2500.0 * u
             cy = 1080.0 - 1020.0 * u
@@ -472,15 +499,28 @@ def render_frame(show_ms, master_dim, forced_act=0):
                 b = max(b, (0.18 + 0.56 * comet) * comet)
 
         else:
-            # Akt 10: Adventskerzen & Rudolphs Rentierschlitten
-            if idx >= 32:
-                flick = 0.55 + 0.45 * math.sin(t_s * 9.5 + idx * 1.7 + wx * 0.03)
+            # Akt 10: Adventskerzen-Ensemble (verschiedene Kerzenhoehen & -farben + Rudolphs Schlitten)
+            tree_num = int(TREE_ID[1:])
+            flame_start = 36 if TREE_ID == "T12" else (34 if TREE_ID == "T11" else 24 + ((tree_num * 5) % 16))
+            group_wave = 0.78 + 0.22 * math.sin(t_s * 1.5 - (tree_num % 4) * 1.57)
+            if idx >= flame_start:
+                freq = 7.8 + (tree_num % 4) * 1.3
+                flick = (0.55 + 0.45 * math.sin(t_s * freq + idx * 1.7 + tree_num)) * group_wave
                 r = 1.0 * flick
-                g = (0.52 + 0.32 * flick) * flick
-                b = 0.10 * flick
+                g = (0.50 + 0.34 * flick) * flick
+                b = (0.08 + 0.08 * (tree_num % 2)) * flick
             else:
-                warm = 0.72 + 0.28 * math.sin(t_s * 4.5 + idx * 0.7 + wx * 0.01)
-                r, g, b = 0.75 * warm, 0.06 * warm, 0.04 * warm
+                warm = (0.68 + 0.32 * math.sin(t_s * 4.2 + idx * 0.7 + tree_num)) * group_wave
+                if TREE_ID == "T11":
+                    r, g, b = 0.58 * warm, 0.08 * warm, 0.46 * warm
+                elif TREE_ID == "T12":
+                    r, g, b = 0.84 * warm, 0.16 * warm, 0.04 * warm
+                elif tree_num % 3 == 0:
+                    r, g, b = 0.85 * warm, 0.38 * warm, 0.05 * warm
+                elif tree_num % 3 == 1:
+                    r, g, b = 0.76 * warm, 0.05 * warm, 0.04 * warm
+                else:
+                    r, g, b = 0.64 * warm, 0.06 * warm, 0.22 * warm
             sleigh_x = -1350.0 + ((t_s * 680.0) % 2700.0)
             sleigh_y = 520.0 + 260.0 * math.sin(t_s * 2.4)
             r_dist = math.hypot(wx - (sleigh_x + 170.0), wy - sleigh_y)

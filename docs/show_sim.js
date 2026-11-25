@@ -347,52 +347,76 @@ if (actId === 1) {
   }
 
 } else if (actId === 7) {
-  // Akt 7: Zuckerstangen & Silber-Lametta (Rot/Weiss Spirale + Stern)
+  // Akt 7: Zuckerstangen & Silber-Lametta (pro Baum gegenlaeufige Spiralen & Akzentfarben)
+  const treeNum = Number(treeId.slice(1)) || 1;
   const isStar = idx >= 50;
   const isStarOuter = idx === 51 || idx === 52 || idx === 55 || idx === 56 || idx === 59;
   if (isStar) {
+    const alt = ((treeNum % 2 === 0) ? 1 : -1) * 0.5 + 0.5;
     if (isStarOuter) {
-      const amp = 0.72 + 0.28 * pulse;
-      r = 1.0 * amp; g = 0.94 * amp; b = 0.86 * amp;
+      const amp = 0.70 + 0.30 * pulse;
+      r = 1.0 * amp; g = (0.86 + 0.10 * alt) * amp; b = (0.42 + 0.44 * alt) * amp;
     } else {
-      const amp = 0.55 + 0.45 * pulse;
-      r = 1.0 * amp; g = 0.76 * amp; b = 0.18 * amp;
+      const amp = 0.50 + 0.50 * pulse;
+      r = 1.0 * amp; g = (0.78 - 0.14 * alt) * amp; b = (0.20 + 0.18 * alt) * amp;
     }
   } else {
-    const stripe = Math.sin(idx * 0.95 + wx * 0.004 - t_s * 5.2);
+    const dir = (treeNum % 2 === 0) ? -1.0 : 1.0;
+    const stripe = Math.sin(idx * 0.95 + treeNum * 0.65 + dir * t_s * 5.2);
     const edge = 0.72 + 0.28 * Math.abs(stripe);
     if (stripe >= 0) {
       r = 0.98 * edge; g = 0.06 * edge; b = 0.10 * edge;
+    } else if (treeNum >= 7 && treeNum <= 10 && Math.sin(idx * 0.32 + t_s * 1.4 + treeNum) > 0.35) {
+      // Mittlere Reihe T07-T10: zarte Pfefferminz-Akzente im Weiss
+      r = 0.22 * edge; g = 0.92 * edge; b = 0.46 * edge;
+    } else if (isHero) {
+      r = 0.98 * edge; g = 0.88 * edge; b = 0.72 * edge;
     } else {
-      r = 0.94 * edge; g = 0.90 * edge; b = 0.84 * edge;
+      r = 0.94 * edge; g = 0.90 * edge; b = 0.86 * edge;
     }
-    const tinsel = Math.sin(idx * 12.7 + wx * 0.09 + t_s * 7.5);
-    if (tinsel > 0.965) {
+    const tinsel = Math.sin(idx * 12.7 + treeNum * 3.1 + t_s * 7.5);
+    if (tinsel > 0.96) {
       r = 1.0; g = 0.96; b = 0.85;
     }
   }
 
 } else if (actId === 8) {
-  // Akt 8: Tannenbaum mit buntem Baumschmuck & warmer Lichterkette
+  // Akt 8: Individuell geschmueckte Baeume (eigenes Farbthema pro Baum + Gegenlauf-Lichterkette)
+  const treeNum = Number(treeId.slice(1)) || 1;
   const isStar = idx >= 50;
   const isStarOuter = idx === 51 || idx === 52 || idx === 55 || idx === 56 || idx === 59;
   if (isStar) {
-    const amp = isStarOuter ? (0.75 + 0.25 * pulse) : 0.72;
-    r = 1.0 * amp; g = 0.84 * amp; b = 0.26 * amp;
-  } else {
-    const treeCode = treeId.charCodeAt(1) * 3 + treeId.charCodeAt(2);
-    const isBauble = idx < 45 && ((idx + treeCode) % 5 === 0);
-    if (isBauble) {
-      const kind = ((Math.floor(idx / 5) + treeCode) % 4 + 4) % 4;
-      const shim = 0.78 + 0.22 * pulse;
-      if (kind === 0)      { r = 1.0 * shim; g = 0.08 * shim; b = 0.12 * shim; } // Rubinrot
-      else if (kind === 1) { r = 1.0 * shim; g = 0.72 * shim; b = 0.10 * shim; } // Gold
-      else if (kind === 2) { r = 0.12 * shim; g = 0.44 * shim; b = 1.0 * shim; } // Saphirblau
-      else                 { r = 0.95 * shim; g = 0.14 * shim; b = 0.54 * shim; } // Beeren-Magenta
+    const starGlow = 0.72 + 0.28 * Math.sin(t_s * 2.6 + treeNum * 0.7);
+    if (treeId === "T11") {
+      // T11 Silber-Champagner-Stern passend zu Saphir-Schmuck
+      r = 0.92 * starGlow; g = 0.94 * starGlow; b = 1.0 * starGlow;
     } else {
-      const breath = 0.75 + 0.25 * Math.sin(t_s * 1.6 + wx * 0.002);
-      r = 0.03 * breath; g = 0.36 * breath; b = 0.07 * breath;
-      const chasePos = ((t_s * 18.0 + treeCode * 7.0) % 50 + 50) % 50;
+      const amp = isStarOuter ? (0.76 + 0.24 * pulse) : starGlow;
+      r = 1.0 * amp; g = 0.84 * amp; b = 0.26 * amp;
+    }
+  } else {
+    const isBauble = idx < 45 && ((idx + treeNum * 2) % 5 === 0);
+    if (isBauble) {
+      const shim = 0.76 + 0.24 * Math.sin(t_s * 3.2 + idx * 0.8 + treeNum);
+      let kind;
+      if (treeId === "T12") {
+        kind = (idx % 2 === 0) ? 1 : 0; // T12: Royal Gold & Rubinrot
+      } else if (treeId === "T11") {
+        kind = (idx % 2 === 0) ? 2 : 4; // T11: Winter-Saphir & Eis-Silber
+      } else {
+        // Mini-Baeume: jeder Baum hat eigene Hauptfarbe + gelegentliche Kontrastkugel
+        kind = (idx % 10 === 0) ? ((treeNum + 2) % 4) : (treeNum % 4);
+      }
+      if (kind === 0)      { r = 1.0 * shim; g = 0.08 * shim; b = 0.14 * shim; } // Rubinrot
+      else if (kind === 1) { r = 1.0 * shim; g = 0.74 * shim; b = 0.10 * shim; } // Gold
+      else if (kind === 2) { r = 0.12 * shim; g = 0.46 * shim; b = 1.0 * shim; } // Saphirblau
+      else if (kind === 3) { r = 0.95 * shim; g = 0.14 * shim; b = 0.54 * shim; } // Beeren-Magenta
+      else                 { r = 0.86 * shim; g = 0.93 * shim; b = 1.0 * shim; } // Eis-Silber
+    } else {
+      const breath = 0.72 + 0.28 * Math.sin(t_s * 1.6 + treeNum * 0.55);
+      r = 0.03 * breath; g = (0.34 + 0.04 * (treeNum % 3)) * breath; b = 0.07 * breath;
+      const dir = (treeNum % 2 === 0) ? 1.0 : -1.0;
+      const chasePos = ((dir * t_s * 18.0 + treeNum * 9.0) % 50 + 50) % 50;
       const dist = Math.min(Math.abs(idx - chasePos), 50 - Math.abs(idx - chasePos));
       if (dist < 2.2) {
         const glow = 1.0 - dist / 2.2;
@@ -404,19 +428,27 @@ if (actId === 1) {
   }
 
 } else if (actId === 9) {
-  // Akt 9: Stern von Bethlehem & goldene Sternschnuppe ueber tiefer Winternacht
+  // Akt 9: Stern von Bethlehem (wellenfoermiger Sternen-Chor & Sternschnuppen-Echo)
+  const treeNum = Number(treeId.slice(1)) || 1;
   const isStar = idx >= 50;
   const isStarOuter = idx === 51 || idx === 52 || idx === 55 || idx === 56 || idx === 59;
   if (isStar) {
-    const breath = 0.76 + 0.24 * Math.sin(t_s * 2.2);
-    const boost = treeId === "T12" ? 1.0 : 0.88;
-    const amp = breath * boost * (isStarOuter ? 1.0 : 0.84);
-    r = 1.0 * amp; g = 0.88 * amp; b = 0.42 * amp;
+    const breath = 0.62 + 0.38 * Math.sin(t_s * 2.2 - treeNum * 0.55);
+    const boost = treeId === "T12" ? 1.0 : (treeId === "T11" ? 0.92 : 0.85);
+    const amp = breath * boost * (isStarOuter ? 1.0 : 0.82);
+    if (treeId === "T12") {
+      r = 1.0 * amp; g = 0.93 * amp; b = 0.62 * amp; // Leitstern: strahlendes Weiss-Gold
+    } else if (treeNum % 2 === 0) {
+      r = 1.0 * amp; g = 0.84 * amp; b = 0.34 * amp; // Warmgold
+    } else {
+      r = 0.88 * amp; g = 0.92 * amp; b = 1.0 * amp; // Silber-Sternenlicht
+    }
   } else {
-    const starlight = Math.pow(Math.max(0, Math.sin(idx * 2.3 + wx * 0.017 + t_s * 1.4)), 14);
-    r = 0.02 + 0.45 * starlight;
+    const starlight = Math.pow(Math.max(0, Math.sin(idx * 2.3 + treeNum * 1.1 + t_s * 1.4)), 14);
+    const tint = (treeNum % 3) * 0.04;
+    r = 0.02 + (0.45 + tint) * starlight;
     g = 0.05 + 0.55 * starlight;
-    b = 0.20 + 0.70 * starlight;
+    b = 0.18 + tint + 0.70 * starlight;
   }
   const u = (t_s % 4.5) / 4.5;
   const cx = -1250.0 + 2500.0 * u;
@@ -435,18 +467,35 @@ if (actId === 1) {
   }
 
 } else {
-  // Akt 10: Adventskerzen & Rudolphs Rentierschlitten
-  const isFlame = idx >= 32;
+  // Akt 10: Adventskerzen-Ensemble (verschiedene Kerzenhoehen & -farben + Rudolphs Schlitten)
+  const treeNum = Number(treeId.slice(1)) || 1;
+  const flameStart = treeId === "T12" ? 36 : (treeId === "T11" ? 34 : 24 + ((treeNum * 5) % 16));
+  const isFlame = idx >= flameStart;
+  const groupWave = 0.78 + 0.22 * Math.sin(t_s * 1.5 - (treeNum % 4) * 1.57);
   if (isFlame) {
-    const flick = 0.55 + 0.45 * Math.sin(t_s * 9.5 + idx * 1.7 + wx * 0.03);
+    const freq = 7.8 + (treeNum % 4) * 1.3;
+    const flick = (0.55 + 0.45 * Math.sin(t_s * freq + idx * 1.7 + treeNum)) * groupWave;
     r = 1.0 * flick;
-    g = (0.52 + 0.32 * flick) * flick;
-    b = 0.10 * flick;
+    g = (0.50 + 0.34 * flick) * flick;
+    b = (0.08 + 0.08 * (treeNum % 2)) * flick;
   } else {
-    const warm = 0.72 + 0.28 * Math.sin(t_s * 4.5 + idx * 0.7 + wx * 0.01);
-    r = 0.75 * warm;
-    g = 0.06 * warm;
-    b = 0.04 * warm;
+    const warm = (0.68 + 0.32 * Math.sin(t_s * 4.2 + idx * 0.7 + treeNum)) * groupWave;
+    if (treeId === "T11") {
+      // Advents-Violett
+      r = 0.58 * warm; g = 0.08 * warm; b = 0.46 * warm;
+    } else if (treeId === "T12") {
+      // Festliches Gold-Karmin
+      r = 0.84 * warm; g = 0.16 * warm; b = 0.04 * warm;
+    } else if (treeNum % 3 === 0) {
+      // Honig-Bienenwachs
+      r = 0.85 * warm; g = 0.38 * warm; b = 0.05 * warm;
+    } else if (treeNum % 3 === 1) {
+      // Klassisches Adventsrot
+      r = 0.76 * warm; g = 0.05 * warm; b = 0.04 * warm;
+    } else {
+      // Warmes Tannen-Violettrot
+      r = 0.64 * warm; g = 0.06 * warm; b = 0.22 * warm;
+    }
   }
   const sleighX = -1350.0 + ((t_s * 680.0) % 2700.0);
   const sleighY = 520.0 + 260.0 * Math.sin(t_s * 2.4);
