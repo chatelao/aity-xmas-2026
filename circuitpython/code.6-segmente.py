@@ -3,17 +3,20 @@ import time
 from tannenbaum_layout import (
     VIRTUAL_SEGMENTS, init_pixels, init_buttons, fill_vseg,
 )
+from tannenbaum_palettes import (
+    BLACK, ICE_BLUE2, LIGHT_GREEN, SOFT_VIOLET, MAGENTA, C9_RED, FAIRY_FULL,
+)
 
 pixels = init_pixels(brightness=0.25)
 btn_d5, btn_d6 = init_buttons()
 
 SEG_COLORS = (
-    (0, 180, 255),   # VSeg 0: Zweig Unten (Eisblau)
-    (0, 255, 80),    # VSeg 1: Zweig Mitte (Smaragdgruen)
-    (120, 0, 255),   # VSeg 2: Zweig Oben (Violett)
-    (255, 0, 140),   # VSeg 3: Stiel (Pink)
-    (255, 40, 0),    # VSeg 4: Stern Innen (Feuerrot)
-    (255, 180, 0),   # VSeg 5: Stern Aussen (Goldgelb)
+    ICE_BLUE2,    # VSeg 0: Zweig Unten (Eisblau)
+    LIGHT_GREEN,  # VSeg 1: Zweig Mitte (Hellgruen)
+    SOFT_VIOLET,  # VSeg 2: Zweig Oben (Violett)
+    MAGENTA,      # VSeg 3: Stiel (Magenta)
+    C9_RED,       # VSeg 4: Stern Innen (C9-Rot)
+    FAIRY_FULL,   # VSeg 5: Stern Aussen (Warmes Gold)
 )
 
 active_seg = 0
@@ -22,7 +25,7 @@ last_tick = time.monotonic()
 
 
 def show_segment(seg_idx):
-    pixels.fill((0, 0, 0))
+    pixels.fill(BLACK)
     fill_vseg(seg_idx, SEG_COLORS[seg_idx])
     pixels.show()
 

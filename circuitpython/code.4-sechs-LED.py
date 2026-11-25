@@ -1,18 +1,19 @@
 # code.4-sechs-LED.py
 # Hardware: Seeed XIAO RP2040 / XIAO ESP32-C6
-# Abhaengigkeiten: /lib/neopixel.mpy, /lib/tannenbaum_layout.py
+# Abhaengigkeiten: /lib/neopixel.mpy, /lib/tannenbaum_layout.py, /lib/tannenbaum_palettes.py
 
 import time
 from tannenbaum_layout import init_pixels, init_buttons
+from tannenbaum_palettes import RED, GREEN, BLUE, BLACK
 
 pixels = init_pixels(brightness=0.2)
 btn_d5, btn_d6 = init_buttons()
 
 # --- Statische Farbtabelle (Tupel spart RAM) ---
 PRIMARY_3 = (
-    (255, 0, 0),    # D201: Rot
-    (0, 255, 0),    # D202: Gruen
-    (0, 0, 255),    # D203: Blau
+    RED,    # D201: Rot
+    GREEN,  # D202: Gruen
+    BLUE,   # D203: Blau
 )
 
 SECONDARY_3 = (
@@ -25,7 +26,7 @@ show_six = False
 
 
 def render():
-    pixels.fill((0, 0, 0))
+    pixels.fill(BLACK)
     for i in range(3):
         pixels[i] = PRIMARY_3[i]
     if show_six:
@@ -43,7 +44,7 @@ while True:
 
     # D6: Alle LEDs dunkel schalten solange gedrueckt
     if btn_d6.is_pressed:
-        pixels.fill((0, 0, 0))
+        pixels.fill(BLACK)
         pixels.show()
     else:
         render()

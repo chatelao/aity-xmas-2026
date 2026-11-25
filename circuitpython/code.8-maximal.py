@@ -5,6 +5,7 @@ from tannenbaum_layout import (
     NUM_PIXELS, PIXEL_COORDS, CENTER_TREE, POLAR_TREE, Y_MAX,
     init_pixels, init_buttons, hsv_to_rgb_gamma,
 )
+from tannenbaum_palettes import BLACK
 
 pixels = init_pixels(brightness=0.4)
 btn_d5, btn_d6 = init_buttons()
@@ -59,6 +60,6 @@ while True:
                 hue = (palette_shift + seg * 0.08 + dist_y * 0.01) % 1.0
                 pixels[i] = hsv_to_rgb_gamma(hue, 0.85, val)
             else:
-                pixels[i] = (0, 0, 0)
+                pixels[i] = BLACK
 
     pixels.show()

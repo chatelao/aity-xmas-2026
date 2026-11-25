@@ -4,16 +4,19 @@ from tannenbaum_layout import (
     NUM_PIXELS, PIXEL_COORDS, EPICENTERS,
     init_pixels, init_buttons, build_distance_lut,
 )
+from tannenbaum_palettes import (
+    BLACK, ICE_BLUE2, LIGHT_GREEN, SOFT_VIOLET, MAGENTA, FAIRY_FULL,
+)
 
 pixels = init_pixels(brightness=0.35)
 btn_d5, btn_d6 = init_buttons()
 
 SEG_BASE_COLOR = (
-    (0, 160, 255),   # Seg 0: Zweig Unten
-    (0, 255, 100),   # Seg 1: Zweig Mitte
-    (140, 0, 255),   # Seg 2: Zweig Oben
-    (255, 0, 120),   # Seg 3: Stiel
-    (255, 140, 0),   # Seg 4: Stern
+    ICE_BLUE2,    # Seg 0: Zweig Unten
+    LIGHT_GREEN,  # Seg 1: Zweig Mitte
+    SOFT_VIOLET,  # Seg 2: Zweig Oben
+    MAGENTA,      # Seg 3: Stiel
+    FAIRY_FULL,   # Seg 4: Stern
 )
 
 # Distanzen einmalig vorberechnen (verhindert math.sqrt in der Render-Schleife)
@@ -56,6 +59,6 @@ while True:
             b = min(255, int(bb * intensity_sq) + white_boost)
             pixels[i] = (r, g, b)
         else:
-            pixels[i] = (0, 0, 0)
+            pixels[i] = BLACK
 
     pixels.show()

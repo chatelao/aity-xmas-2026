@@ -1,6 +1,7 @@
 # code.5-lauflicht.py
 import time
 from tannenbaum_layout import NUM_PIXELS, init_pixels, init_buttons
+from tannenbaum_palettes import MINT_CYAN
 
 pixels = init_pixels(brightness=0.3)
 btn_d5, btn_d6 = init_buttons()
@@ -32,7 +33,7 @@ while True:
             pixels[i] = (r >> 1, g >> 1, b >> 1)
 
         # Kopf-Pixel neu setzen
-        pixels[head] = (0, 220, 255)
+        pixels[head] = MINT_CYAN
         pixels.show()
 
         head = (head + direction) % NUM_PIXELS

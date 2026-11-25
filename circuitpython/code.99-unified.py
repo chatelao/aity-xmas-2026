@@ -19,7 +19,7 @@ from tannenbaum_layout import (
     EPICENTERS, GAMMA_LUT, build_distance_lut,
 )
 from tannenbaum_palettes import (
-    PALETTES, PALETTE_NAMES, PAL_FAIRY_LIGHT,
+    BLACK, PALETTES, PALETTE_NAMES, PAL_FAIRY_LIGHT,
     color_from_palette, blend_palette_toward, render_twinkle_tree,
 )
 
@@ -146,7 +146,7 @@ wave_radius = 0.0
 
 def reset_mode_state():
     global chase_accum, seg_accum, wave_radius
-    pixels.fill((0, 0, 0))
+    pixels.fill(BLACK)
     chase_accum = 0.0
     seg_accum = 0.0
     wave_radius = 0.0
@@ -215,7 +215,7 @@ while True:
 
     elif mode_idx == 1:
         # 1: Sechs LEDs (statisch aus aktiver Palette)
-        pixels.fill((0, 0, 0))
+        pixels.fill(BLACK)
         for i in range(6):
             pixels[i] = color_from_palette(current_palette, i * 42)
 
@@ -236,7 +236,7 @@ while True:
         if seg_accum >= 0.6:
             seg_accum = 0.0
             seg_active = (seg_active + 1) % len(VIRTUAL_SEGMENTS)
-        pixels.fill((0, 0, 0))
+        pixels.fill(BLACK)
         col = color_from_palette(current_palette, (seg_active * 42) & 0xFF)
         for i in VIRTUAL_SEGMENTS[seg_active]:
             pixels[i] = col
@@ -263,7 +263,7 @@ while True:
                     min(255, int(bb * intensity_sq) + white_boost),
                 )
             else:
-                pixels[i] = (0, 0, 0)
+                pixels[i] = BLACK
 
     elif mode_idx == 5:
         # 5: 2D-Interferenz-Plasmafeld
@@ -295,11 +295,11 @@ while True:
                 idx = int((seg * 0.08 + dist_y * 0.01) * 255) & 0xFF
                 pixels[i] = color_from_palette(current_palette, idx, brightness=int(val * 255))
             else:
-                pixels[i] = (0, 0, 0)
+                pixels[i] = BLACK
 
     elif mode_idx == 8:
         # 8: Adventskranz (4 Kerzenzonen nacheinander + warmer weisser Stern)
-        pixels.fill((0, 0, 0))
+        pixels.fill(BLACK)
         candles = int((phase_t % 16.0) // 4.0) + 1
         zones = (SEG_BOUGH_LOW, SEG_BOUGH_MID, SEG_BOUGH_HIGH)
         for z_idx in range(min(candles, 3)):

@@ -1,15 +1,14 @@
 # code.1-one-LED-auto.py
 # Hardware: Seeed XIAO RP2040 / XIAO ESP32-C6
-# Abhaengigkeiten: /lib/neopixel.mpy, /lib/tannenbaum_layout.py
+# Abhaengigkeiten: /lib/neopixel.mpy, /lib/tannenbaum_layout.py, /lib/tannenbaum_palettes.py
 
 import time
 import neopixel
 from tannenbaum_layout import NUM_PIXELS, init_pixels
+from tannenbaum_palettes import RED, BLACK
 
 pixels = init_pixels(brightness=0.2, pixel_order=neopixel.GRB)
 
-RED = (255, 0, 0)
-OFF = (0, 0, 0)
 STEP_INTERVAL = 1.0  # 1 Sekunde pro Schritt
 
 pos = 0
@@ -17,7 +16,7 @@ last_step = time.monotonic()
 
 
 def render():
-    pixels.fill(OFF)
+    pixels.fill(BLACK)
     pixels[pos] = RED
     pixels.show()
 

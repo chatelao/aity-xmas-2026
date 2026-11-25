@@ -1,22 +1,20 @@
 # code.2-one-LED-taster.py
 # Hardware: Seeed XIAO RP2040 / XIAO ESP32-C6
-# Abhaengigkeiten: /lib/neopixel.mpy, /lib/tannenbaum_layout.py
+# Abhaengigkeiten: /lib/neopixel.mpy, /lib/tannenbaum_layout.py, /lib/tannenbaum_palettes.py
 
 import time
 import neopixel
 from tannenbaum_layout import NUM_PIXELS, init_pixels, init_buttons
+from tannenbaum_palettes import RED, BLACK
 
 pixels = init_pixels(brightness=0.2, pixel_order=neopixel.GRB)
 btn_d5, btn_d6 = init_buttons()
-
-RED = (255, 0, 0)
-OFF = (0, 0, 0)
 
 pos = 0
 
 
 def render():
-    pixels.fill(OFF)
+    pixels.fill(BLACK)
     pixels[pos] = RED
     pixels.show()
 
