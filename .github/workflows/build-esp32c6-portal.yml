@@ -94,6 +94,7 @@ jobs:
           (cd staging_cp && zip -r ../dist/circuitpython-captive-portal-bundle.zip .)
           cp circuitpython/code.portal.py dist/
           cp circuitpython/web_ui.html.gz dist/
+          cp circuitpython/cheatsheet_a4.pdf dist/
 
       - name: Upload Firmware Artifacts
         uses: actions/upload-artifact@v4
