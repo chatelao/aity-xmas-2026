@@ -90,11 +90,11 @@
     // Defs for multi-layer LED bloom filters
     const defs = el("defs");
     const wideFilter = el("filter", { id: "led-glow-wide", x: "-250%", y: "-250%", width: "600%", height: "600%" });
-    wideFilter.appendChild(el("feGaussianBlur", { stdDeviation: "2.55", result: "blur" }));
+    wideFilter.appendChild(el("feGaussianBlur", { stdDeviation: "0.95", result: "blur" }));
     defs.appendChild(wideFilter);
 
     const tightFilter = el("filter", { id: "led-glow-tight", x: "-150%", y: "-150%", width: "400%", height: "400%" });
-    tightFilter.appendChild(el("feGaussianBlur", { stdDeviation: "0.95", result: "blur" }));
+    tightFilter.appendChild(el("feGaussianBlur", { stdDeviation: "0.35", result: "blur" }));
     defs.appendChild(tightFilter);
     treeSvg.appendChild(defs);
 
@@ -165,7 +165,7 @@
       const outerGlow = el("circle", {
         cx: cx.toFixed(3),
         cy: cy.toFixed(3),
-        r: "4.6",
+        r: "1.75",
         fill: "rgb(0,0,0)",
         opacity: "0",
         filter: "url(#led-glow-wide)",
@@ -175,7 +175,7 @@
       const innerGlow = el("circle", {
         cx: cx.toFixed(3),
         cy: cy.toFixed(3),
-        r: "2.2",
+        r: "1.05",
         fill: "rgb(0,0,0)",
         opacity: "0",
         filter: "url(#led-glow-tight)",
@@ -295,8 +295,8 @@
       hueColor: `rgb(${hueR},${hueG},${hueB})`,
       coreColor: `rgb(${coreR},${coreG},${coreB})`,
       rimColor: `rgb(${Math.round(baseR)},${Math.round(baseG)},${Math.round(baseB)})`,
-      innerOpacity: (0.95 * Math.pow(lum, 0.65)).toFixed(2),
-      outerOpacity: (0.72 * Math.pow(lum, 0.85)).toFixed(2),
+      innerOpacity: (0.38 * Math.pow(lum, 0.65)).toFixed(2),
+      outerOpacity: (0.26 * Math.pow(lum, 0.85)).toFixed(2),
     };
   }
 

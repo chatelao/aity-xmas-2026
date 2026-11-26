@@ -861,11 +861,11 @@ return [r, g, b];`;
         const hb = Math.round(led.b * invMax);
 
         const baseRadius = Math.max(1.0, led.scale * (led.isHero ? 11.0 : 8.5));
-        const haloRadius = baseRadius * (2.1 + lum * 1.4);
+        const haloRadius = baseRadius * (1.25 + lum * 0.45);
 
         const grad = tCtx.createRadialGradient(led.sx, led.sy, baseRadius * 0.2, led.sx, led.sy, haloRadius);
-        grad.addColorStop(0, `rgba(${hr}, ${hg}, ${hb}, ${(0.58 * lum).toFixed(3)})`);
-        grad.addColorStop(0.4, `rgba(${hr}, ${hg}, ${hb}, ${(0.24 * lum).toFixed(3)})`);
+        grad.addColorStop(0, `rgba(${hr}, ${hg}, ${hb}, ${(0.22 * lum).toFixed(3)})`);
+        grad.addColorStop(0.4, `rgba(${hr}, ${hg}, ${hb}, ${(0.09 * lum).toFixed(3)})`);
         grad.addColorStop(1, `rgba(${hr}, ${hg}, ${hb}, 0)`);
 
         tCtx.beginPath();
@@ -1313,11 +1313,11 @@ return [r, g, b];`;
         const hb = Math.round(led.b * invMax);
 
         const baseRadius = Math.max(1.8, led.scale * (led.isHero ? 6.5 : 4.8));
-        const haloRadius = baseRadius * (2.6 + lum * 2.2);
+        const haloRadius = baseRadius * (1.35 + lum * 0.65);
 
         const grad = ctx.createRadialGradient(led.sx, led.sy, baseRadius * 0.25, led.sx, led.sy, haloRadius);
-        grad.addColorStop(0, `rgba(${hr}, ${hg}, ${hb}, ${(0.75 * lum).toFixed(3)})`);
-        grad.addColorStop(0.35, `rgba(${hr}, ${hg}, ${hb}, ${(0.38 * lum).toFixed(3)})`);
+        grad.addColorStop(0, `rgba(${hr}, ${hg}, ${hb}, ${(0.28 * lum).toFixed(3)})`);
+        grad.addColorStop(0.35, `rgba(${hr}, ${hg}, ${hb}, ${(0.14 * lum).toFixed(3)})`);
         grad.addColorStop(1, `rgba(${hr}, ${hg}, ${hb}, 0)`);
 
         ctx.beginPath();
