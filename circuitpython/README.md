@@ -38,7 +38,7 @@ All example scripts drive the 60 NeoPixels on `board.D10` and use buttons on `bo
 | [`code.8-maximal.py`](code.8-maximal.py) | 2D plasma, polar vortex, and gravity pulse with gamma correction | Switch mode | Shift palette |
 | [`code.9-twinkle.py`](code.9-twinkle.py) | Full-tree TwinkleFOX animation with 10 palettes & warm-gold star | Next palette | Cycle speed |
 | [`code.10-show.py`](code.10-show.py) | Synchronized 10+2 tree ESP-NOW show firmware with Wi-Fi captive portal & synthio audio | — | — |
-| [`code.99-unified.py`](code.99-unified.py) | Unified firmware combining all 8 modes (TwinkleFOX, Sechs LEDs, Lauflicht, Segmente, Koordinaten, Plasma, Vortex, Gravity) | Tap: Prev mode · Hold: Prev palette · 2×Tap: Slower | Tap: Next mode · Hold: Next palette · 2×Tap: Faster |
+| [`code.99-unified.py`](code.99-unified.py) | Unified firmware combining all 8 modes (TwinkleFOX, Sechs LEDs, Lauflicht, Segmente, Koordinaten, Plasma, Vortex, Gravity) | Tap: Prev mode · Hold: Prev palette · 2×Tap: Slower | Tap: Next mode · Hold: Next palette · 2×Tap: Faster · **every change auto-saved (restored after power loss)** · Serial: `+`/`-` mode, ↑/↓ speed, ←/→ palette |
 | [`code.test.py`](code.test.py) | Hardware tester (XIAO RP2040): every 3rd LED cycles every 700 ms (3×R, 3×G, 3×B, 3×W) + onboard NeoPixel status for buttons | Onboard Green (White with D6) | Onboard Red (White with D5) |
 | [`code.portal.py`](code.portal.py) | **Zero-Install Wi-Fi Captive Portal** for **XIAO ESP32-C6** (`192.168.4.1` AP + DNS/HTTP redirect + [`web_ui.html.gz`](web_ui.html.gz), 100% parity with `android-xmas-tree-app`) | — | — |
 

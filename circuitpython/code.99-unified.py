@@ -7,9 +7,26 @@
 # - Einzelklick (Single Tap): Sujet/Modus wechseln (D5: vorheriges, D6: naechstes)
 # - Langer Klick (Long Hold): Farbpalette wechseln (D5: vorherige, D6: naechste)
 # - Doppelklick (Double Tap): Geschwindigkeit anpassen (D5: langsamer, D6: schneller)
+# - Jede Aenderung (Modus/Palette/Tempo, per Taster oder seriell) wird automatisch gespeichert
+#   (microcontroller.nvm) und nach einem Stromunterbruch wiederhergestellt
+#
+# Serielle Konsole (USB, Terminal anklicken & tippen):
+# - '+' / '-'        : naechster / vorheriger Modus
+# - Pfeil hoch/runter: schneller / langsamer
+# - Pfeil rechts/links: naechste / vorherige Palette
 
 import time
 import math
+import sys
+try:
+    import supervisor
+except ImportError:
+    supervisor = None
+try:
+    import microcontroller
+    NVM = microcontroller.nvm
+except (ImportError, AttributeError, NotImplementedError):
+    NVM = None
 from tannenbaum_layout import (
     NUM_PIXELS, init_pixels, init_buttons,
     PIXEL_COORDS, NORM_COORDS, CENTER_TREE, CENTER_STAR, POLAR_TREE,
@@ -125,36 +142,142 @@ class ButtonGesture:
 gest_d5 = ButtonGesture(btn_d5)
 gest_d6 = ButtonGesture(btn_d6)
 
-# --- Zustand ---
-mode_idx = 0
-pal_idx = 0
-speed_idx = DEFAULT_SPEED_IDX
+# --- Persistenz (nvm: Magic 'XM' + Modus, Palette, Tempo, Pruefsumme) ---
+SAVE_MAGIC = b"XM"
+SAVE_DELAY_S = 0.8  # Entprellung: schont den Flash bei schnellen Folgeaenderungen
 
-current_palette = PALETTES[pal_idx]
-target_palette = PALETTES[pal_idx]
+
+def save_selection(mode, pal, speed):
+    if NVM is None:
+        print("Speichern nicht moeglich (kein nvm)")
+        return False
+    try:
+        data = bytes((mode, pal, speed))
+        blob = SAVE_MAGIC + data + bytes(((mode + pal + speed) & 0xFF,))
+        if bytes(NVM[0:6]) == blob:
+            return True
+        NVM[0:6] = blob
+        print(f"Gespeichert: Modus {mode} | Palette {pal} | Tempo-Stufe {speed}")
+        return True
+    except Exception as e:
+        print("Speichern fehlgeschlagen:", e)
+        return False
+
+
+def load_selection():
+    if NVM is None:
+        return None
+    try:
+        raw = bytes(NVM[0:6])
+    except Exception:
+        return None
+    if raw[0:2] != SAVE_MAGIC:
+        return None
+    mode, pal, speed, chk = raw[2], raw[3], raw[4], raw[5]
+    if chk != ((mode + pal + speed) & 0xFF):
+        return None
+    if mode >= NUM_MODES or pal >= len(PALETTES) or speed >= len(SPEED_FACTORS):
+        return None
+    return mode, pal, speed
+
+
+# --- Zustand ---
+class _State:
+    def __init__(self):
+        self.mode_idx = 0
+        self.pal_idx = 0
+        self.speed_idx = DEFAULT_SPEED_IDX
+        self.save_due = None
+        self.esc_buf = ""
+        self.chase_accum = 0.0
+        self.seg_accum = 0.0
+        self.wave_radius = 0.0
+
+
+st = _State()
+_saved = load_selection()
+if _saved is not None:
+    st.mode_idx, st.pal_idx, st.speed_idx = _saved
+    print("Gespeicherte Auswahl wiederhergestellt")
+
+current_palette = PALETTES[st.pal_idx]
+st.target_palette = PALETTES[st.pal_idx]
 
 # Animations-Zustand
 last_now = time.monotonic()
 phase_t = 0.0
 chase_head = 0
-chase_accum = 0.0
 seg_active = 0
-seg_accum = 0.0
 wave_epi = 0
-wave_radius = 0.0
 
 
 def reset_mode_state():
-    global chase_accum, seg_accum, wave_radius
     pixels.fill(BLACK)
-    chase_accum = 0.0
-    seg_accum = 0.0
-    wave_radius = 0.0
+    st.chase_accum = 0.0
+    st.seg_accum = 0.0
+    st.wave_radius = 0.0
+
+
+def change_mode(step):
+    st.save_due = time.monotonic() + SAVE_DELAY_S
+    st.mode_idx = (st.mode_idx + step) % NUM_MODES
+    reset_mode_state()
+    print(f"Modus: {MODE_NAMES[st.mode_idx]}")
+
+
+def change_palette(step):
+    st.save_due = time.monotonic() + SAVE_DELAY_S
+    st.pal_idx = (st.pal_idx + step) % len(PALETTES)
+    st.target_palette = PALETTES[st.pal_idx]
+    print(f"Palette: {PALETTE_NAMES[st.pal_idx]}")
+
+
+def change_speed(step):
+    n = st.speed_idx + step
+    if 0 <= n < len(SPEED_FACTORS):
+        st.speed_idx = n
+        st.save_due = time.monotonic() + SAVE_DELAY_S
+        print(f"Tempo: {SPEED_FACTORS[st.speed_idx]}x (Stufe {st.speed_idx}/8)")
+
+
+def handle_serial_key(ch):
+    # Pfeiltasten kommen als ESC [ A/B/C/D
+    if st.esc_buf:
+        st.esc_buf += ch
+        if len(st.esc_buf) == 2:
+            if ch != "[":
+                st.esc_buf = ""
+            return
+        st.esc_buf = ""
+        if ch == "A":
+            change_speed(1)
+        elif ch == "B":
+            change_speed(-1)
+        elif ch == "C":
+            change_palette(1)
+        elif ch == "D":
+            change_palette(-1)
+        return
+    if ch == "\x1b":
+        st.esc_buf = ch
+    elif ch in "+=":
+        change_mode(1)
+    elif ch in "-_":
+        change_mode(-1)
+
+
+def poll_serial():
+    if supervisor is None:
+        return
+    n = 0
+    while supervisor.runtime.serial_bytes_available and n < 8:
+        handle_serial_key(sys.stdin.read(1))
+        n += 1
 
 
 print("=== AITY XMAS 2026 UNIFIED FIRMWARE ===")
 print("Single Tap D5/D6: Sujet | Long Hold D5/D6: Palette | Double Tap D5/D6: Tempo")
-print(f"Modus: {MODE_NAMES[mode_idx]} | Palette: {PALETTE_NAMES[pal_idx]} | Tempo: {SPEED_FACTORS[speed_idx]}x")
+print(f"Modus: {MODE_NAMES[st.mode_idx]} | Palette: {PALETTE_NAMES[st.pal_idx]} | Tempo: {SPEED_FACTORS[st.speed_idx]}x")
 
 while True:
     now = time.monotonic()
@@ -165,92 +288,91 @@ while True:
         dt = 0.2
     last_now = now
 
-    # --- Taster-Gesten auswerten ---
-    for ev in gest_d5.update(now):
-        if ev == "single_tap":
-            mode_idx = (mode_idx - 1) % NUM_MODES
-            reset_mode_state()
-            print(f"Modus: {MODE_NAMES[mode_idx]}")
-        elif ev == "long_hold":
-            pal_idx = (pal_idx - 1) % len(PALETTES)
-            target_palette = PALETTES[pal_idx]
-            print(f"Palette: {PALETTE_NAMES[pal_idx]}")
-        elif ev == "double_tap":
-            if speed_idx > 0:
-                speed_idx -= 1
-                print(f"Tempo: {SPEED_FACTORS[speed_idx]}x (Stufe {speed_idx}/8)")
+    # --- Serielle Steuerung ---
+    poll_serial()
 
-    for ev in gest_d6.update(now):
+    # --- Taster-Gesten auswerten ---
+    ev5 = gest_d5.update(now)
+    ev6 = gest_d6.update(now)
+
+    for ev in ev5:
         if ev == "single_tap":
-            mode_idx = (mode_idx + 1) % NUM_MODES
-            reset_mode_state()
-            print(f"Modus: {MODE_NAMES[mode_idx]}")
+            change_mode(-1)
         elif ev == "long_hold":
-            pal_idx = (pal_idx + 1) % len(PALETTES)
-            target_palette = PALETTES[pal_idx]
-            print(f"Palette: {PALETTE_NAMES[pal_idx]}")
+            change_palette(-1)
         elif ev == "double_tap":
-            if speed_idx < len(SPEED_FACTORS) - 1:
-                speed_idx += 1
-                print(f"Tempo: {SPEED_FACTORS[speed_idx]}x (Stufe {speed_idx}/8)")
+            change_speed(-1)
+
+    for ev in ev6:
+        if ev == "single_tap":
+            change_mode(1)
+        elif ev == "long_hold":
+            change_palette(1)
+        elif ev == "double_tap":
+            change_speed(1)
+
+    # Automatisch speichern (entprellt)
+    if st.save_due is not None and now >= st.save_due:
+        st.save_due = None
+        save_selection(st.mode_idx, st.pal_idx, st.speed_idx)
 
     # Sanfter Paletten-Uebergang
-    if current_palette != target_palette:
-        current_palette = blend_palette_toward(current_palette, target_palette, 18)
+    if current_palette != st.target_palette:
+        current_palette = blend_palette_toward(current_palette, st.target_palette, 18)
 
-    speed_factor = SPEED_FACTORS[speed_idx]
+    speed_factor = SPEED_FACTORS[st.speed_idx]
     phase_t += dt * speed_factor
 
     # --- Aktiven Modus rendern ---
-    if mode_idx == 0:
+    if st.mode_idx == 0:
         # 0: TwinkleFOX
         render_twinkle_tree(
             pixels,
             int(now * 1000),
             current_palette,
             star_palette=PAL_FAIRY_LIGHT,
-            speed=speed_idx,
+            speed=st.speed_idx,
             density=5,
         )
 
-    elif mode_idx == 1:
+    elif st.mode_idx == 1:
         # 1: Sechs LEDs (statisch aus aktiver Palette)
         pixels.fill(BLACK)
         for i in range(6):
             pixels[i] = color_from_palette(current_palette, i * 42)
 
-    elif mode_idx == 2:
+    elif st.mode_idx == 2:
         # 2: Lauflicht mit Schweif
-        chase_accum += dt * speed_factor
-        if chase_accum >= 0.04:
-            chase_accum = 0.0
+        st.chase_accum += dt * speed_factor
+        if st.chase_accum >= 0.04:
+            st.chase_accum = 0.0
             for i in range(NUM_PIXELS):
                 r, g, b = pixels[i]
                 pixels[i] = (r >> 1, g >> 1, b >> 1)
             pixels[chase_head] = color_from_palette(current_palette, (chase_head * 4) & 0xFF)
             chase_head = (chase_head + 1) % NUM_PIXELS
 
-    elif mode_idx == 3:
+    elif st.mode_idx == 3:
         # 3: Segmente durchlaufen
-        seg_accum += dt * speed_factor
-        if seg_accum >= 0.6:
-            seg_accum = 0.0
+        st.seg_accum += dt * speed_factor
+        if st.seg_accum >= 0.6:
+            st.seg_accum = 0.0
             seg_active = (seg_active + 1) % len(VIRTUAL_SEGMENTS)
         pixels.fill(BLACK)
         col = color_from_palette(current_palette, (seg_active * 42) & 0xFF)
         for i in VIRTUAL_SEGMENTS[seg_active]:
             pixels[i] = col
 
-    elif mode_idx == 4:
+    elif st.mode_idx == 4:
         # 4: Koordinaten-Wellenexplosion
-        wave_radius += dt * 45.0 * speed_factor
-        if wave_radius > 95.0:
-            wave_radius = 0.0
+        st.wave_radius += dt * 45.0 * speed_factor
+        if st.wave_radius > 95.0:
+            st.wave_radius = 0.0
             wave_epi = (wave_epi + 1) % len(EPICENTERS)
         dists = DIST_LUT[wave_epi]
         wave_width = 9.0
         for i in range(NUM_PIXELS):
-            d = abs(dists[i] - wave_radius)
+            d = abs(dists[i] - st.wave_radius)
             if d < wave_width:
                 intensity = 1.0 - (d / wave_width)
                 intensity_sq = intensity * intensity
@@ -265,7 +387,7 @@ while True:
             else:
                 pixels[i] = BLACK
 
-    elif mode_idx == 5:
+    elif st.mode_idx == 5:
         # 5: 2D-Interferenz-Plasmafeld
         for i in range(NUM_PIXELS):
             _, _, nx, ny, r, _, seg = GEOM[i]
@@ -275,7 +397,7 @@ while True:
             idx = int(((v1 + v2 + v3) * 0.16 + seg * 0.04) * 255) & 0xFF
             pixels[i] = color_from_palette(current_palette, idx, brightness=230)
 
-    elif mode_idx == 6:
+    elif st.mode_idx == 6:
         # 6: Polar-Wirbelsturm
         angle_sweep = phase_t * 3.5
         for i in range(NUM_PIXELS):
@@ -284,7 +406,7 @@ while True:
             idx = int((theta / (2.0 * math.pi) + phase_t * 0.1) * 255) & 0xFF
             pixels[i] = color_from_palette(current_palette, idx, brightness=int(wave * 255))
 
-    elif mode_idx == 7:
+    elif st.mode_idx == 7:
         # 7: Gravitations-Puls von der Sternspitze zur Basis
         y_front = Y_MAX - ((phase_t * 48.0) % 80.0)
         for i in range(NUM_PIXELS):
@@ -297,7 +419,7 @@ while True:
             else:
                 pixels[i] = BLACK
 
-    elif mode_idx == 8:
+    elif st.mode_idx == 8:
         # 8: Adventskranz (4 Kerzenzonen nacheinander + warmer weisser Stern)
         pixels.fill(BLACK)
         candles = int((phase_t % 16.0) // 4.0) + 1
@@ -317,7 +439,7 @@ while True:
                 shim = 0.88 + 0.12 * math.sin(phase_t * 4.2 + i)
                 pixels[i] = (int(255 * shim), int(240 * shim), int(205 * shim))
 
-    elif mode_idx == 9:
+    elif st.mode_idx == 9:
         # 9: Schlittenfahrt durch die Sternennacht (X-Sweep + Silber-Gold-Glocken)
         sweep_x = (phase_t * 26.0) % (WIDTH_MM + 14.0) - 7.0
         bell_tick = int(phase_t * 5.0)
@@ -340,7 +462,7 @@ while True:
                 b = min(255, int(b + (210 - b) * bell_spark))
             pixels[i] = (r, g, b)
 
-    elif mode_idx == 10:
+    elif st.mode_idx == 10:
         # 10: Stern von Bethlehem (Wegweiser in der Nacht)
         cycle = phase_t % 10.0
         breath = 0.55 + 0.45 * math.sin(phase_t * 3.1)
@@ -370,7 +492,7 @@ while True:
                         b = int(4 + 135 * glow)
                 pixels[i] = (r, g, b)
 
-    elif mode_idx == 11:
+    elif st.mode_idx == 11:
         # 11: Kaminfeuer am Eisblick (ny < 0.45 Glut vs ny >= 0.45 Gletscher-Eis)
         for i in range(NUM_PIXELS):
             nx, ny = NORM_COORDS[i]
