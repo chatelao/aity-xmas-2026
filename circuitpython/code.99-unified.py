@@ -516,7 +516,7 @@ while True:
                 )
 
     else:
-        # 12: Stille Nacht Atemzug (4s Einatmen, 1s Halten, 6s Ausatmen + Gamma-LUT)
+        # 12: Stille Nacht Atemzug (4s Einatmen, 1s Halten, 6s Ausatmen + Gamma via MappedPixels)
         c = phase_t % 11.0
         if c < 4.0:
             raw_b = 0.5 - 0.5 * math.cos(math.pi * (c / 4.0))
@@ -524,7 +524,7 @@ while True:
             raw_b = 1.0
         else:
             raw_b = 0.5 + 0.5 * math.cos(math.pi * ((c - 5.0) / 6.0))
-        g_b = GAMMA_LUT[int(raw_b * 255)] / 255.0
+        g_b = raw_b  # Gamma uebernimmt MappedPixels.show()
         pilot_r, pilot_g, pilot_b = color_from_palette(PAL_FAIRY_LIGHT, 32)
         star_scale = 0.28 + 0.72 * g_b
         for i in range(NUM_PIXELS):

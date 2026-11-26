@@ -199,8 +199,77 @@ POLAR_STAR = tuple(
     for x, y, _ in PIXEL_COORDS
 )
 
-# Gamma-Lookup-Table (Gamma = 2.6) fuer lineare Helligkeitswahrnehmung
-GAMMA_LUT = tuple(int(((i / 255.0) ** 2.6) * 255.0 + 0.5) for i in range(256))
+# --- CIE-L*-Helligkeits- & Weissabgleich-Korrektur fuer WS2812B (einzige Quelle der Wahrheit) ---
+# WS2812B-LEDs geben Licht LINEAR zum 8-Bit-PWM-Wert aus; das Auge nimmt Helligkeit nach CIE 1931 L*
+# wahr (linearer Fuss fuer L* <= 8, kubisch darueber). Zusaetzlich sind Gruen und Blau bei WS2812B
+# heller als Rot, daher skaliert WHITE_BALANCE (FastLED TypicalLEDStrip) im linearen Lichtraum.
+# Pipeline (ueberall identisch):
+#   Effekt-Farbe (wahrnehmungsgleich) -> x Helligkeit -> CIE-L* + Weissabgleich (1x) -> LED
+# Dieselben Tabellen erzeugt tools/gen_gamma_tables.py fuer C (gamma_lut.h) und JavaScript.
+CURVE = "cie_lstar"
+GAMMA = 2.6  # Referenzwert fuer Vergleich / build_gamma_lut()
+WHITE_BALANCE = (255, 176, 240)  # (R, G, B) FastLED TypicalLEDStrip
+
+
+def cie_lstar_to_linear(level):
+    """CIE 1931 L* -> relative lineare Leuchtdichte Y (0.0..1.0) fuer level in 0.0..1.0."""
+    L = level * 100.0
+    if L <= 8.0:
+        return L / 903.3
+    return ((L + 16.0) / 116.0) ** 3
+
+
+def build_cie_lut(channel_scale=255):
+    """256-Eintrag-CIE-L*-Tabelle. 0 bleibt 0, jeder Wert > 0 ergibt mindestens 1."""
+    out = bytearray(256)
+    for i in range(1, 256):
+        y = cie_lstar_to_linear(i / 255.0)
+        out[i] = max(1, min(255, int(y * channel_scale + 0.5)))
+    return bytes(out)
+
+
+def build_gamma_lut(gamma=GAMMA, channel_scale=255):
+    """256-Eintrag-Potenz-Gamma-Tabelle (Vergleich/Kalibrierung). 0->0, sonst >= 1."""
+    out = bytearray(256)
+    for i in range(1, 256):
+        out[i] = max(1, min(255, int(((i / 255.0) ** gamma) * channel_scale + 0.5)))
+    return bytes(out)
+
+
+def build_rgb_luts(curve=CURVE, white_balance=WHITE_BALANCE, gamma=GAMMA):
+    """Erzeugt (LUT_R, LUT_G, LUT_B) fuer CIE L* oder Potenz-Gamma mit optionalem Weissabgleich."""
+    wb = (255, 255, 255) if white_balance is None else white_balance
+    if curve == "cie_lstar":
+        return tuple(build_cie_lut(c) for c in wb)
+    return tuple(build_gamma_lut(gamma, c) for c in wb)
+
+
+GAMMA_LUT = build_cie_lut(255)
+GAMMA_LUT_R, GAMMA_LUT_G, GAMMA_LUT_B = build_rgb_luts()
+
+
+def gamma_correct(rgb, lut=None):
+    """Wendet CIE-L* + Weissabgleich (oder benutzerdefinierte LUT) auf ein (r, g, b)-Tupel an."""
+    r, g, b = rgb[0] & 0xFF, rgb[1] & 0xFF, rgb[2] & 0xFF
+    if lut is None:
+        return (GAMMA_LUT_R[r], GAMMA_LUT_G[g], GAMMA_LUT_B[b])
+    if len(lut) == 3:
+        return (lut[0][r], lut[1][g], lut[2][b])
+    return (lut[r], lut[g], lut[b])
+
+
+def apply_brightness(rgb, level):
+    """Skaliert (r, g, b) mit level (0.0..1.0) im wahrnehmungsgleichen Raum (VOR der LUT)."""
+    if level >= 1.0:
+        return (int(rgb[0]), int(rgb[1]), int(rgb[2]))
+    if level <= 0.0:
+        return (0, 0, 0)
+    return (int(rgb[0] * level), int(rgb[1] * level), int(rgb[2] * level))
+
+
+# True, sobald init_pixels(gamma=True) die Korrektur uebernimmt (MappedPixels.show()).
+# Dann liefern Farb-Helfer wie hsv_to_rgb_gamma() unkorrigierte Werte (keine Doppel-Korrektur).
+_gamma_in_wrapper = False
 
 
 # --- 6. Hilfsfunktionen fuer Animationen ---
@@ -256,11 +325,20 @@ def map_pixel_index(idx, tree_type=None):
 
 
 class MappedPixels:
-    """Wrapper um NeoPixel, der je nach Baum-Typ ('PCB' vs. 'Holz') Indizes abbildet."""
+    """Wrapper um NeoPixel, der je nach Baum-Typ ('PCB' vs. 'Holz') Indizes abbildet.
 
-    def __init__(self, pixels_obj, tree_type=None):
+    Mit gamma=True haelt er einen unkorrigierten Schattenpuffer (wahrnehmungsgleiche Werte).
+    show() wendet Helligkeit + Gamma-Tabelle genau einmal an und schreibt das Ergebnis in die
+    Hardware (NeoPixel.brightness bleibt 1.0). Lesen (pixels[i]) liefert die unkorrigierten Werte,
+    so dass Fades per Read-Modify-Write nicht doppelt korrigiert werden.
+    """
+
+    def __init__(self, pixels_obj, tree_type=None, gamma=False, brightness=1.0):
         self._px = pixels_obj
         self._fixed_tree_type = None if tree_type is None else normalize_tree_type(tree_type)
+        self._gamma = bool(gamma)
+        self._level = float(brightness)
+        self._shadow = [(0, 0, 0)] * len(pixels_obj) if self._gamma else None
 
     def _map(self, idx):
         t = self._fixed_tree_type if self._fixed_tree_type is not None else _tree_type
@@ -271,22 +349,58 @@ class MappedPixels:
     def __len__(self):
         return len(self._px)
 
+    @staticmethod
+    def _rgb(color):
+        if isinstance(color, int):
+            return ((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF)
+        return (int(color[0]), int(color[1]), int(color[2]))
+
+    def _store(self, phys_idx, color):
+        if self._gamma:
+            self._shadow[phys_idx] = self._rgb(color)
+        else:
+            self._px[phys_idx] = color
+
+    def _maybe_write(self):
+        if self._gamma and self._px.auto_write:
+            self.show()
+
     def __getitem__(self, idx):
+        src = self._shadow if self._gamma else self._px
         if isinstance(idx, slice):
-            return [self._px[self._map(i)] for i in range(*idx.indices(len(self._px)))]
-        return self._px[self._map(idx)]
+            return [src[self._map(i)] for i in range(*idx.indices(len(self._px)))]
+        return src[self._map(idx)]
 
     def __setitem__(self, idx, color):
         if isinstance(idx, slice):
             for i, c in zip(range(*idx.indices(len(self._px))), color):
-                self._px[self._map(i)] = c
+                self._store(self._map(i), c)
         else:
-            self._px[self._map(idx)] = color
+            self._store(self._map(idx), color)
+        self._maybe_write()
 
     def fill(self, color):
-        self._px.fill(color)
+        if self._gamma:
+            rgb = self._rgb(color)
+            self._shadow = [rgb] * len(self._px)
+            self._maybe_write()
+        else:
+            self._px.fill(color)
 
     def show(self):
+        if self._gamma:
+            lut_r, lut_g, lut_b = GAMMA_LUT_R, GAMMA_LUT_G, GAMMA_LUT_B
+            lvl = self._level
+            px = self._px
+            was = px.auto_write
+            px.auto_write = False
+            for i, (r, g, b) in enumerate(self._shadow):
+                px[i] = (
+                    lut_r[int(r * lvl) & 0xFF],
+                    lut_g[int(g * lvl) & 0xFF],
+                    lut_b[int(b * lvl) & 0xFF],
+                )
+            px.auto_write = was
         # Rueckgabewert durchreichen (im Browser-Simulator ist show() awaitable)
         return self._px.show()
 
@@ -295,11 +409,15 @@ class MappedPixels:
 
     @property
     def brightness(self):
-        return self._px.brightness
+        return self._level if self._gamma else self._px.brightness
 
     @brightness.setter
     def brightness(self, value):
-        self._px.brightness = value
+        if self._gamma:
+            self._level = max(0.0, min(1.0, float(value)))
+            self._maybe_write()
+        else:
+            self._px.brightness = value
 
     @property
     def auto_write(self):
@@ -328,8 +446,14 @@ def set_pixels(pixels_obj):
     _pixels = pixels_obj
 
 
-def init_pixels(brightness=0.3, auto_write=False, pixel_order=None, tree_type=None):
-    """Initialisiert den NeoPixel-Streifen (60 LEDs an PIN_NEOPIXEL) und registriert ihn."""
+def init_pixels(brightness=0.3, auto_write=False, pixel_order=None, tree_type=None, gamma=True):
+    """Initialisiert den NeoPixel-Streifen (60 LEDs an PIN_NEOPIXEL) und registriert ihn.
+
+    gamma=True (Standard): Helligkeit wird per Software im wahrnehmungsgleichen Raum angewendet und
+    die Gamma-Tabelle (GAMMA_LUT) genau einmal beim show() benutzt; Hardware-brightness = 1.0.
+    gamma=False: altes Verhalten (lineare Hardware-Helligkeit, keine Korrektur).
+    """
+    global _gamma_in_wrapper
     import neopixel
 
     if tree_type is not None:
@@ -339,11 +463,12 @@ def init_pixels(brightness=0.3, auto_write=False, pixel_order=None, tree_type=No
     px = neopixel.NeoPixel(
         PIN_NEOPIXEL,
         NUM_PIXELS,
-        brightness=brightness,
+        brightness=1.0 if gamma else brightness,
         auto_write=auto_write,
         pixel_order=pixel_order,
     )
-    mapped = MappedPixels(px)
+    _gamma_in_wrapper = bool(gamma)
+    mapped = MappedPixels(px, gamma=gamma, brightness=brightness)
     set_pixels(mapped)
     return mapped
 
@@ -457,7 +582,11 @@ class VirtualSegment:
 
 
 def hsv_to_rgb_gamma(h, s, v):
-    """Konvertiert HSV (0.0..1.0) in ein Gamma-korrigiertes RGB-Tupel (0..255)."""
+    """Konvertiert HSV (0.0..1.0) in ein RGB-Tupel (0..255).
+
+    Gamma-korrigiert, ausser init_pixels(gamma=True) uebernimmt die Korrektur beim show()
+    (dann unkorrigiert, damit nicht doppelt korrigiert wird).
+    """
     h = (h % 1.0) * 6.0
     i = int(h)
     f = h - i
@@ -476,4 +605,6 @@ def hsv_to_rgb_gamma(h, s, v):
         r, g, b = t, p, v
     else:
         r, g, b = v, p, q
-    return (GAMMA_LUT[int(r * 255)], GAMMA_LUT[int(g * 255)], GAMMA_LUT[int(b * 255)])
+    if _gamma_in_wrapper:
+        return (int(r * 255), int(g * 255), int(b * 255))
+    return (GAMMA_LUT_R[int(r * 255)], GAMMA_LUT_G[int(g * 255)], GAMMA_LUT_B[int(b * 255)])

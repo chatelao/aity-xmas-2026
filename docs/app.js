@@ -255,21 +255,29 @@
     }
   }
 
-  // Perceptual LED color & bloom mapping so low brightness (0.2) still looks vivid & luminous like a real WS2812B/SK6812
+  // Perceptual LED color & bloom mapping modelled on the real linear light output of a WS2812B/SK6812
   function perceptualLedVisuals(r, g, b, brightness) {
-    const maxRaw = Math.max(r, g, b);
-    if (maxRaw <= 1 || brightness <= 0.002) {
+    if (Math.max(r, g, b) === 0 || brightness <= 0.002) {
       return { on: false };
     }
-    const bGain = Math.min(1, Math.pow(Math.max(0, Math.min(1, brightness)), 0.30) * 1.12);
-    const rawLum = (maxRaw / 255) * bGain;
-    const lum = Math.min(1, Math.pow(rawLum, 0.58));
+    // Physical WS2812B dies emit brighter green/blue than red; firmware white balance (255,176,240)
+    // compensates for this, so invert WB here to show the perceived neutral light on an sRGB monitor.
+    const wb = (window.XMAS_GAMMA && window.XMAS_GAMMA.WHITE_BALANCE) || [255, 255, 255];
+    const er = Math.min(255, (r * 255) / wb[0]);
+    const eg = Math.min(255, (g * 255) / wb[1]);
+    const eb = Math.min(255, (b * 255) / wb[2]);
+    const maxEff = Math.max(er, eg, eb);
+
+    // WS2812B light output is linear in the PWM value; the monitor encodes with sRGB (~gamma 2.2).
+    // Firmware values are already CIE-L* corrected (tannenbaum_layout.py), so show them truthfully.
+    const rawLum = (maxEff / 255) * Math.max(0, Math.min(1, brightness));
+    const lum = Math.min(1, Math.pow(rawLum, 1 / 2.2));
 
     // Preserve pure vivid hue for the colored bloom
-    const invMax = 255 / maxRaw;
-    const hueR = Math.round(r * invMax);
-    const hueG = Math.round(g * invMax);
-    const hueB = Math.round(b * invMax);
+    const invMax = 255 / maxEff;
+    const hueR = Math.round(er * invMax);
+    const hueG = Math.round(eg * invMax);
+    const hueB = Math.round(eb * invMax);
 
     // Hot LED die core: saturates toward white-hot at high luminance
     const dieScale = Math.min(1, 0.35 + 0.65 * lum);
