@@ -1,6 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
+#include "gamma_lut.h"
 #include "led_engine.h"
 #include "nvs_manager.h"
 
@@ -199,19 +200,45 @@ static bool led_rmt_init(void) {
     ESP_LOGI(TAG, "WS2812B RMT driver ready on GPIO %d (%d LEDs)", LED_STRIP_GPIO_PIN, LED_STRIP_NUM_LEDS);
     return true;
 }
+#endif
 
-static void led_rmt_flush(const rgb_color_t *pixels, uint16_t num_leds) {
+static inline uint8_t dither_channel(uint16_t fp_val, uint8_t thresh) {
+    uint8_t base = (uint8_t)(fp_val >> LED_DITHER_BITS);
+    uint8_t frac = (uint8_t)(fp_val & (LED_DITHER_SCALE - 1U));
+    return (frac > thresh && base < 255U) ? (uint8_t)(base + 1U) : base;
+}
+
+// 3-bit ordered (bit-reversed) threshold sequence spreads pulses evenly in time
+static const uint8_t k_dither_thresh[LED_DITHER_SCALE] = {0, 4, 2, 6, 1, 5, 3, 7};
+
+void led_engine_encode_grb(const rgb_color_t *pixels,
+                           uint16_t num_leds,
+                           uint32_t dither_step,
+                           uint8_t *out_grb) {
+    if (pixels == NULL || out_grb == NULL) {
+        return;
+    }
+    for (uint16_t i = 0; i < num_leds; i++) {
+        // Spatial + temporal phase offset prevents synchronous flicker across adjacent LEDs
+        uint8_t thresh = k_dither_thresh[(dither_step + i) & (LED_DITHER_SCALE - 1U)];
+        out_grb[i * 3 + 0] = dither_channel(LED_DITHER_LUT_G[pixels[i].g], thresh);
+        out_grb[i * 3 + 1] = dither_channel(LED_DITHER_LUT_R[pixels[i].r], thresh);
+        out_grb[i * 3 + 2] = dither_channel(LED_DITHER_LUT_B[pixels[i].b], thresh);
+    }
+}
+
+#ifdef ESP_PLATFORM
+// 4 dither sub-frames per 20ms animation frame -> 200 Hz physical WS2812B refresh (1.85ms/frame)
+#define LED_DITHER_SUBFRAMES 4U
+
+static void led_rmt_flush(const rgb_color_t *pixels, uint16_t num_leds, uint32_t dither_step) {
     if (s_led_chan == NULL || s_bytes_encoder == NULL) {
         return;
     }
 
     uint8_t grb_buf[LED_STRIP_NUM_LEDS * 3];
     uint16_t count = (num_leds > LED_STRIP_NUM_LEDS) ? LED_STRIP_NUM_LEDS : num_leds;
-    for (uint16_t i = 0; i < count; i++) {
-        grb_buf[i * 3 + 0] = pixels[i].g;
-        grb_buf[i * 3 + 1] = pixels[i].r;
-        grb_buf[i * 3 + 2] = pixels[i].b;
-    }
+    led_engine_encode_grb(pixels, count, dither_step, grb_buf);
 
     rmt_transmit_config_t tx_cfg = {
         .loop_count = 0,
@@ -247,14 +274,20 @@ void led_engine_task(void *param) {
     led_rmt_init();
     rgb_color_t frame[LED_STRIP_NUM_LEDS];
     uint32_t frame_idx = 0;
+    uint32_t dither_step = 0;
+    const TickType_t sub_delay = pdMS_TO_TICKS(LED_FRAME_PERIOD_MS / LED_DITHER_SUBFRAMES);
 
     for (;;) {
         led_engine_cmd_t cmd;
         led_engine_get_current_state(&cmd);
         if (led_engine_render_frame(&cmd, frame_idx++, frame, LED_STRIP_NUM_LEDS)) {
-            led_rmt_flush(frame, LED_STRIP_NUM_LEDS);
+            for (uint32_t s = 0; s < LED_DITHER_SUBFRAMES; s++) {
+                led_rmt_flush(frame, LED_STRIP_NUM_LEDS, dither_step++);
+                vTaskDelay(sub_delay);
+            }
+        } else {
+            vTaskDelay(pdMS_TO_TICKS(LED_FRAME_PERIOD_MS));
         }
-        vTaskDelay(pdMS_TO_TICKS(LED_FRAME_PERIOD_MS));
     }
 #endif
 }

@@ -6,6 +6,7 @@
 #include "audio_engine.h"
 #include "board_config.h"
 #include "dns_server.h"
+#include "gamma_lut.h"
 #include "http_server.h"
 #include "led_engine.h"
 #include "nvs_manager.h"
@@ -327,10 +328,54 @@ static void test_tree_type_pcb_vs_holz(void) {
     printf("[PASS] test_tree_type_pcb_vs_holz\n");
 }
 
+static void test_cie_white_balance_and_dither(void) {
+    // 1. Zero always stays zero across all dither steps
+    rgb_color_t black[1] = { {0, 0, 0} };
+    uint8_t grb[3];
+    for (uint32_t s = 0; s < LED_DITHER_SCALE; s++) {
+        led_engine_encode_grb(black, 1, s, grb);
+        assert(grb[0] == 0 && grb[1] == 0 && grb[2] == 0);
+    }
+
+    // 2. Full white (255,255,255) maps to WS2812B white balance (G=176, R=255, B=240)
+    rgb_color_t white[1] = { {255, 255, 255} };
+    for (uint32_t s = 0; s < LED_DITHER_SCALE; s++) {
+        led_engine_encode_grb(white, 1, s, grb);
+        assert(grb[0] == LED_WB_G);
+        assert(grb[1] == LED_WB_R);
+        assert(grb[2] == LED_WB_B);
+    }
+
+    // 3. Averaged over 8 consecutive dither steps, every input 0..255 matches LED_DITHER_LUT_* exactly
+    for (uint16_t v = 0; v < 256; v++) {
+        rgb_color_t px[1] = { {(uint8_t)v, (uint8_t)v, (uint8_t)v} };
+        uint32_t sum_g = 0, sum_r = 0, sum_b = 0;
+        for (uint32_t s = 0; s < LED_DITHER_SCALE; s++) {
+            led_engine_encode_grb(px, 1, s, grb);
+            sum_g += grb[0];
+            sum_r += grb[1];
+            sum_b += grb[2];
+        }
+        assert(sum_g == LED_DITHER_LUT_G[v]);
+        assert(sum_r == LED_DITHER_LUT_R[v]);
+        assert(sum_b == LED_DITHER_LUT_B[v]);
+        if (v > 0) {
+            assert(sum_g >= 1 && sum_r >= 1 && sum_b >= 1);
+        }
+    }
+
+    // 4. CIE L* mid-grey (128) is much darker than linear 128 (~18.6% -> R ~47)
+    assert(GAMMA_LUT_R[128] >= 44 && GAMMA_LUT_R[128] <= 50);
+    assert(GAMMA_LUT_G[128] < GAMMA_LUT_R[128]);
+
+    printf("[PASS] test_cie_white_balance_and_dither\n");
+}
+
 int main(void) {
     test_board_config();
     test_led_engine_all_patterns();
     test_tree_type_pcb_vs_holz();
+    test_cie_white_balance_and_dither();
     test_audio_engine();
     test_nvs_and_presets();
     test_dns_captive_portal();

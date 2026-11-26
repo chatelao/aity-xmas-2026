@@ -117,8 +117,8 @@ def build_world_coords():
 WORLD_COORDS = build_world_coords()
 DENSITY_SCALE = TREE_CFG[5]
 
-# Gamma-Lookup-Tabelle (gamma = 2.4) fuer weiche Dimmverlaeufe
-GAMMA_LUT = bytes(int(((i / 255.0) ** 2.4) * 255.0 + 0.5) for i in range(256))
+# CIE-L* + Weissabgleich-LUTs: gemeinsame Quelle (tannenbaum_layout.py)
+from tannenbaum_layout import GAMMA_LUT_R, GAMMA_LUT_G, GAMMA_LUT_B
 
 # ------------------------------------------------------------------------------
 # 3. MUSIK-TIMELINE (6 AKTE = 364 TAKTE = 900.000 s) & SYNTHIO-SEQUENCER
@@ -538,9 +538,9 @@ def render_frame(show_ms, master_dim, forced_act=0):
                     g = max(g, 0.86 * trail)
                     b = max(b, 0.42 * trail)
 
-        ri = GAMMA_LUT[min(255, max(0, int(r * scale * 255.0)))]
-        gi = GAMMA_LUT[min(255, max(0, int(g * scale * 255.0)))]
-        bi = GAMMA_LUT[min(255, max(0, int(b * scale * 255.0)))]
+        ri = GAMMA_LUT_R[min(255, max(0, int(r * scale * 255.0)))]
+        gi = GAMMA_LUT_G[min(255, max(0, int(g * scale * 255.0)))]
+        bi = GAMMA_LUT_B[min(255, max(0, int(b * scale * 255.0)))]
         out_idx = (49 - idx) if (TREE_TYPE == "Holz" and 18 <= idx < 32) else idx
         pixels[out_idx] = (ri, gi, bi)
 

@@ -363,7 +363,7 @@ def render_frame(pixels, state, frame_idx):
             for i in range(NUM_PIXELS):
                 pixels[i] = scale_rgb(pixels[i], bright)
 
-    if getattr(state, "tree_type", TREE_TYPE_PCB) == TREE_TYPE_HOLZ and not isinstance(pixels, MappedPixels):
+    if getattr(state, "tree_type", TREE_TYPE_PCB) == TREE_TYPE_HOLZ and not (isinstance(pixels, MappedPixels) and pixels._fixed_tree_type is None):
         s, e = SEGMENTS[SEG_BOUGH_MID]
         for k in range((e - s) // 2):
             a, b = s + k, e - 1 - k
@@ -757,8 +757,14 @@ def main():
     state = TreeState()
     state.load()
 
-    pixels = neopixel.NeoPixel(
-        PIN_NEOPIXEL, NUM_PIXELS, brightness=1.0, auto_write=False, pixel_order=neopixel.GRB
+    # Helligkeit wird in render_frame() wahrnehmungsgleich angewendet; MappedPixels korrigiert
+    # beim show() genau einmal per Gamma-Tabelle (GAMMA_LUT in tannenbaum_layout.py). Holz-Swap macht render_frame().
+    pixels = MappedPixels(
+        neopixel.NeoPixel(
+            PIN_NEOPIXEL, NUM_PIXELS, brightness=1.0, auto_write=False, pixel_order=neopixel.GRB
+        ),
+        tree_type=TREE_TYPE_PCB,
+        gamma=True,
     )
     pwm = pwmio.PWMOut(board.D0, duty_cycle=0, frequency=440, variable_frequency=True)
     audio = AudioPlayer(pwm)

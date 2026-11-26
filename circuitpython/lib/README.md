@@ -298,3 +298,15 @@ Visual overview of all 10 TwinkleFOX 16-entry palettes from [`tannenbaum_palette
 ## License
 
 Licensed under **Creative Commons Attribution-NonCommercial 4.0 International (CC-BY-NC-4.0)**. See [`LICENSE`](../../LICENSE) or <https://creativecommons.org/licenses/by-nc/4.0/>.
+
+## Helligkeit, CIE L* & Weissabgleich
+
+WS2812B-LEDs leuchten *linear* zum PWM-Wert, das Auge empfindet Helligkeit aber nach **CIE 1931 L\***
+(linearer Fuss im Dunkelbereich fuer `L* <= 8`, kubisch darueber). Zusaetzlich werden die Kanaele im
+linearen Lichtraum per **Weissabgleich** `WHITE_BALANCE = (255, 176, 240)` (FastLED `TypicalLEDStrip`)
+angeglichen, damit Weiss nicht gruen-/blaustichig wirkt.
+`init_pixels()` (Standard `gamma=True`) wendet Helligkeit im wahrnehmungsgleichen Raum an und korrigiert
+beim `show()` genau einmal ueber `GAMMA_LUT_R/G/B` (Hardware-`brightness` bleibt 1.0).
+`pixels[i]` liefert unkorrigierte Werte; `init_pixels(gamma=False)` ergibt das alte lineare Verhalten.
+Die Tabellen fuer C (inkl. 8.3-Fixkomma-LUTs fuer zeitliches 3-Bit-Dithering bei 200 Hz im ESP32-C6-Portal)
+und JS erzeugt `python3 tools/gen_gamma_tables.py` (`--check` prueft den Stand). Kalibrierung: `code.test-gamma.py`.

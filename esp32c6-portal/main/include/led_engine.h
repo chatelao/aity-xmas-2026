@@ -49,6 +49,13 @@ bool led_engine_render_frame(const led_engine_cmd_t *cmd,
                              rgb_color_t *out_pixels,
                              uint16_t num_leds);
 
+// Applies CIE L* luminance, WS2812B white balance, and 3-bit ordered temporal dithering,
+// packing num_leds pixels into WS2812B GRB byte order (3 * num_leds bytes).
+void led_engine_encode_grb(const rgb_color_t *pixels,
+                           uint16_t num_leds,
+                           uint32_t dither_step,
+                           uint8_t *out_grb);
+
 #ifdef __cplusplus
 }
 #endif
