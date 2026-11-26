@@ -287,7 +287,8 @@ class MappedPixels:
         self._px.fill(color)
 
     def show(self):
-        self._px.show()
+        # Rueckgabewert durchreichen (im Browser-Simulator ist show() awaitable)
+        return self._px.show()
 
     def deinit(self):
         self._px.deinit()
