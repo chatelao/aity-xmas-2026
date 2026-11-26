@@ -181,7 +181,7 @@ jobs:
 
           # Platform software packages (.zip)
           mkdir -p pkg_rp2040/circuitpython/lib pkg_esp32c6/circuitpython/lib pkg_cp/lib pkg_cp/examples
-          cp circuitpython/code.unified.py pkg_rp2040/circuitpython/code.py
+          cp circuitpython/code.99-unified.py pkg_rp2040/circuitpython/code.py
           cp circuitpython/code.*.py pkg_rp2040/circuitpython/
           cp circuitpython/default/code.py pkg_rp2040/circuitpython/code.default-diag.py
           cp staging_cp/lib/* pkg_rp2040/circuitpython/lib/
@@ -190,7 +190,7 @@ jobs:
           cp HOWTO_RP2040.md LICENSE pkg_rp2040/
           (cd pkg_rp2040 && zip -r ../release_assets/software_xiao_rp2040.zip .)
 
-          cp circuitpython/code.unified.py pkg_esp32c6/circuitpython/code.py
+          cp circuitpython/code.99-unified.py pkg_esp32c6/circuitpython/code.py
           cp circuitpython/code.*.py pkg_esp32c6/circuitpython/
           cp circuitpython/default/code.py pkg_esp32c6/circuitpython/code.default-diag.py
           cp circuitpython/web_ui.html.gz pkg_esp32c6/circuitpython/
@@ -200,7 +200,7 @@ jobs:
           cp HOWTO_ESP32-C6.md LICENSE pkg_esp32c6/
           (cd pkg_esp32c6 && zip -r ../release_assets/software_xiao_esp32c6.zip .)
 
-          cp circuitpython/code.unified.py pkg_cp/code.py
+          cp circuitpython/code.99-unified.py pkg_cp/code.py
           cp circuitpython/code.*.py pkg_cp/examples/
           cp circuitpython/default/code.py pkg_cp/examples/code.default-diag.py
           cp circuitpython/web_ui.html.gz pkg_cp/
